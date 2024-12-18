@@ -1,0 +1,278 @@
+\chapterimage{numbers_background.pdf}
+
+\chapter{Piercing the analog-digital veil}\label{sec:piercing}
+
+We send and receive \conceptRef{message}{messages} constantly in our personal, professional and political spheres.
+The almost-instantaneous availability of virtually any desired \concept{information} is a key characteristic of the current era.
+% 
+When we use a computer of any kind to share or retrieve knowledge, first it must be transformed into \concept{data} that can be understood both by humans and computers.
+This can be imagined as a sequence of steps:
+\begin{center}
+\includegraphics[width=\linewidth]{knowledge_info_data_transmission.pdf}
+\end{center}
+
+Computers work with and transmit digital \concept{data}, \ie, sequences of \concept{binary}
+\zero\ and \one\ \conceptRef{symbol}{symbols}. 
+However, data \concept{transmission} happens in the real world, where \zero\ and \one\ are ideas and not tangible objects.
+
+This chapter studies how those digital symbols \textit{pierce the veil}  
+from the digital to the analog (physical) world on transmission, and back from analog to digital on reception.
+
+
+\section{Information $\leftrightarrow$ Data $\leftrightarrow$ Binary messages}\label{sec:piercing:information_binary}
+
+Knowledge, \conceptRef{information}{information}, and \concept{data} are not the same thing, 
+although they are often used used interchangeably. In technical contexts, they should be used and interpreted accurately.
+% 
+\begin{exercise}
+Suppose we are outdoors and we want to tell our friend about the weather.
+% 
+We have knowledge about everything related to the weather, because we are there.
+For our communication, we need to focus on part of that knowledge, and decide what information to send.
+For instance, we could want to communicate the temperature, and say something like ``the temperature is about 22ºC''.
+% 
+There are many ways in which we can store that information as data inside a computer. Most likely, we will represent the number 
+$22$ as part of those data. \textbf{How would you define knowledge, information and data?}
+\end{exercise}
+
+
+Even though there are many types of data, \ie\ numerical, textual, visual, scientific, \etc, these are eventually
+represented by numbers. For instance, one could use \concept{ASCII} \concept{encoding} to represent the string ``Bobby''
+as the following sequence: $66, 111, 98, 98, 121$.
+
+Inside a computer, those numbers are stored in binary registers, \eg\ in the CPU and in the RAM. 
+However, there are multiple ways of representing numerical data in binary format. More specifically,
+we need to pay close attention to at least the following aspects whenever reading or writing data:
+\begin{itemize}
+\item \concept{integer} or with decimals? 
+\item \concept{bitdepth}? (\eg, 8 bits per number)
+\item \conceptRef{sign}{signed} or \conceptRef{sign}{unsigned}?
+\item For multibyte numbers: \concept{big endian} or \concept{little endian}?
+\item For numbers with decimals: \concept{floating-point} or \concept{fixed-point}?
+\end{itemize}
+% 
+\begin{exercise}
+Explain \textbf{how to complete the second row given the first} (and vice-versa),
+and what assumptions you need to make in each case.
+% 
+\begin{center}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Number} 
+& $7$ 
+& $2$
+& $-3$
+& $0.75$
+& $260$
+\\
+\midrule
+\textbf{Binary} 
+& \zero\zero\one\one\one
+& \zero\zero\zero\zero\zero\zero\one\zero
+& \one\one\zero\one
+& \one\one\zero\zero
+& \zero\zero\zero\zero\ \zero\one\zero\zero\ \zero\zero\zero\zero\ \zero\zero\zero\one\
+\\
+\bottomrule
+\end{tabular}
+\end{center}
+% 
+How about à $\leftrightarrow$ \one\one\zero\zero\ \zero\zero\one\one\ \one\zero\one\zero\ \zero\zero\zero\zero?
+\end{exercise}
+
+
+Sometimes we need to inspect the contents of a binary register 
+(\eg, for debugging or other analysis purposes) or to set those contents manually.
+% 
+For humans, it is inconvenient and \textit{very} prone to error 
+to handle binary strings longer than a few bits. 
+When we need to inspect or modify the contents of a binary register
+(\eg, for debugging purposes), we often use base $16$, \ie, \concept{hexadecimal} notation.
+
+
+In hexadecimal, there are exactly $16 = 2^4$ different digits (\otherBase{0} to \otherBase{9}, \otherBase{a} to \otherBase{f})
+with decimal values from $0$ to $15$, each of which represents exactly $4$ bits.
+When we writing hexadecimal values to a computer, \ie, in source code, hexadecimal values are
+typically preceded by \otherBase{0x}, \eg, \otherBase{0x58a5b0}. 
+Similarly, binary expressions are preceded by \otherBase{0b}, \eg, \otherBase{0b0011}.
+
+\begin{remark}
+\begin{minipage}{\linewidth}
+\begin{itemize}[leftmargin=0.5cm]
+\item Spaces and even line breaks between digits do not carry any meaning, they are only used 
+to facilitate visual inspection.
+% 
+\item In some texts, when multiple bases are applicable in a context, they are shown
+as subscripts as in \otherBase{58a5b0$_\textrm{16}$} and \otherBase{0011$_\textrm{2}$}.
+\end{itemize}
+\end{minipage}
+\end{remark}
+
+\begin{exercise}
+Consider the following message, which is composed of a \concept{concatenation} 
+of 3-bit unsigned integers: \otherBase{a4 3f 20}.
+\begin{itemize}
+\item How many bits and bytes long is it?
+\item\textbf{What are the first five integers} contained in the message?
+\end{itemize}
+\end{exercise}
+
+Most often, we will let our code handle data manipulation. To do that, we need
+\concept{bitwise} and \concept{boolean logic} operations such as the following
+
+\begin{center}
+\begin{tabular}{rcccccc}
+\toprule
+\textbf{Operation} & 
+\concept{bitwise AND} &
+\concept{logic AND} &
+\concept{bitwise OR} &
+\concept{logic OR} &
+\concept{left shift} &  
+\concept{right shift}
+\\
+\textbf{Python}    &
+\inlineCode{&}       & 
+\inlineCode{and}    & 
+\inlineCode{|}       & 
+\inlineCode{or}    & 
+\inlineCode{<<} &  
+\inlineCode{>>} 
+\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Other useful python tools are the \texttt{bin()} and \texttt{hex()} functions, that convert an integer 
+into its binary and hexadecimal representation, respectively, and \texttt{int()}, which can parse
+a string describing a number and return that number. We can also control the format in which we show numbers,
+\eg, \inlineCode{print(f'{n:08b}')} would print the value of variable \inlineCode{n} in binary form, 
+using at least 8 positions and filling the empty leading positions with zeros
+(more in the \href{https://docs.python.org/3/reference/lexical_analysis.html#f-strings}{python docs}).
+
+\begin{exercise}
+Consider the code shown next. The numbers printed when run are of special importance in networking and computer science.
+\textbf{What do they have in common?} (Hint: You may want to modify the code to show their binary representations).
+\end{exercise}
+\begin{center}
+\showCode{snippets/bitwisemanipulation.py}
+\end{center}
+\begin{remark}
+For code listings like the one above, you can download the source code and its output.
+\end{remark}
+
+
+\section{Analog $\leftrightarrow$ Digital}\label{sec:piercing:analog_digital}
+
+Once we decide what bits to transmit, we need to find a way of making those bits available to another machine at a distance.
+First, we need to decide what \concept{medium} to use and what physical properties we can control and monitor.
+Popular choices include using voltage on \conceptRef{copper wire}{copper wires}, sending light over \concept{optical fiber} and manipulating the 
+electromagnetic \concept{field} using \conceptRef{antenna}{antennas}.
+
+\begin{exercise} \textbf{Ponder}:\\[-0.5cm]
+\begin{itemize}
+\item Can we make a copper cable as long as we desire?
+\item What medium do wifi connexions use? 
+\item Do we need optical fibers to perform light-based communication?
+\end{itemize}
+\end{exercise}
+
+
+If we opt for copper wires, we can put several in \concept{parallel} and send more data at the same \concept{clock} speed.
+This, however, comes at the price of additional complexity and cost than \concept{serial} designs. 
+Voltage interferences in the \conceptRef{data line}{data lines} may happen for a number of reasons, 
+including physical phenomena such as electromagnetic induction in the wire. 
+Notwithstanding, cables compliant with modern data transmission standards (\eg, IEEE 802.3)
+often employ \conceptRef{twisted pair}{twisted pairs of cables} and shielding
+among other strategies to guarantee bit errors below $1$~in~$10^{12}$ bits.
+
+\begin{exercise}\label{ex:piercing:copper_connectors}
+\textbf{Consider and identify} the following wire connectors:\\[-0.5cm]
+\begin{center}
+\includegraphics[height=3cm]{hdmi_connector.jpg}
+\includegraphics[height=3cm]{coaxial_connector.jpg}
+\includegraphics[height=3cm]{usbc_connector.jpg}
+\includegraphics[height=3cm]{rj11_connector.jpg}
+\end{center}
+\end{exercise}
+
+\begin{wrapfigure}{L}{0.22\linewidth}
+\includegraphics[width=\linewidth]{iceberg.jpg}
+\end{wrapfigure}
+Have you ever been diving in a swimming pool, looked up and the water was mirror-like?
+Optical fiber cables work of this phenomenon, called \concept{refraction}.
+Light that enters the fiber through one end 
+stays inside until it exits through the other end. The coating of the fiber is important
+to support its integrity, but that coating does not participate in the ``bouncing'' of 
+light when advancing through the fiber.
+
+In a \conceptRef{single-mode optical fiber}{single-mode} optical fiber, the sensor at the receiving end 
+detects the presence or absence of a single wavelength range. These cables are relatively thin and cheap,
+but carry a single signal.
+% 
+Another option is to transmit multiple wavelengths (\eg, using several laser sources) at the same time, 
+through the same fiber. At the receiving end, a prism is used to divide the beam of light back into its
+\concept{monochrome} components, which are sensed separately. 
+In this way, \conceptRef{multi-modal}{multi-modal optical fiber} optical fiber allows \concept{multiplexing}
+several signals, greatly increasing the effective transmission rate.
+
+
+\begin{exercise}\label{ex:piercing:laser_refraction}
+When a beam of light enters an optical fiber, it does so with a certain angle of attack.
+This angle affects the time it takes to reach the other end. If we project a cone of light,
+light enters the fiber at multiple angles of attack. 
+What happens at the other end if we \textbf{turn this cone of light on and off} very quickly?
+Is it relevant whether we use mono-modal or multi-modal beams?
+% 
+\begin{center}
+\includegraphics[height=2.5cm]{laser_refraction.jpg}
+\includegraphics[height=2.5cm]{optical_connector.jpg}
+\end{center}
+\end{exercise}
+\newpage
+
+\begin{wrapfigure}{R}{0.3\linewidth}
+\begin{center}
+\includegraphics[width=\linewidth]{dipole.png}
+\end{center}
+\end{wrapfigure}
+
+Even though there are many classes of \conceptRef{antenna}{antennas}, their main purpose 
+is to detect electromagnetic fields and/or to create them. The Maxwell-Faraday equation tells us
+that \textit{changes} in the electric \conceptRef{field (physics)}{field} $\vec{E}$ create a perpendicular magnetic \conceptRef{field (physics)}{field} $\vec{B}$,
+and the other way around.
+
+A \concept{dipole} antenna like the one to the right uses this concept by applying an alternating voltage $V$,
+which generates electromagnetic waves that propagate outwards the dipole axis. 
+
+\begin{remark}
+When we emit some energy $E$ from a point in all directions, that energy is distributed around a growing sphere.
+Since the area of a sphere of radius $r$ is $4 \pi r^2$, the amount of energy that reaches a point at distance $r$
+will be in the \concept{ballpark} of $E / r^2$.
+
+This is sometimes referred to as the inverse square law, and is
+the reason why currents inducted in the receiver's antenna are usually between nanovols 
+($10^{-9}$~V) and picovolts ($10^{-12}$~V). Surprisingly, this is enough for modern detectors to read the data signal.
+\end{remark}
+
+
+\begin{wrapfigure}{R}{0.2\linewidth}
+ \includegraphics[width=\linewidth]{modulation.jpg}
+\end{wrapfigure}
+
+
+Regardless of the method chosen to let the data travel, the veil between analog signals and digital data must still be 
+pierced. Once way of doing this is \concept{modulation}: a base sinusoidal signal called \concept{carrier} is produced,
+and the data are encoded by modifying this carrier. For instance, once can change the \concept{amplitude} of the carrier (ASK),
+its \concept{frequency} (FSK), or even the amplitude and the \concept{phase} at the same time (QAM). 
+
+\begin{exercise}
+The figure above displays an example of amplitude modulation and of frequency modulation. 
+Which is which? For each case: is that \textbf{modulation transmitting an analog or a digital signal}?
+\end{exercise}
+
+
+\begin{exercise}
+What's the \textbf{difference between bandwidth and transmission speed}? 
+Why do you think they are interchangeably used in non-technical contexts?
+\end{exercise}

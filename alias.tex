@@ -1,0 +1,28 @@
+
+%% Python code
+\newcommand {\showCode}[1]{\begin{minipage}{0.9\linewidth}\begin{code}{#1}\inputminted[linenos=true]{python}{code/#1}\end{code}\end{minipage}}
+\newcommand {\inlineCode}[1]{\mintinline{py}{#1}}
+
+%% Formatting
+\newcommand {\compact}{\vspace{-0.5cm}}
+
+%% Index of concepts
+\newcommand {\concept}[1]{{\color{color1}#1}\index{#1}}
+\newcommand {\conceptRef}[2]{{\color{color1}#2}\index{#1}}
+
+%% Fancy links
+\newcommand \secref[1]{Section~\underline{\ref{#1}}}
+\newcommand \readMore[1]{(\href{#1}{\underline{\color{color2}read more...}})}
+
+%% Numbers in other bases
+\newcommand{\otherBase}[1]{{\Large\color{color2}\texttt{#1}}}
+\newcommand \zero {\otherBase{0}}
+\newcommand \one {\otherBase{1}}
+
+%% Graph node
+\newcommand \node[1]{\Circled[outer color=color1]{#1}}
+
+%% Text aliases 
+\newcommand \ie {\textit{i.e.}}
+\newcommand \eg {\textit{e.g.}}
+\newcommand \etc {\textit{etc.}}

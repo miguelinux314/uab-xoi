@@ -1,0 +1,296 @@
+\chapterimage{container.jpg}
+
+\chapter{Is this yours?}\label{sec:packets}
+
+Information travels through this graph of networks in the form of packets, which contain a small amount of 
+information and meta-information. 
+
+Their format must be agreed upon by both ends of the communication, so that those packets can be automatically produced 
+and interpreted.
+
+When packets travel through one or more networks, they can get lost or reordered. If a continuous stream of data must 
+flow between two computers, packets must contain mechanisms to detect losses and restore the proper order.
+
+\section{I have a delivery for you}\label{sec:packets:lan_wan}
+
+It is not feasible to establish physical connections between each pair of computers that want to communicate.
+Instead, relatively few connections are shared to carry messages between many pairs of devices.
+
+If a single device transmits data continuously for a long time, that connection is blocked and may become a bottleneck that 
+prevents other devices to communicate. To avoid this problem, connections limit the maximum amount of data
+that can be sent without interruption. As a result, devices are forced to send data in discrete bursts called 
+\conceptRef{packet}{packets}. The exchange of these type of messages across one or more networks is called
+\concept{packet switching}.
+
+\begin{remark}
+The concept of \concept{packet switching} (crucial to the creation of the Internet)
+was developed in the 1960's (during the cold war) by the US military
+to have a communications network that would work in case of a nuclear strike.
+ 
+The problem with the one they had was that, if one station was damaged, the whole system stopped working.
+However, by using packet switching, any connected subgraph of the network would keep working.
+
+The reasoning for creating a packet-switched network was that they could still retaliate their enemy in case of an attack, which would
+make them a less attractive target.
+
+Leonard Kleinrock, one of the pioneers of internetworking, disputes the authorship of packet switching,
+which is often attributed to Paul Baran and Donald Davies.
+\end{remark}
+
+\conceptRef{packet}{Packets} need to be small so that connections are not blocked for too long. 
+At the same time, we want packets to contain as much data as possible, because each packets 
+contain \concept{overhead} data (such as the addresses discussed in Section~\ref{sec:where}) that need
+to be sent in addition to the user's payload data. Networks set the maximum packet length
+using a parameter called \conceptRef{MTU}{Maximum Transmission Unit} (MTU), \eg, 1500~bytes in Ethernet.
+
+
+Packet transmission across a \concept{data link} must be done carefully,
+particularly when that link is a \concept{bus} shared by multiple devices.
+Each packet must be individually distinguishable from the rest, 
+which can be done via at least three strategies:
+\begin{enumerate}
+\item \textit{Fixed length}: the length of all packets is the same. The sender and the receiver must have
+agreeded to this value in advance.
+
+\item \textit{Explicit length}: the length of the packet is included in the packet, \eg, 
+using the first byte of the packet. The sender and the receiver must agree on how this information
+is included and how to interpret it.
+
+\item \textit{Escape sequences}: Certain binary \conceptRef{escape sequence}{escape sequences} 
+within the data have a special meaning. 
+For instance, one could define the byte \otherBase{11110000} (\otherBase{0xf0}) 
+to mean ``end of packet'': these bits must appear after each packet, and only then.
+% 
+Then the sender could start transmitting the contents of a packet, followed by \otherBase{0xf0}.
+Both parties must agree on what escape sequences to use, what they mean, and how to 
+send data equal to those sequences (\eg, it should be possible to send \otherBase{0xf0f0f0}
+without triggering an ``end of packet'' until all bytes are transmitted).
+\end{enumerate}
+
+\begin{remark}
+It is also possible to to signal the \textit{beginning} of a packet. In that case, a preceding sequence called \concept{preamble} is used.
+\end{remark}
+
+
+\begin{exercise}
+All strategies described above are used nowadays in real scenarios, depending on the 
+features, costs and trade-offs of each one.
+
+Discuss \textbf{which of these strategies would be most appropriate} for each of these scenarios:
+\begin{itemize}
+\item A single manufacturer designs the hardware and software that communicates two endpoints.
+A single \concept{data line} must be \conceptRef{multiplex}{multiplexed} for multiple control commands
+as well as multiple data streams. The priority is efficient power and buffer usage.
+
+\item Multiple devices share a \concept{bus}. They occasionally send messages of different lengths,
+but not a huge volume of data. The priority is cost.
+
+\item Multiple devices share a \concept{bus}. They continuously send messages of different lengths,
+trying to maximize the effective transmission rate through the \concept{channel}. 
+The priority is \concept{throughput}.
+\end{itemize}
+\end{exercise}
+
+\section{Please fill in the form}\label{sec:packets:format}
+
+Regardless of the strategy employed, data packets typically comprise two parts: 
+\begin{itemize}
+ \item Data \concept{payload}: the information that needs to be transmitted, and
+ \item \conceptRef{metadata}{Metadata}: the meta-information needed to deliver the payload.
+\end{itemize}
+Length might be one of the metadata \conceptRef{field (packet)}{fields} included in the packet, along with 
+others that help identify their type and function.
+% 
+The location of payload and metadata, as well as the exact metadata fields included, their length and their meaning
+must be known by both ends of the communication. All these decisions constitute the \concept{packet format}
+or \concept{packet structure}.
+
+One of the most common ways of arranging payload and metadata is with a \concept{header}-\concept{body} format.
+In this case, all meta-information is included first, followed by the data. 
+Other formats may include a \concept{trailer} (also known as \concept{tail}, most often used for \concept{error detection}
+and correction), in combination with the header, or replacing it.
+All of the following configurations are possible.
+
+\begin{minipage}{\linewidth}
+\begin{center}
+\begin{bytefield}{32}
+\bitbox{11}{Header} & \bitbox{21}{Body}\\[-0.35cm]
+\end{bytefield}
+% 
+\begin{bytefield}{32}
+\bitbox{6}{Header} & \bitbox{19}{Body} & \bitbox{7}{Trailer/Tail}\\[-0.35cm]
+\end{bytefield}
+% 
+\begin{bytefield}{32}
+\bitbox{21}{Body} & \bitbox{11}{Trailer/Tail}\\[-0.35cm]
+\end{bytefield}
+% 
+\begin{bytefield}{32}
+\bitbox{32}{Header}
+\end{bytefield}
+\end{center}
+\end{minipage}
+
+
+The format of the payload in a packet is normally user-defined. The format of the header, however,
+is strictly defined so that it can be easily produced and \conceptRef{parsing}{parsed}.
+This format is often presented using a diagram that helps identify the individual bit and byte positions,
+like in the following (not-real) example:\\
+
+\begin{center}
+\begin{bytefield}{32}
+\bitheader{0-31} \\
+\begin{rightwordgroup}{Header}
+\bitbox{16}{Length} & \bitbox{8}{Importance} & \bitbox{4}{Type} & \bitbox{4}{Mode}\\
+\bitbox{24}{Destination Address} & \bitbox{8}{(Reserved)} 
+\end{rightwordgroup} \\
+\begin{rightwordgroup}{Body}
+\wordbox[lrt]{1}{Payload} \\
+\skippedwords \\
+\wordbox[lrb]{1}{} 
+\end{rightwordgroup}
+\end{bytefield}
+\end{center}
+
+\begin{remark}
+Fields may also have fixed or variable lengths, which do not necessarily align with 
+\conceptRef{byte boundary}{byte boundaries}. Fields may also have length equal to $1$~bit,
+in which case its is normally called a \concept{flag} or flag bit.d
+\end{remark}
+
+
+\begin{remark}
+In diagrams like the one above, multiple lines (rows) are often used so that they can be
+easily printed and read. In that case, the meaning is the same as if all fields had been
+presented along the same line (row).
+\end{remark}
+
+\begin{exercise}
+The following packet contents were \conceptRef{sniff}{sniffed} out of a \concept{network},
+expressed in \concept{hexadecimal}. Assuming the packet has the format of the example above:
+% 
+\begin{itemize}
+\item \textbf{Indicate the value of each field} (length, importance, type, mode, destination address, and payload.
+\item Can you guess the meaning of the payload?
+\end{itemize}
+% 
+\begin{center}
+\otherBase{00 0c 00 f3 bb bb bb 00 68 65 6c 70}
+\end{center}
+\end{exercise}
+
+\begin{exercise}
+The following code accepts two arguments: (1, \inlineCode{sys.argv[1]}) the \concept{path} of an input file, 
+and (2, \inlineCode{sys.argv[2]}) the \concept{path} of an output file.
+The first 255 bytes of the contents of the input file are read, 
+they are formatted as a packet, and the bytes of that packet
+are output to the output file.
+% 
+\begin{itemize}
+\item Describe the \concept{packet format} used in the code, and its limitations.
+
+\item Extend the packet format so that 
+ \begin{itemize}
+   \item Packets can be longer than 255 bytes
+   \item The \concept{address} of the destination device can be encoded
+  \end{itemize}
+  
+\item Provide a \concept{byte diagram} of the new format, 
+as well as an explanation of the addressing system you are using.
+
+\item Modify the code so that it outputs packets of your proposed format.
+\end{itemize}
+\end{exercise}
+
+\begin{center}
+\showCode{snippets/simplepacketoutput.py}
+\end{center}
+
+\begin{remark}
+Languages like Python can make a distinction between files containing text and files containing binary data.
+In the code above, files are open in \concept{binary mode} using modes \inlineCode{'rb'} and \inlineCode{'wb'}.
+
+When open in binary mode, file bytes are directly represented by a \inlineCode{bytes} object, an array of 
+integers between $0$ and $255$. In \concept{text mode}, those bytes are processed (\conceptRef{decode}{decoded}) further by the \inlineCode{open} method,
+and returns a string that might contain special characters like accents or non-latin glyphs. \readMore{https://docs.python.org/3.12/library/functions.html\#open}
+\end{remark}
+
+\section{They keep coming}\label{sec:packets:stream}
+
+When developing applications that use networking capabilities, it is often useful 
+to imagine communication as a \concept{stream}, \ie, as a conceptual pipe where we put 
+our data (any amount of data) in one end, and it comes out at the other end. If we have
+this capability, then it becomes much easier to send files of any size, and to transmit a never-ending
+amount of audio or video. Unfortunately, all we have to simulate those streams are packets.
+
+\concept{Packets} often need to be forwarded through multiple networks. \conceptRef{router}{Routers} are not perfect
+and are sometimes inoperative or improperly configured, so not all packets arrive to their destination. Moreover,
+different packets may be delivered through different routes that may be of different length, so packets may arrive
+out of order.
+
+If we want to simulate a \concept{stream} of data, packets must contain enough meta-information in them so that losses can be detected and 
+the correct order can be restored. This introduces an \concept{overhead} that is not suitable in all scenarios --\eg, very low latency--,
+so some applications base their network communication in \conceptRef{message}{messages} instead of streams.
+
+When streams are required, the concept of \concept{offset} is used to reassemble multiple messages into 
+a single stream. Each packet contains some bytes of the data stream, and the offset indicates the exact location in that stream.
+
+\begin{exercise}
+
+The following diagram describes a stream of 48 bytes produced by a source node, 
+as well as the packets it was split into before transmission:\\[-0.25cm]
+
+\begin{center}
+\begin{bytefield}[bitheight=2cm]{48}
+\bitheader{0-47} \\
+\bitbox{10}{\underline{Packet 0} \\Offset 0 \\Length 10}
+\bitbox{14}{\underline{Packet 1} \\Offset 10\\Length 14}
+\bitbox{6 }{\underline{Packet 2} \\Offset 24\\Length 6 }
+\bitbox{18}{\underline{Packet 3} \\Offset 30\\Length 18}
+\end{bytefield}
+\end{center}
+
+\begin{itemize}
+\item Describe the minimum header that can be used to transmit this stream.
+\item Assuming that the recipient receives Packet 2 first, followed by Packet 0 and other packets are lost: \textbf{what bytes of the stream are known} by the 
+  destination node, and what bytes are unknown?
+\item How can the source node know that some packets were not delivered?
+\item What would happen if a bogus message is received by the destination, with offset $7$~bytes and length $4$~bytes?
+\end{itemize}
+
+\end{exercise}
+
+
+
+% Two mechanisms are often used for this purpose: \conceptRef{sequence number}{sequence numbers} and \conceptRef{offset}{offsets}:
+% \begin{itemize}
+% \item 
+% \end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

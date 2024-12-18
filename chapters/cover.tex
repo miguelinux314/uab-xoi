@@ -1,0 +1,61 @@
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begingroup
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay]
+\coordinate [below=5cm] (midpoint) at (current page.north);
+\node at (current page.north west)
+{\begin{tikzpicture}[remember picture,overlay]
+\node[anchor=north west,inner sep=0pt] at (0,0) {\includegraphics[height=\paperheight]{cover_background}}; % Background image
+\draw[anchor=north] (midpoint) node [fill=color1!30!white,fill opacity=0.9,text opacity=1,inner sep=1cm]{\Huge\centering\sffamily\parbox[c][][t]{\paperwidth}{%
+\begin{center}
+\fontsize{35px}{0px}\selectfont
+\textbf{\subjectName}\\
+\vspace{10px}
+\end{center}
+%
+\begin{center}
+\fontsize{15px}{0px}\selectfont
+\subjectNumber\ --- \subjectDegree\ --- \subjectYear\ year\\
+\vspace{5px}
+% \includegraphics[height=20px]{logo_uab}\\
+% \vspace{5px}
+\fontsize{20px}{0px}\selectfont
+Universitat Autònoma de Barcelona\\
+\end{center}
+% 
+\vspace{10px}
+\begin{center}
+\fontsize{60px}{0px}\selectfont
+\textsc{\textbf{Study Guide\\\guideVersion}}
+\end{center}
+}}; % Author name
+\end{tikzpicture}};
+% 
+% 
+% 
+\coordinate [above=2cm] (subsub) at (current page.south east);
+\node at (current page.north west)
+{
+\begin{tikzpicture}[remember picture,overlay]
+\draw[anchor=east] (subsub) node [fill=color1!30!white,fill opacity=0.9,text opacity=1,inner sep=0.25cm]{\Huge\centering\sffamily\parbox[c][][t]{0.4\paperwidth}{%
+{
+\fontsize{15px}{0px}\selectfont
+\begin{flushright}
+% \href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{\includegraphics[height=20px]{by-nc-sa.png}}\\[0.25cm]
+% Curated by\\[0.1cm]
+By Miguel Hernández-Cabronero\\[0.1cm]
+\href{mailto:miguel.hernandez@uab.cat}{\texttt{<miguel.hernandez@uab.cat>}}\\[0.1cm]
+\includegraphics[height=20px]{logo_uab}\quad
+\includegraphics[height=20px]{logo_deic}\quad
+\noindent\href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{\includegraphics[height=20px]{by-nc-sa.png}}.
+\end{flushright}
+}
+}}; % Author name
+\end{tikzpicture}
+};
+\end{tikzpicture}
+\vfill
+\endgroup

@@ -1,0 +1,11 @@
+msc {
+ arcgradient = 2, width=100;
+
+ N1[label="Node A"], N2[label="Node B"], N3[label="Node C"];
+
+ N1=>N2;
+ N2=>N3;
+ N3=>N2;
+ N2-xN1;
+}
+
