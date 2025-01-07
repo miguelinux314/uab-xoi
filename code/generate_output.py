@@ -1,4 +1,7 @@
-#!/usr/bin/python
+#!./venv/bin/python
+
+import sys
+print(f"{sys.executable=}")
 
 import os
 import glob

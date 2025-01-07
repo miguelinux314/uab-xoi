@@ -18,32 +18,58 @@
 
 \input{chapters/chapter_the_course.tex}
 
+\part{Computer Networks}
 \input{chapters/chapter_piercing_the_veil.tex}
 \input{chapters/chapter_where_are_you.tex}
 \input{chapters/chapter_packets.tex}
+\input{chapters/chapter_stack_layers.tex}
 
-\input{chapters/chapter_labs.tex}
+\part{Internet}
+\input{chapters/chapter_tcpip.tex}
+\input{chapters/chapter_layer2.tex}
+% TODO: include something about the following aspects
+% https://en.wikipedia.org/wiki/IEEE_802)
+% wifi: https://en.wikipedia.org/wiki/IEEE_802.11#Layer_2_%E2%80%93_Datagrams
+% ppp, ssh tunnels
+% capture in monitor mode: https://wiki.wireshark.org/CaptureSetup/WLAN#linux
+% usb protocol: https://en.wikipedia.org/wiki/USB_communications#Protocol_layer
+\input{chapters/chapter_layer3.tex}
+\input{chapters/chapter_layer4.tex}
+\input{chapters/chapter_layer7.tex}
+% TODO: add  somewhere
+%  - history timeline
+%  - a section where stuff like NAT, firewall, IDS, etc. can be introduced?
+
+% TODO: timeline points
+% \begin{remark}
+% Many interesting historical reviews of the creation of the Internet are available online,
+% \eg, \href{https://www.youtube.com/watch?v=oIezCGjxV3A}{\underline{this video}}.
+% Some events of particular importance are:
+% \begin{itemize}
+% \item[\textbf{1962}: ] Packet Switching
+% \item[\textbf{1969}: ] ARPANET
+% \item[\textbf{1974}: ] TCP/IP
+% \item[\textbf{1986}: ] IETF
+% Pat Thaler: chairwoman 802.3 10BASE-T (twisted pair) (https://www.youtube.com/watch?v=f8PP5IHsL8Y
+% \item[\textbf{1991}: ] WWW
+% \item[\textbf{1993}: ] CIDR addressing
+% \item[\textbf{1998}: ] Google
+% % - How about 2016 IANA?
+% \end{itemize}
+% \end{remark}
+
+% TODO: auto-populate a file with problem-friendly exercises
+
+% TODO: populate this chapter with the code-related exercises
+% \input{chapters/chapter_labs.tex}
 
 \input{chapters/bibliography.tex}
 \input{chapters/indices.tex}
 
+% PEnding:
+
 
 \begin{comment}
-Problems to face
-* piercing the analog-digital veil: analog <-> digital
-* where are you: topology/LAN/WAN, addresses, 
-* packets need/structure/stream
-
-
-% Implementation (Protocols --- \textgreek{\textbf{Πρωτοκολλα}})
-layering, os space, user space
-
-Layer 2
-Layer 3
-Layer 4
-Layer 7
-
-% \textgreek{Πρωτοκολλα} 
 % Plan plan plan:
 % 
 % unas cuantas sesiones hablando de los problemas

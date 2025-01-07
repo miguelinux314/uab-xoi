@@ -5,8 +5,8 @@
 Information travels through this graph of networks in the form of packets, which contain a small amount of 
 information and meta-information. 
 
-Their format must be agreed upon by both ends of the communication, so that those packets can be automatically produced 
-and interpreted.
+Packet format must be agreed upon by both ends of the communication, so that those packets can be efficiently 
+and automatically produced and interpreted.
 
 When packets travel through one or more networks, they can get lost or reordered. If a continuous stream of data must 
 flow between two computers, packets must contain mechanisms to detect losses and restore the proper order.
@@ -23,15 +23,15 @@ that can be sent without interruption. As a result, devices are forced to send d
 \concept{packet switching}.
 
 \begin{remark}
-The concept of \concept{packet switching} (crucial to the creation of the Internet)
-was developed in the 1960's (during the cold war) by the US military
-to have a communications network that would work in case of a nuclear strike.
- 
-The problem with the one they had was that, if one station was damaged, the whole system stopped working.
-However, by using packet switching, any connected subgraph of the network would keep working.
-
-The reasoning for creating a packet-switched network was that they could still retaliate their enemy in case of an attack, which would
-make them a less attractive target.
+% The concept of \concept{packet switching} (crucial to the creation of the Internet)
+% was developed in the 1960's (during the cold war) by the US military
+% to have a communications network that would work in case of a nuclear strike.
+%  
+% The problem with the one they had was that, if one station was damaged, the whole system stopped working.
+% However, by using packet switching, any connected subgraph of the network would keep working.
+% 
+% The reasoning for creating a packet-switched network was that they could still retaliate their enemy in case of an attack, which would
+% make them a less attractive target.
 
 Leonard Kleinrock, one of the pioneers of internetworking, disputes the authorship of packet switching,
 which is often attributed to Paul Baran and Donald Davies.
@@ -76,7 +76,7 @@ It is also possible to to signal the \textit{beginning} of a packet. In that cas
 All strategies described above are used nowadays in real scenarios, depending on the 
 features, costs and trade-offs of each one.
 
-Discuss \textbf{which of these strategies would be most appropriate} for each of these scenarios:
+Discuss which of these strategies would be most appropriate for each of these scenarios:
 \begin{itemize}
 \item A single manufacturer designs the hardware and software that communicates two endpoints.
 A single \concept{data line} must be \conceptRef{multiplex}{multiplexed} for multiple control commands
@@ -170,7 +170,7 @@ The following packet contents were \conceptRef{sniff}{sniffed} out of a \concept
 expressed in \concept{hexadecimal}. Assuming the packet has the format of the example above:
 % 
 \begin{itemize}
-\item \textbf{Indicate the value of each field} (length, importance, type, mode, destination address, and payload.
+\item Indicate the value of each field (length, importance, type, mode, destination address, and payload.
 \item Can you guess the meaning of the payload?
 \end{itemize}
 % 
@@ -185,7 +185,11 @@ and (2, \inlineCode{sys.argv[2]}) the \concept{path} of an output file.
 The first 255 bytes of the contents of the input file are read, 
 they are formatted as a packet, and the bytes of that packet
 are output to the output file.
-% 
+
+\begin{center}
+\showCode{snippets/simplepacketoutput.py}
+\end{center}
+
 \begin{itemize}
 \item Describe the \concept{packet format} used in the code, and its limitations.
 
@@ -201,10 +205,6 @@ as well as an explanation of the addressing system you are using.
 \item Modify the code so that it outputs packets of your proposed format.
 \end{itemize}
 \end{exercise}
-
-\begin{center}
-\showCode{snippets/simplepacketoutput.py}
-\end{center}
 
 \begin{remark}
 Languages like Python can make a distinction between files containing text and files containing binary data.
@@ -252,45 +252,12 @@ as well as the packets it was split into before transmission:\\[-0.25cm]
 
 \begin{itemize}
 \item Describe the minimum header that can be used to transmit this stream.
-\item Assuming that the recipient receives Packet 2 first, followed by Packet 0 and other packets are lost: \textbf{what bytes of the stream are known} by the 
+\item Assuming that the recipient receives Packet 2 first, followed by Packet 0 and other packets are lost: what bytes of the stream are known by the 
   destination node, and what bytes are unknown?
 \item How can the source node know that some packets were not delivered?
 \item What would happen if a bogus message is received by the destination, with offset $7$~bytes and length $4$~bytes?
 \end{itemize}
 
 \end{exercise}
-
-
-
-% Two mechanisms are often used for this purpose: \conceptRef{sequence number}{sequence numbers} and \conceptRef{offset}{offsets}:
-% \begin{itemize}
-% \item 
-% \end{itemize}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

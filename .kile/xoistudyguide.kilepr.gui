@@ -1,0 +1,526 @@
+[General]
+kile_livePreviewEnabled=false
+kile_livePreviewStatusUserSpecified=true
+kile_livePreviewTool=LivePreview-PDFLaTeX
+lastDocument=chapters/chapter_layer2.tex
+
+[document-settings,item:Makefile]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=Makefile
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=Makefile
+Mode Set By User=false
+
+[document-settings,item:alias.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/bibliography.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/chapter_how_it_is_done.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/chapter_labs.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/chapter_layer2.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/chapter_layer3.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/chapter_layer4.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/chapter_layer7.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/chapter_packets.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/chapter_piercing_the_veil.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/chapter_stack_layers.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/chapter_tcp_ip_stack.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/chapter_tcpip.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/chapter_the_course.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/chapter_where_are_you.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/copyright.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/cover.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/fig/internet_timeline.csv]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=CSV
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=CSV
+Mode Set By User=false
+
+[document-settings,item:chapters/fig/swimlane_example.msc]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=None
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=Normal
+Mode Set By User=false
+
+[document-settings,item:chapters/indices.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:chapters/table_of_contents.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:main.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:style/style.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:xoistudyguide.kilepr]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=None
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=Normal
+Mode Set By User=false
+
+[item:Makefile]
+open=false
+order=-1
+
+[item:alias.tex]
+open=true
+order=2
+
+[item:chapters/bibliography.tex]
+open=false
+order=3
+
+[item:chapters/chapter_how_it_is_done.tex]
+open=true
+order=0
+
+[item:chapters/chapter_labs.tex]
+open=true
+order=4
+
+[item:chapters/chapter_layer2.tex]
+open=true
+order=0
+
+[item:chapters/chapter_layer3.tex]
+open=true
+order=1
+
+[item:chapters/chapter_layer4.tex]
+open=false
+order=4
+
+[item:chapters/chapter_layer7.tex]
+open=false
+order=5
+
+[item:chapters/chapter_packets.tex]
+open=false
+order=9
+
+[item:chapters/chapter_piercing_the_veil.tex]
+open=false
+order=8
+
+[item:chapters/chapter_stack_layers.tex]
+open=false
+order=7
+
+[item:chapters/chapter_tcp_ip_stack.tex]
+open=true
+order=4
+
+[item:chapters/chapter_tcpip.tex]
+open=false
+order=1
+
+[item:chapters/chapter_the_course.tex]
+open=false
+order=-1
+
+[item:chapters/chapter_where_are_you.tex]
+open=false
+order=8
+
+[item:chapters/copyright.tex]
+open=true
+order=6
+
+[item:chapters/cover.tex]
+open=false
+order=-1
+
+[item:chapters/fig/swimlane_example.msc]
+open=false
+order=-1
+
+[item:chapters/indices.tex]
+open=false
+order=4
+
+[item:chapters/table_of_contents.tex]
+open=false
+order=-1
+
+[item:main.tex]
+open=true
+order=5
+
+[item:style/style.tex]
+open=true
+order=3
+
+[item:xoistudyguide.kilepr]
+open=false
+order=-1
+
+[view-settings,view=0,item:Makefile]
+CursorColumn=0
+CursorLine=0
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"4e63a8097b1dc6f3a5cf5f333291f4413bd228e6","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:alias.tex]
+CursorColumn=49
+CursorLine=4
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"998aef3138a8b1295f09e27abbaeab65c1770142","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/bibliography.tex]
+CursorColumn=41
+CursorLine=10
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"1d02c7dcb822899ea3a94b58d24a6c44e3614e04","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/chapter_how_it_is_done.tex]
+CursorColumn=14
+CursorLine=136
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"60a66b74be3515e9e14f3f65d5477fc3a5c70178","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/chapter_labs.tex]
+CursorColumn=22
+CursorLine=9
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"c97e72db6d53ecac978564f342920f2b5339b94a","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/chapter_layer2.tex]
+CursorColumn=78
+CursorLine=181
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"421c577bf03ce3aca1a69001c3fc5b046e121e0f","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/chapter_layer3.tex]
+CursorColumn=24
+CursorLine=85
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"871f1898d4b5be37dd6b460ceb437762d627d9a1","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/chapter_layer4.tex]
+CursorColumn=18
+CursorLine=1
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"b9a5f652982fa2188c2110cc818f3cdc5b112a07","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/chapter_layer7.tex]
+CursorColumn=43
+CursorLine=0
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"8beac141199e5b7740a26131156a90b1f531d7ac","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/chapter_packets.tex]
+CursorColumn=0
+CursorLine=34
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"a400c87a66f76a54bd791af3d9613d0cef8ed3d1","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/chapter_piercing_the_veil.tex]
+CursorColumn=16
+CursorLine=3
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"48924b99afda70efe71b48f8b8a440ea4e3edc1c","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/chapter_stack_layers.tex]
+CursorColumn=10
+CursorLine=133
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"e3b7f552b5dcbfecd65bd7e4776335a604322ed2","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/chapter_tcp_ip_stack.tex]
+CursorColumn=14
+CursorLine=22
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"4dd9c058dbffa948fc0b714b84522d1cee2d1a88","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/chapter_tcpip.tex]
+CursorColumn=9
+CursorLine=121
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"5d03be879b37bd8451f532cd3cb23f86debc9294","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/chapter_the_course.tex]
+CursorColumn=53
+CursorLine=4
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"0f38501e992fe4e076eacd5079a06108c98ac34a","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/chapter_where_are_you.tex]
+CursorColumn=12
+CursorLine=232
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"91f143c3be14dd17bede695c021a76596e65cd6b","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/copyright.tex]
+CursorColumn=100
+CursorLine=46
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"3ae507467d5ff93a6a208ea9716220fb33915180","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/cover.tex]
+CursorColumn=0
+CursorLine=0
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"b45d6445229a658ecceecfa770618a45bcb74985","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/fig/internet_timeline.csv]
+CursorColumn=0
+CursorLine=0
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"31891ee2dab2f61f751f8ca2891104c7ae658b7d","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/fig/swimlane_example.msc]
+CursorColumn=0
+CursorLine=0
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"5173b5ce6850cf74c771d28e0341d8d4afdc19e2","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/indices.tex]
+CursorColumn=8
+CursorLine=11
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"028a8ac168929b7c4cfbd2952a2910e01c0610d8","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/table_of_contents.tex]
+CursorColumn=0
+CursorLine=0
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"ff14cff1dc3f700049eb3fb218fc79b9dbfbfaed","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:main.tex]
+CursorColumn=60
+CursorLine=60
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"e34d1c2b0d6022dfcca4affad9efb5dc4e61b9d1","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:style/style.tex]
+CursorColumn=18
+CursorLine=40
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"81b12c707a8c4304a050923fb87419c506d9dbb7","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:xoistudyguide.kilepr]
+CursorColumn=0
+CursorLine=0
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"ee4f09a25a12bfbb357b6d29e3808f995e4a8568","ranges":[]}
+ViMarks=

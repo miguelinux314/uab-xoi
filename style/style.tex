@@ -42,6 +42,7 @@
 \usepackage{circledsteps}
 \usepackage{bytefield}
 
+
 %----------------------------------------------------------------------------------------
 %	FONTS
 %----------------------------------------------------------------------------------------
@@ -58,10 +59,10 @@
 %	BIBLIOGRAPHY AND INDEX
 %----------------------------------------------------------------------------------------
 
-\usepackage{csquotes}
-\usepackage[style=alphabetic,citestyle=numeric,sorting=nyt,sortcites=true,autopunct=true,autolang=hyphen,hyperref=true,abbreviate=false,backref=true,backend=biber,defernumbers=true]{biblatex}
-\addbibresource{bibliography.bib} % BibTeX bibliography file
-\defbibheading{bibempty}{}
+% \usepackage{csquotes}
+% \usepackage[style=alphabetic,citestyle=numeric,sorting=nyt,sortcites=true,autopunct=true,autolang=hyphen,hyperref=true,abbreviate=false,backref=true,backend=biber,defernumbers=true]{biblatex}
+% \left\addbibresource{bibliography.bib} % BibTeX bibliography file
+% \defbibheading{bibempty}{}
 
 \usepackage{calc} % For simpler calculation - used for spacing the index letter headings correctly
 
@@ -374,12 +375,21 @@ innerbottommargin=5pt]{cBox}
 \node[draw=color2!60,line width=1pt,circle,fill=color2!0,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-12pt,3pt){\textcolor{Turquoise}{\textmusicalnote}};\end{tikzpicture}}
 \advance\baselineskip -1pt}{\end{list}\end{rBox}} % Tighter line spacing and white space after remark
 
+% --- Code
 \newenvironment{code}[1]{\par
 \begin{codeBox}
 \makebox[-2pt]{\begin{tikzpicture}[overlay]
 \node[draw=color3!60,line width=1pt,circle,fill=color3!0,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt,minimum size = 0.6cm] at (0.25cm,-0.1cm){\textcolor{color3}{\tiny\href{code/#1}{\underline{.py}}}};
 \node[draw=color3!60,line width=1pt,circle,fill=color3!0,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt,minimum size = 0.6cm] at (1cm,-0.1cm){\textcolor{color3}{\tiny\href{code/#1.out}{\underline{.out}}}};
 \node[font=\sffamily,inner sep=2pt,outer sep=0pt,minimum size = 0.6cm,anchor=west] at (1.5cm,-0.1cm){\textcolor{color3}{\small\href{code/#1}{#1}}};
+\end{tikzpicture}}\\[-0.1cm]
+}{\end{codeBox}}
+
+\newenvironment{codeNoOutput}[1]{\par
+\begin{codeBox}
+\makebox[-2pt]{\begin{tikzpicture}[overlay]
+\node[draw=color3!60,line width=1pt,circle,fill=color3!0,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt,minimum size = 0.6cm] at (0.25cm,-0.1cm){\textcolor{color3}{\tiny\href{code/#1}{\underline{.py}}}};
+\node[font=\sffamily,inner sep=2pt,outer sep=0pt,minimum size = 0.6cm,anchor=west] at (0.75cm,-0.1cm){\textcolor{color3}{\small\href{code/#1}{#1}}};
 \end{tikzpicture}}\\[-0.1cm]
 }{\end{codeBox}}
 
@@ -443,7 +453,7 @@ innerbottommargin=5pt]{cBox}
 \node[anchor=south east] at (\paperwidth-1cm,-\paperheight+1cm){\parbox[t][][t]{8.5cm}{
 \printcontents{l}{0}{\setcounter{tocdepth}{1}}%
 }};
-\node[anchor=north east] at (\paperwidth-1.5cm,-3.25cm){\parbox[t][][t]{15cm}{\strut\raggedleft\color{white}\fontsize{30}{30}\sffamily\bfseries#2}};
+\node[anchor=north east] at (\paperwidth-1.5cm,-3.25cm){\parbox[t][][t]{15cm}{\strut\raggedleft\color{color2}\fontsize{30}{30}\sffamily\bfseries#2}};
 \end{tikzpicture}};
 \end{tikzpicture}}%
 \@endpart}
@@ -454,7 +464,7 @@ innerbottommargin=5pt]{cBox}
 \begin{tikzpicture}[remember picture,overlay]%
 \node at (current page.north west){\begin{tikzpicture}[remember picture,overlay]%	
 \fill[color1!20](0cm,0cm) rectangle (\paperwidth,-\paperheight);
-\node[anchor=north east] at (\paperwidth-1.5cm,-3.25cm){\parbox[t][][t]{15cm}{\strut\raggedleft\color{white}\fontsize{30}{30}\sffamily\bfseries#1}};
+\node[anchor=north east] at (\paperwidth-1.5cm,-3.25cm){\parbox[t][][t]{15cm}{\strut\raggedleft\color{color2}\fontsize{30}{30}\sffamily\bfseries#1}};
 \end{tikzpicture}};
 \end{tikzpicture}}
 \addcontentsline{toc}{part}{\texorpdfstring{%

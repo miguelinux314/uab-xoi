@@ -1,0 +1,9 @@
+msc {
+ arcgradient = 0, width=600;
+
+ N1[label="Node A\nMAC: 00:11:22:00:00:0a"], 
+ N2[label="Node B\nMAC: 00:33:44:00:00:0b"];
+
+ N1 => N2 [label="Destination MAC: 00:33:44:00:00:0b\nSource MAC: 00:11:22:00:00:0a\nType: 0x0800\n\n\n\n"];
+}
+
