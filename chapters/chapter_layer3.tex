@@ -1,4 +1,5 @@
 \chapterimage{golden_gate.jpg}
+
 \chapter{Layer 3: Internet(work) communication}\label{sec:layer3}
 
 \begin{minipage}{0.4\linewidth}
@@ -23,15 +24,32 @@
 \subsection*{Capabilities}
 
 The \conceptRef{IP}{Internet Protocol (IP)} allows exchanging \concept{datagrams} 
-(Layer~3 \conceptRef{PDU}{PDUs}) between devices from different \conceptRef{LAN}{LANs},
-with potentially different Layer~2 technologies (\eg \concept{Ethernet} and \concept{Wi-Fi}).
-
+(Layer~3 \conceptRef{PDU}{PDUs}) between devices from different \conceptRef{LAN}{LANs}.
+% 
 Its addressing system identifies devices globally and makes it possible to 
-\conceptRef{routing}{route} datagrams anywhere we need.
+\conceptRef{routing}{route} datagrams anywhere we need. 
 
-Since \conceptRef{datagram}{datagrams} may travel through networks not controlled 
-by neither the source nor the destination, datagrams may be lost, reordered and duplicated.
+Devices communicating via IP may belong to LANs
+based on different technologies and with different types of \concept{MAC} address.
+This has two implications:
+\begin{itemize}
+  \item A datagram that ``fits'' in the \concept{MTU} of the source LAN
+    may be too large for the destination's (or any intermediate's) LAN MTU. 
+    IP defines a \concept{fragmentation} system to split datagrams,
+    which are reconstructed only at the final destination.\\[-0.25cm]
+    
+  \item When we send a datagram, we know the target device's \conceptRef{IP}{IP address},
+  but not necessarily its \concept{MAC} address. Only if we are part of the destination
+  LAN we will need that MAC. IP uses \concept{ARP} to translate known IP addresses
+  to MAC addresses of the destination LAN's type.
 
+\end{itemize}
+
+
+
+\conceptRef{datagram}{Datagrams} may travel through networks not controlled 
+by neither the source nor the destination, so datagrams may be lost, reordered and duplicated.
+% 
 Layer~3 does not provide mechanisms to deal with this; upper layers must implement
 protection mechanisms when required 
 (\eg, to implement \concept{TCP}'s \conceptRef{stream}{data streams}).
@@ -46,10 +64,8 @@ it is common to virtually all communications in the Internet as we know it today
 For many years, the Internet has been struggling to transition towards \concept{IPv6}, 
 but the process is not complex and only \concept{IPv4} provides global coverage.
 
-\begin{remark}
-In this guide, \concept{IP} means \concept{IPv4} by default.
-\end{remark}
-
+\concept{IPv4} delegates in the \concept{ARP} protocol the translation of known IP addresses 
+into MAC addresses within each LAN. ARP does \textit{not} use IP datagrams.
 
 The following protocols encapsulate their \conceptRef{PDU}{PDUs} in the payload of IP 
 \conceptRef{datagram}{datagrams}:\\[-0.6cm]
@@ -59,16 +75,14 @@ The following protocols encapsulate their \conceptRef{PDU}{PDUs} in the payload 
 \item Internet Control Message Protocol (\concept{ICMP})
 \end{itemize}
 
-\concept{IPv4} delegates in the \concept{ARP} protocol the translation of known IP addresses 
-into MAC addresses within each LAN.
 
 \subsection*{Addressing}
 
 \concept{IPv4} addresses are $32$~bit long. They are most often presented to humans in
 the \concept{quad decimal} format, \eg, \otherBase{142.250.201.67}. 
 
-Most IP addresses are \conceptRef{public IP}{public} and unique across the Internet, \ie, the previous IP 
-has the same meaning worldwide and identifies a single device.
+Most IP addresses are \conceptRef{public IP}{public} and unique across the Internet, 
+\ie, the previous IP has the same meaning worldwide: it identifies a single connected device.
 
 Many addresses are \conceptRef{private IP}{private}, have special meanings
 and cannot be used for routing datagrams through the Internet, including:
@@ -81,7 +95,13 @@ and cannot be used for routing datagrams through the Internet, including:
 
 \begin{remark}
 The same private address can be used by multiple devices if they belong to different LANs.
+However, if that happens in the same LAN, communication may misbehave.
 \end{remark}
+
+\subsection*{Practical aspects}
+
+The \inlineCode{ip address}, \inlineCode{ip route} and \inlineCode{ip neighbor} commands 
+(among others) let you query several aspects of your IP configuration.
 
 \begin{exercise}\ \\[-0.5cm]
 \begin{itemize}
@@ -93,21 +113,77 @@ The same private address can be used by multiple devices if they belong to diffe
 \end{exercise}
 
 
-\subsection*{Practical aspects}
+\section{IP -- Internet Protocol}
 
-\section{IP addresses, netmasks and CIDR format}\label{sec:layer3:cidr}
-also division
+\subsection*{Packet format}
 
-\section{ARP}
+\concept{IP} defines a \concept{packet} format with a \concept{header} 
+that is \textit{at least} $20$~bytes long. Optional parts may be included,
+as long as the total header size is a multiple of $32$~bits ($4$~bytes).
+The payload can be empty, so the minimum datagram size is $20$~bytes.\\
+
+\begin{center}
+\small
+\begin{bytefield}[bitheight=3em]{32}
+\bitheader{0-31}\\
+\begin{rightwordgroup}[curlyshrinkage=10pt]{Mandatory Header ($20$~bytes)}
+  \bitbox{4}{IP\\Version} 
+  & \bitbox{4}{IHL\\{\scriptsize(HLen/$4$)}} 
+  & \bitbox{8}[bgcolor=lightgray]{Type of Service}
+  & \bitbox{16}{Datagram Length\\{\scriptsize(Head + Payload, bytes)}} \\
+  % 
+  \bitbox{16}{Fragment ID} & \bitbox{1}{\otherBase{0}}
+  & \bitbox{1}{\rotatebox{90}{\scriptsize DF flag}}
+  & \bitbox{1}{\rotatebox{90}{\scriptsize MF flag}}
+  & \bitbox{13}{Fragment Offset} \\
+  % 
+  \bitbox{8}{Time to Live\\(TTL)}
+  & \bitbox{8}{Payload protocol}
+  & \bitbox{16}[bgcolor=lightgray]{IP Header Checksum}\\
+  % 
+  \bitbox{32}{Source IP Address} \\
+  \bitbox{32}{Destination IP Address}
+\end{rightwordgroup} \\
+%   
+\begin{rightwordgroup}[curlyshrinkage=10pt]{Optional Header (32$\cdot x$ bits)}
+\bitbox[tlr]{32}[bgcolor=lightgray]{Options\\{\scriptsize(variable length, optional)}} \\
+\bitbox[lbr]{24}[bgcolor=lightgray]{} &
+\bitbox{8}[bgcolor=lightgray]{Padding to\\$32$ bits}
+\end{rightwordgroup} \\
+% 
+\begin{rightwordgroup}[curlyshrinkage=10pt]{Payload (8$\cdot y$ bits)}
+\bitbox[tlr]{32}{Payload data} \\
+\bitbox[lbr]{8}{} & \bitbox[t]{24}{} 
+\end{rightwordgroup}
+\end{bytefield}
+\end{center}
+
+\begin{exercise} \ \\[-0.5cm]
+\begin{itemize}
+\item How can the payload length be calculated from the header?
+\item What is the maximum payload length?
+\item What are the possible values of the flags in the IP header?
+\item What's longer, an IP address or an Ethernet MAC address?
+\item Is it possible to send exactly 17 bits of payload data in an IP datagram?
+\item How can we know whether a datagram is encapsulating TCP or UDP data?
+\item Why must the optional header part by a multiple of $32$~bits?
+\end{itemize}
+\end{exercise}
+
+
+% \subsection{IP addresses, netmasks and CIDR format}\label{sec:layer3:cidr}
+% also division
+% 
+% \subsection{Fragmentation}
+% 
+% \subsection{Routing}
+
+\section{ARP -- Address Resolution Protocol}
 \begin{remark}
 The \concept{ARP} protocol does \textit{not} use IP headers.
 \end{remark}
 
-\section{Routing}
-
-\section{ICMP}
-
-\section{Fragmentation}
+\section{ICMP -- Internet Control Message Protocol}
 
 
 % - talk about the problem of having different networks, different technologoies (ARPA, XEROX
