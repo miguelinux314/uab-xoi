@@ -1,7 +1,7 @@
 all: code_output swimlane main.pdf
 
 code_output:
-	./code/generate_output.py
+	cd ./code && sudo python ./generate_output.py
 
 swimlane:
 	./chapters/fig/generate_swimlane.sh

@@ -2,7 +2,7 @@
 kile_livePreviewEnabled=false
 kile_livePreviewStatusUserSpecified=true
 kile_livePreviewTool=LivePreview-PDFLaTeX
-lastDocument=chapters/chapter_layer2.tex
+lastDocument=chapters/chapter_layer3.tex
 
 [document-settings,item:Makefile]
 Bookmarks=
@@ -234,7 +234,7 @@ open=false
 order=-1
 
 [item:alias.tex]
-open=true
+open=false
 order=2
 
 [item:chapters/bibliography.tex]
@@ -246,24 +246,24 @@ open=true
 order=0
 
 [item:chapters/chapter_labs.tex]
-open=true
+open=false
 order=4
 
 [item:chapters/chapter_layer2.tex]
 open=true
-order=0
+order=1
 
 [item:chapters/chapter_layer3.tex]
 open=true
-order=1
+order=0
 
 [item:chapters/chapter_layer4.tex]
 open=false
-order=4
+order=-1
 
 [item:chapters/chapter_layer7.tex]
 open=false
-order=5
+order=-1
 
 [item:chapters/chapter_packets.tex]
 open=false
@@ -274,16 +274,16 @@ open=false
 order=8
 
 [item:chapters/chapter_stack_layers.tex]
-open=false
-order=7
+open=true
+order=2
 
 [item:chapters/chapter_tcp_ip_stack.tex]
 open=true
 order=4
 
 [item:chapters/chapter_tcpip.tex]
-open=false
-order=1
+open=true
+order=3
 
 [item:chapters/chapter_the_course.tex]
 open=false
@@ -294,7 +294,7 @@ open=false
 order=8
 
 [item:chapters/copyright.tex]
-open=true
+open=false
 order=6
 
 [item:chapters/cover.tex]
@@ -315,10 +315,10 @@ order=-1
 
 [item:main.tex]
 open=true
-order=5
+order=4
 
 [item:style/style.tex]
-open=true
+open=false
 order=3
 
 [item:xoistudyguide.kilepr]
@@ -366,19 +366,19 @@ TextFolding={"checksum":"c97e72db6d53ecac978564f342920f2b5339b94a","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer2.tex]
-CursorColumn=78
-CursorLine=181
+CursorColumn=71
+CursorLine=157
 Dynamic Word Wrap=false
 JumpList=
 TextFolding={"checksum":"421c577bf03ce3aca1a69001c3fc5b046e121e0f","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer3.tex]
-CursorColumn=24
-CursorLine=85
+CursorColumn=7
+CursorLine=189
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"871f1898d4b5be37dd6b460ceb437762d627d9a1","ranges":[]}
+TextFolding={"checksum":"51c28bf2fa599c85d763fdcdd0c9351cd4a143da","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer4.tex]
@@ -430,8 +430,8 @@ TextFolding={"checksum":"4dd9c058dbffa948fc0b714b84522d1cee2d1a88","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_tcpip.tex]
-CursorColumn=9
-CursorLine=121
+CursorColumn=68
+CursorLine=50
 Dynamic Word Wrap=false
 JumpList=
 TextFolding={"checksum":"5d03be879b37bd8451f532cd3cb23f86debc9294","ranges":[]}
@@ -502,8 +502,8 @@ TextFolding={"checksum":"ff14cff1dc3f700049eb3fb218fc79b9dbfbfaed","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:main.tex]
-CursorColumn=60
-CursorLine=60
+CursorColumn=0
+CursorLine=12
 Dynamic Word Wrap=false
 JumpList=
 TextFolding={"checksum":"e34d1c2b0d6022dfcca4affad9efb5dc4e61b9d1","ranges":[]}

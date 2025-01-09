@@ -84,19 +84,24 @@ the \concept{quad decimal} format, \eg, \otherBase{142.250.201.67}.
 Most IP addresses are \conceptRef{public IP}{public} and unique across the Internet, 
 \ie, the previous IP has the same meaning worldwide: it identifies a single connected device.
 
-Many addresses are \conceptRef{private IP}{private}, have special meanings
-and cannot be used for routing datagrams through the Internet, including:
-\begin{itemize}
-\item The \otherBase{127.*.*.*} and \otherBase{0.*.*.*} blocks cannot leave the local computer.
-\item The \otherBase{172.*.*.*} and \otherBase{192.168.*.*} cannot leave the \concept{LAN}.
-\item \otherBase{255.255.255.255} is reserved for the \concept{local IP broadcast} IP 
-(used by \concept{DHCP}).
-\end{itemize}
+Many addresses are (\conceptRef{reserved IP address}{reserved/private}) and can only be 
+used within a particular scope, \eg, a LAN. 
+Some of the most common are the following (there are some more):
 
-\begin{remark}
-The same private address can be used by multiple devices if they belong to different LANs.
-However, if that happens in the same LAN, communication may misbehave.
-\end{remark}
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{IP address block} & \textbf{Address scope} \\
+\toprule
+\otherBase{127.*.*.*} & Computer \\
+\otherBase{169.254.*.*} & Local connection (\eg ppp) \\
+\otherBase{10.*.*.*} & This LAN \\
+\otherBase{172.16.*.*} & This LAN \\
+\otherBase{192.168.*.*} & This LAN \\
+\otherBase{255.255.255.255} & Limited (IP) broadcast \\
+\bottomrule
+\end{tabular}
+\end{center}
 
 \subsection*{Practical aspects}
 
@@ -169,6 +174,33 @@ The payload can be empty, so the minimum datagram size is $20$~bytes.\\
 \item Why must the optional header part by a multiple of $32$~bits?
 \end{itemize}
 \end{exercise}
+
+\subsection*{Operation}
+
+When a device A wants to send an IP datagram to a device B, the source and 
+destination IPs in the header are fixed and don't change for this datagram.
+
+If devices A and B belong to the same LAN, the datagram is sent directly
+(\eg, encapsulated in an Ethernet frame). However, IP can go much farther.
+Consider the following scenario, where A wants to communicate with D.
+
+\begin{center}
+ \includegraphics[width=0.5\linewidth]{ip_operation_example.pdf}
+\end{center}
+
+
+Here, the source and destination devices belong to different LANs.
+The datagram is passed first to the source's \concept{gateway} router. 
+Then, each router passes it to the next one until the datagram reaches 
+a router connected to the destination LAN. Finally, that last router 
+passes the datagram to the destination. 
+
+\includegraphics{ip_operation.eps}
+
+\begin{remark}
+The source and destination IP addresses don't change throughout the journey.
+However, the MAC addresses must correspond to the actual packet transmission within the LAN.
+\end{remark}
 
 
 % \subsection{IP addresses, netmasks and CIDR format}\label{sec:layer3:cidr}
