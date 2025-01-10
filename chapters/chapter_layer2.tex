@@ -39,22 +39,41 @@ Some Layer~2 protocols may also provide user \concept{authentication} and
 \concept{Wi-Fi} is a notable example,
 although wired networks may also employ, \eg, IEEE 802.1X.
 
-\vspace{-0.25cm}
+\vspace{-0.3cm}
+\begin{center}
+\includegraphics[width=0.9\linewidth]{protocols_layer2.pdf}
+\end{center}
+\vspace{-0.5cm}
+
 \subsection*{Protocols}
-Many \concept{protocols} have been and are being defined within Layer~2. Most importantly nowadays:\\[-0.6cm]
+Many \concept{protocols} have been and are being defined within Layer~2. Most importantly nowadays:\\[-0.65cm]
 \begin{itemize}
 \item \concept{Ethernet} (IEEE 802.3), addressed in \secref{sec:layer2:ethernet}.
 \item \concept{Wi-Fi} (\eg, IEEE 802.11be aka Wi-Fi 7, of 2024).
 \end{itemize}
 
 Within \concept{TCP/IP}, Layer~2 \conceptRef{encapsulation}{encapsulates} the following protocol \conceptRef{PDU}{PDUs}
-(both addressed in Chapter~\ref{sec:layer3}):\\[-0.6cm]
+(both addressed in Chapter~\ref{sec:layer3}):\\[-0.65cm]
 \begin{itemize}
   \item \concept{IPv4} and \concept{IPv6} \conceptRef{datagram}{datagrams}.
   \item \concept{ARP} messages.\\[-0.75cm]
 \end{itemize}
 
-\subsection*{Addressing}
+\vspace{0.5cm}
+
+\begin{remark}
+The \inlineCode{ip link} command shows and can configure your interfaces,
+including the \concept{MAC} address.
+
+Your Operating System typically assigns internal interface names automatically based on their type,
+\eg, \inlineCode{eth0} or \inlineCode{wlan1}.
+% 
+Interfaces can usually be renamed, because interface names 
+are not part of TCP/IP; they are used exclusively within that Operating system.
+\end{remark}
+
+
+\section{Layer~2 Addressing}
 In most LAN technologies, Layer~2 addresses are numeric IDs unique for each device within the LAN. 
 The most frequent type are Ethernet MAC addresses (technically EUI-48) that span $6$~bytes (\ie, $48$~bits).
 These are also used outside Ethernet, \eg, by Wi-Fi and Bluetooth.
@@ -71,17 +90,6 @@ for a full description of reserved MAC addresses, including \concept{multicast})
 Network hardware comes with a predefined, unique built-in MAC address ready to be used.
 Device MACs can be configured at the OS level, but remain constant while in use.
 
-\subsection*{Practical aspects}\label{sec:layer2:practical}
-
-The \inlineCode{ip link} command shows and can configure your interfaces,
-including the \concept{MAC} address.
-
-Your Operating System typically assigns internal interface names automatically based on their type,
-\eg, \inlineCode{eth0} or \inlineCode{wlan1}.
-% 
-Interfaces can usually be renamed, because interface names 
-are not part of TCP/IP; they are used exclusively within that Operating system.
-
 
 \section{Ethernet Layer 2 Protocol}\label{sec:layer2:ethernet}
 
@@ -95,7 +103,7 @@ Packets of this type are called \conceptRef{frame}{frames}:\\[-0.25cm]
 \bitbox{48}{Destination MAC Address} \\ 
 \bitbox{48}{Source MAC Address} \\
 \bitbox{16}{Payload type} & \bitbox[tr]{32}{Payload data (variable length)} \\
-\bitbox[lr]{48}{\raisebox{1em}{$\vdots$}} \\
+% \bitbox[lr]{48}{\raisebox{1em}{$\vdots$}} \\
 \bitbox[lbr]{24}{} & \bitbox[t]{24}{} 
 \end{bytefield}
 \end{center}
@@ -162,7 +170,6 @@ a \concept{frame} that begins with the following bytes. Should it be accepted by
 \end{center}
 \end{exercise}
 
-\newpage
 \begin{exercise}
 The following scripts exemplify how to send and receive raw \concept{Ethernet} frames. 
 The \concept{client} sends $5$ identical frames of \concept{EtherType} \otherBase{0x1234} and then exits.
