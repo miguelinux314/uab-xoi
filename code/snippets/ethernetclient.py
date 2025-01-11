@@ -7,8 +7,9 @@ packet_type = bytes([0x12, 0x34])
 payload_data = bytes([0x78, 0x6f, 0x69, 0x20, 0x75, 0x61, 0x62])
 
 # This socket sends Layer 2 packets directly.
-s = socket.socket(
-    family=socket.AF_PACKET, type=socket.SOCK_RAW, proto=socket.ntohs(socket.ETH_P_ALL))
+s = socket.socket(family=socket.AF_PACKET, 
+                  type=socket.SOCK_RAW, 
+                  proto=socket.ntohs(socket.ETH_P_ALL))
 s.bind((interface_name, 0))
 
 for i in range(5):

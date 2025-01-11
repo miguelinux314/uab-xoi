@@ -22,6 +22,7 @@
 \vspace{-0.75cm}
 
 
+% \section{Layer~3 overview}
 \subsection*{Capabilities}
 
 The \conceptRef{IP}{Internet Protocol (IP)} allows exchanging \concept{datagrams} 
@@ -85,12 +86,30 @@ The \inlineCode{ip address}, \inlineCode{ip route} and \inlineCode{ip neighbor} 
 
 
 
-\section{Layer~3 Addressing}
+\section{Layer~3 addressing}
 
-\concept{IPv4} addresses are $32$~bit long. They are most often presented to humans in
-the \concept{quad decimal} format, \eg, \otherBase{142.250.201.67}. 
+\concept{IPv4} addresses are $32$~bits long. They are most often presented to humans in
+the \concept{quad decimal} format, \eg,
+\begin{center}
+\otherBase{142.250.201.67}
+\end{center}
 
-\subsection*{Public and reserved addresses}
+\concept{IPv6} addresses are $128$~bits ($12$~bytes) long, \ie, 
+they are $4$~times larger than an IPv4 address.
+They are expressed in hexadecimal format, \eg, as follows. Note how 
+two colon signs ``\otherBase{::}'' indicate ``fill with zeros'',
+and ``\otherBase{::}'' may only appear once per IPv6 address.
+\begin{center}
+\otherBase{fe80::f524:a73a:e946:7c02}
+\end{center}
+
+\begin{remark}
+When an \concept{IPv6} address is used as part of an URL, it is surrounded with brackets,
+\eg, \otherBase{https://[fe80::f524:a73a:e946:7c02]/}.
+\end{remark}
+
+
+\subsection{Public and reserved addresses}
 
 Most IP addresses are \conceptRef{public IP}{public} and unique across the Internet, 
 \ie, the previous IP has the same meaning worldwide: it identifies a single connected device.
@@ -98,7 +117,8 @@ Most IP addresses are \conceptRef{public IP}{public} and unique across the Inter
 Many addresses are \conceptRef{reserved IP address}{reserved/private} and can only be 
 used within a particular scope (\eg, a LAN) or situation.
 Some of the most common are the following (there are 
-\href{https://en.wikipedia.org/wiki/Reserved_IP_addresses#IPv4}{\underline{some more}}):
+\href{https://en.wikipedia.org/wiki/Reserved_IP_addresses#IPv4}{\underline{some more}}, 
+also for IPv6):
 
 \begin{center}
 \begin{tabular}{ll}
@@ -125,7 +145,7 @@ Some of the most common are the following (there are
 \end{itemize}
 \end{exercise}
 
-\subsection*{Netmasks}
+\subsection{Netmasks}
 
 The $32$~bits of an IP address can be divided in two parts using a \concept{netmask}:\\[-0.25cm]
 % 
@@ -165,14 +185,17 @@ The netmask of the previous example can be expressed in binary
 \end{bytefield}
 \end{center}
 
-
 \begin{itemize}
 \item Express the netmask of the previous example in the CIDR and quad decimal formats.
 \item What is your IP and netmask? Express it in the same two main ways.
 \end{itemize}
 \end{exercise}
 
-\subsection*{Blocks of IP addresses}
+\begin{remark}
+Netmasks are used in IPv6 as well, but with a maximum value of $N$ of $128$ instead of $32$.
+\end{remark}
+
+\subsection{Blocks of IP addresses}
 
 Netmasks are used in combination with IP addresses to define 
 \conceptRef{IP address block}{blocks of IP addresses} 
@@ -211,13 +234,9 @@ This way, \otherBase{192.168.3.0/24} correctly refers to a network, but
 \otherBase{192.168.3.1/24} refers instead to a device 
 (the one with IP \otherBase{192.168.3.1}) in that network (\otherBase{192.168.3.0/24}).
 
-\begin{exercise}
-\otherBase{192.168.0.0/24} $\ne$ \otherBase{192.168.0.0/25}. Why?
-\end{exercise}
+\subsection{LANs and netmasks}
 
-\subsection*{LANs and netmasks}
-
-Netmasks need not be multiples of $8$. Consider the following example in which \\
+Netmasks need \textit{not} be multiples of $8$. Consider the following example in which \\
 \otherBase{192.168.76.1/19} (a device's IP + netmask) is used to obtain its network address\\
 (\otherBase{192.168.64.0/19}):\\
 
@@ -236,7 +255,11 @@ Netmasks need not be multiples of $8$. Consider the following example in which \
                {\color{color1}\&}{\color{color1}\&}{\color{color1}\&}{\color{color1}\&}} \\
 
 \begin{rightwordgroup}{Netmask}
-\bitboxes{1}{11111111111111111110000000000000}
+\bitboxes{1}{1111111111111111111
+   {\color{color1}0}{\color{color1}0}{\color{color1}0}{\color{color1}0}
+   {\color{color1}0}{\color{color1}0}{\color{color1}0}{\color{color1}0}
+   {\color{color1}0}{\color{color1}0}{\color{color1}0}{\color{color1}0}
+   {\color{color1}0}}
 \end{rightwordgroup} \\
 
 \bitboxes[]{1}{==== ==== ==== ==== ===
@@ -292,13 +315,52 @@ can be assigned to devices. Two addresses are always reserved:
 \end{itemize}
 \end{exercise}
 
+The netmask \otherBase{/N} determines the number of devices that can be connected at the same time
+to a network: $2^{32-N} - 2$. When LANs are called ``small'' or ``larger'', the size refers to that 
+number of available device addresses. 
+
+Conversely, the number $M$ of devices that we need to connect to the same LAN determines the 
+smallest LAN size (largest netmask \otherBase{/N}) that fits all those devices at the same time:
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+\textbf{Netmask} & \textbf{Total addresses} & \textbf{Max devices} \\
+\otherBase{/N} & $2^{32-N}$ & $2^{32-N} - 2$ \\
+\toprule
+\otherBase{/30} & 4 & 2 \\
+\otherBase{/29} & 8 & 6 \\
+\otherBase{/28} & 16 & 14 \\
+\otherBase{/27} & 32 & 30 \\
+\otherBase{/26} & 64 & 62 \\
+\otherBase{/25} & 128 & 126 \\
+$\vdots$ & $\vdots$ & $\vdots$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{remark}
+All \conceptRef{router}{routers} need a valid IP address per LAN to which they are connected.
+Therefore, routers \textit{do} count towards the maximum number of devices connected in a LAN.
+\end{remark}
+
+\begin{exercise} \ \\[-0.5cm]
+\begin{itemize}
+\item What's the minimum network size that fits $256$ connected devices?
+\item What's the longest netmask \otherBase{/N} that would let everyone in your city connect?
+\item How many addresses are contained in a \otherBase{/0} network? 
+\item How many \otherBase{/0} networks may exist? Are they given names?
+\end{itemize}
+\end{exercise}
+
+
 \begin{exercise}
 The following code snippet takes an IP address and shows its $4$~bytes expressed in 
 quad decimal and in binary.
 Extend (or replace) the code so that you can:
 \begin{itemize}
-\item Transform $32$ bits into a quad decimal string
-\item Display a netmask in IP address and CIDR formats
+\item Transform $32$ bits into a quad decimal string.
+\item Display a netmask in IP address and CIDR formats.
 \item Given a device's IP and netmask, determine whether other IP belongs to the same network.
 \end{itemize}
 \begin{center}
@@ -321,7 +383,7 @@ Extend (or replace) the code so that you can:
 
 \section{IP -- Internet Protocol}
 
-\subsection*{Packet format}
+\subsection{Packet format}
 
 \concept{IP} defines a \concept{packet} format with a \concept{header} 
 that is \textit{at least} $20$~bytes long. Optional parts may be included,
@@ -335,7 +397,7 @@ The payload can be empty, so the minimum datagram size is $20$~bytes.\\
 \begin{rightwordgroup}[curlyshrinkage=10pt]{Mandatory Header\\($20$~bytes)}
   \bitbox{4}{IP\\Version} 
   & \bitbox{4}{IHL\\{\scriptsize(HLen/$4$)}} 
-  & \bitbox{8}[bgcolor=lightgray]{Type of Service}
+  & \bitbox{8}{Type of Service}
   & \bitbox{16}{Datagram Length\\{\scriptsize(Head + Payload, bytes)}} \\
   % 
   \bitbox{16}{Fragment ID} & \bitbox{1}{\otherBase{0}}
@@ -345,16 +407,16 @@ The payload can be empty, so the minimum datagram size is $20$~bytes.\\
   % 
   \bitbox{8}{Time to Live\\(TTL)}
   & \bitbox{8}{Payload protocol}
-  & \bitbox{16}[bgcolor=lightgray]{IP Header Checksum}\\
+  & \bitbox{16}{IP Header Checksum}\\
   % 
   \bitbox{32}{Source IP Address} \\
   \bitbox{32}{Destination IP Address}
 \end{rightwordgroup} \\
 %   
 \begin{rightwordgroup}[curlyshrinkage=10pt]{Optional Header\\{\scriptsize($4x$~bytes)}}
-\bitbox[tlr]{32}[bgcolor=lightgray]{Options\\{\scriptsize(variable length, optional)}} \\
-\bitbox[lbr]{24}[bgcolor=lightgray]{} &
-\bitbox{8}[bgcolor=lightgray]{Padding to\\$32$ bits}
+\bitbox[tlr]{32}{Options\\{\scriptsize(variable length, optional)}} \\
+\bitbox[lbr]{24}{} &
+\bitbox{8}{Padding to\\$32$ bits}
 \end{rightwordgroup} \\
 % 
 \begin{rightwordgroup}[curlyshrinkage=10pt]{Payload\\{\scriptsize($y$~bytes)}}
@@ -376,14 +438,14 @@ The payload can be empty, so the minimum datagram size is $20$~bytes.\\
 \end{itemize}
 \end{exercise}
 
-\subsection*{Operation}
+\subsection{Operation}
 
 When a device A wants to send an IP datagram to a device B, the source and 
 destination IPs in the header are fixed and don't change for this datagram.
 
 If devices A and B belong to the same LAN, the datagram is sent directly
 (\eg, encapsulated in an Ethernet frame). However, IP can go much farther.
-Consider the following scenario, where A wants to communicate with D.
+Consider the following scenario, where A wants to communicate with E.
 
 \begin{center}
  \includegraphics[width=0.5\linewidth]{ip_operation_example.pdf}
@@ -391,41 +453,166 @@ Consider the following scenario, where A wants to communicate with D.
 
 
 Here, the source and destination devices belong to different LANs.
-The datagram is passed first to the source's \conceptRef{router}{gateway router}. 
+The datagram is passed first to the source's \concept{router}.
 Then, each intermediate router passes it to the next one until the datagram reaches 
 the last router, which is connected to the destination LAN. Finally, that last router 
 passes the datagram to the destination. 
 
+\begin{center}
 \includegraphics{ip_operation.eps}
-
+\end{center}
 
 The source and destination IP addresses don't change throughout the journey.
 In contrast, MAC address change in each LAN \concept{hop}. 
 
+
+\subsection{Routers and forwarding}
+
+\conceptRef{router}{Routers} are the devices in charge of forwarding IP \conceptRef{datagram}{datagrams}
+by looking at the destination IP address of each one, present in the IP \concept{header}. Routers don't need 
+to \concept{decapsulate} headers of layers 4 and above. Therefore, they network stacks need contain only up to Layer~3
+(and so are sometimes referred to as Layer-3 devices).
+
+\begin{center}
+\includegraphics[width=0.9\linewidth]{forward_layers.pdf}
+\end{center}
+
+
+When a router detects a network frame $F$ in one of its \conceptRef{interface}{interfaces} (network cards),
+it tries to recognize the following parts of a datagram.
+\begin{center}
+\begin{bytefield}{48}
+\bitbox{12}{Layer~2 header} & \bitbox{12}{IP header} & \bitbox{24}{Datagram payload}
+\end{bytefield}
+\end{center}
+If recognized, the router processes the datagram as follows:
+\begin{enumerate}
+\item The whole frame $F$ is discarded unless the destination MAC (in the Layer~2 header) 
+  is that of the router's interface that detected the frame.\\[-0.25cm]
+  
+\item The router looks at the destination IP address (in the IP header of $F$) and at its \concept{routing table} 
+  to decide the next \concept{hop} of the datagram, \ie, the device to which this router will pass 
+  the datagram to, and what \concept{interface} to use (see Section~\ref{sec:layer3:routing} below).\\[-0.25cm]
+  
+\item The router creates and sends a frame $F'$ making the following two changes to $F$:\\[-0.25cm]
+  \begin{enumerate}[label=\alph*)]
+  \item The Layer~2 header in $F'$ changes entirely:
+    \begin{itemize} 
+    \item The destination \concept{MAC} is that of the next hop,
+    and the source MAC is that of the router forwarding the datagram.
+    The next hop's IP is given by the \concept{routing table} (see Section~\ref{sec:layer3:routing}), 
+    and its MAC is obtained from that IP using \concept{ARP} (Section~\ref{sec:layer3:arp}).\\[-0.4cm]
+    %     
+    \item The source MAC of $F'$
+    frame is different from the destination MAC of the received frame $F$ if the router 
+    received $F$ in one interface (\eg \inlineCode{eth7}) and forwards it through another 
+    (\eg,  \inlineCode{eth9}).
+    \end{itemize}
+    
+    \begin{center}     
+    \vspace{0.15cm}
+    \includegraphics[width=0.8\linewidth]{router_ports.jpg}
+    \vspace{0.15cm}
+    \end{center}
+    
+  \item The IP header in $F'$ differs from that of $F$ in the following:
+    \begin{itemize}
+    \item The \concept{TTL} (time to live) field is decreased by $1$.\\
+    If the TTL reaches $0$, the datagram is discarded instead of being forwarded.
+    \item When the \conceptRef{IP Options}{Options} field is present, it is often updated.
+    \item The header \concept{checksum} is updated accordingly.\\
+    \end{itemize}
+  \end{enumerate}
+\end{enumerate}
+
 \begin{remark}
-In this example, the gateway router~(B) is directly connected to the destination LAN's router~(C).
-Normally, there would be several routers chained between B and C.
+ Note how the IP addresses and the payload are copied over unmodified
+  when a datagram is forwarded.
 \end{remark}
 
 
+\subsection{Routing, subnets and supernets}\label{sec:layer3:routing}
 
-
-
-
-
-% \subsection{IP addresses, netmasks and CIDR format}\label{sec:layer3:cidr}
-% also division
+When a router receives an IP \concept{datagram} to forward and that router 
+is connected to the same LAN as the destination IP address, the router performs a \concept{direct delivery} (DD).
 % 
-% \subsection{Fragmentation}
+Otherwise, the datagram is forwarded to the next router in an \concept{indirect delivery} (ID).
+% 
+A router knows whether to perform DD or ID, as well as the destination (and source) IP address to use,
+thanks to its \concept{routing table}.
+
+All route tables have at least the following columns:
+\begin{itemize}
+\item \textbf{Destination address block}: one or more IP addresses that can be expressed as an IP + netmask combination.
+  A row in the table may apply to a datagram only if its destination IP is within that row's destination address block:
+  \begin{itemize}
+  \item If only one row of the table applies, that row is used for routing.
+  \item If more than one row applies to a datagram, the row with the smallest destination address block 
+    (the most specific) is used.
+  \end{itemize}
+  A destination block of \conceptRef{default routing table}{\textit{default}} indicates the \otherBase{0.0.0.0/0} block.
+  Since this is the largest block possible, it is only applied if none of the other rows apply. 
+  The \textit{default} entry is not mandatory.\\[-0.3cm]
+  
+\item \textbf{Gateway/via}: if the row corresponds to an \concept{indirect delivery}, this column contains the IP address
+  of the next router. Otherwise, this column contains \otherBase{0.0.0.0} to indicate a \concept{direct delivery}.\\[-0.3cm]
+  
+\item \textbf{Interface}: internal name of the network interface (\eg, of the Ethernet card) to use to deliver the 
+  datagram. Operating Systems may use any convention they wish, as long as they can be uniquely identified in the table.
+\end{itemize}
+
+\begin{remark}
+All devices have their own routing table, not just routers.
+\end{remark}
+
+\begin{exercise}
+The \concept{routing table} of a small router is presented next.
+
+\begin{center}
+\vspace{0.2cm}
+\begin{tabular}{ccc}
+\toprule
+\textbf{Destination address block} & \textbf{gateway/via} & \textbf{Interface} \\
+\toprule
+\otherBase{\textit{default}} & \otherBase{192.168.0.1} & \inlineCode{eth0}  \\
+\otherBase{192.168.0.0/24} & \otherBase{0.0.0.0} & \inlineCode{eth0} \\
+\otherBase{172.16.0.4/32} & \otherBase{0.0.0.0} & \inlineCode{eth1} \\
+\otherBase{10.49.4.0/28} & \otherBase{10.49.4.1} & \inlineCode{eth2} \\
+\otherBase{10.49.4.2/32} & \otherBase{10.49.4.2} & \inlineCode{eth2} \\
+\bottomrule
+\end{tabular}
+\vspace{0.2cm}
+\end{center}
+
+\begin{itemize}
+\item Draw a network map consistent with the routing table, containing this router.
+  For the router's interfaces, indicate its name and some valid IP and Layer~2 addresses.\\[-0.3cm]
+  
+\item How would this router forward a datagram directed to a \concept{public} IP address?\\[-0.3cm]
+
+\item Provide a destination IP address that would be processed using the \otherBase{10.49.4.0/28} row,
+and another that would be processed using the \otherBase{10.49.4.2/32}. 
+Think of a use case for having these two rules.
+\end{itemize}
+\end{exercise}
+
+\todo[inline]{
+- routing errors: next hop not found, cycles (TTL)
+- 
+}
+
+% 
+\subsection{Fragmentation}
+\label{sec:layer3:fragmentation}
 % 
 % \subsection{Routing}
 
-\section{ARP -- Address Resolution Protocol}
+\section{ARP -- Address Resolution Protocol}\label{sec:layer3:arp}
 \begin{remark}
 The \concept{ARP} protocol does \textit{not} use IP headers.
 \end{remark}
 
-\section{ICMP -- Internet Control Message Protocol}
+\section{ICMP -- Internet Control Message Protocol}\label{ßec:layer3:icmp}
 
 
 % - talk about the problem of having different networks, different technologoies (ARPA, XEROX

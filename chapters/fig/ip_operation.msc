@@ -1,14 +1,16 @@
 msc {
- arcgradient = 0, width=600;
+ arcgradient = 0, width=700;
 
  N1[label="Device A"], 
  N2[label="Device B"],
  N3[label="Device C"],
- N4[label="Device D"];
+ N4[label="Device D"],
+ N5[label="Device E"];
 
- N1 => N2 [label="A.IP to D.IP\nA.MAC to B.MAC"];
- N2 => N3 [label="A.IP to D.IP\nB.MAC to C.MAC"];
- N3 => N4 [label="A.IP to D.IP\nC.MAC to D.MAC"];
+ N1 => N2 [label="A.IP to E.IP\nA.MAC2 to B.MAC1"];
+ N2 => N3 [label="A.IP to E.IP\nB.MAC2 to C.MAC1"];
+ N3 => N4 [label="A.IP to E.IP\nC.MAC2 to D.MAC1"];
+ N4 => N5 [label="A.IP to E.IP\nD.MAC2 to E.MAC1"];
  
 }
 

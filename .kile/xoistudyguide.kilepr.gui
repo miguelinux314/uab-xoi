@@ -294,8 +294,8 @@ open=false
 order=8
 
 [item:chapters/copyright.tex]
-open=false
-order=6
+open=true
+order=5
 
 [item:chapters/cover.tex]
 open=false
@@ -366,19 +366,19 @@ TextFolding={"checksum":"c97e72db6d53ecac978564f342920f2b5339b94a","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer2.tex]
-CursorColumn=71
-CursorLine=157
+CursorColumn=12
+CursorLine=23
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"421c577bf03ce3aca1a69001c3fc5b046e121e0f","ranges":[]}
+TextFolding={"checksum":"188ab4e85ff9d2a02bb9c0a02febb68ecee0b7d7","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer3.tex]
-CursorColumn=59
-CursorLine=148
+CursorColumn=2
+CursorLine=600
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"82bdec384b66298f3e1bf26fdf55639da81f7eaf","ranges":[]}
+TextFolding={"checksum":"d893bc9be4b91f965096bbf0f8d2c830f481b299","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer4.tex]
@@ -430,11 +430,11 @@ TextFolding={"checksum":"4dd9c058dbffa948fc0b714b84522d1cee2d1a88","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_tcpip.tex]
-CursorColumn=68
-CursorLine=50
+CursorColumn=15
+CursorLine=86
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"5d03be879b37bd8451f532cd3cb23f86debc9294","ranges":[]}
+TextFolding={"checksum":"b41dd1a89ad8062bb6bed73c5cea13e334cd6bb6","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_the_course.tex]
@@ -454,11 +454,11 @@ TextFolding={"checksum":"91f143c3be14dd17bede695c021a76596e65cd6b","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/copyright.tex]
-CursorColumn=100
-CursorLine=46
+CursorColumn=130
+CursorLine=47
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"3ae507467d5ff93a6a208ea9716220fb33915180","ranges":[]}
+TextFolding={"checksum":"f28105fd93a0759ba51c184d3d0423052a0ebf44","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/cover.tex]
@@ -503,7 +503,7 @@ ViMarks=
 
 [view-settings,view=0,item:main.tex]
 CursorColumn=0
-CursorLine=10
+CursorLine=35
 Dynamic Word Wrap=false
 JumpList=
 TextFolding={"checksum":"e34d1c2b0d6022dfcca4affad9efb5dc4e61b9d1","ranges":[]}
