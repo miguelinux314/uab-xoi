@@ -145,7 +145,7 @@ also for IPv6):
 \end{itemize}
 \end{exercise}
 
-\subsection{Netmasks}
+\subsection{Netmasks}\label{sec:layer3:netmasks}
 
 The $32$~bits of an IP address can be divided in two parts using a \concept{netmask}:\\[-0.25cm]
 % 
@@ -234,7 +234,7 @@ This way, \otherBase{192.168.3.0/24} correctly refers to a network, but
 \otherBase{192.168.3.1/24} refers instead to a device 
 (the one with IP \otherBase{192.168.3.1}) in that network (\otherBase{192.168.3.0/24}).
 
-\subsection{LANs and netmasks}
+\subsection{LANs and netmasks}\label{sec:layer3:lans_and_netmasks}
 
 Netmasks need \textit{not} be multiples of $8$. Consider the following example in which \\
 \otherBase{192.168.76.1/19} (a device's IP + netmask) is used to obtain its network address\\
@@ -383,7 +383,7 @@ Extend (or replace) the code so that you can:
 
 \section{IP -- Internet Protocol}
 
-\subsection{Packet format}
+\subsection{Packet format}\label{sec:layer3:ip:format}
 
 \concept{IP} defines a \concept{packet} format with a \concept{header} 
 that is \textit{at least} $20$~bytes long. Optional parts may be included,
@@ -531,7 +531,7 @@ If recognized, the router processes the datagram as follows:
 \end{remark}
 
 
-\subsection{Routing, subnets and supernets}\label{sec:layer3:routing}
+\subsection{IP routing}\label{sec:layer3:routing}
 
 When a router receives an IP \concept{datagram} to forward and that router 
 is connected to the same LAN as the destination IP address, the router performs a \concept{direct delivery} (DD).
@@ -591,15 +591,217 @@ The \concept{routing table} of a small router is presented next.
 \item How would this router forward a datagram directed to a \concept{public} IP address?\\[-0.3cm]
 
 \item Provide a destination IP address that would be processed using the \otherBase{10.49.4.0/28} row,
-and another that would be processed using the \otherBase{10.49.4.2/32}. 
+and another that would be processed using the \otherBase{10.49.4.2/32} row. 
 Think of a use case for having these two rules.
 \end{itemize}
 \end{exercise}
 
-\todo[inline]{
-- routing errors: next hop not found, cycles (TTL)
-- 
-}
+For the Internet to work, routers interconnecting LANs globally must be well configured. 
+This is sometimes not the case, which can cause \concept{routing errors}. Two important problems 
+one can encounter are:
+\begin{itemize}
+\item ``Network is unreachable'': none of the rows in the routing table uses an address block that contains the 
+  datagram's destination address. The router cannot know what the next hop should be, so the datagram is not forwarded.
+  
+\item ``Time to Live exceeded'': every time a datagram is forwarded, its \concept{TTL} is decreased, as mentioned in Section~\ref{sec:layer3:ip:format}. 
+  If several routers are configured so that the datagram follows some form of cycle (loop), the datagram would be infinitely forwarded.
+  When the \concept{TTL} reaches 0, the datagram is discarded and this error is produced.
+\end{itemize}
+
+\begin{exercise}
+Can the ``Network unreachable'' error happen if a router has a \otherBase{\textit{default}} entry?
+\end{exercise}
+
+\begin{exercise}
+Propose an example of interconnected LANs, and specify the necessary routing tables so that a datagram 
+would follow a cycle and yield the ``TTL exceeded'' error.
+\end{exercise}
+
+\subsection{Subnets and supernets}\label{sec:layer3:subnetting}
+\vspace{6em}
+\begin{bytefield}[bitwidth=1.35em]{32}
+\bitbox[]{1}{\raisebox{2.25em}{\rotatebox{90}{$\leftarrow$\otherBase{0.0.0.0}}}} &
+\bitbox[]{7}{} &
+\bitbox[]{1}{\raisebox{2.5em}{\rotatebox{90}{$\leftarrow$\otherBase{64.0.0.0}}}} &
+\bitbox[]{7}{} &
+\bitbox[]{1}{\raisebox{3.25em}{\rotatebox{90}{$\leftarrow$\otherBase{128.0.0.0}}}} & 
+\bitbox[]{7}{} &
+\bitbox[]{1}{\raisebox{3em}{\rotatebox{90}{$\leftarrow$\otherBase{192.0.0.0}}}}  &
+\bitbox[]{6}{} &
+\bitbox[]{1}{\raisebox{7em}{\rotatebox{90}{$\leftarrow$\otherBase{255.255.255.255}}}}  \\
+\\
+\bitbox{32}{\otherBase{0.0.0.0/0}} \\
+\bitbox{16}{\otherBase{0.0.0.0/1}} & \bitbox{16}{\otherBase{128.0.0.0/1}} \\
+\bitbox{8}{\otherBase{0.0.0.0/2}} & \bitbox{8}{\otherBase{64.0.0.0/2}} & \bitbox{8}{\otherBase{128.0.0.0/2}} & \bitbox{8}{\otherBase{192.0.0.0/2}} \\
+% 
+\bitbox{4}{\otherBase{/3}} & \bitbox{4}{\otherBase{/3}} & \bitbox{4}{\otherBase{/3}} & \bitbox{4}{\otherBase{/3}} &
+\bitbox{4}{\otherBase{/3}} & \bitbox{4}{\otherBase{/3}} & \bitbox{4}{\otherBase{/3}} & \bitbox{4}{\otherBase{/3}} \\
+
+\bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & 
+\bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} &
+\bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & 
+\bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} \\ 
+% 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} \\
+\end{bytefield}
+
+\conceptRef{LAN}{LANs} can be regarded as address blocks (\eg, expressed in \concept{CIDR} format)
+with two reserved addresses. Networks directly accessible through the Internet must be assigned 
+a valid block large enough to connect all required devices. To make sure no two devices in the Internet
+have the same \concept{public} IP, no two LANs can contain the same address 
+(unless the address is \conceptRef{private IP}{private}).
+
+The $2^{32}$~addresses available in \concept{IPv4} are divided in blocks by means of 
+\conceptRef{netmask}{netmasking}. Larger blocks can be divided in half, by increasing 
+the netmask length by $1$, as seen in the figure above.
+% 
+For instance, the initial block \otherBase{0.0.0.0/0} (all addresses) 
+can be split into two \otherBase{/1} blocks, each with half the \concept{IPv4} addresses 
+($2^{31}$ -- still too large for any real LAN).
+% 
+This process continues independently for each resulting blocks, and stop when the resulting 
+LAN size is desirable. 
+
+Given a \otherBase{/N} address block (\eg, from a single existing LAN), we may want to divide it 
+into subblocks and have several smaller LANs (\conceptRef{subnet}{subnets}) instead. 
+% 
+We can only use address from the original block in the subnets, but blocks can be reserved
+for future use:
+
+\begin{exercise}
+You are the administrator of the \otherBase{192.168.0.0/24} network in 
+a research lab. You would like to split into the three subnets highlighted below.
+
+\begin{itemize}
+\item Provide a diagram of the three networks, including a router connected to all three
+  via three different interfaces.\\[-0.4cm]
+  
+\item Provide the \textit{minimal} routing table of that router (these networks
+are not connected to the Internet).\\[-0.4cm]
+  
+\item How many devices can be connected in total to these three networks, including routers?\\[-0.4cm]
+
+\item How many addresses from the original network are still unassigned?\\[-0.4cm]
+
+\item What is the largest LAN we can create with the unassigned addresses?\\[-0.75cm]
+\end{itemize}
+% 
+\begin{center}
+\begin{bytefield}[bitwidth=1.375em]{32}
+\bitbox{32}{\otherBase{192.168.0.0/24}} \\
+% 
+\bitbox{16}{\otherBase{192.168.0.0/25}} 
+& \bitbox{16}{\otherBase{192.168.128.0/25}} \\
+% 
+\bitbox{8}[bgcolor=color1!40!white]{\otherBase{192.168.0.0/26}} 
+& \bitbox{8}{\otherBase{192.168.64.0/26}} 
+& \bitbox{8}{\otherBase{192.168.128.0/26}} 
+& \bitbox{8}{\otherBase{192.168.192.0/26}} \\
+% 
+\bitbox{4}{\otherBase{/27}} &
+\bitbox{4}{\otherBase{/27}} &
+\bitbox{4}{\otherBase{/27}} &
+\bitbox{4}{\otherBase{/27}} &
+\bitbox{4}{\otherBase{/27}} &
+\bitbox{4}[bgcolor=color1!40!white]{\otherBase{/27}} &
+\bitbox{4}[bgcolor=color1!40!white]{\otherBase{/27}} &
+\bitbox{4}{\otherBase{/27}}
+\end{bytefield}
+\end{center}
+\end{exercise}
+
+The process of creating multiple smaller LANs from a single address block is called \concept{subnetting}.
+The inverse process, combining multiple LANs into a larger one is called \concept{supernetting}. 
+
+Two \otherBase{/N} LANs can be combined if and only if their network addresses 
+(their IP without netmask) share the first $N-1$ bits. This process can continue all the way 
+up to a \otherBase{/0} network provided we own the IP addresses of both halves of each supernet.
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item What other network can you combine with \otherBase{192.168.0.0/24}
+to obtain a \otherBase{/23} network $N_{/23}$? What is its network address?
+
+\item $N_{/23}$ is part of exactly one \otherBase{/22} network, $N_{22}$. 
+  List all \otherBase{/24} networks you would need to own to combine them into $N_{22}$.
+\end{itemize}
+\end{exercise}
+
+\conceptRef{subnetting}{Subnetting} is often based on how many IP addresses should be 
+available in each subnet. 
+That size determines the number of bits subnet's netmask as seen in Section~\ref{sec:layer3:lans_and_netmasks}.
+Additional constraints can be added, \eg, making one subnets IP addresses the largest,
+or smaller than other subnets. 
+
+\begin{remark}
+Consider for example the \otherBase{192.168.0.0/16} network. 
+We want to subnet this network and create the smallest network that can 
+connect $100$ devices simultaneously. 
+
+As seen in Section~\ref{sec:layer3:netmasks}, this determines that 
+if a subnet must be created from a  to hold at least 100 nodes,
+at least $7$~address bits ($2^6 - 2 = 62,\,2^7=126$) 
+must be devoted to device IDs and the remaining $32-7=25$ 
+to identify the network, \ie, the subnet can be as small as a \otherBase{/25}.
+\ \\
+\begin{center}
+\begin{bytefield}[bitheight=2em]{32}
+\bitheader{0-31} \\
+\bitbox{16}{\otherBase{192.168}}
+& \bitbox{9}{Free bits}
+& \bitbox{7}{Device ID}
+\end{bytefield}
+\end{center}
+
+The remaining $9$ bits (positions $16$ to $24$) can be freely set if we
+don't have any further constraint. Choosing a value of these bits means
+choosing one if the $2^9$ networks of size \otherBase{/25} contained 
+in the original net, \otherBase{192.168.0.0/16}.
+Setting those free bits to \otherBase{0} yields the lowest IP range,
+and setting them to \otherBase{1} the highest.
+
+When multiple subnets need be created, it is essential to verify 
+that no subnet is contained in another. Otherwise, the same IP address 
+would belong to two LANs, and routing would be impossible. For instance,
+if three subnets for 100, 500 and 200 devices must be created from \otherBase{192.168.0.0/16},
+with address ranges in that order, one possible division would be:
+
+\begin{center}
+\begin{bytefield}{32}
+\bitheader{0-31}\\
+\bitbox{16}{\otherBase{192.168}} & \bitboxes{1}{0000 0000 0} & \bitbox{7}{Device ID}
+& \bitbox[]{2}{$\rightarrow$} & \bitbox[]{8}{\otherBase{192.168.0.0/25}} \\
+\bitbox{16}{\otherBase{192.168}} & \bitboxes{1}{0000 001} & \bitbox{9}{Device ID}
+& \bitbox[]{2}{$\rightarrow$} & \bitbox[]{8}{\otherBase{192.168.2.0/23}} \\
+\bitbox{16}{\otherBase{192.168}} & \bitboxes{1}{0000 0001} & \bitbox{8}{Device ID}
+& \bitbox[]{2}{$\rightarrow$} & \bitbox[]{8}{\otherBase{192.168.1.0/24}} \\
+\end{bytefield}
+\end{center}
+
+Recall that the network address of each resulting subnet has all Device ID bits set to \otherBase{0},
+and that this address is most often presented in \concept{quad decimal} format.
+\end{remark}
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item In the previous example, why are the free bits of the second subnet \otherBase{0000001} 
+and not \otherBase{0000000}?\\[-0.4cm]
+
+\item Repeat the exercise assigning the highest possible addresses to the third,
+  then the next highest possible address to the second subnet, 
+  and the lowest possible address to the first subnet.\\[-0.4cm]
+  
+\item What is the \concept{broadcast} IP in each subnet?
+\end{itemize}
+\end{exercise}
+
 
 % 
 \subsection{Fragmentation}

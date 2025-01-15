@@ -374,11 +374,11 @@ TextFolding={"checksum":"188ab4e85ff9d2a02bb9c0a02febb68ecee0b7d7","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer3.tex]
-CursorColumn=2
-CursorLine=600
+CursorColumn=0
+CursorLine=639
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"d893bc9be4b91f965096bbf0f8d2c830f481b299","ranges":[]}
+TextFolding={"checksum":"16f21a77b42c589661521da3084d9a4942e1323a","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer4.tex]
@@ -503,7 +503,7 @@ ViMarks=
 
 [view-settings,view=0,item:main.tex]
 CursorColumn=0
-CursorLine=35
+CursorLine=12
 Dynamic Word Wrap=false
 JumpList=
 TextFolding={"checksum":"e34d1c2b0d6022dfcca4affad9efb5dc4e61b9d1","ranges":[]}
