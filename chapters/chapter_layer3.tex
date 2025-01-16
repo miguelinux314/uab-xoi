@@ -465,8 +465,7 @@ passes the datagram to the destination.
 The source and destination IP addresses don't change throughout the journey.
 In contrast, MAC address change in each LAN \concept{hop}. 
 
-
-\subsection{Routers and forwarding}
+\section{IP routing}\label{sec:layer3:routing}
 
 \conceptRef{router}{Routers} are the devices in charge of forwarding IP \conceptRef{datagram}{datagrams}
 by looking at the destination IP address of each one, present in the IP \concept{header}. Routers don't need 
@@ -531,7 +530,7 @@ If recognized, the router processes the datagram as follows:
 \end{remark}
 
 
-\subsection{IP routing}\label{sec:layer3:routing}
+
 
 When a router receives an IP \concept{datagram} to forward and that router 
 is connected to the same LAN as the destination IP address, the router performs a \concept{direct delivery} (DD).
@@ -559,6 +558,8 @@ All route tables have at least the following columns:
   
 \item \textbf{Interface}: internal name of the network interface (\eg, of the Ethernet card) to use to deliver the 
   datagram. Operating Systems may use any convention they wish, as long as they can be uniquely identified in the table.
+  Common names begin with \inlineCode{eth}, \inlineCode{wlan}, \inlineCode{atm}, 
+  and more recently \inlineCode{en} and \inlineCode{wl}.
 \end{itemize}
 
 \begin{remark}
@@ -617,7 +618,7 @@ Propose an example of interconnected LANs, and specify the necessary routing tab
 would follow a cycle and yield the ``TTL exceeded'' error.
 \end{exercise}
 
-\subsection{Subnets and supernets}\label{sec:layer3:subnetting}
+\section{IP subnetting}\label{sec:layer3:subnetting}
 \vspace{6em}
 \begin{bytefield}[bitwidth=1.35em]{32}
 \bitbox[]{1}{\raisebox{2.25em}{\rotatebox{90}{$\leftarrow$\otherBase{0.0.0.0}}}} &
@@ -804,10 +805,98 @@ and not \otherBase{0000000}?\\[-0.4cm]
 
 
 % 
-\subsection{Fragmentation}
+\section{IP fragmentation}
 \label{sec:layer3:fragmentation}
-% 
-% \subsection{Routing}
+
+Before a device (including \conceptRef{router}{routers} and regular computers)
+can send a \concept{datagram} through a LAN, it needs to verify that its length in bytes 
+is not larger than that LAN's \concept{MTU}. Otherwise, the datagram needs to be 
+\conceptRef{fragmentation}{fragmented} into two or more smaller datagrams that do fit in the LAN's MTU.
+
+The smaller fragments are complete datagrams with header and payload. Therefore, 
+more fragments imply a larger \concept{overhead}. Each of these fragments is sent 
+and forwarded individually like any other datagram and may need to be refragmented 
+if it passes through another LAN with even smaller MTU.
+
+When a datagram needs to be fragmented fragmented, the following steps are followed 
+by the network stack:
+\begin{enumerate}
+
+\item The \concept{DF} (don't fragment) flag of the original datagram is checked. 
+    If DF=\otherBase{1} but fragmentation is needed, the datagram is not fragmented 
+    and an error is produced.\\[-0.2cm]
+
+\item \conceptRef{payload}{Payload} data are divided in chunks of size at most $S$, so that $S + H = MTU$ 
+  ($H$ is the datagram header length, typically $20$~bytes). Only the last chunk
+  may have size less than $S$. This guarantees that no fragment exceeds the MTU,
+  which is the very purpose of fragmentation.\\[-0.2cm]
+  
+\item The original datagram's \concept{header} is copied into the fragments' with the following modifications:
+  \begin{itemize}
+  \item The \concept{Datagram ID} is set to the same value in all fragments of a datagram. 
+    The OS makes sure to pick an ID that has not been recently used by its network stack.
+    The Datagram ID field is ignored for non-fragmented datagrams.\\[-0.3cm]
+    
+  \item The \concept{Offset} field in each fragment indicates the position (byte index)
+    of its first payload data byte in the unfragmented datagram's payload.
+    This field is not expressed in bytes, but in $4$-byte words.
+    %     
+    Given an offset in bytes, the \concept{Offset} field is calculated dividing by $4$.
+    Therefore, fragment offsets can only be multiples of $4$.\\[-0.3cm]
+    
+  \item The \concept{MF} (more fragments) flag is set to \otherBase{1} (enabled) 
+    in all fragments except for the last one. This needs to be true even if one or more
+    fragments are re-fragmented in a successive LAN. Thus, when fragmenting a 
+    datagram $D$ with MF=\otherBase{1}, none of the resulting fragments\\[-0.2cm]
+  \end{itemize}
+  
+\item Fragment datagrams are sent the same way a regular datagram would.
+  Fragments may be re-fragmented, but are only re-assembled by the destination host.
+  
+\end{enumerate}
+
+
+\begin{exercise}
+Given the \concept{Offset} and the \concept{MF} flag, how can we differentiate 
+a datagram that has not been fragmented from a datagram fragment?
+\end{exercise}
+
+\begin{exercise}
+Why would it be problematic to set MF=\otherBase{0} in the last datagram 
+produced by fragmenting a datagram with MF=\otherBase{1}?
+\end{exercise}
+
+\begin{exercise}
+A device needs to send a datagram with IP header size $20$~bytes and payload length $2170$~bytes.
+The device is connected to LAN1, and the datagram needs to traverse 
+LAN2 and LAN3 until it arrives to the destination LAN4. The MTUs of these LANs is as follows:
+\begin{center}
+\begin{tabular}{r cccc}
+\toprule
+\textbf{LAN} & LAN1 & LAN2 & LAN3 & LAN4 \\
+\textbf{MTU} & 1500 & 710  & 4096 & 864  \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{itemize}
+\item Provide the offset and payload length (both in bytes),
+ as well as the MF and DF flags of the $4$ datagrams
+ that arrive to LAN4 as a result of sending the datagram
+ (assuming no losses or duplications).
+  
+\item Can the source device know the MTUs of the intermediate and destination 
+LANs?
+\end{itemize}
+
+\end{exercise}
+
+
+\begin{exercise}
+Datagrams containing fragments may arrive duplicated and/or reordered. 
+How should the receiving network stack deal with these datagrams?
+\end{exercise}
+
 
 \section{ARP -- Address Resolution Protocol}\label{sec:layer3:arp}
 \begin{remark}

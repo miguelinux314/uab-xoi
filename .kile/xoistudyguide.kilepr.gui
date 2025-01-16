@@ -250,7 +250,7 @@ open=false
 order=4
 
 [item:chapters/chapter_layer2.tex]
-open=true
+open=false
 order=1
 
 [item:chapters/chapter_layer3.tex]
@@ -274,7 +274,7 @@ open=false
 order=8
 
 [item:chapters/chapter_stack_layers.tex]
-open=true
+open=false
 order=2
 
 [item:chapters/chapter_tcp_ip_stack.tex]
@@ -282,7 +282,7 @@ open=true
 order=4
 
 [item:chapters/chapter_tcpip.tex]
-open=true
+open=false
 order=3
 
 [item:chapters/chapter_the_course.tex]
@@ -294,7 +294,7 @@ open=false
 order=8
 
 [item:chapters/copyright.tex]
-open=true
+open=false
 order=5
 
 [item:chapters/cover.tex]
@@ -314,7 +314,7 @@ open=false
 order=-1
 
 [item:main.tex]
-open=true
+open=false
 order=4
 
 [item:style/style.tex]
@@ -374,11 +374,11 @@ TextFolding={"checksum":"188ab4e85ff9d2a02bb9c0a02febb68ecee0b7d7","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer3.tex]
-CursorColumn=0
-CursorLine=639
+CursorColumn=14
+CursorLine=857
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"16f21a77b42c589661521da3084d9a4942e1323a","ranges":[]}
+TextFolding={"checksum":"a9b3ef91ad69738df085723628f889e43f70e526","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer4.tex]
