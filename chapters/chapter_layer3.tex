@@ -602,11 +602,16 @@ This is sometimes not the case, which can cause \concept{routing errors}. Two im
 one can encounter are:
 \begin{itemize}
 \item ``Network is unreachable'': none of the rows in the routing table uses an address block that contains the 
-  datagram's destination address. The router cannot know what the next hop should be, so the datagram is not forwarded.
+  datagram's destination address. 
+  The router cannot know what the next hop should be, so the datagram is not forwarded.
+  This causes an ``ICMP Destination Unreachable'' error (see Section~\ref{sec:layer3:icmp}).
   
-\item ``Time to Live exceeded'': every time a datagram is forwarded, its \concept{TTL} is decreased, as mentioned in Section~\ref{sec:layer3:ip:format}. 
-  If several routers are configured so that the datagram follows some form of cycle (loop), the datagram would be infinitely forwarded.
+\item ``Time to Live exceeded'': every time a datagram is forwarded,
+  its \concept{TTL} is decreased, as mentioned in Section~\ref{sec:layer3:ip:format}. 
+  If several routers are configured so that the datagram follows some form of cycle (loop), 
+  the datagram would be infinitely forwarded.
   When the \concept{TTL} reaches 0, the datagram is discarded and this error is produced.
+  This causes an ``ICMP Time Exceeded'' error (see Section~\ref{sec:layer3:icmp}).
 \end{itemize}
 
 \begin{exercise}
@@ -899,13 +904,216 @@ How should the receiving network stack deal with these datagrams?
 
 
 \section{ARP -- Address Resolution Protocol}\label{sec:layer3:arp}
+
+The Address Resolution Protocol (\concept{ARP}) is used by Layer~3 (\concept{IP})
+to obtain the destination \concept{MAC} (physical) address corresponding to a known IP address.
+
+ARP packets are sent as the payload of Layer~2 (\eg, Ethernet) frames. 
+ARP packets are \textit{not} datagrams and do \textit{not} contain IP headers.
+
+\begin{remark}
+The IP queried by the Layer~3 is that of the \concept{router} for \concept{indirect delivery} and of the destination device
+for \concept{indirect delivery}. Also remember that the datagram's destination IP does not change during forwarding.
+\end{remark}
+
+\subsection{Packet format}
+
+\vspace{0.2cm}
+\begin{bytefield}[bitheight=3em,bitwidth=1.1em]{32}
+\bitheader{0-31}\\
+% 
+\bitbox{16}{Layer~2 address type \\ (\otherBase{1}: Ethernet)} 
+& \bitbox{16}{Layer~3 address type \\ (\otherBase{0x0800}: IP)} \\ 
+% 
+\bitbox{8}{Layer~2\\address length} & \bitbox{8}{Layer~3\\address length} 
+& \bitbox{16}{ARP operation\\(\otherBase{1}: request, \otherBase{2}: reply)} \\
+% 
+\bitbox[tl]{16}[bgcolor=color2!50!white]{Sender Layer~2 address} &
+\bitbox[trb]{16}[bgcolor=color2!50!white]{} \\
+\bitbox[lbr]{16}[bgcolor=color2!50!white]{} 
+& \bitbox{16}[bgcolor=color2!50!white]{Sender Layer~3 address ...} \\
+\bitbox{16}[bgcolor=color2!50!white]{... Sender Layer~3 address}
+& \bitbox[ltr]{16}[bgcolor=color1!50!white]{Receiver Layer~2 address} \\
+\bitbox[tlb]{16}[bgcolor=color1!50!white]{} & \bitbox[rb]{16}[bgcolor=color1!50!white]{} \\
+\bitbox{32}[bgcolor=color1!50!white]{Receiver Layer~3 address}
+\end{bytefield}
+
+
 \begin{remark}
 The \concept{ARP} protocol does \textit{not} use IP headers.
 \end{remark}
+\begin{remark}
+``Sender'' and ``receiver'' should be interpreted as ``... of this ARP message''.
+\end{remark}
 
-\section{ICMP -- Internet Control Message Protocol}\label{ßec:layer3:icmp}
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item What is the purpose of the first $4$ fields of an ARP packet?
+\item What effect do they have in the remaining fields?
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}
+How many valid addresses appear in an Ethernet frame carrying an ARP request?
+And in an ARP reply?
+\end{exercise}
 
 
-% - talk about the problem of having different networks, different technologoies (ARPA, XEROX
-% - longest prefix matching for routing tables
-% - first draft: 8-bit network addresses (a bit off!)
+\subsection{Operation}
+
+When a node \node{A} needs to translate an IP address into a MAC address, it sends a \concept{broadcast} frame
+(destination MAC \otherBase{ff:ff:ff:ff:ff:ff} containing an ARP packet. 
+In that ARP packet, the operation is set to \inlineCode{REQUEST} (\otherBase{1}),
+the destination IP is the one being translated, and
+the destination MAC is set to \otherBase{00:00:00:00:00:00}.
+
+When a network stack \node{B} sees an ARP request packet, 
+it sends an ARP reply packet only if 
+its configure IP is that of ARP's destination IP address.
+That reply is identical to the request with these changes:
+\begin{itemize}
+\item The OP code of the ARP packet is set to \inlineCode{REPLY} (\otherBase{2}).
+\item ``Source'' now refers to \node{B} (it referred to \node{A} in the request),
+  and ``destination'' to \node{A}.
+\item All $4$ addresses of the packet are filled in a reply 
+  (they may not be \otherBase{00:00:00:00:00:00}).
+\end{itemize}
+
+\begin{exercise}
+When the \concept{ip route} command is executed in a node, it contains:
+
+\begin{verbatim}
+default via 192.168.0.1 dev wlp5s0 src 192.168.0.2 metric 600 [...]
+\end{verbatim}
+
+In turn, the \concept{ip link} command contains the following lines:
+
+\begin{verbatim}
+2: enp42s0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 state DOWN [...]
+    link/ether d8:43:ae:61:ed:a4 brd ff:ff:ff:ff:ff:ff
+3: wlp5s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 state UP [...]
+    link/ether 5c:e4:3a:18:97:1b brd ff:ff:ff:ff:ff:ff 
+\end{verbatim}
+
+\begin{itemize}
+\item The node needs to perform the \concept{indirect delivery} of a datagram,
+but does not know the MAC address of its gateway router. Indicate the value of 
+all fields (including Ethernet header and ARP message) of the ARP request 
+that the node will send to get the router's MAC.
+
+\item Describe the field values of the ARP reply (you can use any valid address
+      for the router's MAC address).
+\end{itemize}
+\end{exercise}
+
+The MAC address associated to an IP is not likely to change very often.
+When a valid ARP response is received, the OS updates a 
+\concept{cache} adding (or updating) the received IP $\leftrightarrow$ MAC translations.
+% 
+If the OS needs to send a datagram to that IP before that cache entry expires,
+the table's MAC address is used directly without requiring additional ARP messages.
+% 
+The \inlineCode{ip neighbor} command shows the contents of that table, \eg,
+\begin{verbatim}
+192.168.0.1 dev wlp5s0 lladdr cc:2d:14:fc:22:60 REACHABLE
+\end{verbatim}
+
+\begin{remark}
+ARP can be used to \concept{scan} for used IPs in a LAN. 
+In particular, a node can use item ARP to verify that its configured IP address is not being used by anyone else.
+\end{remark}
+
+ARP was proposed at a time where network security was not an issue yet. As a result,
+it does not provide any mechanism to verify that a given ARP reply is correct.
+% 
+This can be exploited to \concept{poison} a device's ARP cache table by sending 
+\concept{gratuitous} (unsolicited) ARP replies to the victim with 
+phony IP $\leftrightarrow$ MAC associations.
+
+Modern OSs will typically ignore unsolicited ARP replies, 
+and modern \conceptRef{switch}{switches} will filter ARP messages not matching the
+actual IP and MAC addresses. Notwithstanding, IPv6 ditches ARP in favor of 
+the more complex Neighbor Discovery (ND) protocol.
+
+\begin{exercise}
+What impact could it have to poison a victim's ARP cache, 
+changing the gateway router's cached MAC to the attacker's MAC?
+\end{exercise}
+
+\section{ICMP -- Internet Control Message Protocol}\label{sec:layer3:icmp}
+
+The Internet Control Message Protocol (\concept{ICMP}) is an auxiliary
+protocol (technically part of \concept{IP}) that is used to test and debug
+(inter)network communications. 
+
+
+\subsection{Packet format}
+
+ICMP messages are encapsulated as the payload of IP datagrams.
+In the IP header, the \conceptRef{payload}{Payload protocol} is set to \otherBase{0x01} (``ICMP'').\\[-0.2cm]
+
+\begin{center}
+\begin{bytefield}[bitwidth=1.2em]{32}
+\bitheader{0-31}\\
+\bitbox{32}[bitheight=3em]{IP Header (see \ref{sec:layer3:ip:format})} \\
+\bitbox{8}{ICMP type} & \bitbox{8}{ICMP subtype} & \bitbox{16}{ICMP checksum} \\
+\bitbox{32}{Rest of ICMP header (mandatory, depends on type)} \\
+\bitbox[tlr]{32}[bitheight=2.5em]{ICMP data (optional, variable length, depends on type) ...} \\
+\bitbox[lbr]{8}{... ICMP data} & \bitbox[lt]{24}{}
+\end{bytefield}
+\end{center}
+
+The most common ICMP type/subtype combinations you are likely to find nowadays:
+\begin{center}
+\begin{tabular}{ccc l}
+\toprule
+\textbf{ICMP type} & \textbf{ICMP subtype} & \textbf{Error?} & \textbf{Meaning} \\
+\toprule
+$8$ & $0$       &              & Echo Request ICMP message (\concept{ping}). \\
+$0$ & $0$       &              & Echo Reply ICMP message (\concept{ping} reply). \\
+$3$ & $0$--$16$ & $\checkmark$ & Destination Unreachable. Subtype explains cause. \\
+$11$ & $0$      & $\checkmark$ & Time to Live Exceeded: \concept{TTL} reached $0$.  \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+For these error ICMP messages, the ICMP data field contains information about the 
+datagram that caused that error ICMP message:\\[-0.2cm]
+
+\begin{center}
+\begin{bytefield}[bitwidth=1.2em]{32}
+\bitheader{0-31} \\
+\bitbox{32}[bitheight=3em]{Problematic datagram's complete IP header} \\
+\bitbox{32}[bitheight=2.5em]{Problematic datagram's first $8$~payload bytes} \\
+\end{bytefield}
+\end{center}
+
+For echo request and reply messages, the ICMP data field is arbitrary within the limits
+of IP datagrams. Fragmentation of ICMP datagrams (\eg, large ping payloads) is possible,
+but many routers will ignored ICMP fragments.
+
+\subsection{Operation}
+
+ICMP error messages are sent by \conceptRef{router}{routers} and regular hosts,
+triggered by other datagrams:
+\begin{itemize}
+\item The ``Destination unreachable'' family of messages is sent when a datagram cannot 
+be delivered to its destination, \eg, due to a missconfigured \concept{routing table}, 
+a closed \concept{port} (see Section~\ref{sec:layer4}), or simply the destination
+host not being turned on.
+
+\item The ``TTL exceeded'' message is sent when a router receives a datagram for 
+\concept{indirect delivery} with \concept{TTL}$=1$ (see Section~\ref{sec:layer3:routing}).
+\end{itemize}
+
+To prevent infinite amounts of traffic, ICMP errors are \textit{not} produced
+when the offending datagrams are:
+\begin{itemize}
+\item ICMP datagrams (error or not).
+\item Datagram fragments, except for the first one.
+\end{itemize}
+
+\begin{exercise}
+How can we differentiate the first datagram fragment from the following fragments?
+\end{exercise}
