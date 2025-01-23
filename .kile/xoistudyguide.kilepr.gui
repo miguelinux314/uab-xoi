@@ -234,8 +234,8 @@ open=false
 order=-1
 
 [item:alias.tex]
-open=false
-order=2
+open=true
+order=1
 
 [item:chapters/bibliography.tex]
 open=false
@@ -250,8 +250,8 @@ open=false
 order=4
 
 [item:chapters/chapter_layer2.tex]
-open=false
-order=1
+open=true
+order=2
 
 [item:chapters/chapter_layer3.tex]
 open=true
@@ -334,8 +334,8 @@ TextFolding={"checksum":"4e63a8097b1dc6f3a5cf5f333291f4413bd228e6","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:alias.tex]
-CursorColumn=49
-CursorLine=4
+CursorColumn=13
+CursorLine=24
 Dynamic Word Wrap=false
 JumpList=
 TextFolding={"checksum":"998aef3138a8b1295f09e27abbaeab65c1770142","ranges":[]}
@@ -367,18 +367,18 @@ ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer2.tex]
 CursorColumn=12
-CursorLine=23
+CursorLine=153
 Dynamic Word Wrap=false
 JumpList=
 TextFolding={"checksum":"188ab4e85ff9d2a02bb9c0a02febb68ecee0b7d7","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer3.tex]
-CursorColumn=14
-CursorLine=857
+CursorColumn=49
+CursorLine=994
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"a9b3ef91ad69738df085723628f889e43f70e526","ranges":[]}
+TextFolding={"checksum":"10cff8d5c3dcd2b96c23541617d0967517739d1e","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer4.tex]
