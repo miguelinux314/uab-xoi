@@ -2,7 +2,7 @@
 kile_livePreviewEnabled=false
 kile_livePreviewStatusUserSpecified=true
 kile_livePreviewTool=LivePreview-PDFLaTeX
-lastDocument=chapters/chapter_layer3.tex
+lastDocument=chapters/chapter_layer4.tex
 
 [document-settings,item:Makefile]
 Bookmarks=
@@ -166,6 +166,15 @@ Indentation Mode=normal
 Mode=LaTeX
 Mode Set By User=false
 
+[document-settings,item:chapters/fig/3_way_handshake.msc]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=None
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=Normal
+Mode Set By User=false
+
 [document-settings,item:chapters/fig/internet_timeline.csv]
 Bookmarks=
 Encoding=UTF-8
@@ -235,7 +244,7 @@ order=-1
 
 [item:alias.tex]
 open=true
-order=1
+order=8
 
 [item:chapters/bibliography.tex]
 open=false
@@ -251,19 +260,19 @@ order=4
 
 [item:chapters/chapter_layer2.tex]
 open=true
-order=2
+order=3
 
 [item:chapters/chapter_layer3.tex]
 open=true
-order=0
+order=2
 
 [item:chapters/chapter_layer4.tex]
-open=false
-order=-1
+open=true
+order=0
 
 [item:chapters/chapter_layer7.tex]
-open=false
-order=-1
+open=true
+order=6
 
 [item:chapters/chapter_packets.tex]
 open=false
@@ -294,12 +303,16 @@ open=false
 order=8
 
 [item:chapters/copyright.tex]
-open=false
+open=true
 order=5
 
 [item:chapters/cover.tex]
 open=false
 order=-1
+
+[item:chapters/fig/3_way_handshake.msc]
+open=true
+order=1
 
 [item:chapters/fig/swimlane_example.msc]
 open=false
@@ -314,12 +327,12 @@ open=false
 order=-1
 
 [item:main.tex]
-open=false
+open=true
 order=4
 
 [item:style/style.tex]
-open=false
-order=3
+open=true
+order=7
 
 [item:xoistudyguide.kilepr]
 open=false
@@ -334,11 +347,11 @@ TextFolding={"checksum":"4e63a8097b1dc6f3a5cf5f333291f4413bd228e6","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:alias.tex]
-CursorColumn=13
-CursorLine=24
+CursorColumn=24
+CursorLine=28
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"998aef3138a8b1295f09e27abbaeab65c1770142","ranges":[]}
+TextFolding={"checksum":"bb602c229405af4efe87ef7c5d6ee80386816300","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/bibliography.tex]
@@ -366,31 +379,31 @@ TextFolding={"checksum":"c97e72db6d53ecac978564f342920f2b5339b94a","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer2.tex]
-CursorColumn=12
-CursorLine=153
+CursorColumn=2
+CursorLine=212
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"188ab4e85ff9d2a02bb9c0a02febb68ecee0b7d7","ranges":[]}
+TextFolding={"checksum":"988a92a99ed19128a5d30fdca4282385bac1d5dc","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer3.tex]
-CursorColumn=49
-CursorLine=994
+CursorColumn=0
+CursorLine=460
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"10cff8d5c3dcd2b96c23541617d0967517739d1e","ranges":[]}
+TextFolding={"checksum":"58f67ce300a3c69c2541ac92577f288efe6361fa","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer4.tex]
-CursorColumn=18
-CursorLine=1
+CursorColumn=41
+CursorLine=611
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"b9a5f652982fa2188c2110cc818f3cdc5b112a07","ranges":[]}
+TextFolding={"checksum":"500f8773a1923325077bc8f39b8384be608e56b7","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer7.tex]
-CursorColumn=43
+CursorColumn=19
 CursorLine=0
 Dynamic Word Wrap=false
 JumpList=
@@ -454,11 +467,11 @@ TextFolding={"checksum":"91f143c3be14dd17bede695c021a76596e65cd6b","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/copyright.tex]
-CursorColumn=130
-CursorLine=47
+CursorColumn=110
+CursorLine=48
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"f28105fd93a0759ba51c184d3d0423052a0ebf44","ranges":[]}
+TextFolding={"checksum":"f9ac35dc3e5985bbff630013fdf79ce06f851c69","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/cover.tex]
@@ -467,6 +480,14 @@ CursorLine=0
 Dynamic Word Wrap=false
 JumpList=
 TextFolding={"checksum":"b45d6445229a658ecceecfa770618a45bcb74985","ranges":[]}
+ViMarks=
+
+[view-settings,view=0,item:chapters/fig/3_way_handshake.msc]
+CursorColumn=8
+CursorLine=21
+Dynamic Word Wrap=false
+JumpList=
+TextFolding={"checksum":"26765e41b7353e3ff4a5ad5c3168bee63ee374b5","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/fig/internet_timeline.csv]
@@ -506,12 +527,12 @@ CursorColumn=0
 CursorLine=12
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"e34d1c2b0d6022dfcca4affad9efb5dc4e61b9d1","ranges":[]}
+TextFolding={"checksum":"9109506149b1018808551f09db4d6b63f945d1ee","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:style/style.tex]
-CursorColumn=18
-CursorLine=40
+CursorColumn=0
+CursorLine=0
 Dynamic Word Wrap=false
 JumpList=
 TextFolding={"checksum":"81b12c707a8c4304a050923fb87419c506d9dbb7","ranges":[]}

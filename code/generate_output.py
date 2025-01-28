@@ -8,11 +8,11 @@ import subprocess
 import threading
 
 etherserver_path = "snippets/ethernetserver.py"
+udpserver_path = "snippets/udpserver.py"
 
 
 def run_ether_server(path=etherserver_path):
     """Run the ether server first so that it receives the client's messages."""
-    invocation = f"python {os.path.abspath(path)}"
     completed: subprocess.CompletedProcess = subprocess.run(
         ["python", os.path.abspath(path)], stdout=subprocess.PIPE)
     if completed.returncode != 0:
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     time.sleep(2)
 
     for path in (p for p in glob.glob(os.path.join("snippets", "**", "*.py"), recursive=True)
-                 if p != etherserver_path):
+                 if p not in (etherserver_path, udpserver_path)):
         print(f"Running {path}...")
         completed: subprocess.CompletedProcess = subprocess.run(
             ["python", os.path.abspath(path)], stdout=subprocess.PIPE)

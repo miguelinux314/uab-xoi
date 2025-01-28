@@ -1,0 +1,54 @@
+msc {
+  arcgradient = 0, width=600;
+ 
+ A[label="Alice's socket"], 
+ Adev[label="Alice's NIC"],
+ Bdev[label="Bob's NIC"],
+ B[label="Bob's socket"];
+
+ A note A [label="Alice's socket state",textbgcolor="#f9b28c"],
+ Adev note Bdev [label="Network traffic (segments)",textbgcolor="#80b1c5"],
+ B note B [label="Bob's socket state",textbgcolor="#f9b28c"]
+ ;
+
+
+ A box A [label="ESTABLISHED"],
+ B box B [label="ESTABLISHED"];
+ 
+ --- [label="    Alice's app is done sending data    "];
+ 
+ A => A [label="close()"];
+ 
+ A box A [label="FIN_WAIT_1"],
+ Adev => Bdev [label="\n[ACK, FIN]\n#seq=1000, len=0,\n#ack=25000"];
+ 
+ --- [label="    Bob's app still needs to send some data    "];
+ 
+ B box B [label="CLOSE_WAIT"],
+  Bdev => Adev [label="\n[ACK]\n#seq=25000, len=0,\n#ack=1001"];
+A box A [label="FIN_WAIT_2"];
+  
+ ...;
+ B => B [label="send()"],
+ Bdev => Adev [label="\n[ACK]\n#seq=25000, len=100,\n#ack=1001"];
+ Adev => Bdev [label="\n[ACK]\n#seq=1001, len=0,\n#ack=25100"];
+ 
+ B => B [label="send()"],
+ Bdev => Adev [label="\n[ACK]\n#seq=25100, len=100,\n#ack=1001"];
+ Adev => Bdev [label="\n[ACK]\n#seq=1001, len=0,\n#ack=25200"];
+ ...;
+ 
+ --- [label="    Bob's app is ready to close the connection    "];
+ 
+ B => B [label="close()"];
+ 
+ B box B [label="LAST_ACK"],
+ Bdev => Adev [label="\n[ACK, FIN]\n#seq=25200, len=0,\n#ack=1001"];
+ A box A [label="TIME_WAIT"],
+ Adev => Bdev [label="\n[ACK]\n#seq=1001, len=0,\n#ack=25201"];
+ 
+ B box B [label="CLOSED"];
+ 
+ A box A [label="CLOSED"];
+}
+

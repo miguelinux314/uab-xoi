@@ -1,0 +1,17 @@
+msc {
+ arcgradient = 0, width=650;
+
+ A[label="Alice"], B[label="Bob"];
+
+ A => B [label="#seq = A+100, len = 100, #ack = B+500"];
+ A => B [label="#seq = A+200, len = 100, #ack = B+500"];
+ A => B [label="#seq = A+300, len = 100, #ack = B+500"];
+ 
+ |||;
+ |||;
+ --- [label="   Bob's OS sees 3 new segments from Alice   "];
+ B => A [label="#seq = B+500, len = 10, #ack = A+400"];
+ A => B [label="#seq = A+400, len = 100, #ack = B+500"];
+ A => B [label="#seq = A+500, len = 100, #ack = B+500"];
+}
+

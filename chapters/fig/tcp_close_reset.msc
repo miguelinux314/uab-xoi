@@ -1,0 +1,23 @@
+msc {
+   arcgradient = 0, width=600;
+ 
+ A[label="Alice's socket"], 
+ Adev[label="Alice's NIC"],
+ Bdev[label="Bob's NIC"],
+ B[label="Bob's socket"];
+ 
+  A note A [label="Alice's socket state",textbgcolor="#f9b28c"],
+ Adev note Bdev [label="Network traffic (segments)",textbgcolor="#80b1c5"],
+ B note B [label="Bob's socket state",textbgcolor="#f9b28c"]
+ ;
+
+ B box B [label="ESTABLISHED"],
+ A box A [label="ESTABLISHED"];
+ 
+ --- [label="    Bob's app crashed    "];
+ 
+ Bdev => Adev [label="[RST]"], 
+ B box B [label="CLOSED"],
+ A box A [label="CLOSED"];
+}
+

@@ -1,0 +1,17 @@
+msc {
+ arcgradient = 0, width=650;
+
+ A[label="Alice"], B[label="Bob"];
+
+ A => B [label="#seq = A+100, len = 100,\n#ack = B+500"];
+ B -x A [label="#seq = B+500, len = 0,\n#ack = A+200"];
+ 
+ |||;
+ --- [label="  timeout for #seq=A+100 expires  "];
+ A -x B [label="#seq = A+100, len = 100,\n#ack = B+500"];
+ |||;
+ --- [label="  timeout expires again  "];
+ A => B [label="#seq = A+100, len = 100,\n#ack = B+500"];
+ B => A [label="#seq = B+500, len = 0,\n#ack = A+200"];
+}
+

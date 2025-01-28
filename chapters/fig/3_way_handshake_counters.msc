@@ -1,0 +1,17 @@
+msc {
+ arcgradient = 0, width=600;
+ 
+ A[label="Client"], 
+ B[label="Server"];
+
+ 
+ A => B [label="SYN\n#seq = A"];
+
+
+ B => A [label="SYN, ACK\n#seq=B, #ack=A+1"];
+ 
+ 
+ A => B [label="ACK\n#seq=A+1, #ack=B+1"];
+ 
+}
+

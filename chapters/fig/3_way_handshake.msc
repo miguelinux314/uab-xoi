@@ -1,0 +1,36 @@
+msc {
+ arcgradient = 0, width=600;
+ 
+ A[label="Client socket"], 
+ Adev[label="Client NIC"],
+ Bdev[label="Server NIC"],
+ B[label="Server socket"];
+
+ A note A [label="Client socket state",textbgcolor="#f9b28c"],
+ Adev note Bdev [label="Network traffic (segments)",textbgcolor="#80b1c5"],
+ B note B [label="Server socket state",textbgcolor="#f9b28c"]
+ ;
+ 
+ 
+ A box A [label="CLOSED"], 
+ B box B [label="CLOSED"];
+ 
+ B => B [label="s.listen()"];
+ B box B [label="LISTEN"];
+ 
+ A => A [label="s.connect()"],
+ B => B [label="s.accept()"];
+ 
+ A box A [label="SYN SENT"],
+ Adev => Bdev [label="SYN"];
+ 
+ B box B [label="SYN RECEIVED"],
+ Bdev => Adev [label="SYN, ACK"];
+ 
+ A box A [label="ESTABLISHED"],
+ Adev => Bdev [label="ACK"];
+ 
+ B box B [label="ESTABLISHED"];
+ 
+}
+

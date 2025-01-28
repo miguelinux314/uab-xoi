@@ -99,13 +99,17 @@ Ethernet Layer~2 defines the following format, used in all messages.
 Packets of this type are called \conceptRef{frame}{frames}:\\[-0.25cm]
 
 \begin{center}
-\begin{bytefield}{48}
+\begin{bytefield}[bitheight=3em]{48}
 \bitheader{0,7,8,15,16,23,24,31,32,39,40,47}\\
 \bitbox{48}{Destination MAC Address} \\ 
 \bitbox{48}{Source MAC Address} \\
-\bitbox{16}{Payload type} & \bitbox[tr]{32}{Payload data (variable length)} \\
+\bitbox{16}{Payload type} & 
+\bitbox[tlr]{32}[bitheight=3em]{Payload data\\{\scriptsize(variable length, byte aligned)}} \\
+\bitbox[lbr]{40}{\hspace{7cm}\raisebox{0.25cm}{$\vdots$}} & \bitbox[lt]{8}{} \\
+% 
+% \bitbox[tr]{32}{Payload data (variable length)} \\
 % \bitbox[lr]{48}{\raisebox{1em}{$\vdots$}} \\
-\bitbox[lbr]{24}{} & \bitbox[t]{24}{} 
+% \bitbox[lbr]{24}{} & \bitbox[t]{24}{} 
 \end{bytefield}
 \end{center}
 
@@ -201,6 +205,7 @@ to your python binary with
 % 
 After that, you can run \inlineCode{./venv/bin/python script.py} directly without \inlineCode{sudo}.\\[-0.5cm]
 \end{remark}
+\label{ex:layer2:echo}
 \end{exercise}
 
 \begin{center}

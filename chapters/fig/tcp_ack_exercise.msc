@@ -1,0 +1,13 @@
+msc {
+ arcgradient = 0;
+
+ A[label="Alice"], B[label="Bob"];
+
+ A => B [label="Flags: SYN. #seq=(a), len=0" ];
+ B => A [label="Flags: SYN, ACK. #seq=(b), len=0, #ack=(c)"];
+ A => B [label="Flags: ACK. #seq=(d), len=0, #ack=(e)"];
+ A => B [label="Flags: ACK. #seq=(f), len=100, #ack=(g)"];
+ A => B [label="Flags: ACK. #seq=(h), len=100, #ack=(i)"];
+ B => A [label="Flags: ACK. #seq=6100, len=100, #ack=1500"];
+}
+

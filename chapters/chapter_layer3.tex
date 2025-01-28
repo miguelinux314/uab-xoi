@@ -413,15 +413,15 @@ The payload can be empty, so the minimum datagram size is $20$~bytes.\\
   \bitbox{32}{Destination IP Address}
 \end{rightwordgroup} \\
 %   
-\begin{rightwordgroup}[curlyshrinkage=10pt]{Optional Header\\{\scriptsize($4x$~bytes)}}
+\begin{rightwordgroup}[curlyshrinkage=10pt]{Optional Header\\{\scriptsize($4$ byte words)}}
 \bitbox[tlr]{32}{Options\\{\scriptsize(variable length, optional)}} \\
 \bitbox[lbr]{24}{} &
 \bitbox{8}{Padding to\\$32$ bits}
 \end{rightwordgroup} \\
 % 
-\begin{rightwordgroup}[curlyshrinkage=10pt]{Payload\\{\scriptsize($y$~bytes)}}
-\bitbox[tlr]{32}{Payload data} \\
-\bitbox[lbr]{8}{} & \bitbox[t]{24}{} 
+\begin{rightwordgroup}[curlyshrinkage=10pt]{Payload}
+\bitbox[tlr]{32}[bitheight=3em]{Payload data\\{\scriptsize(variable length, byte aligned)}} \\
+\bitbox[lbr]{24}{\hspace{3cm}\raisebox{0.25cm}{$\vdots$}} & \bitbox[lt]{8}{}
 \end{rightwordgroup}
 \end{bytefield}
 \end{center}
@@ -1059,8 +1059,8 @@ In the IP header, the \conceptRef{payload}{Payload protocol} is set to \otherBas
 \bitbox{32}[bitheight=3em]{IP Header (see \ref{sec:layer3:ip:format})} \\
 \bitbox{8}{ICMP type} & \bitbox{8}{ICMP subtype} & \bitbox{16}{ICMP checksum} \\
 \bitbox{32}{Rest of ICMP header (mandatory, depends on type)} \\
-\bitbox[tlr]{32}[bitheight=2.5em]{ICMP data (optional, variable length, depends on type) ...} \\
-\bitbox[lbr]{8}{... ICMP data} & \bitbox[lt]{24}{}
+\bitbox[tlr]{32}[bitheight=3em]{ICMP data\\{\scriptsize(variable length, byte aligned)}} \\
+\bitbox[lbr]{24}{\hspace{3cm}\raisebox{0.25cm}{$\vdots$}} & \bitbox[lt]{8}{} \\
 \end{bytefield}
 \end{center}
 
@@ -1083,7 +1083,7 @@ datagram that caused that error ICMP message:\\[-0.2cm]
 
 \begin{center}
 \begin{bytefield}[bitwidth=1.2em]{32}
-\bitheader{0-31} \\
+\bitheader{0,7,8,15,16,23,24,31}\\
 \bitbox{32}[bitheight=3em]{Problematic datagram's complete IP header} \\
 \bitbox{32}[bitheight=2.5em]{Problematic datagram's first $8$~payload bytes} \\
 \end{bytefield}

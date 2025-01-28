@@ -1,0 +1,15 @@
+msc {
+ arcgradient = 0;
+
+ A[label="Alice"], B[label="Bob"];
+
+ A => B [label="#seq = A+50, len = 50, #ack = B+25"];
+ B => A [label="#seq = B+25, len = 10, #ack = A+75"];
+ A => B [label="#seq = A+75, len = 0, #ack = B+35"];
+ 
+ ...;
+ ...;
+ 
+ A => B [label="#seq = A+75, len = 30, #ack = B+35"];
+}
+
