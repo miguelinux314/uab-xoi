@@ -1,0 +1,19 @@
+msc {
+   arcgradient = 0, width=600;
+ 
+ A[label="Alice"], 
+ root[label="Root DNS"],
+ cat[label=".cat"],
+ uab_cat[label="uab.cat"];
+ 
+ A => root [label="cv.uab.cat ?"];
+ root => A [label="NS: .cat"];
+ 
+ A => cat [label="cv.uab.cat ?"];
+ cat => A [label="NS: .uab.cat"];
+ 
+ A => uab_cat [label="cv.uab.cat ?"];
+ uab_cat => A [label="A: 158.109.120.150"];
+ 
+}
+
