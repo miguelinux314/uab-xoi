@@ -2,7 +2,7 @@
 kile_livePreviewEnabled=false
 kile_livePreviewStatusUserSpecified=true
 kile_livePreviewTool=LivePreview-PDFLaTeX
-lastDocument=chapters/chapter_layer4.tex
+lastDocument=chapters/chapter_layer7.tex
 
 [document-settings,item:Makefile]
 Bookmarks=
@@ -260,19 +260,19 @@ order=4
 
 [item:chapters/chapter_layer2.tex]
 open=true
-order=3
+order=4
 
 [item:chapters/chapter_layer3.tex]
 open=true
-order=2
+order=3
 
 [item:chapters/chapter_layer4.tex]
 open=true
-order=0
+order=1
 
 [item:chapters/chapter_layer7.tex]
 open=true
-order=6
+order=0
 
 [item:chapters/chapter_packets.tex]
 open=false
@@ -304,7 +304,7 @@ order=8
 
 [item:chapters/copyright.tex]
 open=true
-order=5
+order=6
 
 [item:chapters/cover.tex]
 open=false
@@ -312,7 +312,7 @@ order=-1
 
 [item:chapters/fig/3_way_handshake.msc]
 open=true
-order=1
+order=2
 
 [item:chapters/fig/swimlane_example.msc]
 open=false
@@ -328,7 +328,7 @@ order=-1
 
 [item:main.tex]
 open=true
-order=4
+order=5
 
 [item:style/style.tex]
 open=true
@@ -395,19 +395,19 @@ TextFolding={"checksum":"58f67ce300a3c69c2541ac92577f288efe6361fa","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer4.tex]
-CursorColumn=41
-CursorLine=611
+CursorColumn=16
+CursorLine=21
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"500f8773a1923325077bc8f39b8384be608e56b7","ranges":[]}
+TextFolding={"checksum":"8fe8649bd0f1b01819667f0917d5c888758b3266","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_layer7.tex]
-CursorColumn=19
-CursorLine=0
+CursorColumn=29
+CursorLine=227
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"8beac141199e5b7740a26131156a90b1f531d7ac","ranges":[]}
+TextFolding={"checksum":"ffdfccc3c76045bb015979345f33b1d24bf9558c","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/chapter_packets.tex]
@@ -467,11 +467,11 @@ TextFolding={"checksum":"91f143c3be14dd17bede695c021a76596e65cd6b","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/copyright.tex]
-CursorColumn=110
-CursorLine=48
+CursorColumn=87
+CursorLine=49
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"f9ac35dc3e5985bbff630013fdf79ce06f851c69","ranges":[]}
+TextFolding={"checksum":"3323a7c503710e6075a1d2149a875656f89bb40f","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:chapters/cover.tex]
@@ -527,7 +527,7 @@ CursorColumn=0
 CursorLine=12
 Dynamic Word Wrap=false
 JumpList=
-TextFolding={"checksum":"9109506149b1018808551f09db4d6b63f945d1ee","ranges":[]}
+TextFolding={"checksum":"94e78cc2aa0636001f885e740833360a059430e5","ranges":[]}
 ViMarks=
 
 [view-settings,view=0,item:style/style.tex]

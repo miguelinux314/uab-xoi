@@ -1,0 +1,20 @@
+msc {
+   arcgradient = 0, width=600;
+ 
+ C[label="Client"],
+ S[label="Server"];
+ 
+ C => S 
+ [label="Discovery\n(0.0.0.0 to 255.255.255.255)"];
+ 
+ S => C
+ [label="Offer\n(<DHCP server IP> to <Offered IP>)"];
+ 
+ C => S
+ [label="Request\n(0.0.0.0 to 255.255.255.255)"];
+ 
+ S => C
+ [label="Acknowledgement\n(<DHCP server IP> to <Offered IP>)"];
+ 
+}
+

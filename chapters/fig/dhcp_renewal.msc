@@ -1,0 +1,26 @@
+msc {
+   arcgradient = 0, width=600;
+ 
+ C[label="Client"],
+ S[label="Server"];
+ 
+ ...;
+   
+ C => S
+ [label="Request\n(<Offered IP> to <DHCP server IP>)"];
+ 
+ S => C
+ [label="Acknowledgement\n(<DHCP server IP> to <Offered IP>)"];
+ 
+ ...;
+ --- [label="    (at least) T/2 is elapsed    "];
+ 
+ C => S
+ [label="Request\n(<Offered IP> to <DHCP server IP>)"];
+ 
+ S => C
+ [label="Acknowledgement\n(<DHCP server IP> to <Offered IP>)"];
+ ...;
+ 
+}
+

@@ -1,6 +1,6 @@
 \chapterimage{apps.jpg}
 
-\chapter{Layer 7: Application}
+\chapter{Layer 7: Application}\label{sec:layer7}
 
 \begin{minipage}{0.4\linewidth}
 \begin{center}
@@ -24,9 +24,9 @@ that use TCP or UDP for transport. It is by far the one that contains
 the largest number of protocols, and where those protocols are more 
 quickly created and replaced.
 
-In addition to user apps, there are several auxiliary protocols that 
-help with configuration and operation issues of virtually 
-all internet applications.
+In addition to user apps, there are several auxiliary systems and protocols that 
+help with configuration and operation of all hosts in the Internet. 
+Some of the most critical are addressed in this chapter.
 
 \section{DNS -- Domain Name System}
 
@@ -151,21 +151,193 @@ dns.uab.es.             172112  IN      A       158.109.0.1
   You may start with something like \inlineCode{dig @202.12.27.33 cv.uab.cat}
   to query the M root server.
 \end{itemize}
-
-
 \end{exercise}
 
 
-- the host utility
+\section{DHCP -- Dynamic Host Configuration Protocol}
 
-% \vspace{-0.75cm}
+In order to fuly participate in the Internet, a host needs to have 
+the following aspects correctly configured:
+\begin{itemize}
+\item MAC address. Hardware comes with a good default.
+\item IP address.
+\item Netmask.
+\item DNS server's IP address.
+\end{itemize}
 
-- DNS
-- DHCP
-- Application protocols: HTTP, SMTP, IMAP
-- AS, rip/ospf
+Traditionally, these parameters had to be manually configured in each computer.
+Nowadays, most user's computers are automatically configured with \concept{DHCP}.
+Modern OSs contain a DHCP client that periodically queries the LAN until configured.
 
-- capas TLS, compresión
+DHCP works on UDP. DHCP servers listen on port \otherBase{67}, and clients 
+listen on port \otherBase{68}. The ideal DHCP exchange comprises $4$ messages:
+Discovery, Offer, Request, Acknowledgement.
+
+\begin{center}
+\includegraphics[width=\linewidth]{dhcp_dora.eps}
+\end{center}
+
+
+\begin{itemize}
+
+\item \textbf{Discovery}\\
+The goal of this message is to find DHCP servers willing to provide 
+a configuration.\\[-0.3cm]
+
+In the first communication, the client 
+doesn't know the DHCP server's IP. Instead, it uses:
+\begin{itemize}
+\item Its MAC address as the source MAC address.
+\item The LAN's broadcast (\otherBase{ff:ff:ff:ff:ff:ff}) as the destination MAC address.
+\item \otherBase{0.0.0.0} as the source IP, meaning ``unknown''.
+\item The \concept{local broadcast} address , \otherBase{255.255.255.255}, as the destination IP.
+\end{itemize}
+
+\vspace{0.25cm}
+\item \textbf{Offer}\\
+Zero or more servers will reply to the client with configuration offers.
+These configurations (\eg, IP addresses) are not property of the client 
+until the server sends a DHCP Acknowledgement.\\[-0.3cm]
+
+The server keeps track of a \concept{pool} of addresses that dynamically 
+assigns to clients.
+% 
+IP addresses are offered for a fixed period of time, after which they expire
+unless they are \conceptRef{renew}{renewed} (see below). Addresses that are not renewed are put 
+back in the pool and offered back to clients as they make requests.
+\\[-0.3cm]
+
+The server can use its real IP address and the one offered to the client.
+The client knows it's the recipient because the server pays attention to the 
+client's Discovery source MAC address.
+
+\vspace{0.25cm}
+\item \textbf{Request}\\
+The client picks one of the received offers and requests that the 
+assignment is completed.\\[-0.3cm]
+
+The clientuses the local broadcast
+address, \otherBase{255.255.255.255}, as the destination and 
+\otherBase{0.0.0.0} as the source: the offered address is still not the client's.
+
+\vspace{0.25cm}
+\item \textbf{Acknowledgement}\\
+The server confirms the request. Once the client receives this ACK,
+it starts using the offered configuration as its own. \\[-0.3cm]
+
+It is also possible that the server denies the request, \eg, if 
+too much time has passed since the offer. In this case, 
+a negative Acknowledgement (NACK) is sent instead. If a NACK is received,
+the client needs to go back to the Discover phase.
+\end{itemize}
+
+When a DHCP server \conceptRef{lease}{leases} an address to a client, it does 
+so for a limited period of time $T$. This period is set by the DHCP server, and can be configured.
+After $T/2$ is elapsed, clients may try to renew the leased configuration. To do so,
+the Request-Acknowledgement cycle is repeated over time until either end fails to complete it in time,
+or the DHCP server sends a NACK.
+
+\begin{center}
+\includegraphics[width=\linewidth]{dhcp_renewal.eps}
+\end{center}
+
+\begin{exercise}
+The typical domestic router implements both a DHCP client and a DHCP server.
+Explain how this is possible and why it is useful.
+\end{exercise}
+
+
+\section{Autonomous Systems}
+
+Routing is performed one \concept{hop} at a time, using \conceptRef{routing table}{routing tables} 
+as discussed in Section~\ref{sec:layer3:routing}. Those tables need to be coordinated at a large 
+scale to guarantee graph connectivity to all hosts in the Internet.
+
+
+\subsection{Organization}
+
+To facilitate this coordination, LANs are grouped in \conceptRef{autonomous system}{autonomous systems} (AS).
+These are non-overlapping blocks of IP addresses (\otherBase{w.x.y.z/N}) that are separately owned and managed.
+Many companies, universities and ISPs have their own ASs that are publicly 
+\href{https://2ip.io/analytics/asn-list/}{\underline{listed}}. For instance, UAB's network belongs to
+AS13041.
+
+Each AS has to operate \conceptRef{border router}{border routers} (BR). When a border router receives a datagram 
+with destination inside the AS, it forwards the datagram through the AS' \conceptRef{internal router}{internal routers} (IR).
+Similarly, when a host inside an AS needs to contact a host in another AS, datagrams are forwarded through border routers
+until they reach the destination AS and ultimately the destination LAN.
+
+\begin{center}
+  \vspace{-0.2cm}
+ \includegraphics[width=\linewidth]{as.pdf}
+ \vspace{-0.75cm}
+\end{center}
+
+\subsection{Routing table configuration}
+
+Manually configuring the \conceptRef{routing table}{routing tables} of all border routers and internal routers
+would be too costly and prone to errors. Instead, different algorithms are employed to configure them automatically.
+\begin{itemize}
+\item Within the AS, internal routers and border routers use one of the available 
+\conceptRef{interior gateway protocol}{interior gateway protocols}.
+Often, \concept{RIP} (Routing Information Protocol) is used due to its relatively simple configuration.
+That said, ASs may freely choose the algorithm they use internally to their AS.\\[-0.2cm]
+
+RIP implements a variation of the Bellman-Ford shortest path algorithm to minimize the number of \conceptRef{hop}{hops}
+datagrams need to travel within the AS. Periodically (\eg, every $30$~s), each IR and BR:\\[-0.4cm]
+% 
+  \begin{enumerate}
+  \item Advertises its \textit{perceived} distance to other routers in the AS.
+  \item Updates its perceived distances based on other router's advertisements.
+  \item Updates its \concept{routing table} to all LANs in the AS accordingly.
+  \end{enumerate}
+
+\begin{exercise}
+RIP uses the number of hops as its cost metric.
+% 
+How could this be problematic?
+% 
+How can this problem be solved?
+\end{exercise}
+
+\vspace{0.25cm}
+\item Between ASs, only border routers need be configured; interior routers simply need to direct 
+exterior traffic through the border routers. \\[-0.3cm]
+
+Border routers run an \concept{exterior gateway protocol} in addition to the 
+interior gateway protocol used within the AS. Different ASs must agree on the 
+algorithm they use, so \concept{BGP} (border gateway protocol) is normally used.\\[-0.3cm]
+
+\concept{BGP} is a more complex protocol than \concept{RIP}. This complexity 
+is needed because BGP coordinates border routers belonging to different ASs, \ie, 
+with different owners:\\[-0.4cm]
+\begin{itemize}
+\item RIP uses a single number (the distance, \ie, the number of \conceptRef{hop}{hops})
+to guide a shortest-path graph algorithm. BGP uses \conceptRef{path}{paths} instead of distances.
+This allows BGP to choose routes with more \conceptRef{hop}{hops}, but more desirable to the AS,
+\eg, in terms of time, monetary cost, internal load, etc.\\[-0.4cm]
+
+\item BGP was designed with the notion of security and trust in mind, and includes mechanisms
+to verify the authenticity of the paths announced by a border route.
+\end{itemize}
+
+\begin{exercise}
+How can BGP translate economic interest into routing configurations?
+\end{exercise}
+
+\end{itemize}
+
+\begin{remark}
+BGP can also be used as the AS' interior gateway protocol. 
+This is typically done only by very large ASs.
+\end{remark}
+
+% 
+% - DHCP
+% - Application protocols: HTTP, SMTP, IMAP
+% - AS, rip/ospf
+% 
+% - capas TLS, compresión
 
 % - client vs server (in TCP/IP, symmetry)?
 % - server-client model

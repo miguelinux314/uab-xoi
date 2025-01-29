@@ -145,7 +145,7 @@ Is the following frame valid?
 \end{center}
 \end{exercise}
 
-
+\newpage
 \subsection{Operation}
 
 Messages within an Ethernet LAN are normally sent in \concept{unicast} mode, \ie, they are one-to-one messages.
@@ -181,7 +181,7 @@ The \concept{client} sends $5$ identical frames of \concept{EtherType} \otherBas
 The \concept{server} waits until it receives $5$ Ethernet frames of that type (checked in lines 12-13) and then exits.
 % 
 \begin{itemize}
-\item Change the client's MAC address (see page \pageref{sec:layer2:practical}) and interface name with yours.
+\item Change the client's MAC address and interface name with yours.
 \item Make the server reject frames not addressed to it.
 \item Extend these scripts to implement a simple application with \concept{LAN} capabilities.\\
   Suggested examples:
@@ -194,6 +194,19 @@ The \concept{server} waits until it receives $5$ Ethernet frames of that type (c
 \item What is missing so that your application can connect to the rest of the \concept{Internet} beyond your \concept{LAN}?
 \end{itemize}
 
+\label{ex:layer2:echo}
+\end{exercise}
+
+\vfill
+
+\begin{center}
+\showCode{snippets/ethernetclient.py}
+\end{center}
+
+\begin{center}
+\showCode{snippets/ethernetserver.py}
+\end{center}
+
 \begin{remark}
 You will need to run these scripts with privileges, \eg, with \inlineCode{sudo}.
 % 
@@ -205,13 +218,3 @@ to your python binary with
 % 
 After that, you can run \inlineCode{./venv/bin/python script.py} directly without \inlineCode{sudo}.\\[-0.5cm]
 \end{remark}
-\label{ex:layer2:echo}
-\end{exercise}
-
-\begin{center}
-\showCode{snippets/ethernetclient.py}
-\end{center}
-
-\begin{center}
-\showCode{snippets/ethernetserver.py}
-\end{center}
