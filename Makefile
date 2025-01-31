@@ -10,6 +10,7 @@ main.pdf: *.tex chapters/*.tex
 	pdflatex -shell-escape main
 	# bibtex main
 	pdflatex -shell-escape main
+	pdflatex -shell-escape main
 
 clean:
-	rm -f *.blg *.bbl *.upa *.idx *.ind *.ilg *.aux *.upb *.bcf *.toc *.run.xml *.log
+	rm -f *.blg *.bbl *.upa *.idx *.ind *.ilg *.aux *.upb *.bcf *.toc *.run.xml *.log *.ptc
