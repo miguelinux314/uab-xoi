@@ -919,6 +919,7 @@ for \concept{indirect delivery}. Also remember that the datagram's destination I
 \subsection{Packet format}
 
 \vspace{0.2cm}
+\begin{center}
 \begin{bytefield}[bitheight=3em,bitwidth=1.1em]{32}
 \bitheader{0-31}\\
 % 
@@ -937,7 +938,7 @@ for \concept{indirect delivery}. Also remember that the datagram's destination I
 \bitbox[tlb]{16}[bgcolor=color1!50!white]{} & \bitbox[rb]{16}[bgcolor=color1!50!white]{} \\
 \bitbox{32}[bgcolor=color1!50!white]{Receiver Layer~3 address}
 \end{bytefield}
-
+\end{center}
 
 \begin{remark}
 The \concept{ARP} protocol does \textit{not} use IP headers.

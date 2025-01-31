@@ -4,3 +4,5 @@
 
 
 Here you can download the [latest study guide](https://github.com/miguelinux314/uab-xoi/raw/refs/heads/master/dist/xoi_uab_study_guide.zip).
+
+Make sure to unzip everything to have internal links and code examples work.
