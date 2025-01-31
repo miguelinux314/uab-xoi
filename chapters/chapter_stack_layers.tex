@@ -7,7 +7,7 @@ Modern computer communication is achieved using a
 \concept{stack} of network \conceptRef{layer}{layers}.
 Each stack focuses on some problems and is responsible for 
 providing certain features, \eg, 
-\concept{addressing} and \concept{sequencing} (introduced in the previous chapters).
+\conceptRef{address}{addressing} and correct \concept{sequencing} (introduced in the previous chapters).
 
 Each \concept{layer} defines a \inlineCode{send}/\inlineCode{receive} function \textit{pair},
 which is responsible for some of these features.
@@ -16,7 +16,7 @@ Each layer uses the \inlineCode{send} and \inlineCode{receive} of the layer belo
 \ie, the features of one layer rely on the features of all layers below it.
 
 To coordinate layers and enable \concept{virtual} communication between them, 
-each layer defines a different \concept{packet format}, which \conceptRef{encapsulate}{encapsulates} 
+each layer defines a different \concept{packet format}, which \conceptRef{encapsulation}{encapsulates} 
 a packet of the layer above it.
 
 
@@ -77,7 +77,7 @@ Continuing the example of the 4-layer stack:
 In a \conceptRef{stack}{network stack}, only the bottom layer interacts directly with the exterior,
 \eg, only the physical network card of a computer is connected to a wire that carries data to other computers.
 % 
-At the same time, data sent by the bottom layer includes the \conceptRef{PDU}{PUDs} of all layers
+At the same time, data sent by the bottom layer includes the \conceptRef{PDU}{PDUs} of all layers
 by means of \concept{encapsulation}.
 % 
 Thanks to this, there exists a \concept{virtual} communication between each layer in one end and its counterpart in the other 

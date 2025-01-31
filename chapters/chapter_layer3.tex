@@ -723,8 +723,8 @@ are not connected to the Internet).\\[-0.4cm]
 \end{center}
 \end{exercise}
 
-The process of creating multiple smaller LANs from a single address block is called \concept{subnetting}.
-The inverse process, combining multiple LANs into a larger one is called \concept{supernetting}. 
+The process of creating multiple smaller LANs from a single address block is called \conceptRef{subnet}{subnetting}.
+The inverse process, combining multiple LANs into a larger one is called \conceptRef{supernet}{supernetting}. 
 
 Two \otherBase{/N} LANs can be combined if and only if their network addresses 
 (their IP without netmask) share the first $N-1$ bits. This process can continue all the way 
@@ -838,12 +838,12 @@ by the network stack:
   
 \item The original datagram's \concept{header} is copied into the fragments' with the following modifications:
   \begin{itemize}
-  \item The \concept{Datagram ID} is set to the same value in all fragments of a datagram. 
+  \item The Datagram ID field is set to the same value in all fragments of a datagram. 
     The OS makes sure to pick an ID that has not been recently used by its network stack.
     The Datagram ID field is ignored for non-fragmented datagrams.\\[-0.3cm]
     
   \item The \concept{Offset} field in each fragment indicates the position (byte index)
-    of its first payload data byte in the unfragmented datagram's payload.
+    of its first payload data byte in the datagram's payload before fragmentation.
     This field is not expressed in bytes, but in $4$-byte words.
     %     
     Given an offset in bytes, the \concept{Offset} field is calculated dividing by $4$.

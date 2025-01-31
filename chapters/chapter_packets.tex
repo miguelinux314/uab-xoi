@@ -50,7 +50,7 @@ Each packet must be individually distinguishable from the rest,
 which can be done via at least three strategies:
 \begin{enumerate}
 \item \textit{Fixed length}: the length of all packets is the same. The sender and the receiver must have
-agreeded to this value in advance.
+agreed to this value in advance.
 
 \item \textit{Explicit length}: the length of the packet is included in the packet, \eg, 
 using the first byte of the packet. The sender and the receiver must agree on how this information
@@ -199,7 +199,7 @@ are output to the output file.
    \item The \concept{address} of the destination device can be encoded
   \end{itemize}
   
-\item Provide a \concept{byte diagram} of the new format, 
+\item Provide a byte diagram of the new format, 
 as well as an explanation of the addressing system you are using.
 
 \item Modify the code so that it outputs packets of your proposed format.
@@ -223,7 +223,7 @@ our data (any amount of data) in one end, and it comes out at the other end. If 
 this capability, then it becomes much easier to send files of any size, and to transmit a never-ending
 amount of audio or video. Unfortunately, all we have to simulate those streams are packets.
 
-\concept{Packets} often need to be forwarded through multiple networks. \conceptRef{router}{Routers} are not perfect
+\conceptRef{packet}{Packets} often need to be forwarded through multiple networks. \conceptRef{router}{Routers} are not perfect
 and are sometimes inoperative or improperly configured, so not all packets arrive to their destination. Moreover,
 different packets may be delivered through different routes that may be of different length, so packets may arrive
 out of order.

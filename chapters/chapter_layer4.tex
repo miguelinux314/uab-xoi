@@ -27,7 +27,7 @@ The \conceptRef{transport}{Transport} layer communicates \conceptRef{process}{pr
 running in potentially different \conceptRef{host}{hosts}. These processes are identified 
 using Layer~4 addresses called \conceptRef{port}{ports}.
 
-The transport layer offers two different ways of communication: without \concept{connections} (\concept{UDP}) 
+The transport layer offers two different ways of communication: without \conceptRef{connection}{connections} (\concept{UDP}) 
 and with connections (\concept{TCP}).
 
 \concept{UDP} doesn't establish a \concept{connection} with the destination host because the priority is 
@@ -37,7 +37,7 @@ without expecting any sort of confirmation of reception from the destination's U
 UDP headers are simple and small as well keep the \concept{overhead} of this protocol small.
 
 \concept{TCP} establishes a \concept{connection} before sending any \concept{payload} data
-to make sure both ends are ready. In addition, TCP expects \concept{acknowledgment} (confirmation)
+to make sure both ends are ready. In addition, TCP expects \conceptRef{ACK}{acknowledgement} (confirmation)
 of reception of every byte of payload data. Otherwise, data are \conceptRef{retransmission}{retransmitted} 
 after a wait period, giving TCP \concept{reliability}. TCP also uses a very clever way 
 to limit the data exchange speed (\concept{flow control}) so that fast and slow computers can coexist
@@ -99,7 +99,7 @@ are treated independently:
 
 Port number \otherBase{0} is reserved, so the usable range or ports is \otherBase{1}--\otherBase{65535}. 
 Ports \otherBase{1}--\otherBase{1023} are only bound to 
-processes with1 privileges (\eg, an http \concept{server}), whereas client applications (\eg, an http \concept{client}) 
+processes with privileges (\eg, an http \concept{server}), whereas client applications (\eg, an http \concept{client}) 
 can only bind to ports \otherBase{1024}--\otherBase{65535} based on their availability.
 
 \begin{exercise}
@@ -216,7 +216,7 @@ Their \concept{header} is at least $20$ bytes long, but can grow longer when cer
 TCP headers contain eight $1$-bit flags. Of these, four are used to core TCP features addressed in the following
 sections. In the order they appear:
 \begin{itemize}
-\item ACK: \concept{acknowledgement} flag -- ``\textit{my} ack number is valid''
+\item ACK: \conceptRef{ACK}{acknowledgement} flag -- ``\textit{my} ack number is valid''
 \item RST: \concept{reset} flag -- ``\textit{abort} the connection''
 \item SYN: \concept{synchronization} flag -- ``I'm opening \textit{my} end of the connection''
 \item FIN: \concept{fin} flag -- ``I won't send any more \textit{payload} data''
@@ -228,7 +228,7 @@ How can the receiving end know the size of the options and of the payload data?
 
 \subsection{Operation}
 
-TCP is a \concept{stateful} protocol. TCP \concept{sockets} transition between 
+TCP is a \concept{stateful} protocol. TCP \conceptRef{socket}{sockets} transition between 
 multiple states during communication. Each end of the communication has its own 
 socket with its own state.
 % 
@@ -303,7 +303,7 @@ The expected \nack\ and \nseq\ numbers during the \concept{3-way handshake} are:
 \subsection{Streams and sequence numbers}
 
 TCP offers the illusion of a data \concept{stream}: two pipes of data in the In and Out directions 
-(a \conceptRef{full duplex}{full-duplex} connection). These pipes are \concept{reliable},
+(a \conceptRef{full duplex}{full-duplex} connection). These pipes are \conceptRef{reliability}{reliable},
 \ie, mechanisms are put in place to prevent data loss, duplication and reordering.
 
 \begin{center}
@@ -380,7 +380,7 @@ These data are passed on to the upper \concept{layer} in a
 
 
 \subsection{Reliability and retransmission}
-TCP needs all transmitted data be \conceptRef{acknowledgement}{acknowledged} by the other end.
+TCP needs all transmitted data be \conceptRef{ACK}{acknowledged} by the other end.
 Whenever some data is received in a TCP segment, the receiving end sends back a confirmation 
 even if no data need to be sent at that point.
 The acknowledgement number (\nack) in the TCP header is used to tell the other end that all data up to 
@@ -439,7 +439,7 @@ Data for transmission is often produced in bursts. We would like to send as much
 as possible as soon as possible, but there are two limits put in place in TCP.
 
 The first limit, the \conceptRef{MSS}{Maximum Segment Size (MSS)} is the maximum amount of payload data
-per segment allowed in a TCP connexion. 
+per segment allowed in a TCP connection. 
 
 \begin{center}
 \begin{bytefield}[bitheight=3em]{45}
@@ -583,7 +583,7 @@ the RST; instead, the connection resources are directly freed, \eg,
 \includegraphics[width=\linewidth]{tcp_close_reset.eps} 
 \end{center}
 
-Following the two-sided or the one-sided connection close producedure helps reduce the 
+Following the two-sided or the one-sided connection close procedure helps reduce the 
 computation resources required to maintain the network stacks of billions of devices worldwide.
 
 \begin{remark}
