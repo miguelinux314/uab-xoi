@@ -1,17 +1,26 @@
 \usepackage[top=1.5cm,bottom=1cm,left=2cm,right=2cm,headsep=10pt,a4paper]{geometry} % Page margins
 
-\usepackage[dvipsnames]{xcolor}
-\definecolor{color1}{RGB}{243,102,25} % Define the orange color used for highlighting throughout the book
-\definecolor{color2}{RGB}{0,100,140} % Define the orange color used for highlighting throughout the book
-\definecolor{color3}{RGB}{40,100,35} % Define the orange color used for highlighting throughout the book
-\definecolor{color4}{RGB}{243,102,25} % Define the orange color used for highlighting throughout the book
-
 \usepackage{imakeidx} % Required to make an index (needed BEFORE hyperref)
 \indexsetup{level=\section*,noclearpage}
 \makeindex[columns=3,title={}] % Tells LaTeX to create the files required for indexing
 \usepackage{hyperref}
 \hypersetup{hidelinks,colorlinks=true,linktoc=all,breaklinks=true,allcolors=color2,bookmarksopen=false,pdftitle={Study Guide: \subjectName},pdfauthor={Miguel Hernández-Cabronero <miguel.hernandez@uab.cat>}}
 \usepackage{pdfcomment}
+
+\usepackage[dvipsnames]{xcolor}
+\ifthenelse{\printMode = 0}{
+%     regular digital colors
+    \definecolor{color1}{RGB}{243,102,25} % Define the orange color used for highlighting throughout the book
+    \definecolor{color2}{RGB}{0,100,140} % Define the orange color used for highlighting throughout the book
+    \definecolor{color3}{RGB}{40,100,35} % Define the orange color used for highlighting throughout the book
+    \definecolor{color4}{RGB}{243,102,25} % Define the orange color used for highlighting throughout the book
+}{
+%     brighter print colors
+    \definecolor{color1}{RGB}{253,122,45} % Define the orange color used for highlighting throughout the book
+    \definecolor{color2}{RGB}{10,110,150} % Define the orange color used for highlighting throughout the book
+    \definecolor{color3}{RGB}{50,110,45} % Define the orange color used for highlighting throughout the book
+    \definecolor{color4}{RGB}{253,112,35} % Define the orange color used for highlighting throughout the book
+}
 
 
 \usepackage{graphicx} % Required for including pictures

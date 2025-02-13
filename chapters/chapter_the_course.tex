@@ -20,6 +20,7 @@
 % \NewAppointment{workshop}{green}{blue}
 % \begin{schedule}[Fall Quarter, 1997]
 \begin{schedule}
+\ifthenelse{\printMode = 0}{%
 \lecture{\large \textbf{Lecture}}{Full class}{T}{12:30-14:30}
 \problems{\large \textbf{Problems}}{PAUL/\textbf{811}}{Th}{10:30-11:30}
 \problems{\large \textbf{Problems}}{PAUL/\textbf{812}}{Th}{11:30-12:30}
@@ -27,6 +28,7 @@
 \labs{\large \textbf{Labs}}{PLAB/\textbf{812}}{F}{9:30-10:30}
 \labs{\large \textbf{Labs}}{PLAB/\textbf{813}}{F}{10:30-11:30}
 \labs{\large \textbf{Labs}}{PLAB/\textbf{814}}{F}{11:30-12:30}
+}{}
 % \class{Moral Philosophy}{HOB2 233}{M}{14:00-16:50}
 % \class{Math Logic}{EIC 128}{T,Th}{11:00-12:20}
 % \class{Critical Reasoning}{SSL 290}{M,W,F}{13:00-13:50}
@@ -34,6 +36,7 @@
 % \workshop{Crit. Reas. Workshop}{HOB2 233}{T}{13:00-13:50}
 % \class{Office Hours}{HOB2 210}{W,F}{14:00-14:50}
 \end{schedule}
+
 
 \begin{center}
 \begin{minipage}{0.5\linewidth}
@@ -46,6 +49,8 @@
 \end{itemize}
 \end{minipage}
 \end{center}
+
+\ifthenelse{\printMode = 0}{%
 
 \section*{Evaluation}
 
@@ -79,8 +84,10 @@ $^{\dagger}$: A passing grade ($\ge$ 50\%) is required in the part to pass the s
 \item 1$^\textrm{st}$ 1h exam: during the Lecture on March 25, 2025
 \item 2$^\textrm{nd}$ 1h exam: during the Lecture on May 13, 2025
 \item Final 3h exam: Thursday June 5, 2025, 9h
-\item Repeat exam: Thursday June 26, 2025, 9h
+\item Repeat exam: Thursday June 27, 2025, 9h
 \end{itemize}
+
+}{}
 
 \newpage
 

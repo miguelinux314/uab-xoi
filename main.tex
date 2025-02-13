@@ -1,11 +1,17 @@
 \documentclass[11pt,fleqn]{book} % Default font size and left-justified equations
 
+\ifdefined\printMode
+\else
+\newcommand {\printMode} {1} % 0: not print mode. 1: yes print mode.
+\fi
+
+
 \newcommand \subjectName {Computer Networks and Internet}
 \newcommand \subjectNumber {104353}
 \newcommand \subjectDegree {Data Engineering}
 \newcommand \subjectYear {1$^\textrm{st}$}
-\input{style/style.tex}
 \input{alias.tex}
+\input{style/style.tex}
 
 
 \begin{document}
