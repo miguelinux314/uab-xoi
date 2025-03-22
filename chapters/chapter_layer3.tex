@@ -845,10 +845,10 @@ by the network stack:
     
   \item The \concept{Offset} field in each fragment indicates the position (byte index)
     of its first payload data byte in the datagram's payload before fragmentation.
-    This field is not expressed in bytes, but in $4$-byte words.
+    This field is not expressed in bytes, but in $8$-byte words.
     %     
-    Given an offset in bytes, the \concept{Offset} field is calculated dividing by $4$.
-    Therefore, fragment offsets can only be multiples of $4$.\\[-0.3cm]
+    Given an offset in bytes, the \concept{Offset} field is calculated dividing by $8$.
+    Therefore, fragment offsets can only be multiples of $8$.\\[-0.3cm]
     
   \item The \concept{MF} (more fragments) flag is set to \otherBase{1} (enabled) 
     in all fragments except for the last one. This needs to be true even if one or more
