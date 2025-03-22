@@ -404,7 +404,7 @@ The payload can be empty, so the minimum datagram size is $20$~bytes.\\
   \bitbox{16}{Fragment ID} & \bitbox{1}{\otherBase{0}}
   & \bitbox{1}{\rotatebox{90}{\scriptsize DF flag}}
   & \bitbox{1}{\rotatebox{90}{\scriptsize MF flag}}
-  & \bitbox{13}{Fragment Offset} \\
+  & \bitbox{13}{Fragment Offset bytes/$8$} \\
   % 
   \bitbox{8}{Time to Live\\(TTL)}
   & \bitbox{8}{Payload protocol}
