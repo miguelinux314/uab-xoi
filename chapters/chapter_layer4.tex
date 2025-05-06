@@ -399,7 +399,7 @@ Payload data is included in TCP confirmations whenever any data is available.
 Conversely, the most recent value of \nack\ is included whenever any data is sent,
 \ie, acknowledgments \concept{piggyback} payload data.
 
-For instance, if Alice sends a $50$-byte request, Bob may send his $10$-byte response
+For instance, if Alice sends a $25$-byte request, Bob may send his $10$-byte response
 and the acknowledgement for Alice's data in the same TCP segment. Alice needs to acknowledge 
 Bob's data, and soon sends a segment with no data if needed. Alice will resume sending 
 data later when needed.
