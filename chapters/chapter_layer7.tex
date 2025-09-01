@@ -159,16 +159,28 @@ dns.uab.es.             172112  IN      A       158.109.0.1
 In order to fully participate in the Internet, a host needs to have 
 the following aspects correctly configured:
 \begin{itemize}
-\item MAC address. Hardware comes with a good default.
-\item IP address.
-\item Netmask.
-\item DNS server's IP address.
+\item \textbf{IP address}:
+The IP address is needed to identify a node in the network, and for that node to know what messages are directed to it.
+\item \textbf{Netmask}:
+Nodes need to know this to determine when to deliver datagrams directly, and when indirectly.
+\item \textbf{Gateway IP}:
+The IP address of at least one router is needed to deliver messages indirectly with destination outside the current LAN.
+\item \textbf{DNS server's IP address}:
+Although not strictly required to use TCP/IP, the address of a DNS server is extremely useful, and required to resolve
+domain names into IP addresses.
 \end{itemize}
 
 Traditionally, these parameters had to be manually configured in each computer.
 Nowadays, most user's computers are automatically configured with \concept{DHCP}.
 Modern OSs contain a DHCP client that periodically queries the LAN until configured.
 
+\begin{remark}
+Network hardware comes with a pre-configured, default MAC address.
+Furthermore, a node needs to know its MAC address to operate the DHCP protocol.
+Therefore, MAC addresses are not configured via DHCP.
+\end{remark}
+
+\newpage
 DHCP works on UDP. DHCP servers listen on port \otherBase{67}, and clients 
 listen on port \otherBase{68}. The ideal DHCP exchange comprises $4$ messages:
 Discovery, Offer, Request, Acknowledgement.
@@ -176,7 +188,6 @@ Discovery, Offer, Request, Acknowledgement.
 \begin{center}
 \includegraphics[width=\linewidth]{dhcp_dora.eps}
 \end{center}
-
 
 \begin{itemize}
 
