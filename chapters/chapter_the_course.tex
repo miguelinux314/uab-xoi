@@ -4,7 +4,7 @@
 
 \chapter{Intro: Computer Networks and Internet (XOI)}\label{sec:course}
 
-\section*{What you paid for}
+\section*{What you (and out taxes) paid for}
 \vspace{-0.5cm}
 \CellHeight{.4in}
 \CellWidth{1in}
@@ -16,11 +16,8 @@
 \NewAppointment{lecture}{color1!75}{darkgray}
 \NewAppointment{problems}{color1!75}{darkgray}
 \NewAppointment{labs}{color2!75}{darkgray}
-% \NewAppointment{meeting}{red}{white}
-% \NewAppointment{workshop}{green}{blue}
-% \begin{schedule}[Fall Quarter, 1997]
 \begin{schedule}
-\ifthenelse{\printMode = 0}{%
+% \ifthenelse{\printMode = 0}{%
 \lecture{\large \textbf{Lecture}}{Full class}{T}{12:30-14:30}
 \problems{\large \textbf{Problems}}{PAUL/\textbf{811}}{Th}{10:30-11:30}
 \problems{\large \textbf{Problems}}{PAUL/\textbf{812}}{Th}{11:30-12:30}
@@ -28,72 +25,60 @@
 \labs{\large \textbf{Labs}}{PLAB/\textbf{812}}{F}{9:30-10:30}
 \labs{\large \textbf{Labs}}{PLAB/\textbf{813}}{F}{10:30-11:30}
 \labs{\large \textbf{Labs}}{PLAB/\textbf{814}}{F}{11:30-12:30}
-}{}
-% \class{Moral Philosophy}{HOB2 233}{M}{14:00-16:50}
-% \class{Math Logic}{EIC 128}{T,Th}{11:00-12:20}
-% \class{Critical Reasoning}{SSL 290}{M,W,F}{13:00-13:50}
-% \meeting{Departmental Meeting}{HOB2 233}{W}{12:00-12:50}
-% \workshop{Crit. Reas. Workshop}{HOB2 233}{T}{13:00-13:50}
-% \class{Office Hours}{HOB2 210}{W,F}{14:00-14:50}
+% }{}
 \end{schedule}
 
 
 \begin{center}
 \begin{minipage}{0.5\linewidth}
 \begin{itemize}
- \item[13$\times$] 2h {\color{color1}\textbf{Lectures}}
- \item[12$\times$] 1h {\color{color1}\textbf{Problem sessions}}
- \item[12$\times$] 1h {\color{color2}\textbf{Lab sessions}}
- \item[Unlimited] \textbf{\color{darkgray}Office hour sessions} (\textit{tutories}),\\individual or group: send email
- \item[90h] {\textbf{\color{gray}Autonomous work} (total, expected)}
+\item[13$\times$] {\color{color1}2h \textbf{Lecture} sessions}
+\item[12$\times$] {\color{color1}1h \textbf{Problem} sessions}
+\item[12$\times$] {\color{color2}1h \textbf{Lab} sessions}
+\item[Unlimited] \textbf{\color{darkgray}Office hour} sessions (\textit{tutories}),\\individual or group: send email
+\item[90h] {\textbf{\color{gray}Autonomous work} (yours)}
+\vspace{0.2cm}
+\item [1$\times$] {\color{color1}\textbf{Partial} exam} + review
+\item [1$\times$] {\color{color1}\textbf{Final} exam} + review
+\item [1$\times$] {\color{color1}Final exam \textbf{retake}} + review
+\vspace{0.2cm}
+\item [3$\times$] {\color{color2}Lab \textbf{submissions}} feedback
+\item [1$\times$] {\color{color2}Lab \textbf{exam}} + review
 \end{itemize}
 \end{minipage}
 \end{center}
 
-\ifthenelse{\printMode = 0}{%
-
 \section*{Evaluation}
-
+The best of the two following options will be used to determine your grade:\\
 \begin{tabular}{p{0.5\linewidth}p{0.5\linewidth}}
-\begin{flushleft}\textbf{Option A}\end{flushleft} & \begin{flushright}\textbf{Option B}\end{flushright}\\[-0.75cm]
-\begin{flushleft}(regular)\end{flushleft} & \begin{flushright}(failed option A)\end{flushright}\\[-0.5cm]
+\begin{flushleft}\textbf{Option A}\end{flushleft} & \hfill\raisebox{-0.2cm}{\textbf{Option B}}\hspace{1cm}
 \end{tabular}
 \begin{center}
 \begin{tikzpicture}
-\pie[rotate=0,text=legend,scale=0.7]{
-    35/(Final exam $|$ Repeat exam)$^{\dagger}$,
-    35/Labs$^{\dagger}$,
-    20/Average of 2$\times$ 1h exams,
-    10/Class activities    
+\pie[rotate=0,text=legend,scale=0.7,color={color2!75!white,color1!75!white,color1!40!white}]{
+    35/$^{*}$Lab grade,
+    40/$^{*}$Max(Final exam; Final Retake),
+    25/Partial exam
 }
 \end{tikzpicture}
-\quad
+\quad\quad
+\raisebox{-0.25cm}{%
 \begin{tikzpicture}
-\pie[rotate=0,text=inside,scale=0.7]{
-    65/,
-    35/    
+\pie[rotate=0,text=inside,scale=0.7,color={color2!75!white,color1!75!white,color1!40!white}]{
+    35/,
+    65/
 };
-\end{tikzpicture}
+\end{tikzpicture}}
 \\
-$^{\dagger}$: A passing grade ($\ge$ 50\%) is required in the part to pass the subject.\\[0.1cm]
+$^{*}$: A passing grade ($\ge$ 50\%) in the part is required to pass the subject.\\[0.1cm]
 \end{center}
-
-\noindent
-\textbf{Dates}:
-\begin{itemize}
-\item 1$^\textrm{st}$ 1h exam: during the Lecture on March 25, 2025
-\item 2$^\textrm{nd}$ 1h exam: during the Lecture on May 13, 2025
-\item Final 3h exam: Thursday June 5, 2025, 9h
-\item Repeat exam: Thursday June 27, 2025, 9h
-\end{itemize}
-
-}{}
 
 \newpage
 
 \section*{This Guide}
 
-This guide is designed to help you progress through all parts of the ``Computer Networks and Internet'' course.
+This guide is designed to help you progress through all parts of the ``Computer Networks and Internet'' (XOI) course.
+
 Here you can find written materials, exercises and other tools to make the most of your effort and help you acquire
 valuable skills. It is strongly recommended that you become familiar with this guide and use it all throughout the semester, starting
 the very first week of class:
