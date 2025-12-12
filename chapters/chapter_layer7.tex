@@ -267,13 +267,23 @@ scale to guarantee graph connectivity to all hosts in the Internet.
 
 \subsection{Organization}
 
-To facilitate this coordination, LANs are grouped in \conceptRef{autonomous system (AS)}{autonomous systems} (AS).
-These are non-overlapping blocks of IP addresses (\otherBase{w.x.y.z/N}) that are separately owned and managed.
+To facilitate this coordination, LANs are grouped in \conceptRef{AS}{autonomous systems} (\concept{AS}).
+These manage non-overlapping blocks of IP addresses (\otherBase{w.x.y.z/N}) that are separately owned and managed.
 Many companies, universities and ISPs have their own ASs that are publicly 
 \href{https://2ip.io/analytics/asn-list/}{\underline{listed}}. For instance, UAB's network belongs to
 AS13041.
 
-Each AS has to operate \conceptRef{border router}{border routers} (BR). When a border router receives a datagram 
+\conceptRef{IXP}{Internet Exchange Points} (\concept{IXP}) are a special kind of AS whose purpose is to interconnect other ASs,
+instead of hosting services and/or clients. Of course, running these IXPs is not free, so commercial relations
+are established with those interconnected ASs.
+%
+Some IXPs are committed to providing service to anyone
+meeting their basic requirements, are not controlled by any single operator, and offer transparent and often equitable
+pricing to their clients. This type of IXP is called \conceptRef{NP}{Neutral Point} (\concept{NP}), as opposed
+to nonneutral points used, \textit{e.g.}, only by a single network operator.
+
+\newpage
+All ASs operate \conceptRef{BR}{border routers} (\concept{BR}) to interconnect ASs. When a border router receives a datagram
 with destination inside the AS, it forwards the datagram through the AS' \conceptRef{internal router}{internal routers} (IR).
 Similarly, when a host inside an AS needs to contact a host in another AS, datagrams are forwarded through border routers
 until they reach the destination AS and ultimately the destination LAN.
