@@ -218,24 +218,31 @@ unless they are \conceptRef{renew}{renewed} (see below). Addresses that are not 
 back in the pool and offered back to clients as they make requests.
 \\[-0.3cm]
 
-The server can use its real IP address and the one offered to the client.
-The client knows it's the recipient because the server pays attention to the 
+\begin{itemize}
+\item The server can use its real IP address and the one offered to the client.
+\item The client knows it's the recipient because the server pays attention to the
 client's Discovery source MAC address.
+\end{itemize}
 
 \vspace{0.25cm}
 \item \textbf{Request}\\
 The client picks one of the received offers and requests that the 
 assignment is completed.\\[-0.3cm]
 
-The client uses the local broadcast
-address, \otherBase{255.255.255.255}, as the destination and 
-\otherBase{0.0.0.0} as the source: the offered address is still not the client's.
+\begin{itemize}
+\item The client uses the local broadcast address, \otherBase{255.255.255.255}, as the \mbox{destination}.
+\item The client maintains \otherBase{0.0.0.0} as the source because the offered address is still not the client's.
+\end{itemize}
 
 \vspace{0.25cm}
-\item \textbf{Acknowledgement}\\
+\item \textbf{Acknowledgement (ACK)}\\
 The server confirms the request. Once the client receives this ACK,
-it starts using the offered configuration as its own. \\[-0.3cm]
+it starts using the offered configuration as its own.
+This ACK should not be confused with TCP's.
+\\[-0.3cm]
 
+\vspace{0.25cm}
+\item \textbf{Negative Acknowledgement (NACK)}\\
 It is also possible that the server denies the request, \eg, if 
 too much time has passed since the offer. In this case, 
 a negative Acknowledgement (NACK) is sent instead. If a NACK is received,
@@ -264,6 +271,12 @@ Routing is performed one \concept{hop} at a time, using \conceptRef{routing tabl
 as discussed in Section~\ref{sec:layer3:routing}. Those tables need to be coordinated at a large 
 scale to guarantee graph connectivity to all hosts in the Internet.
 
+\begin{center}
+  \vspace{-0.2cm}
+ \includegraphics[width=\linewidth]{as.pdf}
+ \vspace{-0.75cm}
+\end{center}
+
 
 \subsection{Organization}
 
@@ -287,12 +300,6 @@ All ASs operate \conceptRef{BR}{border routers} (\concept{BR}) to interconnect A
 with destination inside the AS, it forwards the datagram through the AS' \conceptRef{internal router}{internal routers} (IR).
 Similarly, when a host inside an AS needs to contact a host in another AS, datagrams are forwarded through border routers
 until they reach the destination AS and ultimately the destination LAN.
-
-\begin{center}
-  \vspace{-0.2cm}
- \includegraphics[width=\linewidth]{as.pdf}
- \vspace{-0.75cm}
-\end{center}
 
 \subsection{Routing table configuration}
 
@@ -341,11 +348,6 @@ This allows BGP to choose routes with more \conceptRef{hop}{hops}, but more desi
 \item BGP was designed with the notion of security and trust in mind, and includes mechanisms
 to verify the authenticity of the paths announced by a border route.
 \end{itemize}
-
-\begin{exercise}
-How can BGP translate economic interest into routing configurations?
-\end{exercise}
-
 \end{itemize}
 
 \begin{remark}
@@ -353,13 +355,6 @@ BGP can also be used as the AS' interior gateway protocol.
 This is typically done only by very large ASs.
 \end{remark}
 
-% 
-% - DHCP
-% - Application protocols: HTTP, SMTP, IMAP
-% - AS, rip/ospf
-% 
-% - capas TLS, compresión
-
-% - client vs server (in TCP/IP, symmetry)?
-% - server-client model
-% - global structure, ownership and organization, 
+\begin{exercise}
+How can BGP translate economic interest into routing configurations?
+\end{exercise}

@@ -81,7 +81,7 @@ TCP and UDP ``addresses'' are called \conceptRef{port}{ports} and are $16$-bit u
 To humans, ports are expressed in two main ways:
 \begin{itemize}
 \item As a number, \eg, 22, 80 or 443.
-\item As the name of the service that typically uses that port, \eg, \concept{sshd}, \conceptRef{HTTP}{http}, \concept{https}.
+\item As the name of the service that typically uses that port, \eg, \concept{sshd}, \conceptRef{HTTP}{http}, \conceptRef{HTTPs}{https}.
 \end{itemize}
 
 When a Layer~4 PDU is received, the port in its header is used by the OS to know which of the running 
@@ -217,9 +217,9 @@ TCP headers contain eight $1$-bit flags. Of these, four are used to core TCP fea
 sections. In the order they appear:
 \begin{itemize}
 \item ACK: \conceptRef{ACK}{acknowledgement} flag -- ``\textit{my} ack number is valid''
-\item RST: \concept{reset} flag -- ``\textit{abort} the connection''
-\item SYN: \concept{synchronization} flag -- ``I'm opening \textit{my} end of the connection''
-\item FIN: \concept{fin} flag -- ``I won't send any more \textit{payload} data''
+\item RST: \conceptRef{RST}{reset} flag -- ``\textit{abort} the connection''
+\item SYN: \conceptRef{SYN}{synchronization} flag -- ``I'm opening \textit{my} end of the connection''
+\item FIN: \conceptRef{FIN}{finalization} flag -- ``I won't send any more \textit{payload} data''
 \end{itemize}
 
 \begin{exercise}
