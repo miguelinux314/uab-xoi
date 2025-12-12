@@ -1,0 +1,63 @@
+\newpage
+\section{Mission 7: To TCP or not to TCP}\label{sec:mission7}
+
+\begin{minipage}{0.23\linewidth}
+% \vspace{-0.5cm}
+\includegraphics[width=\linewidth]{shakespeare}
+\end{minipage}
+\hspace{0.03\linewidth}
+\begin{minipage}{0.80\linewidth}
+Years of consistent success have consolidated the use of IPv4 for internetworking both within Mars and with other planets.
+During this time, the engineering teams of the colony have discovered the limitations of bare IPv4
+and the need to use at least one of the main transport protocols when communicating with Earth's Internet.\\
+
+\vspace{-0.25cm}
+Implementing this fourth layer and adding it to the existing network stacks of each node in the colony is a daunting task. Thus, in a first phase only one of the two main transport protocols will be implemented.
+%
+The colony is asking for your help to quantitatively compare these two protocols and help decide which one to pick.
+\end{minipage}
+
+% \vspace{0.3cm}
+\noindent
+\textbf{\raisebox{0.03cm}{\warning}Warning! This mission is \raisebox{0.25em}{highly} critical}. Take your time, request as much help as needed, and keep your spirits up. Previous missions can be regarded as training for this one --- it is strongly recommended you carefully finish them before attempting this one.
+\vspace{-0.1cm}
+
+\subsection*{Report details}
+
+The assembly has requested that you carefully consider the following points in your report:
+
+\begin{enumerate}[itemsep=0.25cm]
+\item To make your report standalone, include the colony's network topology using the CIDR format when applicable,
+and specify reasonable MTU values (you may reuse the ones you used in previous missions). Complete this description by
+specifying the bandwidth (link speed, in bytes per second -- let us assume it is constant).
+
+\item One of the two candidate transport protocols uses a parameter called MSS. Indicate which one, and specify the largest
+value that would allow communication between any two machines of the colony without requiring fragmentation. Use that value in the remainder of your report.
+
+\item Pick a node $N_1$ from a base directly connected to the North Bus. Pick another node $N_2$ from a base directly connected to the South Bus. For each of the two main transport protocols, calculate the total time elapsed from when $N_1$ starts transmission to when $N_2$ receives the first byte of payload data. To do so, assume:
+  \begin{itemize}
+  \item If the protocol is connection-oriented, data are only transferred once the connection is established.
+  \item All nodes and routers have infinite computing power, i.e., no delay is introduced by encapsulating/decapsulating data.
+  \item Transmission speeds are still finite, and as you defined earlier in your report.
+  \item Routing tables are optimal.
+  \item All caches begin empty for each protocol, and entries remain valid once they are set.
+  \end{itemize}
+You are encouraged to include swimlane diagrams to support your answer.
+
+\item Which of the transport protocols include mechanisms for congestion control? What conditions would be required to allow continuous transmission from $N_1$ to $N_2$ without waits due to congestion control?
+
+\item Indicate three use cases, \textit{i.e.}, user applications: the first one suitable only for one of the transport protocols, the second one suitable for the other transport protocol, and the third one suitable for both.
+\end{enumerate}
+
+\vspace{-0.25cm}
+
+\subsection*{Feedback details}
+
+Use a similar feedback process as in the previous missions, making sure to touch on the following key aspects:
+\begin{itemize}
+\item Is the chosen MSS consistent with the specified MTU values?
+\item Is the transmission time of each packet correctly calculated?
+\item Do you see any problem with routing, fragmentation or ARP?
+\item Are all elements of congestion control properly considered?
+\item Are the proposed use cases well chosen?
+\end{itemize}

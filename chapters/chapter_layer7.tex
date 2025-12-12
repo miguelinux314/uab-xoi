@@ -28,7 +28,7 @@ In addition to user apps, there are several auxiliary systems and protocols that
 help with configuration and operation of all hosts in the Internet. 
 Some of the most critical are addressed in this chapter.
 
-\section{DNS -- Domain Name System}
+\section{DNS -- Domain Name System}\label{sec:layer7:dns}
 
 The \concept{DNS} protocol is responsible for translating \conceptRef{domain name}{domain names}
 such as \otherBase{ietf.org} or\\\otherBase{cv.uab.cat} into \concept{IP}
@@ -154,7 +154,7 @@ dns.uab.es.             172112  IN      A       158.109.0.1
 \end{exercise}
 
 
-\section{DHCP -- Dynamic Host Configuration Protocol}
+\section{DHCP -- Dynamic Host Configuration Protocol}\label{sec:layer7:dhcp}
 
 In order to fully participate in the Internet, a host needs to have 
 the following aspects correctly configured:
@@ -265,7 +265,7 @@ Explain how this is possible and why it is useful.
 \end{exercise}
 
 
-\section{Autonomous Systems}
+\section{Autonomous Systems}\label{sec:layer7:as}
 
 Routing is performed one \concept{hop} at a time, using \conceptRef{routing table}{routing tables} 
 as discussed in Section~\ref{sec:layer3:routing}. Those tables need to be coordinated at a large 

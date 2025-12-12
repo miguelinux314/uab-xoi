@@ -1,0 +1,19 @@
+msc {
+   arcgradient = 0, width=700;
+ 
+ Mercury[label="Mercury"],
+ Earth[label="Earth"],
+ Mars[label="Mars"];
+
+ |||;
+ |||;
+ |||;
+ |||;
+ |||;
+ |||;
+ |||;
+ |||;
+ |||;
+ 
+}
+

@@ -1,0 +1,65 @@
+\newpage
+\section{Mission 5: Money is the root}\label{sec:mission5}
+
+\begin{minipage}{0.8\linewidth}
+The whole colony is buzzing with intellectual energy after the installation of the HugeAntenna\texttrademark\
+and its connection to Earth's Internet -- think of all the cool stuff they have been missing all this time!
+%
+Unfortunately, now that the colony is hooked on the Internet, Earth's tyrannical government has decided to greatly raise the cost of using the interplanetary antenna link.
+The abusive prices are causing great trouble in the colony's society, proving once more that money \mbox{-- or,} perhaps, the lack \mbox{thereof --} can be the root of all evil.
+%ñ
+Will you help the colony regain financial stability?
+
+\end{minipage}
+\hspace{0.015\linewidth}
+\begin{minipage}{0.16\linewidth}
+% \vspace{-0.5cm}
+\includegraphics[width=\linewidth]{./cash.jpg}
+\end{minipage}
+
+% \vspace{0.3cm}
+\noindent
+\textbf{\raisebox{0.03cm}{\warning}Warning! This mission is critical}. Take your time, request as much help as needed, and keep your spirits up. Previous missions can be regarded as training for this one -- it is strongly recommended you carefully finish them before attempting this one.
+\vspace{-0.3cm}
+
+\subsection*{Report details}
+
+Earth is willing to negotiate the price in Mar\$ (\mbox{Martian Dollaroos}) per byte transmitted by the HugeAntenna\texttrademark.
+This price will depend on the MTU of the antenna as shown in the figure below.
+Note that $\textrm{MTU} \in \left\{200,\,400,\,\ldots,\,3000\right\}$.
+The assembly needs a quantitative analysis that justifies the best choice of MTU.
+
+\centerline{%
+\begin{minipage}{0.5\linewidth}
+\includegraphics[width=\linewidth]{cost_plot.pdf}
+\end{minipage}
+}
+
+\noindent
+To simplify your analysis, consider a representative scenario in which a user in one of the colony bases sends
+\textit{payloads} of exactly $1900$~bytes directly over~IP.
+
+\begin{enumerate}[itemsep=0.25cm]
+\item Provide a topological map of the colony's network up to, but not including, the link between the HugeAntenna\texttrademark\  and the Earth. In those LANs, indicate the smallest MTU that prevents fragmentation within the colony.
+You may reuse the topology from previous missions or create a new one.
+
+\item Consider at least $4$ possible values for the HugeAntenna's MTU, $2$ of them smaller than $1900$~bytes and two of them larger. For each of these $\textrm{MTU}_\textrm{HugeAntenna}$ values, indicate:
+  \begin{itemize}
+  \item How many packets are sent through the Huge Antenna to transmit the payload.
+  \item Which packet fields are not identical in those packets (only applicable if more than one packet is sent).
+  \item The total cost of sending the payload.
+  \end{itemize}
+Coordinate with the other engineers to find the overall optimal $\textrm{MTU}_\textrm{HugeAntenna}$ value.
+
+\item Compare the total traffic (in bytes) transmitted within the colony when the first payload is sent (and all caches are empty), versus the second payload (when caches are filled and valid).
+\end{enumerate}
+
+
+\subsection*{Feedback details}
+
+Use a similar feedback process as in the previous missions, making sure to touch on:
+\begin{itemize}
+\item Are the MTUs within the colony configured as requested?
+\item Is fragmentation correctly considered when determining the cost?
+\item Is the overhead due to ARP properly accounted for when calculating the total traffic?
+\end{itemize}

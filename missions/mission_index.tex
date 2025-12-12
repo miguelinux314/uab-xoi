@@ -1,0 +1,66 @@
+\ \\[-9cm]
+The last part of this guide proposes 9 complex problems called missions
+with a retrofuturistic sci-fi flavor. These problems vertebrate the contents of the previous
+parts with a focus on the applications and the goal of reaching deep concept understanding.
+
+Students are encouraged to work all these missions in order, and to produce solutions
+in the shape of formal reports. They are also encouraged to shared them with their
+immediate learning community (e.g., their class) and to exchange feedback
+with formal letters.
+
+
+\chapterimage{mars_header}
+\chapter{Missions}
+
+\section*{Mission contents}
+\centerline{%
+\begin{tabular}{rl ccccccccc}
+    &
+    & \multicolumn{9}{c}{\textbf{Missions}} \\
+    \multicolumn{2}{c}{\textbf{Chapters}}                                                                  & \textbf{\hyperref[sec:mission1]{M1}}       & \textbf{\hyperref[sec:mission2]{M2}}        & \textbf{\hyperref[sec:mission3]{M3}}        & \textbf{\hyperref[sec:mission4]{M4!}}       & \textbf{\hyperref[sec:mission5]{M5!}}       & \textbf{\hyperref[sec:mission6]{M6}}          & \textbf{\hyperref[sec:mission7]{M7!!}}           & \textbf{\hyperref[sec:mission8]{M8}}          & \textbf{\hyperref[sec:mission9]{M9}}          \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:piercing}}    & Piercing the analog-digital veil                 & $\checkmark$      & $\circlearrowleft$ &                    &                    &                    &                      &                         &                      &                      \\
+    \textbf{\S\ref{sec:where}}    & Addressing and LAN Topologies                    & $\checkmark$      & $\circlearrowleft$ & $\circlearrowleft$ & $\circlearrowleft$ & $\circlearrowleft$ &                      &                         &                      & $\circlearrowleft$   \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:packets}}    & Packet format and MTU                            & $\checkmark$      & $\checkmark$       & $\circlearrowleft$ & $\circlearrowleft$ & $\checkmark$       & $\checkmark$         & $\checkmark$            & $\circlearrowleft$   &                      \\
+    \textbf{\S\ref{sec:stack_layers}}    & Network stacks and encapsulation                 & $\looparrowright$ & $\checkmark$       & $\circlearrowleft$ & $\circlearrowleft$ & $\circlearrowleft$ & $\checkmark$         & $\circlearrowleft$      &                      &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:internet}}    & The Internet: TCP/IP Overview                    & $\looparrowright$ & $\looparrowright$  & $\looparrowright$  & $\checkmark$       & $\circlearrowleft$ & $\circlearrowleft$   & $\circlearrowleft$      & $\circlearrowleft$   & $\circlearrowleft$   \\
+    \textbf{\S\ref{sec:layer2}}    & Layer 2: LAN Communication                       &                   & $\checkmark$       & $\circlearrowleft$ & $\checkmark$       & $\checkmark$       &                      & $\circlearrowleft$      & $\circlearrowleft$   &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer3:addressing}}  & Layer 3 addressing                               &                   & $\looparrowright$  & $\checkmark$       & $\checkmark$       &                    & $\circlearrowleft$   &                         &                      & $\circlearrowleft$   \\
+    \textbf{\S\ref{sec:layer3:ip}}  & IP function and header                                               &                   & $\looparrowright$  & $\checkmark$       & $\circlearrowleft$ & $\checkmark$       & $\circlearrowleft$   &                         &                      &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer3:routing}}  & IP routing                                       &                   &                    &                    & $\checkmark$       & $\circlearrowleft$ &                      & $\circlearrowleft$      &                      & $\checkmark$         \\
+    \textbf{\S\ref{sec:layer3:subnetting}}  & IP subnetting                                    &                   &                    & $\checkmark$       & $\checkmark$       &                    &                      &                         &                      & $\checkmark$         \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer3:fragmentation}}  & IP fragmentation                                 &                   & $\looparrowright$  &                    &                    & $\checkmark$       &                      & $\circlearrowleft$      &                      &                      \\
+    \textbf{\S\ref{sec:layer3:arp}}  & ARP                                              &                   &                    &                    & $\looparrowright$  & $\checkmark$       &                      & $\circlearrowleft$      & $\circlearrowleft$   &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer3:icmp}}  & ICMP                                             &                   &                    &                    & $\looparrowright$  &                    &                      &                         & $\checkmark$         &                      \\
+    \textbf{\S\ref{sec:layer4:addressing}}  & Layer 4 addressing                               &                   &                    &                    &                    &                    & $\checkmark$         &                         & $\checkmark$         &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer4:udp}}  & UDP                                              &                   &                    &                    &                    &                    &                      & $\checkmark$            & $\circlearrowleft$   &                      \\
+    \textbf{\S\ref{sec:layer4:tcp}}  & TCP                                              &                   &                    &                    &                    &                    & $\looparrowright$    & $\checkmark$            & $\circlearrowleft$   &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer4:tcp_opening}}  & TCP connection opening                           &                   &                    &                    &                    &                    & $\checkmark$         & $\checkmark$            & $\circlearrowleft$   &                      \\
+    \textbf{\S\ref{sec:layer4:established}}  & TCP data exchange                                &                   &                    &                    &                    &                    & $\looparrowright$    & $\checkmark$            & $\circlearrowleft$   &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer4:tcp_closing}}  & TCP connection closing                           &                   &                    &                    &                    &                    &                      & $\looparrowright$       & $\checkmark$         &                      \\
+    \textbf{\S\ref{sec:layer7:dns}} & DNS                                              &                   &                    &                    &                    &                    &                      &                         & $\checkmark$         &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer7:dhcp}} & DHCP                                             &                   &                    &                    &                    &                    &                      &                         &                      & $\checkmark$         \\
+    \textbf{\S\ref{sec:layer7:as}} & ASs, IXPs, NPs                                   &                   &                    &                    &                    &                    &                      &                         &                      & $\checkmark$         \\
+\end{tabular}
+}
+\begin{flushright}
+\vspace{0.2cm}$\checkmark$: main focus --- $\circlearrowleft$: review --- $\looparrowright$: foreshadow --- !: critical
+\end{flushright}
+
+\section*{Suggested rythm}
+
+\begin{center}
+\includegraphics[width=\linewidth]{rythm}
+\end{center}
+
+

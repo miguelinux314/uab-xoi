@@ -1,0 +1,40 @@
+\newpage
+\section{Mission 2: Infinite scroll}\label{sec:mission2}
+
+\begin{minipage}{0.225\linewidth}
+\vspace{-0.5cm}\includegraphics[width=\linewidth]{stairway}
+\end{minipage}
+\hspace{0.025\linewidth}
+\begin{minipage}{0.75\linewidth}
+%
+After reviewing the first round of reports, the colony assembly is excited to explore this new \textit{computer network} idea. However, before investing in any of the proposals, the assembly is requesting more complete and concrete designs. Specifically, you'll need to add the possibility of sending arbitrarily long, potentially infinite messages, and pay attention to the network stack structure (details \mbox{below}).\\
+\end{minipage}
+
+\noindent
+Each one of you is expected to post a \textbf{formal report} (in PDF) in the ``Mission 2 exchange forum'' of the Campus Virtual before the next 2h session with a new mission programmed (see the calendar in the Campus Virtual). After that, we count on you to post a \textbf{formal reply letter with feedback} (also in PDF) for at least one other solution, before the following 1h session.
+
+\subsection*{Report details}
+The new report should be standalone so that your reviewer does not need to read your first one.
+The proposal you describe in this report does not need to follow your first one exactly: you may borrow as many ideas and introduce as many changes as you see fit.
+%
+\begin{enumerate}[itemsep=0.25cm]
+\item Summarize the \textbf{physical layer and topological layout} of your computer networks (addressed in points 1 and 2 of the previous mission).
+
+\item Indicate your network's MTU and \textbf{why it is necessary to define a finite MTU} value. With this restriction, explain \textbf{how you'll allow sending messages of arbitrary (\textit{infinite}) length}.
+
+\item Describe the (updated) \textbf{addressing system} and its limitations. You can keep or change the system you proposed in the previous mission as long as you ensure it is valid.
+
+\item Propose a \textbf{3-layer network stack} (let's call them L3, L2 and L1, from top to bottom) in which the arbitrary message length feature is addressed exclusively in L3, addressing exclusively in L2, and L1 focuses only on the digital/analog and analog/digital conversions.
+
+\item Include an example in which a message of length 1.5~times the MTU is sent. In your example, provide the \textbf{bytes input to and output from each layer} of the origin and destination of the communication.
+\end{enumerate}
+
+\subsection*{Feedback details}
+
+Use a similar feedback process as in the previous missions, making sure to touch on:
+\begin{enumerate}[itemsep=0.25cm]
+\item Do you see any major flaw or incomplete point that would prevent the proposal from becoming reality?
+\item Is there any actual limit to the message length of the proposal you are reviewing?
+\item Could you interpret the contents of the message included in the report? Include the bytes of a possible response of the same length, based on your understanding of that report.
+\item Is there any part in the proposal you review that improves upon yours?
+\end{enumerate}
