@@ -1,0 +1,48 @@
+\newpage
+\section{Mission 9: Interplanetary Hallway}\label{sec:mission9}
+
+\begin{minipage}{0.2\linewidth}
+% \vspace{-0.5cm}
+\includegraphics[width=\linewidth]{hallway}
+\end{minipage}
+\hspace{0.03\linewidth}
+\begin{minipage}{0.80\linewidth}
+Thanks in part to your help configuring the colony's network and services,
+your colony is thriving with cultural and scientific activity. The main hallway of your colony's interplanetary spaceport sees thousands of visitors from different planets every day.
+These visitors demand quick and simple Internet connectivity from this hallway,
+and the colony assembly has appointed you to help with the configuration.
+\end{minipage}\ \\[0.2cm]
+
+\subsection*{Report details}
+
+The assembly has asked you to configure a DHCP server for the passenger devices.
+The Autonomous System number 7847 is gracefully lending you the highest $1024$ addresses of their block, which will be the ones provided by this service.\\
+
+\noindent
+Every $2$ hours, a ship with up to $300$ people (each with a single, Internet-hungry device) arrives at the spaceport. Some depart immediately while others stay longer in the spaceport, but at most $1000$
+devices need to be connected at the same time.
+%
+Right before the spaceport begins operation in the morning, all addresses managed by the DHCP server must be available for leasing, because the first $5$ ships are completely full.
+
+\begin{enumerate}[itemsep=0.25cm]
+\item Find out who is generously lending you the $1024$ public IP addresses, and what their full block is.
+
+\item Provide an updated routing table for router $\textrm{R}_0$. This is the router directly connected to the colony's \mbox{HugeAntenna\texttrademark}, the North and South Buses, and now to the new LAN dedicated to passengers. You may assume this new LAN is connected to a newly added interface.
+
+\item What is the longest Lease Time you can configure that is compatible with the morning rush? Justify your answer.
+
+\item Using swimlane diagrams, provide a concrete scenario in which the maximum of $1000$ devices is simultaneously connected at some point during the rush hour. Indicate how many messages of each DHCP subtype are involved.
+
+\item If a passenger hid in the spaceport terminal during the night, what mechanism would you use to ensure their assigned IP address is available for leasing the next morning?
+
+\end{enumerate}
+
+
+\subsection*{Feedback details}
+
+Consider similar requirements and process as in the previous missions, making sure to touch on the following key aspects:
+\begin{itemize}
+\item Is the routing table correct, and as simple as possible?
+\item Did you find a longer Lease Time that is compatible with the requirements?
+\item Do you see any issue with the $1000$ concurrent device scenario description?
+\end{itemize}

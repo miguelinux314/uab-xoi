@@ -1,0 +1,67 @@
+\newpage
+\section{Mission 4: Inter $\left\{ \begin{array}{l} \textbf{planetary}\\\textbf{net}\end{array} \right.$}\label{sec:mission4}
+
+\begin{minipage}{0.725\linewidth}
+After a few years of use, the colony is finally coming to appreciate the value of interconnecting heterogeneous networks using the IP protocol.
+So much that they have invested in a powerful HugeAntenna\texttrademark\ that, they think, can connect the colony with Earth's Internet.\\
+
+\noindent
+The colony assembly is worried because they don't know the bases could communicate with each other and, more importantly, with the new antenna. Furthermore, they are afraid of Earth's despotic backlash if they don't manage to establish a connection with the Internet.
+%
+Once again, they are asking for your help.
+
+\end{minipage}
+\hspace{0.01\linewidth}
+\begin{minipage}{0.25\linewidth}
+\vspace{-0.5cm}\includegraphics[width=\linewidth]{./satellite.jpg}
+\end{minipage}
+
+\vspace{0.3cm}
+\noindent
+\textbf{\raisebox{0.03cm}{\warning}Warning! This mission is critical}. Take your time, request as much help as needed, and keep your spirits up. Previous missions can be regarded as training for this one -- it is strongly recommended you carefully finish them before attempting this one.
+\vspace{-0.1cm}
+
+\subsection*{Report details}
+
+Recall the network topology requested in the previous mission.
+By now, you should have access to a consensus agreement on the physical and logical address distribution
+of the devices of the colony (otherwise, say something!).\\
+
+\noindent
+Consider the \textit{routers} present in the colony: $\{\textrm{RA}_i\}_{i=1}^{N}$ are connected to the North Bus, $\{\textrm{RB}_i\}_{i=1}^{N}$ to the South Bus, and $\textrm{R}_0$ links both buses. The new antenna will be connected to a third Network Interface Controller (NIC) of $\textrm{R}_0$.\\
+
+\noindent
+Your goal is to help configure all machines in the colony (especially the routers) so that information can flow between bases and, critically, between the colony and Earth's internet.
+% \end{minipage}
+\vspace{-0.2cm}
+
+\begin{enumerate}[itemsep=0.25cm]
+\item Summarize the physical and logical addresses of all machines in the colony so that your report can be standalone. It is suggested you reuse the configuration you produced in the previous mission after fixing any detected issue. Use the CIDR format whenever applicable.
+
+\item Provide the simplest working routing tables you can conceive for the following machines:
+\begin{itemize}
+\item One router $\textrm{RA}_i$ of your choice,
+and a non-router machine $\textrm{M}_i$ connected to $\textrm{RA}_i$.
+\item One router $\textrm{RB}_j$ of your choice,
+and a non-router machine $\textrm{M}_j$ connected to $\textrm{RB}_j$.
+\item The router $\textrm{R}_0$.
+\end{itemize}
+
+\item Create two swimlane diagrams that show \textit{all} packets transferred within the colony for the two following exchanges. For each packet in these diagrams, indicate \textit{all} addresses contained in the packet. Be sure to specify somewhere the MTU of all LANs involved in the exchanges.
+\begin{itemize}
+\item $\textrm{M}_i$ sends some data to $\textrm{M}_j$, and $\textrm{M}_j$ sends back a response.
+\item $\textrm{M}_i$ sends a message to a server on Earth, but receives no response.
+\end{itemize}
+\end{enumerate}
+
+\subsection*{Feedback details}
+
+Use a similar feedback process as in the previous missions, making sure to touch on:
+\begin{itemize}
+\item Is there any issue with the physical and logical address assignments?\\[-0.5cm]
+\item Was the CIDR format correctly employed?\\[-0.5cm]
+\item Do the routing tables contain all necessary fields?\\[-0.5cm]
+\item Can any of the tables be further simplified?\\[-0.5cm]
+\item Are direct and indirect deliveries properly depicted in the swimlane diagrams?\\[-0.5cm]
+\item Are the MTUs consistent with the diagrams?
+\end{itemize}

@@ -1,0 +1,59 @@
+\newpage
+\section{Mission 8: You talking to me?}\label{sec:mission8}
+
+\begin{minipage}{0.2\linewidth}
+\includegraphics[width=\linewidth]{name_tag}
+\end{minipage}
+%
+\hspace{0.03\linewidth}
+\begin{minipage}{0.80\linewidth}
+    Your colony has been successfully using (according to Saturn, also \textit{abusing})
+    the TCP/IP stack to connect to Earth's Internet. However, until now,
+    in a sense you didn't exist because you didn't have a \textit{name}. That is about to change,
+    because the colony is installing its first Domain Name System (DNS) server, which will
+    be authoritative for the new \texttt{.mars} top-level domain (TLD). Your help is needed to help
+    configure new services offered to the whole Solar System.
+\end{minipage}\ \\[0.2cm]
+
+\subsection*{Report details}
+
+\begin{enumerate}[itemsep=0.25cm]
+\item Summarize the network topology of your colony, and include the IP address ranges and MTU values assigned to each LAN using CIDR notation. This will make your report standalone and help reviewers provide feedback (you may reuse or update the configuration of previous sessions).
+
+\item Clearly indicate what machine will be hosting your DNS server, and its IP address.
+
+\item Specify 5 services $S_1,\,S_2,\,\ldots,\,S_5$ (different from DNS) that will be hosted in your colony. One of them will be hosted on the same machine as the DNS server. For each service, provide:
+    \begin{itemize}[itemsep=0.25cm]
+    \item A brief explanation of the service and the application-layer protocol employed.
+    \item The DNS entry or entries related to this service to be included in the new DNS server.
+    \item An example query (\textit{e.g.}, \texttt{service.mars}) for which those entries will be returned, who will send that query, and when.
+    \end{itemize}
+
+\item The machine hosting the DNS server also hosts another service. How can it distinguish between the two types of traffic?
+
+\item Someone using node $N_1$ in your colony will implement a script to detect when Internet services go offline. To do so, they will employ periodic ICMP messages to \textit{check} they are online. Explain how exactly this will work and, using swimlane diagrams, describe all traffic within the colony derived from a single \textit{check} for each of the following scenarios:
+    \begin{enumerate}[itemsep=0.25cm]
+    \item $N_1$ checks service \texttt{cv.uab.cat} using iterative resolution over UDP starting on root server M.
+    \item $N_1$ checks service $S_1$ (indicate its name) using iterative resolution over TCP starting on root server M.
+    \item $N_1$ checks service $S_1$ using recursive resolution over UDP with the unfiltered DNS4EU server.
+    \end{enumerate}
+
+In the diagrams, for each exchanged message, indicate:
+    \begin{itemize}
+    \item The (top-layer) message type and, if applicable, its subtype.
+    \item All involved addresses.
+    \item All DNS-related information contained in the message.
+    \end{itemize}
+
+\end{enumerate}
+
+\subsection*{Feedback details}
+
+Consider similar requirements and process as in the previous missions, making sure to touch on the following key aspects:
+
+\begin{itemize}
+\item Is ICMP being used in a logical, effective way?
+\item Are iterative and recursive DNS resolution properly handled?
+\item Is the TCP connection lifecycle correctly represented?
+\end{itemize}
+
