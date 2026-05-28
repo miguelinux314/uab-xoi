@@ -6,7 +6,7 @@ def_graphic_ext=
 img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=3
-kileversion=2.9.94
+kileversion=2.9.93
 masterDocument=
 name=XOI Study Guide
 pkg_extIsRegExp=false
@@ -98,7 +98,7 @@ mode=LaTeX
 
 [item:chapters/copyright.tex]
 archive=true
-encoding=Locale
+encoding=UTF-8
 highlight=LaTeX
 mode=LaTeX
 
@@ -200,7 +200,7 @@ mode=LaTeX
 
 [item:style/style.tex]
 archive=true
-encoding=Locale
+encoding=UTF-8
 highlight=LaTeX
 mode=LaTeX
 
