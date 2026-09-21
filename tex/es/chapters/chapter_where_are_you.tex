@@ -19,7 +19,7 @@ hacemos con las ubicaciones físicas.
 
 Cuando solo intervienen $2$ \conceptRef{device}{dispositivos}, se puede usar una conexión \conceptRef{point-to-point}{punto a punto}. En este tipo de conexión
 solo existen ``este lado'' y ``el otro lado'' del cable. Además, cuando un dispositivo quiere comunicarse con el otro extremo,
-solo hay un enlace (\eg, un cable) entre el que elegir, así que no hay confusión posible. Como podemos operar esta conexión
+solo hay un enlace (\eg\ un cable) entre el que elegir, así que no hay confusión posible. Como podemos operar esta conexión
 con solo $2$ \conceptRef{network card}{tarjetas de red} y $1$ cable, las conexiones punto a punto son viables para $N=2$ dispositivos.
 
 \begin{wrapfigure}{R}{0.25\linewidth}
@@ -116,7 +116,7 @@ entre distintas LANs y de que lleguen a su destino.
 
 Sorprendentemente, ni siquiera las conexiones punto a punto se libran del problema de encontrar-mi-dispositivo.
 Suponiendo que los dispositivos A y B están conectados de ese modo, dos programas distintos pueden querer
-intercambiar información al mismo tiempo, \eg, un software de control de alarmas y
+intercambiar información al mismo tiempo, \eg\ un software de control de alarmas y
 una aplicación de streaming de música.
 En este escenario, quieres que el \conceptRef{client}{cliente} y el \conceptRef{server}{servidor} del \conceptRef{service}{servicio}
 de monitorización de alarmas se comuniquen entre sí, pero no con el servicio de streaming de música,
@@ -155,7 +155,7 @@ Supón que hay $1000$~máquinas en una LAN. ¿\textbf{Cuántos bits de direcció
 En 2019 nos quedamos sin direcciones de Internet (v4). ¡Uy!
 \end{remark}
 
-\section{¿Cómo llego hasta ahí?}
+\section{¿Cómo llego hasta ahí?}\label{sec:where:route}
 
 En muchos escenarios se necesitan varias direcciones para llevar a cabo la
 comunicación \conceptRef{end-to-end}{extremo a extremo} deseada. Por ejemplo, puede que necesitemos identificar
@@ -226,7 +226,7 @@ esas conexiones. Aun así, \node{3} quiere enviar un mensaje a \node{7}.\\
 % 
 
 Los \conceptRef{swimlane diagram}{diagramas swimlane} (diagramas de carriles) como el de abajo se usan para representar las interacciones
-(\eg, el intercambio de mensajes) entre actores (\eg, dispositivos de red). En ellos, el eje vertical representa
+(\eg\ el intercambio de mensajes) entre actores (\eg\ dispositivos de red). En ellos, el eje vertical representa
 el tiempo, lo que resulta valiosísimo para identificar relaciones causa-efecto.
 \begin{center}
 \includegraphics[width=0.35\linewidth]{swimlane_example.eps}
@@ -234,7 +234,7 @@ el tiempo, lo que resulta valiosísimo para identificar relaciones causa-efecto.
 
 \begin{exercise}
 A partir de tu respuesta al Ej.\ref{ex:how_many_packets}, \textbf{elabora un diagrama swimlane}
-que represente los intercambios de mensajes. Para cada mensaje (\eg, encima de las flechas),
+que represente los intercambios de mensajes. Para cada mensaje (\eg\ encima de las flechas),
 incluye la información de direccionamiento presente en él.
 \end{exercise}
 

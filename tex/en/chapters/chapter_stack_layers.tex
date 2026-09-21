@@ -20,7 +20,7 @@ each layer defines a different \concept{packet format}, which \conceptRef{encaps
 a packet of the layer above it.
 
 
-\section{Sending data}
+\section{Sending data}\label{sec:stack_layers:send}
 
 To implement these 
 capabilities, each layer transmits not only the \inlineCode{data} provided by the layer above, 
@@ -61,7 +61,7 @@ Assume a header size for layers 2, 3 and 4 of $14$~bytes, $20$~bytes and $20$~by
 \end{itemize}
 \end{exercise}
 
-\section{Receiving data}
+\section{Receiving data}\label{sec:stack_layers:receive}
 
 When a \concept{packet} reaches the network \concept{stack} of the recipient, it is processed in reverse order,
 \ie, layers are traversed from bottom to top. Each layer inspects \textit{only} the \concept{header} corresponding to that layer.

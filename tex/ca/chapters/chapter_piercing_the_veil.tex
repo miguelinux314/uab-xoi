@@ -1,7 +1,3 @@
-\ \\[-10cm]
-Com intercanvien dades els ordinadors? Com podem localitzar altres màquines situades arreu del món i comunicar-nos-hi?
-Aquesta part de la guia explora alguns dels principals reptes que hem d'afrontar si volem interconnectar dispositius a escala planetària, i més enllà.
-
 \chapterimage{numbers_background.pdf}
 
 \chapter{Travessant el vel analògic-digital}\label{sec:piercing}
@@ -15,9 +11,9 @@ Això es pot imaginar com una seqüència de passos:
 \includegraphics[width=\linewidth]{knowledge_info_data_transmission.pdf}
 \end{center}
 
-Els ordinadors treballen amb \conceptRef{data}{dades} digitals i les transmeten, \ie, seqüències \conceptRef{binary}{binàries}
-de \zero\ i \one\ com a \conceptRef{symbol}{símbols}. 
-Tanmateix, la \conceptRef{transmission}{transmissió} de dades té lloc en el món real, on \zero\ i \one\ són idees i no objectes tangibles.
+Els ordinadors treballen amb \conceptRef{data}{dades} digitals i les transmeten, \ie, seqüències binàries
+de \zero\ i \one\ com a símbols. 
+Tanmateix, la transmissió de dades té lloc en el món real, on \zero\ i \one\ són idees i no objectes tangibles.
 
 Aquest capítol estudia com aquests símbols digitals \textit{travessen el vel}  
 del món digital al món analògic (físic) en la transmissió, i de tornada de l'analògic al digital en la recepció.
@@ -41,14 +37,14 @@ $22$ com a part d'aquestes dades. Com definiries coneixement, informació i dade
 
 
 Tot i que hi ha molts tipus de dades, \ie\ numèriques, textuals, visuals, científiques, \etc, al final totes
-es representen amb nombres. Per exemple, es podria fer servir la \conceptRef{encoding}{codificació} \concept{ASCII} per representar la cadena ``Bobby''
+es representen amb nombres. Per exemple, es podria fer servir la codificació \concept{ASCII} per representar la cadena ``Bobby''
 com la seqüència següent: $66, 111, 98, 98, 121$.
 
 Dins d'un ordinador, aquests nombres s'emmagatzemen en registres binaris, \eg\ a la CPU i a la RAM. 
 Tanmateix, hi ha diverses maneres de representar dades numèriques en format binari. Més concretament,
 hem de parar molta atenció, com a mínim, als aspectes següents sempre que llegim o escrivim dades:
 \begin{itemize}
-\item \conceptRef{integer}{enter} o amb decimals? 
+\item enter o amb decimals? 
 \item \conceptRef{bitdepth}{profunditat de bits}? (\eg, 8 bits per nombre)
 \item \conceptRef{sign}{amb signe} o \conceptRef{sign}{sense signe}?
 \item Per a nombres de diversos bytes: \concept{big endian} o \concept{little endian}?
@@ -113,7 +109,7 @@ com a subíndexs, com a \otherBase{58a5b0$_\textrm{16}$} i \otherBase{0011$_\tex
 \end{remark}
 
 \begin{exercise}
-Considera el missatge següent, format per una \conceptRef{concatenation}{concatenació} 
+Considera el missatge següent, format per una concatenació 
 d'enters sense signe de 3 bits: \otherBase{a4 3f 20}.
 \begin{itemize}
 \item Quants bits i quants bytes fa?
@@ -163,17 +159,13 @@ Què tenen en comú? (Pista: potser et convé modificar el codi perquè en mostr
 \end{center}
 \label{ex:bitwisemanipulation}
 \end{exercise}
-\begin{remark}
-Per a llistats de codi com l'anterior, pots descarregar el codi font i la seva sortida.
-\end{remark}
-
 
 \section{Analògic $\leftrightarrow$ Digital}\label{sec:piercing:analog_digital}
 
 Un cop decidim quins bits volem transmetre, hem de trobar una manera de fer que aquests bits arribin a una altra màquina a distància.
 Primer, hem de decidir quin \conceptRef{medium}{mitjà} fem servir i quines propietats físiques podem controlar i monitorar.
-Entre les opcions més habituals hi ha fer servir el voltatge en \conceptRef{copper wire}{cables de coure}, enviar llum per \conceptRef{optical fiber}{fibra òptica} i manipular el 
-\conceptRef{field}{camp} electromagnètic mitjançant \conceptRef{antenna}{antenes}.
+Entre les opcions més habituals hi ha fer servir el voltatge en cables de coure, enviar llum per fibra òptica i manipular el 
+\conceptRef{field}{camp} electromagnètic mitjançant antenes.
 
 \begin{exercise} \textbf{Reflexiona}:\\[-0.5cm]
 \begin{itemize}
@@ -184,12 +176,12 @@ Entre les opcions més habituals hi ha fer servir el voltatge en \conceptRef{cop
 \end{exercise}
 
 
-Si optem per cables de coure, en podem posar diversos en \conceptRef{parallel}{paral·lel} i enviar més dades a la mateixa velocitat de \conceptRef{clock}{rellotge}.
+Si optem per cables de coure, en podem posar diversos en \conceptRef{parallel}{paral·lel} i enviar més dades a la mateixa velocitat de rellotge.
 Això, però, té el preu d'una complexitat i un cost més grans que els dissenys en \conceptRef{serial}{sèrie}. 
-Es poden produir interferències de voltatge a les \conceptRef{data line}{línies de dades} per diversos motius, 
+Es poden produir interferències de voltatge a les línies de dades per diversos motius, 
 incloent-hi fenòmens físics com la inducció electromagnètica al cable. 
 Tot i així, els cables que compleixen els estàndards moderns de transmissió de dades (\eg, IEEE 802.3)
-sovint fan servir \conceptRef{twisted pair}{parells trenats de cables} i apantallament,
+sovint fan servir parells trenats de cables i apantallament,
 entre altres estratègies, per garantir errors de bit per sota d'$1$~de~cada~$10^{12}$ bits.
 
 \begin{exercise}\label{ex:piercing:copper_connectors}
@@ -206,20 +198,20 @@ entre altres estratègies, per garantir errors de bit per sota d'$1$~de~cada~$10
 \includegraphics[width=\linewidth]{iceberg.jpg}
 \end{wrapfigure}
 Alguna vegada t'has capbussat en una piscina, has mirat cap amunt i l'aigua semblava un mirall?
-Els cables de fibra òptica funcionen gràcies a aquest fenomen, anomenat \conceptRef{refraction}{refracció}.
+Els cables de fibra òptica funcionen gràcies a aquest fenomen, anomenat refracció.
 La llum que entra a la fibra per un extrem 
 s'hi queda a dins fins que surt per l'altre extrem. El recobriment de la fibra és important
 per preservar-ne la integritat, però aquest recobriment no participa en el ``rebot'' de 
 la llum mentre avança per la fibra.
 
-En una fibra òptica \conceptRef{single-mode optical fiber}{monomode}, el sensor de l'extrem receptor 
+En una fibra òptica monomode, el sensor de l'extrem receptor 
 detecta la presència o l'absència d'un únic rang de longituds d'ona. Aquests cables són relativament prims i barats,
 però transporten un sol senyal.
 % 
 Una altra opció és transmetre diverses longituds d'ona (\eg, fent servir diverses fonts làser) alhora, 
 per la mateixa fibra. A l'extrem receptor, es fa servir un prisma per tornar a dividir el feix de llum en els seus
-components \conceptRef{monochrome}{monocromàtics}, que es detecten per separat. 
-D'aquesta manera, la \conceptRef{multimodal}{fibra òptica multimode} permet \conceptRef{multiplex}{multiplexar}
+components monocromàtics, que es detecten per separat. 
+D'aquesta manera, la fibra òptica multimode permet \conceptRef{multiplex}{multiplexar}
 diversos senyals, cosa que augmenta molt la taxa de transmissió efectiva.
 
 
@@ -243,18 +235,18 @@ Què passa a l'altre extrem si \textbf{encenem i apaguem aquest con de llum} mol
 \end{center}
 \end{wrapfigure}
 
-Tot i que hi ha moltes classes d'\conceptRef{antenna}{antenes}, la seva finalitat principal 
+Tot i que hi ha moltes classes d'antenes, la seva finalitat principal 
 és detectar camps electromagnètics i/o crear-ne. L'equació de Maxwell-Faraday ens diu
 que els \textit{canvis} en el \conceptRef{field (physics)}{camp} elèctric $\vec{E}$ creen un \conceptRef{field (physics)}{camp} magnètic perpendicular $\vec{B}$,
 i a l'inrevés.
 
-Una antena de \conceptRef{dipole}{dipol} com la de la dreta aprofita aquest concepte aplicant un voltatge altern $V$,
+Una antena de dipol com la de la dreta aprofita aquest concepte aplicant un voltatge altern $V$,
 que genera ones electromagnètiques que es propaguen cap a fora de l'eix del dipol. 
 
 \begin{remark}
 Quan emetem una certa energia $E$ des d'un punt en totes direccions, aquesta energia es distribueix al voltant d'una esfera creixent.
 Com que l'àrea d'una esfera de radi $r$ és $4 \pi r^2$, la quantitat d'energia que arriba a un punt a distància $r$
-serà de l'\conceptRef{ballpark}{ordre de magnitud} de $E / r^2$.
+serà de l'ordre de magnitud de $E / r^2$.
 
 Això de vegades s'anomena llei de l'invers del quadrat, i és
 el motiu pel qual els corrents induïts a l'antena del receptor solen estar entre els nanovolts 
@@ -268,9 +260,9 @@ el motiu pel qual els corrents induïts a l'antena del receptor solen estar entr
 
 
 Independentment del mètode triat perquè les dades viatgin, cal travessar igualment el vel entre els senyals analògics i les dades 
-digitals. Una manera de fer-ho és la \conceptRef{modulation}{modulació}: es genera un senyal sinusoïdal de base anomenat \conceptRef{carrier}{portadora},
-i les dades es codifiquen modificant aquesta portadora. Per exemple, es pot canviar l'\conceptRef{amplitude}{amplitud} de la portadora (ASK),
-la seva \conceptRef{frequency}{freqüència} (FSK), o fins i tot l'amplitud i la \conceptRef{phase}{fase} alhora (QAM). 
+digitals. Una manera de fer-ho és la modulació: es genera un senyal sinusoïdal de base anomenat portadora,
+i les dades es codifiquen modificant aquesta portadora. Per exemple, es pot canviar l'amplitud de la portadora (ASK),
+la seva freqüència (FSK), o fins i tot l'amplitud i la fase alhora (QAM). 
 
 \begin{exercise}
 La figura anterior mostra un exemple de modulació d'amplitud i un de modulació de freqüència. 

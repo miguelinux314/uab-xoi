@@ -32,8 +32,18 @@
 }
 
 .md-typeset .concept {
-  color: var(--xoi-color1);
-  font-weight: 500;
+  /* Gray (same as the "Technical terms" nav labels, .xoi-term-label below), text and dashes both:
+     a defined term reads like muted secondary text, with a dashed underline as the extra hint that
+     it has a hover tooltip (web/js/technical-terms.js). A background-image dash pattern (not
+     text-decoration: underline dashed, whose dashes are tiny and not size-adjustable) gives longer
+     dashes than the browser default, at a controlled thickness. */
+  color: var(--md-default-fg-color--light);
+  text-decoration: none;
+  background-image: linear-gradient(to right, var(--md-default-fg-color--light) 65%, transparent 0%);
+  background-position: 0 1.1em;
+  background-repeat: repeat-x;
+  background-size: 0.5em 0.09em;
+  cursor: help;
   scroll-margin-top: 4rem;
 }
 
@@ -51,6 +61,8 @@
 
 .md-typeset code {
   color: var(--xoi-color2);
+  /* Material's own default is 0.85em; 15% larger than that (not than body text) is 0.98em. */
+  font-size: 0.98em;
 }
 
 .md-typeset .showcode {
@@ -71,21 +83,28 @@
   margin: 0 0 1rem 1rem;
 }
 
-/* 2+ \includegraphics in a row in the source (src/uab_xoi/tex2md.py's figure-row
-   wrapping) flow side by side, like the PDF, instead of each stacking
-   full-width. Markdown puts consecutive inline images in one shared <p>, so
-   centering that paragraph and making its images inline (overriding the
-   general img rule's `display: block`, which is what forced one per line)
-   is enough - no flex needed. Each image's own height="..cm" (kept as a real
-   CSS length by xoi.lua's pass2.Image) caps its size within the row. */
+/* 2+ \includegraphics in a row, or 2+ adjacent minipages (src/uab_xoi/tex2md.py's figure-row
+   wrapping) flow side by side, like the PDF, instead of each stacking full-width. Plain adjacent
+   \includegraphics (no blank line between them in the source) land in one shared markdown <p>, but
+   the minipage case has a blank line between each figure and so gets one <p> per figure - flex
+   handles both uniformly (an inline-block img alone isn't enough for the second case, since its
+   enclosing <p> is still a block element that would break the row). Each image's own height="..cm"
+   (kept as a real CSS length by xoi.lua's pass2.Image) caps its size within the row. */
 .md-typeset .figure-row {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin: 1rem 0;
+}
+
+.md-typeset .figure-row p {
+  margin: 0;
 }
 
 .md-typeset .figure-row img {
   display: inline-block;
-  margin: 0 0.5rem;
   max-width: 100%;
   width: auto;
 }
@@ -148,6 +167,25 @@
    fix above and the gap would look the same as before. */
 .md-typeset .frontpage h1 + p {
   margin-top: 0;
+}
+
+/* Size order on the frontpage: "Study Guide" (largest), then the title (subject name + (XOI), bold),
+   then the course line. */
+.md-typeset .frontpage h1 {
+  margin-bottom: 0;
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset .cover-studyguide {
+  margin: 0 0 0.6rem;
+  font-size: clamp(2rem, 7vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.md-typeset .cover-course {
+  margin: 0;
 }
 
 .md-typeset .cover-byline {
@@ -274,18 +312,6 @@ body[data-md-color-scheme] {
   color: #fff;
 }
 
-.md-typeset .cover-qr {
-  text-align: center;
-  margin: 0.5rem 0 1.5rem;
-}
-
-.md-typeset .cover-qr img {
-  display: inline-block;
-  height: 7rem;
-  width: auto;
-  margin: 0;
-}
-
 /* The general `.md-typeset p { text-align: justify }` rule beats the
    .frontpage container's own text-align on its paragraphs (subtitle, PDF
    label, buttons). */
@@ -329,4 +355,21 @@ body[data-md-color-scheme] {
 
 .md-typeset .captioned-figure img {
   max-height: 26rem;
+}
+
+/* "Technical terms" links under the table of contents (web/js/technical-terms.js): same look as the TOC. */
+.xoi-terms {
+  margin-top: 1.2rem;
+}
+
+.xoi-terms .md-nav__list {
+  padding-left: 0.6rem;
+}
+
+/* "Technical terms" nav entries (web/js/technical-terms.js): tooltip only, not clickable - same as
+   the in-text occurrences, so they shouldn't look or act like a link. */
+.xoi-term-label {
+  display: block;
+  cursor: default;
+  color: var(--md-default-fg-color--light);
 }

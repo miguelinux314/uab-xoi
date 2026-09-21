@@ -14,6 +14,13 @@
 \newcommand \strPartNetworks {Xarxes d'ordinadors}
 \newcommand \strPartInternet {Internet}
 \newcommand \strPartMissions {Missions}
+% Site-only "Part I/II/III" prefix on the part landing pages/nav
+% (src/uab_xoi/tex2md.py); never in the PDF, whose part pages show the
+% roman numeral graphically instead of as text.
+\newcommand \strPart {Part}
+% Site-only page title for course.md, replacing the PDF chapter's own numbered
+% title (tex2md.py's run()); matches web/mkdocs.yml's "About this course" nav label.
+\newcommand \strAboutCourse {Sobre aquesta assignatura}
 
 \newcommand \strNotation {Notació}
 \newcommand \strTheorem {Teorema}
@@ -29,14 +36,16 @@
 % strings, not literal text, so the site's rendered SVG and the PDF both show
 % translated labels (see tools/render_tex_svg.py's LANG_STRINGS).
 \newcommand \strLecture {Teoria}
-\newcommand \strFullClass {Classe completa}
+\newcommand \strFullClass {\mbox{Classe} \mbox{completa}}
 \newcommand \strProblems {Problemes}
 \newcommand \strLabs {Pràctiques}
 \newcommand \strControlTests {Controls}
+\newcommand \strLabGrade {Pràctiques}
+\newcommand \strFinalMax {Màx(Final; Recuperació)}
 
 \newcommand \strReadMore {llegir-ne més...}
 \newcommand \strAvailableIn {Aquest document està disponible en:}
 
-\newcommand \ie {\textit{és a dir}}
-\newcommand \eg {\textit{p.\ ex.}}
+\newcommand \ie {és a dir}
+\newcommand \eg {p.\ ex.}
 \newcommand \etc {\textit{etc.}}

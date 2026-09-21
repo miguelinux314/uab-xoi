@@ -6,7 +6,7 @@
 La comunicación entre ordenadores moderna se consigue mediante una
 \concept{stack} de \conceptRef{layer}{capas} de red.
 Cada pila se centra en algunos problemas y es responsable de
-proporcionar ciertas funcionalidades, \eg,
+proporcionar ciertas funcionalidades, \eg\ 
 \conceptRef{address}{direccionamiento} y \concept{sequencing} (secuenciación) correcta (introducidos en los capítulos anteriores).
 
 Cada \concept{layer} define un \textit{par} de funciones \inlineCode{send}/\inlineCode{receive},
@@ -20,7 +20,7 @@ cada capa define un \concept{packet format} (formato de paquete) distinto, que \
 un paquete de la capa que tiene por encima.
 
 
-\section{Envío de datos}
+\section{Envío de datos}\label{sec:stack_layers:send}
 
 Para implementar estas
 capacidades, cada capa transmite no solo los \inlineCode{data} proporcionados por la capa superior,
@@ -36,7 +36,7 @@ el \concept{packet format}, añadiendo cierto \concept{overhead} (sobrecarga) (t
 
 
 Cuando un programa de usuario quiere enviar algunos datos, utiliza el método \inlineCode{send} de la capa \textit{superior} de la pila,
-lo que acaba provocando que la capa física transmita ciertos datos, \eg, a través de un cable o una antena.
+lo que acaba provocando que la capa física transmita ciertos datos, \eg\ a través de un cable o una antena.
 La siguiente figura representa la estructura de una \concept{stack} de 4 capas:
 
 \begin{center}
@@ -61,7 +61,7 @@ Supón un tamaño de cabecera para las capas 2, 3 y 4 de $14$~bytes, $20$~bytes 
 \end{itemize}
 \end{exercise}
 
-\section{Recepción de datos}
+\section{Recepción de datos}\label{sec:stack_layers:receive}
 
 Cuando un \conceptRef{packet}{paquete} llega a la \concept{stack} de red del destinatario, se procesa en orden inverso,
 \ie, las capas se recorren de abajo arriba. Cada capa inspecciona \textit{solo} la \conceptRef{header}{cabecera} correspondiente a esa capa.
@@ -75,7 +75,7 @@ Continuando con el ejemplo de la pila de 4 capas:
 
 
 En una \conceptRef{stack}{pila de red}, solo la capa inferior interactúa directamente con el exterior,
-\eg, solo la tarjeta de red física de un ordenador está conectada a un cable que lleva datos a otros ordenadores.
+\eg\ solo la tarjeta de red física de un ordenador está conectada a un cable que lleva datos a otros ordenadores.
 % 
 Al mismo tiempo, los datos enviados por la capa inferior incluyen las \conceptRef{PDU}{PDU} de todas las capas
 mediante la \concept{encapsulation}.

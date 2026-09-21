@@ -6,6 +6,11 @@
 \usepackage{hyperref}
 \hypersetup{hidelinks,colorlinks=true,linktoc=all,breaklinks=true,allcolors=color2,bookmarksopen=false,pdftitle={\strStudyGuide: \subjectName},pdfauthor={Miguel Hernández-Cabronero <miguel.hernandez@uab.cat>}}
 \usepackage{pdfcomment}
+% [normalem] keeps \emph as italics (ulem's default redefines it to underline, which would also
+% affect every \textit-via-\emph in the book, not just \concept/\conceptRef in alias.tex).
+\usepackage[normalem]{ulem}
+\setlength{\ULdepth}{0.1em} % dash sits further below the text, matching the site's own offset
+\renewcommand{\ULthickness}{0.5pt} % \ULthickness is a plain macro (ulem.sty), not a length register
 
 \usepackage[dvipsnames,table]{xcolor}
 \ifthenelse{\printMode = 0}{
@@ -14,12 +19,14 @@
     \definecolor{color2}{RGB}{0,100,140} % Define the orange color used for highlighting throughout the book
     \definecolor{color3}{RGB}{40,100,35} % Define the orange color used for highlighting throughout the book
     \definecolor{color4}{RGB}{243,102,25} % Define the orange color used for highlighting throughout the book
+    \definecolor{colorConcept}{RGB}{117,117,117} % \concept/\conceptRef (alias.tex): matches the site's gray (rgba(0,0,0,0.54) over white)
 }{
 %     brighter print colors
     \definecolor{color1}{RGB}{253,122,45} % Define the orange color used for highlighting throughout the book
     \definecolor{color2}{RGB}{10,110,150} % Define the orange color used for highlighting throughout the book
     \definecolor{color3}{RGB}{50,110,45} % Define the orange color used for highlighting throughout the book
     \definecolor{color4}{RGB}{253,112,35} % Define the orange color used for highlighting throughout the book
+    \definecolor{colorConcept}{RGB}{117,117,117} % \concept/\conceptRef (alias.tex): matches the site's gray
 }
 
 
@@ -60,6 +67,8 @@
 \usepackage{lipsum} % Inserts dummy text
 \usepackage{tikz} % Required for drawing custom shapes
 \usepackage{babel} % Language options are passed by <lang>/strings.tex
+% Heading of the table of contents: babel's Spanish default is "Índice general"; <lang>/strings.tex may define \strContents to override it
+\ifdefined\strContents\addto\captionsspanish{\renewcommand\contentsname{\strContents}}\fi
 \usepackage{enumitem} % Customize lists
 \setlist{nolistsep} % Reduce spacing between bullet points and numbered lists
 \usepackage{booktabs} % Required for nicer horizontal rules in tables

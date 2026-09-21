@@ -20,7 +20,7 @@ cada capa defineix un \conceptRef{packet format}{format de paquet} diferent, que
 un paquet de la capa superior.
 
 
-\section{Enviament de dades}
+\section{Enviament de dades}\label{sec:stack_layers:send}
 
 Per implementar aquestes 
 capacitats, cada capa transmet no només les dades (\inlineCode{data}) proporcionades per la capa superior, 
@@ -61,7 +61,7 @@ Suposa una mida de capçalera per a les capes 2, 3 i 4 de $14$~bytes, $20$~bytes
 \end{itemize}
 \end{exercise}
 
-\section{Recepció de dades}
+\section{Recepció de dades}\label{sec:stack_layers:receive}
 
 Quan un \conceptRef{packet}{paquet} arriba a la \conceptRef{stack}{pila} de xarxa del destinatari, es processa en ordre invers,
 \ie, les capes es recorren de baix a dalt. Cada capa inspecciona \textit{només} la \conceptRef{header}{capçalera} corresponent a aquella capa.

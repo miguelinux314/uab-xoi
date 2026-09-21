@@ -10,10 +10,18 @@
 \newcommand \strYearSuffix {curso}
 \newcommand \strBy {Por}
 \newcommand \strIndexTitle {Índice de Conceptos}
+\newcommand \strContents {Índice}
 
 \newcommand \strPartNetworks {Redes de ordenadores}
 \newcommand \strPartInternet {Internet}
 \newcommand \strPartMissions {Misiones}
+% Site-only "Part I/II/III" prefix on the part landing pages/nav
+% (src/uab_xoi/tex2md.py); never in the PDF, whose part pages show the
+% roman numeral graphically instead of as text.
+\newcommand \strPart {Parte}
+% Site-only page title for course.md, replacing the PDF chapter's own numbered
+% title (tex2md.py's run()); matches web/mkdocs.yml's "About this course" nav label.
+\newcommand \strAboutCourse {Sobre esta asignatura}
 
 \newcommand \strNotation {Notación}
 \newcommand \strTheorem {Teorema}
@@ -29,14 +37,16 @@
 % strings, not literal text, so the site's rendered SVG and the PDF both show
 % translated labels (see tools/render_tex_svg.py's LANG_STRINGS).
 \newcommand \strLecture {Teoría}
-\newcommand \strFullClass {Clase completa}
+\newcommand \strFullClass {\mbox{Clase} \mbox{completa}}
 \newcommand \strProblems {Problemas}
 \newcommand \strLabs {Prácticas}
 \newcommand \strControlTests {Controles}
+\newcommand \strLabGrade {Prácticas}
+\newcommand \strFinalMax {Máx(Final; Recuperación)}
 
 \newcommand \strReadMore {leer más...}
 \newcommand \strAvailableIn {Este documento está disponible en:}
 
-\newcommand \ie {\textit{es decir}}
-\newcommand \eg {\textit{p.ej.}}
+\newcommand \ie {es decir}
+\newcommand \eg {p.ej.}
 \newcommand \etc {\textit{etc.}}

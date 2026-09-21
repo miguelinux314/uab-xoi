@@ -1,7 +1,3 @@
-\ \\[-10cm]
-How do computers exchange data? How can we locate and communicate with other machines located around the world?
-This part of the guide explores some of the main challenges we need to face if we want to interconnect devices at the planetary scale, and beyond.
-
 \chapterimage{numbers_background.pdf}
 
 \chapter{Piercing the analog-digital veil}\label{sec:piercing}
@@ -15,9 +11,9 @@ This can be imagined as a sequence of steps:
 \includegraphics[width=\linewidth]{knowledge_info_data_transmission.pdf}
 \end{center}
 
-Computers work with and transmit digital \concept{data}, \ie, sequences of \concept{binary}
-\zero\ and \one\ \conceptRef{symbol}{symbols}. 
-However, data \concept{transmission} happens in the real world, where \zero\ and \one\ are ideas and not tangible objects.
+Computers work with and transmit digital \concept{data}, \ie, sequences of binary
+\zero\ and \one\ symbols. 
+However, data transmission happens in the real world, where \zero\ and \one\ are ideas and not tangible objects.
 
 This chapter studies how those digital symbols \textit{pierce the veil}  
 from the digital to the analog (physical) world on transmission, and back from analog to digital on reception.
@@ -41,14 +37,14 @@ $22$ as part of those data. How would you define knowledge, information and data
 
 
 Even though there are many types of data, \ie\ numerical, textual, visual, scientific, \etc, these are eventually
-represented by numbers. For instance, one could use \concept{ASCII} \concept{encoding} to represent the string ``Bobby''
+represented by numbers. For instance, one could use \concept{ASCII} encoding to represent the string ``Bobby''
 as the following sequence: $66, 111, 98, 98, 121$.
 
 Inside a computer, those numbers are stored in binary registers, \eg\ in the CPU and in the RAM. 
 However, there are multiple ways of representing numerical data in binary format. More specifically,
 we need to pay close attention to at least the following aspects whenever reading or writing data:
 \begin{itemize}
-\item \concept{integer} or with decimals? 
+\item integer or with decimals? 
 \item \concept{bitdepth}? (\eg, 8 bits per number)
 \item \conceptRef{sign}{signed} or \conceptRef{sign}{unsigned}?
 \item For multibyte numbers: \concept{big endian} or \concept{little endian}?
@@ -113,7 +109,7 @@ as subscripts as in \otherBase{58a5b0$_\textrm{16}$} and \otherBase{0011$_\textr
 \end{remark}
 
 \begin{exercise}
-Consider the following message, which is composed of a \concept{concatenation} 
+Consider the following message, which is composed of a concatenation 
 of 3-bit unsigned integers: \otherBase{a4 3f 20}.
 \begin{itemize}
 \item How many bits and bytes long is it?
@@ -163,17 +159,13 @@ What do they have in common? (Hint: You may want to modify the code to show thei
 \end{center}
 \label{ex:bitwisemanipulation}
 \end{exercise}
-\begin{remark}
-For code listings like the one above, you can download the source code and its output.
-\end{remark}
-
 
 \section{Analog $\leftrightarrow$ Digital}\label{sec:piercing:analog_digital}
 
 Once we decide what bits to transmit, we need to find a way of making those bits available to another machine at a distance.
 First, we need to decide what \concept{medium} to use and what physical properties we can control and monitor.
-Popular choices include using voltage on \conceptRef{copper wire}{copper wires}, sending light over \concept{optical fiber} and manipulating the 
-electromagnetic \concept{field} using \conceptRef{antenna}{antennas}.
+Popular choices include using voltage on copper wires, sending light over optical fiber and manipulating the 
+electromagnetic \concept{field} using antennas.
 
 \begin{exercise} \textbf{Ponder}:\\[-0.5cm]
 \begin{itemize}
@@ -184,12 +176,12 @@ electromagnetic \concept{field} using \conceptRef{antenna}{antennas}.
 \end{exercise}
 
 
-If we opt for copper wires, we can put several in \concept{parallel} and send more data at the same \concept{clock} speed.
+If we opt for copper wires, we can put several in \concept{parallel} and send more data at the same clock speed.
 This, however, comes at the price of additional complexity and cost than \concept{serial} designs. 
-Voltage interferences in the \conceptRef{data line}{data lines} may happen for a number of reasons, 
+Voltage interferences in the data lines may happen for a number of reasons, 
 including physical phenomena such as electromagnetic induction in the wire. 
 Notwithstanding, cables compliant with modern data transmission standards (\eg, IEEE 802.3)
-often employ \conceptRef{twisted pair}{twisted pairs of cables} and shielding
+often employ twisted pairs of cables and shielding
 among other strategies to guarantee bit errors below $1$~in~$10^{12}$ bits.
 
 \begin{exercise}\label{ex:piercing:copper_connectors}
@@ -206,20 +198,20 @@ among other strategies to guarantee bit errors below $1$~in~$10^{12}$ bits.
 \includegraphics[width=\linewidth]{iceberg.jpg}
 \end{wrapfigure}
 Have you ever been diving in a swimming pool, looked up and the water was mirror-like?
-Optical fiber cables work of this phenomenon, called \concept{refraction}.
+Optical fiber cables work of this phenomenon, called refraction.
 Light that enters the fiber through one end 
 stays inside until it exits through the other end. The coating of the fiber is important
 to support its integrity, but that coating does not participate in the ``bouncing'' of 
 light when advancing through the fiber.
 
-In a \conceptRef{single-mode optical fiber}{single-mode} optical fiber, the sensor at the receiving end 
+In a single-mode optical fiber, the sensor at the receiving end 
 detects the presence or absence of a single wavelength range. These cables are relatively thin and cheap,
 but carry a single signal.
 % 
 Another option is to transmit multiple wavelengths (\eg, using several laser sources) at the same time, 
 through the same fiber. At the receiving end, a prism is used to divide the beam of light back into its
-\concept{monochrome} components, which are sensed separately. 
-In this way, \conceptRef{multimodal}{multi-modal optical fiber} allows \conceptRef{multiplex}{multiplexing}
+monochrome components, which are sensed separately. 
+In this way, multi-modal optical fiber allows \conceptRef{multiplex}{multiplexing}
 several signals, greatly increasing the effective transmission rate.
 
 
@@ -243,18 +235,18 @@ Is it relevant whether we use monomodal or multimodal beams?
 \end{center}
 \end{wrapfigure}
 
-Even though there are many classes of \conceptRef{antenna}{antennas}, their main purpose 
+Even though there are many classes of antennas, their main purpose 
 is to detect electromagnetic fields and/or to create them. The Maxwell-Faraday equation tells us
 that \textit{changes} in the electric \conceptRef{field (physics)}{field} $\vec{E}$ create a perpendicular magnetic \conceptRef{field (physics)}{field} $\vec{B}$,
 and the other way around.
 
-A \concept{dipole} antenna like the one to the right uses this concept by applying an alternating voltage $V$,
+A dipole antenna like the one to the right uses this concept by applying an alternating voltage $V$,
 which generates electromagnetic waves that propagate outwards the dipole axis. 
 
 \begin{remark}
 When we emit some energy $E$ from a point in all directions, that energy is distributed around a growing sphere.
 Since the area of a sphere of radius $r$ is $4 \pi r^2$, the amount of energy that reaches a point at distance $r$
-will be in the \concept{ballpark} of $E / r^2$.
+will be in the ballpark of $E / r^2$.
 
 This is sometimes referred to as the inverse square law, and is
 the reason why currents inducted in the receiver's antenna are usually between nanovolts 
@@ -268,9 +260,9 @@ the reason why currents inducted in the receiver's antenna are usually between n
 
 
 Regardless of the method chosen to let the data travel, the veil between analog signals and digital data must still be 
-pierced. Once way of doing this is \concept{modulation}: a base sinusoidal signal called \concept{carrier} is produced,
-and the data are encoded by modifying this carrier. For instance, one can change the \concept{amplitude} of the carrier (ASK),
-its \concept{frequency} (FSK), or even the amplitude and the \concept{phase} at the same time (QAM). 
+pierced. Once way of doing this is modulation: a base sinusoidal signal called carrier is produced,
+and the data are encoded by modifying this carrier. For instance, one can change the amplitude of the carrier (ASK),
+its frequency (FSK), or even the amplitude and the phase at the same time (QAM). 
 
 \begin{exercise}
 The figure above displays an example of amplitude modulation and of frequency modulation. 

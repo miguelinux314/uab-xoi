@@ -95,12 +95,9 @@ def frac_of_linewidth(width_str):
         return None
     return float(m.group(1)) if m.group(1) else 1.0
 TEXTS = {
-    "en": {"concepts_intro": "Every highlighted concept in the guide, with links to where it is used.",
-           "pdf_label": "Download for offline use (PDF + code snippets):"},
-    "es": {"concepts_intro": "Todos los conceptos destacados en la guía, con enlaces a los lugares donde se usan.",
-           "pdf_label": "Descarga para usar sin conexión (PDF + fragmentos de código):"},
-    "ca": {"concepts_intro": "Tots els conceptes destacats a la guia, amb enllaços als llocs on s'utilitzen.",
-           "pdf_label": "Descarrega per usar sense connexió (PDF + fragments de codi):"},
+    "en": {"concepts_intro": "Every highlighted concept in the guide, with links to where it is used."},
+    "es": {"concepts_intro": "Todos los conceptos destacados en la guía, con enlaces a los lugares donde se usan."},
+    "ca": {"concepts_intro": "Tots els conceptes destacats a la guia, amb enllaços als llocs on s'utilitzen."},
 }
 # Display name for each edition's PDF-download button (write_frontpage()) and
 # language switcher (web/mkdocs.yml's own separate `name:` per language).
@@ -237,6 +234,34 @@ def transform_braced_command(text, name, func):
     return "".join(out)
 
 
+@functools.lru_cache(maxsize=None)
+def glossary_canonical_terms(lang):
+    """key (lowercased) -> pinned canonical term text for this language, from the maintainer-only
+    glossary (private/i18n/<lang>/glossary.yaml's `terms:`) if present - private/ is gitignored, so
+    a public checkout without it just gets {} and canonical_terms() falls back to first-occurrence
+    text everywhere, same as before. Used to prefer a curated base/dictionary-form word (glossary
+    entries are written that way by convention) over whatever inflected form (plural, conjugated)
+    happened to be used at the term's first occurrence in the running text."""
+    path = TEX.parent / "private" / "i18n" / lang / "glossary.yaml"
+    if not path.exists():
+        return {}
+    try:
+        import yaml
+        terms = yaml.safe_load(path.read_text(encoding="utf-8")).get("terms") or {}
+    except Exception as e:
+        print(f"warning: could not read {path}: {e}")
+        return {}
+    out = {}
+    for key, entry in terms.items():
+        if not isinstance(entry, dict):
+            continue
+        if lang in entry:
+            out[key.lower()] = entry[lang]
+        elif entry.get("keep_english"):
+            out[key.lower()] = key
+    return out
+
+
 def detex_title(text):
     """Best-effort plain-text version of a heading, for use as the nav/tab/
     browser-tab title (frontmatter `title:`). The on-page `#` heading keeps
@@ -251,6 +276,9 @@ def detex_title(text):
     text = text.replace("\\\\", " ")
     text = re.sub(r"\\left\s*(\\[{}]|[{}()\[\].|])?", "", text)
     text = re.sub(r"\\right\s*(\\[{}]|[{}()\[\].|])?", "", text)
+    # Pandoc's own markdown escaping of literal [ ] (xoi.lua's "[num]" section-number prefix) -
+    # keep them, rather than let the next line's generic LaTeX-escape stripping delete them too.
+    text = text.replace("\\[", "[").replace("\\]", "]")
     text = re.sub(r"\\[^A-Za-z]", "", text)       # spacing/delimiter escapes (\{, \,, \.)
     text = re.sub(r"\\([A-Za-z]+)", r"\1", text)  # unrecognized commands: keep the word
     text = text.replace("$", "").replace("{", "").replace("}", "").replace("^", "")
@@ -330,6 +358,15 @@ def _shift(line, delta):
 
 DEFAULT_LANG = "en"  # published at the site root; others under their own /<lang>/ - web/mkdocs.yml
 
+# The "Computer Networks"/"Internet" landing pages (networks.md/internet.md - see page_list()):
+# roman numeral (matching the PDF's part-cover pages, which use the numeral graphically instead of
+# spelling out "Part") and the section's own chapters (\label of each, in book order), so the
+# landing page can list them - mirrors the PDF part-cover's own chapter-list preview.
+PART_INFO = {
+    "networks.md": ("I", ["sec:piercing", "sec:where", "sec:packets", "sec:stack_layers"]),
+    "internet.md": ("II", ["sec:internet", "sec:layer2", "sec:layer3", "sec:layer4", "sec:layer7"]),
+}
+
 
 class Converter:
     def __init__(self, lang, out_dir, all_langs=("en", "es", "ca"), strict=True):
@@ -360,6 +397,15 @@ class Converter:
                 continue
             elif stem == "chapter_the_course":
                 page = "course.md"
+            elif stem == "part_networks":
+                # Landing page for the "Computer Networks" nav section (web/mkdocs.yml): just the
+                # part's own intro blurb (\input right after \part{...} in main.tex, also pulled
+                # onto the PDF's part-cover page there via a negative \vspace at its own top) - kept
+                # out of chapter_piercing_the_veil.tex so that chapter isn't mistaken for the part's
+                # own landing page and doesn't carry content that belongs to the part, not it.
+                page = "networks.md"
+            elif stem == "part_internet":
+                page = "internet.md"  # same idea, for the "Internet" nav section
             elif stem == "mission_index":
                 page = "missions/index.md"
             elif stem.startswith("mission"):
@@ -585,6 +631,13 @@ class Converter:
         text = re.sub(r"(?:\\includegraphics(?:\[[^\]]*\])?\{[^}]*\}[ \t]*\n?){2,}",
                       lambda m: "\\begin{figurerow}\n" + m.group(0) + "\\end{figurerow}\n", text)
 
+        # 2+ adjacent minipages (chapter_layer{2,3,4,7}.tex's opening bytefield-stack +
+        # network-diagram pair) sit side by side in the PDF via minipage's own layout;
+        # the site's minipage handling (xoi.lua) just unwraps them, stacking each full-
+        # width, so wrap the pair the same way as the plain-\includegraphics case above.
+        text = re.sub(r"(?:\\begin\{minipage\}(?:\[[^\]]*\])?\{[^}]*\}.*?\\end\{minipage\}[ \t]*\n?){2,}",
+                      lambda m: "\\begin{figurerow}\n" + m.group(0) + "\\end{figurerow}\n", text, flags=re.S)
+
         # Runs of \zero\one... become one monospace number
         text = re.sub(r"(?:\\(?:zero|one)(?![A-Za-z])\s*){2,}",
                       lambda m: "\\otherBase{" + re.sub(r"\\zero", "0", re.sub(r"\\one", "1", m.group(0)))
@@ -638,7 +691,12 @@ class Converter:
         env = dict(os.environ, XOI_LANG=self.lang, XOI_PAGE=page, XOI_CHAPNUM=chapnum,
                    XOI_ROOT=str(TEX), XOI_LABELS=str(self.labels_path),
                    XOI_CONCEPTS=str(self.concepts_path),
-                   XOI_ASSETS="../" * page.count("/") + "assets/",
+                   # +1: mkdocs clean URLs put every page (bar index.md) in its own directory
+                   # ("layer3.md" -> ".../layer3/index.html"), one level deeper than "page" implies.
+                   # Only matters here because xoi.lua's showcode() emits a raw <a download> (not a
+                   # markdown link), which mkdocs does not auto-adjust the way it does for markdown
+                   # image/link syntax (see finish_page()'s XOI_ASSETS, injected the same way).
+                   XOI_ASSETS="../" * (page.count("/") + 1) + "assets/",
                    XOI_HEADER_SHIFT="")
         run = subprocess.run(
             ["pandoc", "-f", "latex", "-t", "gfm+attributes+tex_math_dollars", "--wrap=none",
@@ -659,6 +717,13 @@ class Converter:
         title = detex_title(title)
         if hero:
             lines.insert(0, "![](" + hero + "){ .hero }\n")
+        # Relative path back to THIS LANGUAGE's own assets/ folder. mkdocs's clean URLs put every
+        # page (except index.md, handled separately in write_frontpage()) in its own directory -
+        # "layer3.md" -> ".../layer3/index.html" - one level deeper than its "page" string implies,
+        # and "missions/mission1.md" -> two. web/js/technical-terms.js reads this to fetch
+        # assets/terms.json (the cross-language canonical term texts) without guessing the depth.
+        relprefix = "../" * (page.count("/") + 1)
+        lines.append(f'\n<script>window.XOI_ASSETS = "{relprefix}assets/";</script>')
         front = "---\ntitle: " + json.dumps(title) + "\n---\n\n"
         return front + "\n".join(lines) + "\n"
 
@@ -667,8 +732,9 @@ class Converter:
         from a source file - see page_list()/split_copyright() for where the
         license/credits/course-logistics content it links to comes from."""
         title = f"{self.strings['strStudyGuide']}: {self.strings['subjectName']}"
-        subtitle = detex_title(f"{self.strings['subjectNumber']} \u2014 {self.strings['subjectDegree']}"
-                               f" \u2014 {self.strings['subjectYear']} {self.strings['strYearSuffix']}")
+        subtitle = detex_title(f"{self.strings['subjectNumber']} - {self.strings['subjectDegree']}"
+                               f" - {self.strings['subjectYear']} {self.strings['strYearSuffix']}"
+                               " - Universitat Autònoma de Barcelona")
         hero = None
         src = self.resolve_graphic("cover_background")
         if src:
@@ -679,20 +745,13 @@ class Converter:
         # Everything below the hero is centered, cover-page style (see
         # web/css/xoi.css .frontpage, which also tightens the H1's own
         # default bottom margin - Material's is quite large: 1.25em).
-        parts += ['<div class="frontpage" markdown="1">', "", f"# {title}", subtitle, ""]
-        # The PDF cover's QR code (chapters/cover.tex: same URL), rendered
-        # like any other figure and linked to the same repository.
-        try:
-            svg, _, _ = render_tex_svg.render(
-                "\\qrcode[height=4cm]{https://github.com/miguelinux314/uab-xoi/}", lang=self.lang)
-        except render_tex_svg.RenderError as e:
-            self.problems.append(f"index.md: cannot render the cover QR code: {e}")
-        else:
-            rendered = self.assets / "rendered"
-            rendered.mkdir(parents=True, exist_ok=True)
-            shutil.copy(svg, rendered / svg.name)
-            parts += ['<p class="cover-qr"><a href="https://github.com/miguelinux314/uab-xoi/">'
-                      f'<img src="assets/rendered/{svg.name}" alt="QR code"></a></p>', ""]
+        # Subject name and its acronym in one bold title, then "Study Guide" and the course line.
+        parts += ['<div class="frontpage" markdown="1">', "",
+                  f"# **{detex_title(self.strings['subjectName'])} (XOI)**",
+                  f'<p class="cover-studyguide">{self.strings["strStudyGuide"]}</p>',
+                  f'<p class="cover-course">{subtitle}</p>', ""]
+        # Order: downloads, then authorship (byline and logos) last (collected in two lists).
+        downloads, byline = [], []
         # Every PDF edition, from any language's page. mkdocs-static-i18n
         # (docs_structure: folder) publishes the default locale (en) at the
         # site root and other locales (es, ca) under their own /<locale>/
@@ -702,7 +761,6 @@ class Converter:
         # site root (unless this already is the root), target_prefix then
         # steps into the target's own subfolder (unless it is the root/en).
         own_prefix = "" if self.lang == DEFAULT_LANG else "../"
-        parts += [TEXTS[self.lang]["pdf_label"], ""]
         langs = sorted(self.all_langs, key=lambda l: LANGUAGE_LABELS.get(l, l).lower())
 
         def asset_href(lang, ext):
@@ -715,16 +773,16 @@ class Converter:
             # Raw HTML, not a markdown link: mkdocs validates markdown links against the source tree,
             # where other locales' assets are not siblings of this page (the URLs below are right for
             # the published layout: en at the site root, es/ca in subfolders).
-            parts.append(f'<a class="md-button md-button--primary" href="{asset_href(lang, "zip")}">'
-                         f":material-folder-zip: {LANGUAGE_LABELS.get(lang, lang)}</a>")
-        parts.append("")
+            downloads.append(f'<a class="md-button md-button--primary" href="{asset_href(lang, "zip")}">'
+                             f":material-folder-zip: PDF {LANGUAGE_LABELS.get(lang, lang)}</a>")
+        downloads.append("")
         # Author + department/university logos + CC license badge, matching
         # the PDF cover (chapters/cover.tex).
         logos = {name: self.resolve_graphic(name) for name in ("logo_uab", "logo_deic", "by-nc-sa")}
         logos = {name: self.web_figure(src) for name, src in logos.items() if src}
-        parts += [
+        byline += [
             '<p class="cover-byline">'
-            f"<strong>{self.strings['strBy']}</strong> Miguel Hernández-Cabronero &mdash; "
+            f"<strong>{self.strings['strBy']}</strong> Miguel Hernández-Cabronero - "
             '<a href="mailto:miguel.hernandez@uab.cat">miguel.hernandez@uab.cat</a></p>',
             "",
         ]
@@ -739,8 +797,8 @@ class Converter:
             if "by-nc-sa" in logos:
                 imgs.append('<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">'
                            f'<img src="assets/fig/{logos["by-nc-sa"]}" alt="CC BY-NC-SA"></a>')
-            parts += ['<p class="cover-logos">' + " ".join(imgs) + "</p>", ""]
-        parts += ["</div>", ""]
+            byline += ['<p class="cover-logos">' + " ".join(imgs) + "</p>", ""]
+        parts += downloads + byline + ["</div>", ""]
         (self.out / "index.md").write_text("\n".join(parts), encoding="utf-8")
 
     def split_copyright(self, by_page):
@@ -789,10 +847,18 @@ class Converter:
             for line in self.concepts_path.read_text(encoding="utf-8").splitlines():
                 c = json.loads(line)
                 by_key[c["key"]].append(c)
+        # The canonical term shown in the index below and, via main()'s combined assets/terms.json,
+        # in the "Technical terms" nav list and its hover tooltip on every page
+        # (web/js/technical-terms.js): the glossary's own pinned word when there is one (a curated
+        # base/dictionary form, not inflected), else the first occurrence (book order) of the key -
+        # which may itself be an inflected form (plural, conjugated), same as before.
+        glossary = glossary_canonical_terms(self.lang)
+        self.canonical_terms = {key: glossary.get(key.lower(), entries[0]["text"])
+                                for key, entries in by_key.items()}
         title = self.strings["strIndexTitle"]
         lines = ["---", "title: " + json.dumps(title), "---", "", f"# {title}", "",
                  TEXTS[self.lang]["concepts_intro"], ""]
-        for key in sorted(by_key, key=lambda k: k.lower()):
+        for key in sorted(by_key, key=lambda k: self.canonical_terms[k].lower()):
             seen, links = set(), []
             for c in by_key[key]:
                 sec = c["secnum"] or c["sectitle"]
@@ -800,7 +866,7 @@ class Converter:
                     continue
                 seen.add((c["page"], sec))
                 links.append(f"[§{sec}]({c['page']}#{c['anchor']})")
-            lines.append(f"- **{key}**: " + ", ".join(links))
+            lines.append(f"- **{self.canonical_terms[key]}**: " + ", ".join(links))
         (self.out / "concepts.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     def copy_assets(self):
@@ -835,6 +901,31 @@ class Converter:
             if md is not None:
                 if rel.endswith("mission_index.tex"):
                     md = self.wrap_wide_table(md)
+                elif page in ("networks.md", "internet.md"):
+                    # part_networks.tex/part_internet.tex are just the part's intro blurb, with no
+                    # \chapter of their own (so no heading survives pandoc) - finish_page() needs an
+                    # "# " line to title this landing page and to give web/mkdocs.yml's
+                    # navigation.indexes something to show as the nav section's own label. The
+                    # roman numeral matches the PDF's part-cover pages (shown there graphically,
+                    # not as text); the chapter list below mirrors that same cover's own preview.
+                    key = "strPartNetworks" if page == "networks.md" else "strPartInternet"
+                    numeral, chapter_labels = PART_INFO[page]
+                    title_line = f"# {self.strings['strPart']} {numeral}: {self.strings[key]}\n\n"
+                    outline = "\n".join(
+                        f"- [{self.labels[label]['num']} {self.labels[label]['title']}]"
+                        f"({self.labels[label]['page']})"
+                        for label in chapter_labels if label in self.labels)
+                    md = title_line + md + "\n\n" + outline + "\n"
+                elif page == "course.md":
+                    # Site-only: show "About this course" (matches web/mkdocs.yml's nav label)
+                    # instead of the PDF chapter's own numbered title ("[1] Intro: ..."); the PDF
+                    # keeps that title unchanged. Keep the heading's anchor id so any existing link
+                    # to #sec-course still resolves.
+                    anchor = re.search(r"(\{#[^}]*\})\s*$", md.splitlines()[0])
+                    lines = md.splitlines()
+                    lines[0] = "# " + self.strings["strAboutCourse"] + (
+                        (" " + anchor.group(1)) if anchor else "")
+                    md = "\n".join(lines)
                 by_page[page].append((md, hero))
         self.split_copyright(by_page)
 
@@ -860,9 +951,24 @@ def main():
                     help="report problems but exit 0")
     args = ap.parse_args()
     problems = []
+    converters = {}
     for lang in args.langs:
         print(f"== {lang}")
-        problems += Converter(lang, args.out, all_langs=args.langs).run()
+        converters[lang] = Converter(lang, args.out, all_langs=args.langs)
+        problems += converters[lang].run()
+
+    # Combined cross-language term dictionary (key -> {lang: canonical text}), one identical copy
+    # published into each language's own assets/ (mirrors copy_assets()'s per-language PDFs/zips).
+    # Read by web/js/technical-terms.js for the "Technical terms" nav list (this page's own
+    # language) and its hover tooltip (all built languages, however many are configured).
+    terms = defaultdict(dict)
+    for lang, conv in converters.items():
+        for key, text in getattr(conv, "canonical_terms", {}).items():
+            terms[key][lang] = text
+    for lang, conv in converters.items():
+        conv.assets.mkdir(parents=True, exist_ok=True)
+        (conv.assets / "terms.json").write_text(
+            json.dumps(terms, ensure_ascii=False), encoding="utf-8")
 
     # mkdocs resolves extra_css/extra_javascript relative to docs_dir, which
     # is this generated directory, not site/ (where they're authored) - copy

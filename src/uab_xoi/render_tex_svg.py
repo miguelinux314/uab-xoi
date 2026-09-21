@@ -61,13 +61,16 @@ PREAMBLE = r"""\documentclass[11pt,border=6pt]{standalone}
 LANG_STRINGS = {
     "en": {"lecture": "Lecture", "full_class": "Full class",
            "problems": "Problems", "labs": "Labs",
-           "control_tests": "Control tests"},
-    "es": {"lecture": "Teoría", "full_class": "Clase completa",
+           "control_tests": "Control tests",
+           "lab_grade": "Lab grade", "final_max": "Max(Final exam; Final Retake)"},
+    "es": {"lecture": "Teoría", "full_class": "\\mbox{Clase} \\mbox{completa}",
            "problems": "Problemas", "labs": "Prácticas",
-           "control_tests": "Controles"},
-    "ca": {"lecture": "Teoria", "full_class": "Classe completa",
+           "control_tests": "Controles",
+           "lab_grade": "Prácticas", "final_max": "Máx(Final; Recuperación)"},
+    "ca": {"lecture": "Teoria", "full_class": "\\mbox{Classe} \\mbox{completa}",
            "problems": "Problemes", "labs": "Pràctiques",
-           "control_tests": "Controls"},
+           "control_tests": "Controls",
+           "lab_grade": "Pràctiques", "final_max": "Màx(Final; Recuperació)"},
 }
 
 # schedule.sty hardcodes its day-of-week header text to English (\@M@week

@@ -9,8 +9,11 @@
 \newcommand {\compact}{\vspace{-0.5cm}}
 
 %% Index of concepts
-\newcommand {\concept}[1]{{\color{color1}#1}\index{#1}}
-\newcommand {\conceptRef}[2]{{\color{color1}#2}\index{#1}}
+% Gray, dashed underline, matching the site's .concept styling (web/css/xoi.css: text and dashes
+% both var(--md-default-fg-color--light), colorConcept in style/style.tex is the same gray).
+% \dashuline needs ulem, loaded in style/style.tex.
+\newcommand {\concept}[1]{\textcolor{colorConcept}{\dashuline{#1}}\index{#1}}
+\newcommand {\conceptRef}[2]{\textcolor{colorConcept}{\dashuline{#2}}\index{#1}}
 
 %% Fancy links
 \newcommand \secref[1]{Section~\underline{\ref{#1}}}

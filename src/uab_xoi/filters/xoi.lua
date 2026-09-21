@@ -115,9 +115,11 @@ local function pass1(doc)
     -- \section*{} etc. have none) shows that number, same as the PDF; this
     -- is what the left nav label (page title, from the H1) and the
     -- right-hand "Table of contents" panel (built from heading text) end up
-    -- showing too, since both just read the rendered heading text.
-    if info and info.num ~= "" then
-      local prefixed = pandoc.List({pandoc.Str(info.num), pandoc.Space()})
+    -- showing too, since both just read the rendered heading text. Not on
+    -- missions/ pages: "11.1"-style numbers aren't meaningful there (each
+    -- mission is its own standalone problem, not "section 11.N" to a reader).
+    if info and info.num ~= "" and not cfg.page:match("^missions/") then
+      local prefixed = pandoc.List({pandoc.Str("[" .. info.num .. "]"), pandoc.Space()})
       prefixed:extend(el.content)
       el.content = prefixed
     end
@@ -145,7 +147,8 @@ local function pass1(doc)
       end
       -- Concepts can nest (\conceptRef{..}{... \concept{x} ...}).
       local inner = pandoc.Span(el.content):walk({Link = filter.Link}).content
-      local out = pandoc.List({pandoc.RawInline("html", '<span class="concept" id="' .. id .. '">')})
+      local key_attr = key:gsub("&", "&amp;"):gsub('"', "&quot;"):gsub("<", "&lt;")
+      local out = pandoc.List({pandoc.RawInline("html", '<span class="concept" id="' .. id .. '" data-key="' .. key_attr .. '">')})
       out:extend(inner)
       out:insert(pandoc.RawInline("html", "</span>"))
       return out
@@ -200,16 +203,14 @@ local function showcode(el, with_output)
   end})
   if not path then return el end
   local code = (read_file(cfg.root .. "/code/" .. path) or ("<missing: code/" .. path .. ">")):gsub("%s+$", "")
-  local py_url = cfg.assets .. "code/" .. path
-  -- Raw <a download> (not a markdown link): forces a download instead of
-  -- navigating to the raw file, which is the browser's default for .py/.out.
-  local links = '<a href="' .. py_url .. '" download>.py</a>'
+  -- The PDF's own .py/.out download links (\showCode in style/style.tex) aren't reproduced here:
+  -- the site's code/output already sits right there as text, so a separate download link is not
+  -- needed the way it is on paper.
   local parts = { '<div class="showcode" markdown="1">' }
 
   if with_output then
     local out = (read_file(cfg.root .. "/code/" .. path .. ".out") or ""):gsub("%s+$", "")
-    links = links .. ' &middot; <a href="' .. py_url .. '.out" download>.out</a>'
-    parts[#parts + 1] = "**`" .. path .. "`** (" .. links .. ")"
+    parts[#parts + 1] = "**`" .. path .. "`**"
     parts[#parts + 1] = ""
     -- pymdownx.tabbed (=== "Title"): a Code/Output tab pair instead of two
     -- stacked fenced blocks.
@@ -223,7 +224,7 @@ local function showcode(el, with_output)
     add_indented_lines(parts, out)
     parts[#parts + 1] = "    ```"
   else
-    parts[#parts + 1] = "**`" .. path .. "`** (" .. links .. ")"
+    parts[#parts + 1] = "**`" .. path .. "`**"
     parts[#parts + 1] = ""
     parts[#parts + 1] = '```python linenums="1"'
     parts[#parts + 1] = code
