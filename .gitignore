@@ -325,6 +325,7 @@ tex/common/fig/missions/.idea
 build/
 tex/main*.pdf
 tex/main_??.*
+!tex/main_??.tex
 *.egg-info/
 __pycache__/
 
