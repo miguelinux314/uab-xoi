@@ -1,0 +1,62 @@
+\newpage
+\section{Misión 3: Pastoreando el caos}\label{sec:mission3}
+
+\begin{minipage}{0.45\linewidth}
+Debido a diferencias políticas, y a pesar de los esfuerzos de la asamblea de la colonia, cada base del planeta adoptó una tecnología de LAN (red de área local) distinta (!).
+Aunque las comunicaciones son satisfactorias dentro de cada base, por el momento es imposible conectar directamente dos ordenadores cualesquiera de dos bases diferentes.
+%
+Una vez más, la colonia te pide ayuda.\\
+\end{minipage}
+\hspace{0.04\linewidth}
+\begin{minipage}{0.5\linewidth}
+\vspace{-1cm}\includegraphics[width=\linewidth]{colony_network_map.pdf}
+\end{minipage}
+
+\noindent
+Gracias a los sacrificios de todos, la colonia está ahora en condiciones de construir e instalar un nuevo router (encaminador) y dos buses cableados.
+Estos se representan con una línea más gruesa en el diagrama de abajo.
+%
+% \noindent
+Tu objetivo a largo plazo es hacer posible la comunicación entre redes entre dos nodos cualesquiera de dos bases cualesquiera.
+Por ahora, diseñarás la infraestructura física y lógica.\\
+
+\subsection*{Detalles del informe}
+
+Todas las bases emplean el protocolo IPv4, y hay varias bases conectadas tanto al bus Norte como al bus Sur.
+Cada base contiene una única LAN. Coordínate con los demás para que \textit{no haya dos LANs del mismo tamaño}.
+
+\begin{enumerate}[itemsep=0.1cm]
+\item Dentro de tu grupo:
+\begin{itemize}[itemsep=0.1cm]
+    \item Determina cuántas direcciones necesitas para que cada dispositivo pueda identificarse de forma única dentro de tu LAN.
+    Elige el tamaño mínimo de LAN que puede satisfacer este requisito, y cuantifica el ``espacio'' libre disponible en
+    tu LAN.
+    \item Indica cuántos de los 32~bits de una dirección IPv4 necesitas para identificar un único dispositivo conectado a la LAN de tu base.
+    ¿Qué concepto usado en IP está más relacionado con este número? ¿Cómo puede ser útil esta estructura?\\[0.2cm]
+\end{itemize}
+
+\begin{center}
+\begin{bytefield}{18}
+\bitbox{8}{Network ID} & \bitbox{15}{Host ID}\\
+\end{bytefield}
+\end{center}
+
+\item En coordinación con los otros grupos del aula:
+\begin{itemize}[itemsep=0.1cm]
+\item Crea una LAN para el bus Norte, y describe todas las direcciones físicas y lógicas conectadas a ella.
+\item Asegúrate de que los bloques de direcciones IPv4 asignados a las LANs son de tamaños diferentes y no se solapan.
+\item Usando la pizarra o un documento compartido, enumera todas las LANs, sus tamaños y sus rangos de direcciones (actualizados).
+\end{itemize}
+
+\end{enumerate}
+
+\subsection*{Detalles del feedback}
+
+Utiliza un proceso de feedback similar al de las misiones anteriores, asegurándote de tratar:
+
+\begin{enumerate}[itemsep=0.1cm]
+\item ¿Están las LANs correctamente dimensionadas?
+\item ¿Hay alguna colisión entre los bloques?
+\item ¿Extrajo el informe original toda la información sobre la estructura de la dirección IP?
+\end{enumerate}
+

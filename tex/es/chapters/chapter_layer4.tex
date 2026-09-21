@@ -1,0 +1,615 @@
+\chapterimage{tubes.jpg}
+
+\chapter{Capa 4: Transporte}\label{sec:layer4}
+
+\begin{minipage}{0.4\linewidth}
+\begin{center}
+\begin{bytefield}{16}
+\bitbox{16}{Layer 7: Application} \\
+\bitbox{16}{\color{color1} Layer 4: Transport} \\
+\bitbox{16}{Layer 3: Internet} \\
+\bitbox{16}{Layer 2: Network (LAN)} \\
+\bitbox{16}{Layer 1: Physical} \\
+\end{bytefield}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.6\linewidth}
+\begin{center}
+\includegraphics[width=\linewidth]{network_layer4.pdf}
+\end{center}
+\end{minipage}
+
+\vspace{-0.75cm}
+
+\subsection*{Capacidades}
+
+La capa de \conceptRef{transport}{transporte} comunica \conceptRef{process}{procesos} (programas)
+que se ejecutan en \conceptRef{host}{hosts} (equipos conectados a la red) potencialmente distintos.
+Estos procesos se identifican mediante direcciones de capa~4 llamadas \conceptRef{port}{puertos}.
+
+La capa de transporte ofrece dos formas distintas de comunicación: sin \conceptRef{connection}{conexiones} (\concept{UDP})
+y con conexiones (\concept{TCP}).
+
+\concept{UDP} no establece una \conceptRef{connection}{conexión} con el host de destino porque la prioridad es
+enviar unos datos de \concept{payload} (carga útil) lo más rápido posible.
+En su lugar, UDP envía paquetes llamados \conceptRef{user datagram}{datagramas de usuario} directamente al destino,
+sin esperar ningún tipo de confirmación de recepción por parte de la capa UDP del destino.
+Las cabeceras UDP son simples y pequeñas, de modo que el \concept{overhead} (sobrecarga) de este protocolo también se mantiene pequeño.
+
+\concept{TCP} establece una \conceptRef{connection}{conexión} antes de enviar cualquier dato de \concept{payload}
+para asegurarse de que ambos extremos están listos. Además, TCP espera un \conceptRef{ACK}{acuse de recibo} (confirmación)
+de la recepción de cada byte de datos de payload. En caso contrario, los datos se \conceptRef{retransmission}{retransmiten}
+tras un periodo de espera, lo que le da a TCP su \conceptRef{reliability}{fiabilidad}. TCP también usa una forma muy ingeniosa
+de limitar la velocidad de intercambio de datos (\conceptRef{flow control}{control de flujo}) para que ordenadores rápidos y lentos puedan coexistir
+y comunicarse mediante TCP/IP. Para ofrecer todas estas prestaciones, TCP es un protocolo más complejo que UDP,
+usa cabeceras más grandes e introduce un mayor \concept{overhead}.
+
+\begin{exercise}
+¿Cuáles de las siguientes aplicaciones crees que usan \concept{UDP} y \concept{TCP}?
+\begin{itemize}
+\item Juegos multijugador
+\item La WWW
+\item BitTorrent
+\item Streaming de vídeo
+\end{itemize}
+\end{exercise}
+
+\subsection*{Protocolos}
+
+\begin{center}
+\includegraphics[width=0.95\linewidth]{protocols_layer4.pdf}
+\end{center}
+
+La capa de transporte está en lo más alto de la pila que proporciona el sistema operativo.
+Prácticamente todas las aplicaciones y, por tanto, sus protocolos de comunicación,
+emplean \concept{TCP}, \concept{UDP} (o incluso ambos) para intercambiar datos por la red.
+En la figura anterior se muestran algunos protocolos importantes que usan TCP o UDP.
+
+Tanto TCP como UDP encapsulan sus PDU en \conceptRef{datagram}{datagramas} \concept{IP}.
+Generalmente se usa \concept{IPv4}, pero \concept{IPv6} también es una posibilidad cuando está disponible.
+
+\begin{remark}
+Ni TCP ni UDP cambian en absoluto cuando se usa IPv6 en lugar de IPv4, \ie,
+no existe un protocolo TCPv6. En su lugar, \inlineCode{tcp6} y otras expresiones que incluyen
+TCP y 6 se refieren a TCP (el de siempre) sobre IPv6.
+\end{remark}
+
+
+\section{Direccionamiento de capa 4}\label{sec:layer4:addressing}
+
+Las ``direcciones'' de TCP y UDP se llaman \conceptRef{port}{puertos} y son enteros sin signo de $16$ bits.
+Para las personas, los puertos se expresan principalmente de dos formas:
+\begin{itemize}
+\item Como un número, \eg, 22, 80 o 443.
+\item Como el nombre del servicio que suele usar ese puerto, \eg, \concept{sshd}, \conceptRef{HTTP}{http}, \conceptRef{HTTPs}{https}.
+\end{itemize}
+
+Cuando se recibe una PDU de capa~4, el sistema operativo usa el puerto de su cabecera para saber cuál de los procesos
+en ejecución debe recibir los datos.
+A su vez, los procesos tienen que hacer \concept{bind} (asociarse) a un puerto TCP o a un puerto TCP (o a ambos)
+para que el sistema operativo sepa de qué puerto esperan datos.
+
+Solo un proceso puede hacer bind a un puerto a la vez para enviar datos, pero los puertos TCP y UDP
+se tratan de forma independiente:
+\begin{itemize}
+ \item Si un proceso está asociado al puerto \otherBase{TCP/100}, no recibirá tráfico UDP dirigido al puerto 100.
+ \item Si un proceso está asociado al puerto \otherBase{TCP/100}, otro proceso (o incluso el mismo) puede
+   hacer bind a \otherBase{UDP/100}.  
+\end{itemize}
+
+El puerto número \otherBase{0} está reservado, así que el rango de puertos utilizable es \otherBase{1}--\otherBase{65535}.
+Los puertos \otherBase{1}--\otherBase{1023} solo se asocian a
+procesos con privilegios (\eg, un \conceptRef{server}{servidor} http), mientras que las aplicaciones cliente (\eg, un \conceptRef{client}{cliente} http)
+solo pueden hacer bind a los puertos \otherBase{1024}--\otherBase{65535} en función de su disponibilidad.
+
+\begin{exercise}
+¿Cuántos servidores distintos se pueden ejecutar en una máquina para ofrecer alguna funcionalidad a otros hosts de la red?
+\end{exercise}
+
+
+\section{UDP -- User Datagram Protocol}\label{sec:layer4:udp}
+\subsection{Formato del paquete}
+
+Todos los \conceptRef{user datagram}{datagramas de usuario} que usa UDP tienen una cabecera de $8$ bytes y
+la siguiente estructura:
+
+\begin{center}
+\begin{bytefield}{32}
+\bitheader{0-31}\\
+\bitbox{16}{Source UDP Port} & \bitbox{16}{Destination UDP Port} \\
+\bitbox{16}{Length (header and data)} & \bitbox{16}{Checksum} \\
+\bitbox[tlr]{32}[bitheight=3em]{Payload data\\{\scriptsize(variable length, byte aligned)}} \\
+\bitbox[lbr]{24}{\hspace{3cm}\raisebox{0.25cm}{$\vdots$}} & \bitbox[lt]{8}{} \\
+\end{bytefield}
+\end{center}
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item ¿Cuál es el tamaño máximo de payload que se puede enviar en un único \conceptRef{user datagram}{datagrama de usuario}?
+\item ¿Es deseable la \conceptRef{fragmentation}{fragmentación} cuando se usa UDP?
+\end{itemize}
+\end{exercise}
+
+\subsection{Funcionamiento}
+
+\begin{center}
+\includegraphics[width=0.5\linewidth]{udp_socket.pdf}
+\end{center}
+
+Los clientes UDP crean primero un \concept{socket} (punto de conexión) y después envían directamente los datagramas de usuario con \inlineCode{sendto}.
+No hace falta establecer ni cerrar ninguna conexión.
+
+Los servidores UDP deben hacer primero \concept{bind} al puerto que se va a exponer a los clientes y después
+recibir cada datagrama con una llamada individual a la función de lectura (\inlineCode{recvfrom}).
+
+La función bind es puramente interna al servidor: implica cambios en su configuración
+(la tabla que relaciona números de puerto y \conceptRef{process}{procesos}), pero no genera ningún mensaje.
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item ¿Puede funcionar un servidor UDP sin enviar ningún dato por la red?
+\item ¿Puede un cliente recibir tráfico UDP sin hacer bind a un puerto?
+\item ¿Pueden dos hosts distintos hacer bind al mismo puerto y aun así intercambiar \conceptRef{user datagram}{datagramas de usuario}?
+\end{itemize}
+\end{exercise}
+
+
+\begin{exercise}
+El siguiente fragmento de código muestra el esqueleto básico de un servidor UDP:
+
+\begin{center}
+\showCodeNoOutput{snippets/udpserver.py}
+\end{center}
+
+\begin{itemize}
+\item Ejecuta el servidor y, en otra terminal, ejecuta \inlineCode{ncat -u localhost 4567} y escribe algo de texto para probar
+  el servidor.
+\item Implementa el extremo cliente de la comunicación y pruébalo contra el servidor.
+\item ¿Qué información importante obtienes si cambias \inlineCode{s.recvfrom} por \inlineCode{s.recvmsg}?
+\end{itemize}
+
+\begin{remark}
+Este código usa \conceptRef{socket}{sockets} UDP normales, así que no necesita permisos de administrador
+ni la capacidad \inlineCode{CAP_NET_RAW}, como sí ocurría en el Ejercicio~\ref{ex:layer2:echo},
+que en cambio requería acceso a sockets de capa~2 (\eg, Ethernet).
+\end{remark}
+\end{exercise}
+
+\section{TCP -- Transport Control Protocol}\label{sec:layer4:tcp}
+\subsection{Formato del paquete}
+
+Las PDU de \concept{TCP} se llaman \conceptRef{segment}{segmentos}.
+Su \conceptRef{header}{cabecera} tiene al menos $20$ bytes, pero puede crecer cuando se usan ciertas opciones:
+
+\begin{center}
+\begin{bytefield}[bitheight=3em,bitwidth=1.1em]{32}
+\bitheader{0-31}\\
+\begin{rightwordgroup}{Mandatory\\header part\\{\scriptsize($20$ bytes)}}
+\bitbox{16}{Source TCP port} & \bitbox{16}{Destination TCP port} \\
+\bitbox{32}{Sequence (seq) number} \\
+\bitbox{32}{Acknowledgement (ack) number} \\
+\bitheader{0-31}\\
+\bitbox{4}{Header\\length/$4$} 
+& \bitbox{4}{\otherBase{0}} 
+& \bitbox{1}{\rotatebox{90}{\small CWR}} 
+& \bitbox{1}{\rotatebox{90}{\small ECE}} 
+& \bitbox{1}{\rotatebox{90}{\small URG}} 
+& \bitbox{1}{\rotatebox{90}{\small ACK}} 
+& \bitbox{1}{\rotatebox{90}{\small PSH}} 
+& \bitbox{1}{\rotatebox{90}{\small RST}} 
+& \bitbox{1}{\rotatebox{90}{\small SYN}} 
+& \bitbox{1}{\rotatebox{90}{\small FIN}} 
+& \bitbox{16}{Window size\\{\small (bytes)}}\\
+\bitbox{16}{Checksum} & \bitbox{16}{Urgent pointer}
+\end{rightwordgroup} \\
+\begin{rightwordgroup}[curlyshrinkage=10pt]{Optional\\header part\\{\scriptsize($4$ byte words)}}
+\bitbox[tlr]{32}{Options\\{\scriptsize(variable length, optional)}} \\
+\bitbox[lbr]{24}{\hspace{3cm}\raisebox{0.25cm}{$\vdots$}} & \bitbox{8}{Padding to\\$32$ bits}
+\end{rightwordgroup} \\
+\begin{rightwordgroup}[curlyshrinkage=10pt]{Payload}
+\bitbox[tlr]{32}[bitheight=3em]{Payload data\\{\scriptsize(variable length, byte aligned)}} \\
+\bitbox[lbr]{24}{\hspace{3cm}\raisebox{0.25cm}{$\vdots$}} & \bitbox[lt]{8}{}
+\end{rightwordgroup}
+\end{bytefield}
+\end{center}
+
+Las cabeceras TCP contienen ocho flags (indicadores) de $1$ bit. De ellos, cuatro se usan para funcionalidades centrales de TCP que se tratan en las siguientes
+secciones. En el orden en que aparecen:
+\begin{itemize}
+\item ACK: flag de \conceptRef{ACK}{acuse de recibo} -- ``\textit{mi} número de ack es válido''
+\item RST: flag de \conceptRef{RST}{reinicio} -- ``\textit{aborta} la conexión''
+\item SYN: flag de \conceptRef{SYN}{sincronización} -- ``estoy abriendo \textit{mi} extremo de la conexión''
+\item FIN: flag de \conceptRef{FIN}{finalización} -- ``no enviaré más datos de \textit{payload}''
+\end{itemize}
+
+\begin{exercise}
+¿Cómo puede saber el extremo receptor el tamaño de las opciones y de los datos de payload?
+\end{exercise}
+
+\subsection{Funcionamiento}
+
+TCP es un protocolo \concept{stateful} (con estado). Los \conceptRef{socket}{sockets} TCP transitan entre
+múltiples estados durante la comunicación. Cada extremo de la comunicación tiene su propio
+socket con su propio estado.
+% 
+A grandes rasgos, las conexiones se pueden clasificar como ``Conectando'',
+``Conexión establecida'' o ``Cerrando la conexión''.
+% 
+Los datos de payload solo están pensados para intercambiarse durante ``Conexión establecida''.
+
+\begin{center}
+ \includegraphics[width=0.75\linewidth]{tcp_socket.pdf}
+\end{center}
+
+Los sockets TCP pueden estar en uno de $11$ estados. Estos estados, junto con dos contadores de $16$ bits
+(\conceptRef{acknowledgement number}{número de confirmación} y \conceptRef{sequence number}{número de secuencia}), hacen posible la \conceptRef{reliability}{fiabilidad} en la comunicación
+que se espera de TCP. El significado de estos estados y sus transiciones se explican en los
+siguientes capítulos.
+
+\section{TCP: ``Conectando''}\label{sec:layer4:tcp_opening}
+
+\begin{center}
+\includegraphics{3_way_handshake.eps}
+\end{center}
+
+Cuando se crea un \concept{socket}, empieza como \texttt{CLOSED}.
+El extremo que actúa como servidor empieza a escuchar en el \conceptRef{port}{puerto} configurado para el servicio
+y pasa al estado \texttt{LISTEN}. En este estado no se intercambia payload.
+
+Una conexión se establece mediante un \concept{3-way handshake} (negociación inicial) usando los
+flags \texttt{SYN} y \texttt{ACK} de la cabecera.
+% 
+Cada extremo de la comunicación alcanza el estado \texttt{ESTABLISHED} en un momento distinto gracias a
+este handshake.
+Cuando lo hacen, están listos para intercambiar datos de payload.
+
+\begin{remark}
+En TCP, ambos extremos se comunican como peers (pares) iguales; no importa quién inició la comunicación.
+Dicho esto, normalmente un extremo realiza una ``apertura activa'' (el cliente)
+y el otro una ``apertura pasiva'' (el servidor).
+\end{remark}
+
+Cada extremo de la comunicación lleva la cuenta de sus contadores de
+\conceptRef{acknowledgement number}{número de confirmación} (\nack) y \conceptRef{sequence number}{número de secuencia} (\nseq).
+% 
+Cada extremo elige el valor de \nseq\ por separado (y normalmente al azar):
+$A,\,B \in [0, 2^{32} - 1]$. 
+
+Una sola vez durante la apertura de la conexión, cada extremo envía exactamente un segmento con el flag \concept{SYN} activado.
+Estos segmentos intercambian (sincronizan) sus números de secuencia iniciales $A$ y $B$.
+
+Los segmentos con el flag \concept{ACK} activado (todos salvo el primer segmento del cliente)
+tienen su \nack\ fijado a ``el siguiente \nseq\ que se espera del otro extremo''.
+Este \nack\ debe leerse como ``he recibido correctamente todos los segmentos correspondientes a
+\nack, sin incluirlo''. 
+
+
+Los números \nack\ y \nseq\ esperados durante el \concept{3-way handshake} son:
+\begin{center}
+\includegraphics[width=\linewidth]{3_way_handshake_counters.eps}
+\end{center}
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item ¿Cómo puede saber un extremo que el otro ha recibido el \nseq\ que ha elegido?
+\item ¿Por qué el tercer segmento tiene su \nseq\ fijado a $A+1$ y no a $A$?
+\item ¿Qué \nseq\ tendrá el siguiente segmento que envíe el servidor?
+\end{itemize}
+\end{exercise}
+
+
+\section{TCP: ``Conexión establecida''}\label{sec:layer4:established}
+
+\subsection{Flujos y números de secuencia}
+
+TCP ofrece la ilusión de un \conceptRef{stream}{flujo} de datos: dos tuberías de datos en los sentidos de entrada y salida
+(una conexión \conceptRef{full duplex}{full-duplex}). Estas tuberías son \conceptRef{reliability}{fiables},
+\ie, se establecen mecanismos para evitar la pérdida, la duplicación y el reordenamiento de los datos.
+
+\begin{center}
+\includegraphics[width=0.75\linewidth]{tcp_two_pipes.pdf}
+\end{center}
+
+A cada byte de datos de payload se le asigna un número de secuencia (\nseq) en la cabecera TCP.
+El primer byte de datos
+de payload tiene \nseq\ $=A+1$, donde $A$ es el número de secuencia inicial establecido durante la apertura
+de la conexión (ver Sección~\ref{sec:layer4:tcp_opening}). A cada nuevo byte de datos se le asigna el siguiente
+\nseq\ (sin huecos).
+
+\begin{center}
+\begin{tabular}{r |c|c|c|c|c|c|c|c|c|c| l}
+\textbf{\nseq} & $A$ & $A+1$ & $A+2$ & $A+3$ & $A+4$ & $A+5$ & $A+6$ & $A+7$ & $A+8$ & $A+9$ & $\cdots$ \\[0.2cm]
+\textbf{contenido}  & \raisebox{-0.5em}{\rotatebox{90}{SYN}} & 
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x48} \\ \inlineCode{'H'}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x69} \\ \inlineCode{'i'}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x21} \\ \inlineCode{'!'}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x0a} \\ \inlineCode{'\n'}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x48} \\ \inlineCode{'H'}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x6f} \\ \inlineCode{'o'}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x77} \\ \inlineCode{'w'}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x20} \\ \inlineCode{' '}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x61} \\ \inlineCode{'a'}}
+\end{minipage} &  
+$\cdots$ \\
+\end{tabular}
+\end{center}
+
+\begin{exercise}
+El \nseq\ que viene después de $2^{32} - 1$ es $0$. ¿Por qué?
+\end{exercise}
+
+Los datos de payload en TCP siempre se envían junto con la \textit{primera} posición que ocupan en el
+\conceptRef{stream}{flujo} y su longitud.
+Por ejemplo, a partir de los datos mostrados arriba, se podrían producir dos segmentos:
+
+\begin{enumerate}
+\item \nseq\ $= A+1$, len $= 4$, datos $= $ \otherBase{0x48 69 21 0a} (\inlineCode{'Hi!\n'})
+\item \nseq\ $= A+5$, len $= 13$, datos $=$ \otherBase{0x48 6f 77 20 61 72 65 20 79 6f 75 3f 0a}
+\end{enumerate}
+
+\begin{exercise}
+¿Cuál sería el \nseq\ del siguiente segmento con nuevos datos de payload?
+\end{exercise}
+
+El extremo receptor de un \conceptRef{segment}{segmento} TCP usa esta información para recomponer
+una copia de los datos en el orden correcto, aunque los propios segmentos lleguen desordenados.
+%
+Estos datos se pasan a la \conceptRef{layer}{capa} superior a través de un
+\conceptRef{buffer}{buffer} (memoria intermedia), o directamente si el flag TCP \concept{PSH} (push) está activado.
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_reassembly.pdf}
+\end{center}
+
+
+\subsection{Fiabilidad y retransmisión}
+TCP necesita que todos los datos transmitidos sean \conceptRef{ACK}{confirmados} por el otro extremo.
+Siempre que se reciben datos en un segmento TCP, el extremo receptor devuelve una confirmación
+aunque en ese momento no necesite enviar ningún dato.
+El número de confirmación (\nack) de la cabecera TCP se usa para decirle al otro extremo que todos los datos hasta
+(sin incluirlo) \nack.
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_ack.eps}
+\end{center}
+
+\begin{remark}
+El campo \nseq\ de una cabecera TCP se refiere a los números de secuencia del emisor.
+El campo \nack\ se refiere a los números de secuencia del receptor.
+\end{remark}
+
+En las confirmaciones TCP se incluyen datos de payload siempre que haya datos disponibles.
+A la inversa, el valor más reciente de \nack\ se incluye siempre que se envían datos,
+\ie, las confirmaciones hacen \concept{piggyback} (viajan a cuestas) sobre los datos de payload.
+
+Por ejemplo, si Alice envía una petición de $25$ bytes, Bob puede enviar su respuesta de $10$ bytes
+y la confirmación de los datos de Alice en el mismo segmento TCP. Alice necesita confirmar
+los datos de Bob y, si hace falta, envía enseguida un segmento sin datos. Alice retomará el envío de
+datos más adelante cuando lo necesite.
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_ack_piggyback.eps}
+\end{center}
+
+Un segmento TCP que no se confirma tras un cierto periodo de espera se
+\conceptRef{retransmission}{retransmite}. Ese tiempo lo decide el sistema operativo de cada extremo
+a partir del tiempo medio que tarda en enviarse un segmento y recibirse una respuesta
+(el tiempo de ida y vuelta, \concept{RTT}).
+
+Las confirmaciones se envían aunque esa confirmación sea idéntica a otra anterior. Esto es así porque
+las confirmaciones también se pueden perder.
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_ack_retransmission.eps}
+\end{center}
+
+
+\begin{exercise}
+Suponiendo que ambos extremos siguen TCP correctamente:
+\begin{itemize}
+ \item Proporciona un conjunto de valores válidos para (a) a (i).
+ \item ¿Cómo cambia la historia si (f) y (h) son idénticos/distintos?
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_ack_exercise.eps}
+\end{center}
+\end{exercise}
+
+\subsection{Límites de transmisión}
+
+Los datos que hay que transmitir se suelen producir a ráfagas. Nos gustaría enviar todo lo
+posible lo antes posible, pero TCP impone dos límites.
+
+El primer límite, el \conceptRef{MSS}{tamaño máximo de segmento (MSS)}, es la cantidad máxima de datos de payload
+por segmento permitida en una conexión TCP.
+
+\begin{center}
+\begin{bytefield}[bitheight=3em]{45}
+\bitbox{5}{Ethernet header} & 
+\bitbox{5}{IP header} & 
+\bitbox{5}{TCP header} & 
+\bitbox{20}{TCP Payload data}\\[0.25cm]
+
+\bitbox[]{5 }[bitheight=1.5em]{} & 
+\bitbox[]{5 }[bitheight=1.5em]{} & 
+\bitbox[]{5 }[bitheight=1.5em]{} & 
+\bitbox[t]{20}[bitheight=1.5em]{MSS}\\
+
+\bitbox[]{5 }[bitheight=1.5em]{} & 
+\bitbox[t]{30}[bitheight=1.5em]{MTU}\\[-0.75cm]
+\end{bytefield}
+\end{center}
+
+La razón de este límite es evitar la fragmentación, por motivos de rendimiento,
+\eg, por el elevado coste en tiempo y memoria del reensamblado.
+
+Por defecto, el MSS es de $536$~bytes en \concept{IPv4},
+pero se puede negociar con las opciones de la cabecera TCP durante la fase de apertura de la conexión.
+En \concept{IPv6}, el MSS por defecto es de $1220$~bytes.
+
+\begin{exercise}
+Ethernet tiene una \concept{MTU} de $1500$~bytes. Suponiendo que los \conceptRef{datagram}{datagramas} viajan
+solo por 2 redes Ethernet:
+% 
+\begin{itemize}
+\item ¿Cuál es el mayor \concept{MSS} que no puede provocar fragmentación, MSS$_\textrm{max}$?
+\item ¿Cuál es el \concept{overhead} para MSS$_\textrm{max}$ y para MSS$_\textrm{max}$ + 1?
+\end{itemize}
+\end{exercise}
+
+El segundo límite afecta a la cantidad máxima de datos de payload que se pueden enviar
+antes de que el otro extremo responda con un nuevo \conceptRef{acknowledgement number}{\nack}:
+el llamado tamaño de la \conceptRef{transmission window}{ventana de transmisión}.
+% 
+Un host no enviará datos (por muchos que haya disponibles o por urgentes que sean) hasta que lleguen esos \nack.
+% 
+Cuando el ordenador más lento responde, lo hace siempre con el \nack\ más reciente.
+
+\begin{exercise}
+¿Cuáles son los tamaños de MSS y de ventana de transmisión más probables en este ejemplo?
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_ack_window.eps}
+\end{center}
+\end{exercise}
+
+El valor de la ventana de transmisión se anuncia en todos y cada uno de los segmentos TCP:
+este valor es un campo obligatorio de las cabeceras TCP.
+% 
+A medida que avanza la conexión, cada host puede cambiar el valor que anuncia en función de
+su propia carga y necesidades.
+
+\begin{remark}
+Cada host anuncia su propio tamaño de ventana.
+\end{remark}
+
+
+Este límite sirve para evitar que los ordenadores rápidos desborden a los más lentos (o sobrecargados):
+sin el límite, el ordenador más lento podría necesitar un buffer de tamaño infinitamente creciente para almacenar los
+segmentos aún no procesados que le envía el ordenador más rápido. Con este límite,
+en el punto de saturación ambos extremos envían segmentos al mismo ritmo, aunque tarden tiempos
+muy distintos en producirlos y procesarlos.
+
+\section{TCP: ``Cerrando la conexión''}\label{sec:layer4:tcp_closing}
+
+\subsection{FIN, \nseq\ y \nack}
+
+Una vez la conexión está \texttt{ESTABLISHED}, sigue así hasta que uno de los dos extremos decide
+cerrarla.
+
+Un nodo anuncia que ha terminado de enviar datos y que quiere cerrar la conexión enviando un
+segmento con el flag \concept{FIN} activo en la cabecera. El otro extremo puede seguir
+enviando datos, en cuyo caso espera respuestas con valores de \nack\ actualizados. El otro extremo
+también puede optar por cerrar la conexión en cuanto ve el primer FIN.
+% 
+En cualquier caso,
+si se envían $k$~bytes de datos y $A$
+es el \nseq\ inicial, entonces se espera un segmento con \nack\ $= A+k+2$.
+
+\begin{center}
+\begin{tabular}{r |c|c|c|c|c|}
+\textbf{\nseq}    & $A$ & $A+1$ & $\cdots$ & $A+k$ & $A+k+1$ \\[0.2cm]
+\textbf{contenido}  & \raisebox{-0.5em}{\rotatebox{90}{SYN}} & Datos $\cdots$ & $\cdots$ & $\cdots$ datos & \raisebox{-0.5em}{\rotatebox{90}{FIN}} \\[0.2cm]
+\end{tabular}
+\end{center}
+
+Fíjate en que el flag FIN ocupa por sí mismo un número de secuencia y debe confirmarse igual que el SYN
+(ver Sección~\ref{sec:layer4:tcp_opening}), \eg:
+
+\subsection{Cierre bilateral}
+
+Después de que un extremo cierre su lado de la conexión, el otro puede seguir enviando datos indefinidamente.
+Cuando el segundo lado termina de enviar datos, también envía un segmento con el flag \concept{FIN} activado.
+
+
+\begin{center}
+\includegraphics[width=0.9\linewidth]{tcp_close_more_data.eps}
+\end{center}
+
+Fíjate en que, si el otro extremo quiere terminar la conexión en cuanto recibe un segmento FIN,
+el proceso de cierre se condensa en $3$ segmentos en lugar de $4$, \eg,
+
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_close_no_more_data.eps}
+\end{center}
+
+
+
+\begin{remark}
+Fíjate en que:
+\begin{itemize}
+\item Cada extremo envía solo un segmento con el flag FIN, salvo en caso de retransmisión.
+\item El segmento con el flag FIN puede contener datos de payload. En ese caso:
+  \begin{itemize}
+  \item Los datos de payload ocupan números de secuencia \textit{anteriores} al del FIN.
+  \item El otro extremo debe confirmar (ACK) tanto los datos de payload como el FIN.
+  \end{itemize}
+\end{itemize}
+\end{remark}
+
+
+\subsection{Cierre unilateral}
+
+A veces hay que terminar una conexión y no hay tiempo ni interés suficientes
+para pasar por el proceso de cierre bilateral de varios pasos.
+% 
+Puede ser el caso, \eg, cuando un \conceptRef{process}{proceso} se cuelga, un puerto TCP o UDP dado está
+bloqueado y en otras situaciones de error.
+
+En este escenario, el host que ha detectado la situación anómala simplemente envía un segmento
+con su flag \concept{RST} (reset) activado. Los extremos receptores no deben confirmar
+el RST; en su lugar, se liberan directamente los recursos de la conexión, \eg,
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_close_reset.eps} 
+\end{center}
+
+Seguir el procedimiento de cierre de conexión bilateral o unilateral ayuda a reducir los
+recursos de cómputo necesarios para mantener las pilas de red de miles de millones de dispositivos de todo el mundo.
+
+\begin{remark}
+Una conexión \textit{no} se puede volver a abrir después de cerrarse. Al flag RST se le podría haber
+llamado, con más precisión, ``terminación forzosa''.
+\end{remark}
+
+\begin{exercise}
+El siguiente diagrama muestra los $11$ estados de TCP y (casi)
+todas las transiciones de estado posibles.
+
+\begin{center}
+ \includegraphics[width=\linewidth]{tcp_state_transition.pdf}
+\end{center}
+
+\begin{itemize}
+\item Indica el ciclo de vida del socket de un servidor HTTP como un camino en el grafo.
+\item Indica el ciclo de vida del socket del cliente HTTP correspondiente como un camino en el grafo.
+\item El estado \inlineCode{CLOSING} no se describe en las secciones anteriores.
+  ¿Cuál crees que es su propósito?
+\end{itemize}
+
+\begin{remark}
+ Este diagrama está adaptado de ``TCP/IP Illustrated, Volume 2: The Implementation,''
+de Gary R. Wright y W. Richard Stevens.
+\end{remark}
+
+
+\end{exercise}

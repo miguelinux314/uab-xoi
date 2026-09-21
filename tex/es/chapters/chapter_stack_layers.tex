@@ -1,0 +1,170 @@
+\chapterimage{onions.jpg}
+
+
+\chapter{Una pila de capas}\label{sec:stack_layers}
+
+La comunicación entre ordenadores moderna se consigue mediante una
+\concept{stack} de \conceptRef{layer}{capas} de red.
+Cada pila se centra en algunos problemas y es responsable de
+proporcionar ciertas funcionalidades, \eg,
+\conceptRef{address}{direccionamiento} y \concept{sequencing} (secuenciación) correcta (introducidos en los capítulos anteriores).
+
+Cada \concept{layer} define un \textit{par} de funciones \inlineCode{send}/\inlineCode{receive},
+que es responsable de algunas de estas funcionalidades.
+% 
+Cada capa utiliza el \inlineCode{send} y el \inlineCode{receive} de la capa inferior,
+\ie, las funcionalidades de una capa se apoyan en las funcionalidades de todas las capas que tiene por debajo.
+
+Para coordinar las capas y hacer posible la comunicación \concept{virtual} entre ellas,
+cada capa define un \concept{packet format} (formato de paquete) distinto, que \conceptRef{encapsulation}{encapsula}
+un paquete de la capa que tiene por encima.
+
+
+\section{Envío de datos}
+
+Para implementar estas
+capacidades, cada capa transmite no solo los \inlineCode{data} proporcionados por la capa superior,
+sino también una cabecera con toda la metainformación necesaria para esa capacidad. Así, cada capa necesita definir
+el \concept{packet format}, añadiendo cierto \concept{overhead} (sobrecarga) (típicamente una \conceptRef{header}{cabecera}) al \concept{payload} (carga útil), \eg:
+
+\begin{center}
+    \begin{bytefield}{36}
+     \bitbox{12}{Header} & \bitbox{24}{Payload}
+    \end{bytefield}
+\end{center}
+
+
+
+Cuando un programa de usuario quiere enviar algunos datos, utiliza el método \inlineCode{send} de la capa \textit{superior} de la pila,
+lo que acaba provocando que la capa física transmita ciertos datos, \eg, a través de un cable o una antena.
+La siguiente figura representa la estructura de una \concept{stack} de 4 capas:
+
+\begin{center}
+\includegraphics[width=\linewidth]{encapsulation_send.pdf}
+\end{center}
+
+
+Los paquetes producidos por cada capa se denominan genéricamente \concept{PDU}s (Protocol Data Unit).
+Las PDU de cada capa tienen nombres específicos como \concept{frame} (trama), \conceptRef{datagram}{datagrama} o \conceptRef{segment}{segmento}.
+Estos nombres deben usarse con precisión en contextos técnicos.
+
+Cada capa incluye la \concept{PDU} de la capa superior dentro de la definición del \concept{packet format} de su propia PDU.
+Este proceso se denomina \conceptRef{encapsulation}{encapsulación}.
+
+\begin{exercise}
+
+El programa de usuario quiere enviar $420$~bytes de datos utilizando la \concept{stack} de la figura anterior.
+Supón un tamaño de cabecera para las capas 2, 3 y 4 de $14$~bytes, $20$~bytes y $20$~bytes, respectivamente.
+\begin{itemize}
+    \item ¿Cuál es el tamaño del \concept{payload} y el tamaño del \concept{overhead} de la \concept{PDU} de cada \conceptRef{layer}{capa}?
+    \item ¿Cuál es el tamaño del \concept{payload} y el tamaño del \concept{overhead} de toda la \concept{stack}?
+\end{itemize}
+\end{exercise}
+
+\section{Recepción de datos}
+
+Cuando un \conceptRef{packet}{paquete} llega a la \concept{stack} de red del destinatario, se procesa en orden inverso,
+\ie, las capas se recorren de abajo arriba. Cada capa inspecciona \textit{solo} la \conceptRef{header}{cabecera} correspondiente a esa capa.
+Si todo es correcto, la capa elimina la cabecera y pasa el resto del paquete a la capa superior.
+A su vez, la capa de arriba pasa los datos restantes (el \concept{payload}) al destinatario.
+Continuando con el ejemplo de la pila de 4 capas:
+
+\begin{center}
+\includegraphics[width=\linewidth]{encapsulation_receive.pdf}
+\end{center}
+
+
+En una \conceptRef{stack}{pila de red}, solo la capa inferior interactúa directamente con el exterior,
+\eg, solo la tarjeta de red física de un ordenador está conectada a un cable que lleva datos a otros ordenadores.
+% 
+Al mismo tiempo, los datos enviados por la capa inferior incluyen las \conceptRef{PDU}{PDU} de todas las capas
+mediante la \concept{encapsulation}.
+% 
+Gracias a esto, existe una comunicación \concept{virtual} entre cada capa de un extremo y su homóloga en el otro
+extremo de la comunicación. La siguiente figura representa la comunicación real (línea continua) y la virtual (línea discontinua)
+en nuestro ejemplo:
+
+\begin{center}
+    \includegraphics[width=0.5\linewidth]{horizontal_layer_communication.pdf}
+\end{center}
+
+
+\begin{exercise}
+Otro ejemplo de \concept{stack} de red tiene 3 capas: L1, L2 y L3 de abajo arriba.
+
+La \concept{PDU} de la capa L2 es la siguiente:
+
+\begin{center}
+\begin{bytefield}{32}
+\bitheader{0,7,8,15,16,23,24,31}\\
+\bitbox{16}{Destination address} & \bitbox{16}{Payload length (bytes)} \\
+\wordbox{2}{{Payload (variable length)\\$\vdots$}}
+\end{bytefield}
+\end{center}
+
+La \concept{PDU} de la capa L3 es la siguiente:
+
+\begin{center}
+\begin{bytefield}{32}
+\bitheader{0,7,8,15,16,23,24,31}\\
+\bitbox{16}{Fragment offset} & \bitbox{16}{Payload length (bytes)} \\
+\wordbox{2}{{Payload (variable length)\\$\vdots$}}
+\end{bytefield}
+\end{center}
+
+La capa L1 recibe un \conceptRef{packet}{paquete} de datos y su función \inlineCode{receive} devuelve los siguientes datos
+(supón enteros \concept{unsigned} (sin signo) y orden \concept{big endian} cuando sea necesario:
+\begin{center}
+\otherBase{01 23 00 0a 01 00 00 06 00 aa 00 bb 43 20}
+\end{center}
+\begin{itemize}
+\item ¿Qué \concept{payload} de datos se envió al programa destinatario en este \conceptRef{packet}{paquete}?\\[-0.25cm]
+
+\item Si este es el último \conceptRef{packet}{paquete} de la comunicación, ¿cuántos datos (de \concept{payload}) se enviaron
+  al programa de usuario destinatario?\\[-0.25cm]
+  
+\item Como máximo, ¿cuántos ordenadores distintos pueden conectarse usando esta \concept{stack}?\\[-0.25cm]
+
+\item Enviamos un fichero como payload de esta pila. ¿Cuál es su tamaño máximo posible?
+\end{itemize}
+\label{ex:how_it_is_done:three_layer_network}
+\end{exercise}
+
+\begin{center}
+\showCode{snippets/encapsulation.py}
+\end{center}
+
+\begin{exercise}
+El código anterior toma unos datos y escribe los bytes que se enviarían a la capa 1
+(la \conceptRef{physical layer}{capa física}) de la \conceptRef{network stack}{pila de red} del ejercicio~\ref{ex:how_it_is_done:three_layer_network}.
+Implementa el extremo receptor de la pila de la siguiente manera:
+
+\begin{itemize}
+\item Implementa una función \inlineCode{layer2_decapsulate(data: bytes) -> (int, bytes)} que tome una PDU de la capa 2
+  y devuelva la tupla \inlineCode{(address, payload)}, donde \inlineCode{address} es la dirección de destino y
+  \inlineCode{payload} es la PDU de la capa 3 encapsulada.\\[-0.25cm]
+  
+\item Implementa una función \inlineCode{layer3_decapsulate(data: bytes) -> (int, bytes)} que tome una PDU de la capa 3
+  y devuelva la tupla \inlineCode{(offset, payload)}, donde \inlineCode{offset} es el offset (desplazamiento) de la carga útil, y
+  \inlineCode{payload} es el fragmento de datos enviado por el otro extremo de la comunicación.\\[-0.25cm]
+  
+\item Implementa una función \inlineCode{stack_receive(data: bytes)} que decodifique una PDU de la capa 1 (usando las dos funciones anteriores)
+  y muestre una línea de mensaje similar a
+  \begin{center}
+  \inlineCode{"Received a chunk of data. Length: 12 bytes, Address: 0xabcd, Offset: 0."}
+  \end{center}\ \\[-0.75cm]
+  
+\item Completa la función \inlineCode{stack_send} de forma que los datos de entrada se dividan en fragmentos de como mucho 100 bytes,
+      se produzca una PDU de la capa 1 válida para cada uno de esos fragmentos,
+      y esas PDU de la capa 1 se pasen a \inlineCode{stack_receive}.\\[-0.25cm]
+      
+\item ¿Funcionaría tu implementación si las PDU de la capa 1 se ordenaran aleatoriamente antes de pasarlas a la pila receptora?
+\end{itemize}
+% 
+\label{ex:how_it_is_done:implementation_three_layer_network}
+\end{exercise}
+
+\begin{remark}
+La biblioteca \inlineCode{struct} de Python es útil, aunque no obligatoria, para dar formato a los bytes de un \conceptRef{packet}{paquete}.
+\end{remark}
+

@@ -1,0 +1,60 @@
+\newpage
+\section{Misión 8: ¿Me hablas a mí?}\label{sec:mission8}
+
+\begin{minipage}{0.2\linewidth}
+\includegraphics[width=\linewidth]{name_tag}
+\end{minipage}
+%
+\hspace{0.03\linewidth}
+\begin{minipage}{0.80\linewidth}
+    Tu colonia lleva un tiempo utilizando con éxito (según Saturno, también \textit{abusando de})
+    la pila TCP/IP para conectarse a la Internet de la Tierra. Sin embargo, hasta ahora,
+    en cierto sentido no existías porque no tenías un \textit{nombre}. Eso está a punto de cambiar,
+    porque la colonia va a instalar su primer servidor de Domain Name System (DNS), que será
+    autoritativo para el nuevo dominio de primer nivel (TLD) \texttt{.mars}. Se necesita tu ayuda para
+    configurar los nuevos servicios que se ofrecerán a todo el Sistema Solar.
+\end{minipage}\ \\[0.2cm]
+
+\subsection*{Detalles del informe}
+
+\begin{enumerate}[itemsep=0.1cm]
+\item Resume la topología de red de tu colonia e incluye los rangos de direcciones IP y los valores de MTU asignados a cada LAN (red de área local) usando notación CIDR. Esto hará que tu informe sea autónomo y ayudará a los revisores a darte su valoración (puedes reutilizar o actualizar la configuración de sesiones anteriores).
+
+\item Indica claramente qué máquina alojará tu servidor DNS y su dirección IP.
+
+\item Especifica 5 servicios $S_1,\,S_2,\,\ldots,\,S_5$ (distintos de DNS) que se alojarán en tu colonia. Uno de ellos se alojará en la misma máquina que el servidor DNS. Para cada servicio, proporciona:
+    \begin{itemize}[itemsep=0.1cm]
+    \item Una breve explicación del servicio y del protocolo de capa de aplicación empleado.
+    \item La entrada o entradas DNS relacionadas con este servicio que se incluirán en el nuevo servidor DNS.
+    \item Un ejemplo de consulta (\textit{p.\,ej.}, \texttt{service.mars}) para la que se devolverán esas entradas, quién enviará esa consulta y cuándo.
+    \end{itemize}
+
+\item La máquina que aloja el servidor DNS aloja también otro servicio. ¿Cómo puede distinguir entre los dos tipos de tráfico?
+
+\item Alguien que usa el nodo $N_1$ de tu colonia va a implementar un script para detectar cuándo los servicios de Internet dejan de estar disponibles. Para ello, empleará mensajes ICMP periódicos para \textit{comprobar} que están en línea. Explica cómo funcionará exactamente y, mediante diagramas de swimlane, describe todo el tráfico dentro de la colonia derivado de una única \textit{comprobación} para cada uno de los siguientes escenarios:
+    \begin{enumerate}[itemsep=0.1cm]
+    \item $N_1$ comprueba el servicio \texttt{cv.uab.cat} usando resolución iterativa sobre UDP empezando en el servidor raíz M.
+    \item $N_1$ comprueba el servicio $S_1$ (indica su nombre) usando resolución iterativa sobre TCP empezando en el servidor raíz M.
+    \item $N_1$ comprueba el servicio $S_1$ usando resolución recursiva sobre UDP con el servidor DNS4EU sin filtrado.
+    \end{enumerate}
+
+En los diagramas, para cada mensaje intercambiado, indica:
+    \begin{itemize}
+    \item El tipo de mensaje (de la capa superior) y, si procede, su subtipo.
+    \item Todas las direcciones implicadas.
+    \item Toda la información relativa a DNS contenida en el mensaje.
+    \end{itemize}
+
+\end{enumerate}
+
+\subsection*{Detalles de la valoración}
+
+Ten en cuenta requisitos y un proceso similares a los de las misiones anteriores, asegurándote de abordar los siguientes aspectos clave:
+
+\begin{itemize}
+\item ¿Se está usando ICMP de una forma lógica y eficaz?
+\item ¿Se manejan correctamente la resolución DNS iterativa y la recursiva?
+\item ¿Está representado correctamente el ciclo de vida de la conexión TCP?
+\end{itemize}
+
+

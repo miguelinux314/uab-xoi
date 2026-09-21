@@ -1,0 +1,74 @@
+\newpage
+\section{Misión 6: Molestar a dos planetas enteros}\label{sec:mission6}
+
+\begin{minipage}{0.87\linewidth}
+Han pasado años en la colonia desde que ayudaste a configurar la gran antena que os permite comunicaros con la Tierra. Hace poco, tu colonia ha descubierto \textit{otra} colonia secreta, esta en Saturno -- ¡y la Tierra ni se molestó en decírnoslo!\\
+
+\noindent
+La asamblea ha decidido gastar una pequeña broma y te pide ayuda de nuevo.
+Tu objetivo es secuestrar la próxima conexión TCP Saturno $\leftrightarrow$ Tierra
+y enviar un comunicado falso haciéndote pasar por Saturno. La asamblea pide que el comunicado tenga clase.
+\end{minipage}
+%
+\hspace{0.03\linewidth}
+%
+\begin{minipage}{0.10\linewidth}
+\includegraphics[width=\linewidth]{ostrich}
+\end{minipage}
+
+\subsection*{Detalles del informe}
+\noindent
+La Ingeniera Jefe de la colonia ha hecho reconocimiento y está dispuesta a ayudarte.
+Ha reunido los siguientes datos:
+
+\begin{itemize}[itemsep=0.1cm]
+\item Tu HugeAntenna\texttrademark\ de la colonia se comunica con otra HugeAntenna\texttrademark\ de la Tierra. La Tierra usa esa misma antena para comunicarse con otra HugeAntenna\texttrademark\ de Saturno.
+Cuando la Tierra recibe el primer paquete de una conexión TCP, verifica su origen.
+
+\item Tras ese primer paquete, la Tierra no verifica el origen de ningún paquete. De hecho, los mensajes falsos o inesperados recibidos después se ignoran sin más, sin activar ninguna alarma. Con sincronización cuidadosa, usarás esto para inyectar tus paquetes falsificados.
+
+\item El primer día de cada mes, a las 4:20 a.\,m. en punto (hora de Nueva Barcelona, Tierra), la Tierra recibe el primer paquete de una conexión TCP de Saturno. Estas conexiones sirven para intercambiar comunicados oficiales, y la asamblea quiere que secuestres la próxima.
+
+\item Saturno usa una pila TCP/IP anticuada e insegura con este fallo: siempre fija a $0$ el número de secuencia de TCP en el primer mensaje de una conexión TCP.
+
+\item No podrás ver los mensajes intercambiados entre la Tierra y Saturno. Sin embargo, la Ingeniera Jefe logró capturar la siguiente frame (trama) Ethernet, que inició la conexión TCP anterior (llamémosla $C_{-1}$) entre Saturno y la Tierra (\texttt{00 d0} va seguido de \texttt{f1 bb} y \texttt{45 10} va seguido de \texttt{00 28}):
+
+\vspace{0.25cm}
+\begin{center}
+\begin{minipage}{0.5\linewidth}
+\begin{verbatim}
+00 09 bf 42 07 64 00 d0   f1 bb 0f 5a 08 00 45 10
+00 28 d2 71 40 00 40 06   00 00 ca f7 44 05 4c 4c
+15 15 9f ee 00 a9 00 00   00 00 00 00 00 00 50 02
+01 00 00 00 00 00
+\end{verbatim}
+\end{minipage}
+\end{center}
+\vspace{0.25cm}
+\end{itemize}
+
+\noindent
+Con esto en mente, la asamblea solicita un informe que contenga los siguientes aspectos:
+
+\begin{enumerate}[itemsep=0.1cm]
+\item Dibuja un diagrama de carriles del establecimiento de la conexión anterior ($C_{-1}$) entre Saturno y la Tierra.
+Además, tabula \textit{todos} los campos de cabecera presentes en estos paquetes (y sus valores).
+
+\item Explica tu plan de ataque, \textit{i.e.}, cómo piensas secuestrar la conexión. Indica claramente:
+    \begin{itemize}
+    \item Qué suposiciones haces sobre la próxima conexión (p. ej., qué campos seguirán idénticos o podrían cambiar).
+    \item Cuántos mensajes enviarás y su sincronización prevista.
+    \end{itemize}
+
+\item Muestra la secuencia completa de bytes de una frame que contenga tu comunicado de broma.
+\end{enumerate}
+
+\subsection*{Detalles del feedback}
+
+Emplea un proceso de feedback (retroalimentación) similar al de las misiones anteriores, abordando estos aspectos clave:
+\begin{itemize}
+\item ¿Se decodificó correctamente la frame capturada por la Ingeniera Jefe?
+\item ¿Lograste idear un plan que requiera menos mensajes?
+\item ¿Pudiste decodificar el comunicado de broma? ¿Tenía clase?
+\end{itemize}
+

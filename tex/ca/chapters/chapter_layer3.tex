@@ -1,0 +1,1121 @@
+\chapterimage{golden_gate.jpg}
+
+\chapter{Capa 3: comunicació entre xarxes (Internet)}\label{sec:layer3}
+
+\begin{minipage}{0.4\linewidth}
+\begin{center}
+\begin{bytefield}{16}
+\bitbox{16}{Layer 7: Application} \\
+\bitbox{16}{Layer 4: Transport} \\
+\bitbox{16}{\color{color1} Layer 3: Internet} \\
+\bitbox{16}{Layer 2: Network (LAN)} \\
+\bitbox{16}{Layer 1: Physical} \\
+\end{bytefield}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.6\linewidth}
+\begin{center}
+\includegraphics[width=\linewidth]{network_layer3.pdf}
+\end{center}
+\end{minipage}
+
+\vspace{-0.75cm}
+
+
+% \section{Layer~3 overview}
+\subsection*{Funcionalitats}
+
+El \conceptRef{IP}{protocol d'Internet (IP)} permet intercanviar \conceptRef{datagram}{datagrames} 
+(\conceptRef{PDU}{PDU} de la capa~3) entre dispositius de diferents \conceptRef{LAN}{LANs} (xarxa d'àrea local).
+% 
+El seu sistema d'adreçament identifica els dispositius globalment i fa possible 
+\conceptRef{routing}{encaminar} els datagrames allà on calgui. 
+
+Els dispositius que es comuniquen via IP poden pertànyer a LANs
+basades en tecnologies diferents i amb tipus d'adreça \concept{MAC} diferents.
+Això té dues implicacions:
+\begin{itemize}
+  \item Un datagrama que ``cap'' en la \concept{MTU} de la LAN d'origen
+    pot ser massa gran per a la MTU de la LAN de destinació (o de qualsevol LAN intermèdia). 
+    IP defineix un sistema de \conceptRef{fragmentation}{fragmentació} per dividir els datagrames,
+    que només es reconstrueixen a la destinació final.\\[-0.25cm]
+    
+  \item Quan enviem un datagrama, coneixem l'\conceptRef{IP}{adreça IP} del dispositiu destinatari,
+  però no necessàriament la seva adreça \concept{MAC}. Només necessitarem aquesta MAC si formem part de la LAN
+  de destinació. IP fa servir \concept{ARP} per traduir adreces IP conegudes
+  a adreces MAC del tipus de la LAN de destinació.
+\end{itemize}
+
+
+Els \conceptRef{datagram}{datagrames} poden viatjar per xarxes que no controlen 
+ni l'origen ni la destinació, de manera que els datagrames es poden perdre, desordenar i duplicar.
+% 
+La capa~3 no proporciona mecanismes per gestionar-ho; les capes superiors han d'implementar
+mecanismes de protecció quan calgui 
+(\eg, per implementar els \conceptRef{stream}{fluxos de dades} de \concept{TCP}).
+
+\begin{center}
+\includegraphics[width=0.9\linewidth]{protocols_layer3.pdf}
+\end{center}
+
+
+\vspace{-0.25cm}
+\subsection*{Protocols}
+
+La versió~4 d'\concept{IP} és \textit{el} protocol que s'utilitza a la capa~3, \ie,
+és comú a pràcticament totes les comunicacions de la Internet tal com la coneixem avui.
+% 
+Fa molts anys que Internet lluita per fer la transició cap a \concept{IPv6}, 
+però el procés no s'ha completat i només \concept{IPv4} ofereix cobertura global.
+
+\concept{IPv4} delega en el protocol \concept{ARP} la traducció d'adreces IP conegudes 
+a adreces MAC dins de cada LAN. ARP \textit{no} fa servir datagrames IP.
+
+Els protocols següents encapsulen les seves \conceptRef{PDU}{PDU} en el payload (càrrega útil) dels 
+\conceptRef{datagram}{datagrames} IP:\\[-0.6cm]
+\begin{itemize}
+\item Transport Control Protocol (\concept{TCP}) 
+\item User Datagram Protocol (\concept{UDP})
+\item Internet Control Message Protocol (\concept{ICMP})
+\end{itemize}
+
+\begin{remark}
+Les ordres \inlineCode{ip address}, \inlineCode{ip route} i \inlineCode{ip neighbor} 
+(entre d'altres) et permeten consultar diversos aspectes de la teva configuració IP.
+\end{remark}
+
+
+
+\section{Adreçament de la capa~3}\label{sec:layer3:addressing}
+
+Les adreces \concept{IPv4} tenen $32$~bits. Normalment es presenten a les persones en
+el format \concept{quad decimal}, \eg,
+\begin{center}
+\otherBase{142.250.201.67}
+\end{center}
+
+Les adreces \concept{IPv6} tenen $128$~bits ($12$~bytes), \ie, 
+són $4$~vegades més grans que una adreça IPv4.
+S'expressen en format hexadecimal, \eg, com es mostra a continuació. Fixa't que 
+dos signes de dos punts ``\otherBase{::}'' indiquen ``omple amb zeros'',
+i que ``\otherBase{::}'' només pot aparèixer una vegada per adreça IPv6.
+\begin{center}
+\otherBase{fe80::f524:a73a:e946:7c02}
+\end{center}
+
+\begin{remark}
+Quan una adreça \concept{IPv6} forma part d'un URL, s'envolta de claudàtors,
+\eg, \otherBase{https://[fe80::f524:a73a:e946:7c02]/}.
+\end{remark}
+
+
+\subsection{Adreces públiques i reservades}
+
+La majoria d'adreces IP són \conceptRef{public IP}{públiques} i úniques a tot Internet, 
+\ie, l'adreça IP anterior té el mateix significat a tot el món: identifica un únic dispositiu connectat.
+% 
+Moltes adreces són \conceptRef{reserved IP address}{reservades/privades} i només es poden 
+fer servir dins d'un àmbit concret (\eg, una LAN) o en una situació concreta.
+Algunes de les més habituals són les següents (n'hi ha 
+\href{https://en.wikipedia.org/wiki/Reserved_IP_addresses#IPv4}{\underline{algunes més}}, 
+també per a IPv6):
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Bloc d'adreces IP} & \textbf{Àmbit de l'adreça} \\
+\toprule
+\otherBase{127.*.*.*} & Aquest ordinador (localhost) \\[0.1cm]
+\otherBase{10.*.*.*} & Aquesta LAN \\
+\otherBase{172.16.*.*} & Aquesta LAN \\
+\otherBase{192.168.*.*} & Aquesta LAN \\[0.1cm]
+\otherBase{0.*.*.*} & Usos especials \\
+\otherBase{169.254.*.*}& Usos especials \\
+\otherBase{255.255.255.255} & Usos especials\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item Quantes adreces \concept{IPv4} diferents hi ha (incloent-hi les reservades i privades)? 
+\item Són suficients ara i en el futur?
+\item És problemàtic que una adreça com \otherBase{192.168.0.1} 
+  l'estiguin fent servir simultàniament milers (probablement milions) d'ordinadors a Internet ara mateix?
+\item Quina d'aquestes correspon a adreces \concept{link local}?
+\end{itemize}
+\end{exercise}
+
+\subsection{Màscares de xarxa}\label{sec:layer3:netmasks}
+
+Els $32$~bits d'una adreça IP es poden dividir en dues parts mitjançant una \conceptRef{netmask}{màscara de xarxa}:\\[-0.25cm]
+% 
+\begin{center}
+\begin{bytefield}{32}
+\bitheader{0-31}\\
+\bitbox{10}{Network ID} & \bitbox{22}{Device ID} \\
+\end{bytefield}
+\end{center}
+% 
+La primera part identifica la LAN o el grup de LANs a què pertany un dispositiu. 
+La segona part identifica un únic dispositiu dins de la LAN. 
+La màscara de xarxa determina quants bits s'assignen a cada part. 
+
+A la figura anterior, la màscara de xarxa assigna 10 bits a l'identificador de xarxa i 22 al del dispositiu.
+Aquesta màscara pot anar des de $0$ (tots els bits són identificador de dispositiu) fins a $32$ (tots els bits són identificador de xarxa).
+
+
+Les màscares de xarxa es presenten a les persones de dues maneres principals:\\[-0.5cm]
+\begin{itemize}
+  \item \otherBase{/N}, on $N$ és el nombre de bits assignats a l'identificador de xarxa. 
+    És el que es fa servir en el format \concept{CIDR}.
+  
+  \item El format \concept{quad decimal} (\otherBase{A.B.C.D}) de 
+    $N$ bits a \otherBase{1}, seguits de $(32-N)$ bits a \otherBase{0}.
+\end{itemize}
+
+\begin{exercise}
+La màscara de xarxa de l'exemple anterior es pot expressar en binari 
+(tot i que no és gaire pràctic):
+\begin{center}
+\begin{bytefield}[bitwidth=1em]{32}
+\bitheader{0-31} \\
+\bitboxes{1}{1111111111} &
+\bitboxes{1}{0000000000 0000000000 00} \\
+\bitbox{10}{$10$~bits} & \bitbox{22}{$32-N = 22$~bits}
+\end{bytefield}
+\end{center}
+
+\begin{itemize}
+\item Expressa la màscara de xarxa de l'exemple anterior en els formats CIDR i quad decimal.
+\item Quina és la teva IP i la teva màscara de xarxa? Expressa-les de les mateixes dues maneres.
+\end{itemize}
+\end{exercise}
+
+\begin{remark}
+Les màscares de xarxa també es fan servir a IPv6, però amb un valor màxim de $N$ de $128$ en lloc de $32$.
+\end{remark}
+
+\subsection{Blocs d'adreces IP}
+
+Les màscares de xarxa es combinen amb adreces IP per definir 
+\conceptRef{IP address block}{blocs d'adreces IP} 
+que comencen pels mateixos $N$ bits (on $N$ és la màscara de xarxa).
+% 
+Per exemple, \otherBase{192.168.3.0/24} (en format \concept{CIDR}) 
+i \otherBase{192.168.3.0/255.255.255.0} fan referència al bloc 
+d'adreces entre \otherBase{192.168.3.0} i \otherBase{192.168.3.255},
+ambdues incloses
+(\otherBase{192.168.3.*} en la notació informal de la taula anterior).
+
+\begin{exercise} 
+Els blocs IP poden ser més petits, iguals o més grans que una xarxa IP.
+Dona exemples en què un bloc IP faci referència a:
+\begin{itemize}
+\item Una única IP.
+\item La meitat de les adreces IP de la xarxa \otherBase{192.168.3.0/24}.
+\item Totes les adreces de la xarxa \otherBase{192.168.3.0/24}, més 
+      $256$ adreces més.
+\item Totes les IP possibles.
+\end{itemize}
+\end{exercise}
+
+
+\begin{exercise}\ \\[-0.65cm]
+\begin{itemize}
+\item Es pot expressar qualsevol \conceptRef{netmask}{màscara de xarxa} com una \conceptRef{IP address}{adreça IP}?
+\item Enumera totes les màscares de xarxa possibles.\\[-0.5cm]
+\end{itemize}
+\end{exercise}
+
+Quan es fa referència a un bloc d'adreces (com una LAN), 
+l'adreça IP d'aquesta combinació IP + màscara de xarxa
+ha de tenir tots els bits de l'identificador de dispositiu a \otherBase{0}. 
+D'aquesta manera, \otherBase{192.168.3.0/24} fa referència correctament a una xarxa, però
+\otherBase{192.168.3.1/24} fa referència, en canvi, a un dispositiu 
+(el que té la IP \otherBase{192.168.3.1}) d'aquesta xarxa (\otherBase{192.168.3.0/24}).
+
+\subsection{LANs i màscares de xarxa}\label{sec:layer3:lans_and_netmasks}
+
+Les màscares de xarxa \textit{no} han de ser necessàriament múltiples de $8$. Considera l'exemple següent, en què \\
+es fa servir \otherBase{192.168.76.1/19} (la IP + màscara d'un dispositiu) per obtenir la seva adreça de xarxa\\
+(\otherBase{192.168.64.0/19}):\\
+
+\begin{center}
+\begin{bytefield}[bitwidth=1.1em]{32}
+\bitheader{0-31}\\
+\begin{rightwordgroup}{Device's IP}
+\bitbox{8}{192} & \bitbox{8}{168} & \bitbox{8}{76} &\bitbox{8}{1} \\
+\bitboxes{1}{11000000} & \bitboxes{1}{10101000} & \bitboxes{1}{0100{\bf1}{\bf1}00} & \bitboxes{1}{0000000{\bf1}}
+\end{rightwordgroup} \\
+
+\bitboxes[]{1}{\&\&\&\& \&\&\&\& \&\&\&\& \&\&\&\& \&\&\&
+               {\color{color1}\&} 
+               {\color{color1}\&}{\color{color1}\&}{\color{color1}\&}{\color{color1}\&}
+               {\color{color1}\&}{\color{color1}\&}{\color{color1}\&}{\color{color1}\&}
+               {\color{color1}\&}{\color{color1}\&}{\color{color1}\&}{\color{color1}\&}} \\
+
+\begin{rightwordgroup}{Netmask}
+\bitboxes{1}{1111111111111111111
+   {\color{color1}0}{\color{color1}0}{\color{color1}0}{\color{color1}0}
+   {\color{color1}0}{\color{color1}0}{\color{color1}0}{\color{color1}0}
+   {\color{color1}0}{\color{color1}0}{\color{color1}0}{\color{color1}0}
+   {\color{color1}0}}
+\end{rightwordgroup} \\
+
+\bitboxes[]{1}{==== ==== ==== ==== ===
+               {\color{color1}=} 
+               {\color{color1}=}{\color{color1}=}{\color{color1}=}{\color{color1}=}
+               {\color{color1}=}{\color{color1}=}{\color{color1}=}{\color{color1}=}
+               {\color{color1}=}{\color{color1}=}{\color{color1}=}{\color{color1}=}} \\
+
+\begin{rightwordgroup}{Network IP}
+\bitboxes{1}{11000000} & \bitboxes{1}{10101000} & \bitboxes{1}{0100{\bf0}{\bf0}00} & \bitboxes{1}{0000000{\bf0}} \\
+\bitbox{8}{192} & \bitbox{8}{168} & \bitbox{8}{64} &\bitbox{8}{0} 
+\end{rightwordgroup}\\
+\end{bytefield}
+\end{center}
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item A l'exemple anterior, en realitat només calia transformar un valor decimal a binari,
+i un valor decimal a binari. Quin?
+\item Això és sempre cert quan es converteixen combinacions IP+màscara de xarxa a adreces de xarxa?
+\item Expressa la màscara de xarxa en format \concept{quad decimal}.
+\end{itemize}
+\end{exercise}
+
+
+
+Donat un bloc d'adreces IP + màscara de xarxa i l'adreça IP d'un dispositiu, és directe determinar 
+si la IP d'aquest dispositiu pertany al bloc (si i només si coincideixen els primers $N$ bits,
+on \otherBase{/N} és la màscara de xarxa CIDR).
+
+\begin{exercise}
+Determina si cadascuna de les adreces següents pertany a la mateixa xarxa que
+el dispositiu \otherBase{123.45.67.89/14}:
+\begin{itemize}
+\item \otherBase{23.45.67.89}
+\item \otherBase{123.45.203.25}
+\item \otherBase{123.43.255.255}
+\item \otherBase{0.45.67.1}
+\end{itemize}
+\end{exercise}
+
+Una \conceptRef{network}{xarxa IP} (una LAN) és un bloc d'adreces, però no totes aquestes adreces 
+es poden assignar a dispositius. Sempre hi ha dues adreces reservades:
+\begin{itemize}
+\item L'adreça amb tots els bits de node a \otherBase{0}: identifica la mateixa LAN.
+\item L'adreça amb tots els bits de node a \otherBase{1}: identifica el \concept{broadcast} (difusió) dins de la LAN.
+\end{itemize}
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item Enumera totes les adreces que es poden assignar a dispositius a \otherBase{192.168.54.0/29}.
+\item Indica l'adreça de broadcast d'aquesta xarxa.
+\end{itemize}
+\end{exercise}
+
+La màscara de xarxa \otherBase{/N} determina el nombre de dispositius que es poden connectar alhora
+a una xarxa: $2^{32-N} - 2$. Quan es diu que una LAN és ``petita'' o ``més gran'', la mida fa referència a aquest 
+nombre d'adreces de dispositiu disponibles. 
+
+A la inversa, el nombre $M$ de dispositius que necessitem connectar a la mateixa LAN determina la 
+mida de LAN més petita (la màscara \otherBase{/N} més gran) on caben tots aquests dispositius alhora:
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+\textbf{Màscara} & \textbf{Total adreces} & \textbf{Màx. dispositius} \\
+\otherBase{/N} & $2^{32-N}$ & $2^{32-N} - 2$ \\
+\toprule
+\otherBase{/30} & 4 & 2 \\
+\otherBase{/29} & 8 & 6 \\
+\otherBase{/28} & 16 & 14 \\
+\otherBase{/27} & 32 & 30 \\
+\otherBase{/26} & 64 & 62 \\
+\otherBase{/25} & 128 & 126 \\
+$\vdots$ & $\vdots$ & $\vdots$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{remark}
+Tots els \conceptRef{router}{routers} (encaminador) necessiten una adreça IP vàlida per cada LAN a la qual estan connectats.
+Per tant, els routers \textit{sí} que compten per al nombre màxim de dispositius connectats a una LAN.
+\end{remark}
+
+\begin{exercise} \ \\[-0.5cm]
+\begin{itemize}
+\item Quina és la mida de xarxa mínima on caben $256$ dispositius connectats?
+\item Quina és la màscara \otherBase{/N} més llarga que permetria connectar-se a tothom de la teva ciutat?
+\item Quantes adreces conté una xarxa \otherBase{/0}? 
+\item Quantes xarxes \otherBase{/0} poden existir? Tenen nom?
+\end{itemize}
+\end{exercise}
+
+
+\begin{exercise}
+El fragment de codi següent pren una adreça IP i en mostra els $4$~bytes expressats en 
+quad decimal i en binari.
+Amplia (o substitueix) el codi perquè puguis:
+\begin{itemize}
+\item Transformar $32$ bits en una cadena quad decimal.
+\item Mostrar una màscara de xarxa en format d'adreça IP i en format CIDR.
+\item Donades la IP i la màscara de xarxa d'un dispositiu, determinar si una altra IP pertany a la mateixa xarxa.
+\end{itemize}
+\begin{center}
+\showCode{snippets/ipcalculator.py}
+\end{center}
+\end{exercise}
+
+
+
+
+% \todo{exercise netmask calculator}
+% 
+% \todo{HERE HERE HERE: add and point to the subnetting area}
+
+
+
+
+
+
+
+\section{IP -- Internet Protocol}\label{sec:layer3:ip}
+
+\subsection{Format del paquet}\label{sec:layer3:ip:format}
+
+\concept{IP} defineix un format de \conceptRef{packet}{paquet} amb una \conceptRef{header}{capçalera} 
+que té \textit{com a mínim} $20$~bytes. S'hi poden incloure parts opcionals,
+sempre que la mida total de la capçalera sigui múltiple de $32$~bits ($4$~bytes).
+El payload pot ser buit, de manera que la mida mínima d'un datagrama és de $20$~bytes.\\
+
+\begin{center}
+\small
+\begin{bytefield}[bitheight=3.4em,bitwidth=1.1em]{32}
+\bitheader{0-31}\\
+\begin{rightwordgroup}[curlyshrinkage=10pt]{Mandatory Header\\($20$~bytes)}
+  \bitbox{4}{IP\\Version} 
+  & \bitbox{4}{IHL\\{\scriptsize(HLen/$4$)}} 
+  & \bitbox{8}{Type of Service}
+  & \bitbox{16}{Datagram Length\\{\scriptsize(Head + Payload, bytes)}} \\
+  % 
+  \bitbox{16}{Fragment ID} & \bitbox{1}{\otherBase{0}}
+  & \bitbox{1}{\rotatebox{90}{\scriptsize DF flag}}
+  & \bitbox{1}{\rotatebox{90}{\scriptsize MF flag}}
+  & \bitbox{13}{Fragment Offset bytes/$8$} \\
+  % 
+  \bitbox{8}{Time to Live\\(TTL)}
+  & \bitbox{8}{Payload protocol}
+  & \bitbox{16}{IP Header Checksum}\\
+  % 
+  \bitbox{32}{Source IP Address} \\
+  \bitbox{32}{Destination IP Address}
+\end{rightwordgroup} \\
+%   
+\begin{rightwordgroup}[curlyshrinkage=10pt]{Optional Header\\{\scriptsize($4$ byte words)}}
+\bitbox[tlr]{32}{Options\\{\scriptsize(variable length, optional)}} \\
+\bitbox[lbr]{24}{} &
+\bitbox{8}{Padding to\\$32$ bits}
+\end{rightwordgroup} \\
+% 
+\begin{rightwordgroup}[curlyshrinkage=10pt]{Payload}
+\bitbox[tlr]{32}[bitheight=3em]{Payload data\\{\scriptsize(variable length, byte aligned)}} \\
+\bitbox[lbr]{24}{\hspace{3cm}\raisebox{0.25cm}{$\vdots$}} & \bitbox[lt]{8}{}
+\end{rightwordgroup}
+\end{bytefield}
+\end{center}
+
+\begin{exercise} \ \\[-0.5cm]
+\begin{itemize}
+\item Com es pot calcular la longitud del payload a partir de la capçalera?
+\item Quina és la longitud màxima del payload?
+\item Quins són els valors possibles dels flags (indicador) de la capçalera IP?
+\item Què és més llarg, una adreça IP o una adreça MAC Ethernet?
+\item És possible enviar exactament 17 bits de dades de payload en un datagrama IP?
+\item Com podem saber si un datagrama encapsula dades TCP o UDP?
+\item Per què la part opcional de la capçalera ha de ser múltiple de $32$~bits?
+\end{itemize}
+\end{exercise}
+
+\subsection{Funcionament}
+
+Quan un dispositiu A vol enviar un datagrama IP a un dispositiu B, les IP d'origen i 
+de destinació de la capçalera queden fixades i no canvien per a aquest datagrama.
+
+Si els dispositius A i B pertanyen a la mateixa LAN, el datagrama s'envia directament
+(\eg, encapsulat en un frame (trama) Ethernet). Tanmateix, IP pot arribar molt més lluny.
+Considera l'escenari següent, en què A vol comunicar-se amb E.
+
+\begin{center}
+ \includegraphics[width=0.5\linewidth]{ip_operation_example.pdf}
+\end{center}
+
+
+Aquí, els dispositius d'origen i de destinació pertanyen a LANs diferents.
+Primer, el datagrama es passa al \concept{router} de l'origen.
+Després, cada router intermedi el passa al següent fins que el datagrama arriba 
+a l'últim router, que està connectat a la LAN de destinació. Finalment, aquest últim router 
+passa el datagrama a la destinació. 
+
+\begin{center}
+\includegraphics{ip_operation.eps}
+\end{center}
+
+Les adreces IP d'origen i de destinació no canvien al llarg del trajecte.
+En canvi, l'adreça MAC canvia a cada \conceptRef{hop}{salt} entre LANs. 
+
+\section{Encaminament IP}\label{sec:layer3:routing}
+
+Els \conceptRef{router}{routers} són els dispositius encarregats de reenviar els \conceptRef{datagram}{datagrames} IP
+mirant l'adreça IP de destinació de cadascun, present a la \conceptRef{header}{capçalera} IP. Els routers no necessiten 
+\conceptRef{decapsulate}{desencapsular} les capçaleres de les capes 4 i superiors. Per tant, les seves piles de xarxa només necessiten arribar fins a la capa~3
+(i per això de vegades se'ls anomena dispositius de capa~3).
+
+\begin{center}
+\includegraphics[width=0.9\linewidth]{forward_layers.pdf}
+\end{center}
+
+
+Quan un router detecta un frame de xarxa $F$ en una de les seves \conceptRef{interface}{interfícies} (targetes de xarxa),
+intenta reconèixer les parts següents d'un datagrama.
+\begin{center}
+\begin{bytefield}{48}
+\bitbox{12}{Layer~2 header} & \bitbox{12}{IP header} & \bitbox{24}{Datagram payload}
+\end{bytefield}
+\end{center}
+Si les reconeix, el router processa el datagrama de la manera següent:
+\begin{enumerate}
+\item Es descarta tot el frame $F$ tret que la MAC de destinació (a la capçalera de capa~2) 
+  sigui la de la interfície del router que ha detectat el frame.\\[-0.25cm]
+  
+\item El router mira l'adreça IP de destinació (a la capçalera IP de $F$) i la seva \conceptRef{routing table}{taula d'encaminament} 
+  per decidir el següent \conceptRef{hop}{salt} del datagrama, \ie, el dispositiu al qual aquest router passarà 
+  el datagrama, i quina \conceptRef{interface}{interfície} farà servir (vegeu la secció~\ref{sec:layer3:routing} més avall).\\[-0.25cm]
+  
+\item El router crea i envia un frame $F'$ fent els dos canvis següents a $F$:\\[-0.25cm]
+  \begin{enumerate}[label=\alph*)]
+  \item La capçalera de capa~2 de $F'$ canvia completament:
+    \begin{itemize} 
+    \item La \concept{MAC} de destinació és la del següent salt,
+    i la MAC d'origen és la del router que reenvia el datagrama.
+    La IP del següent salt la dona la \conceptRef{routing table}{taula d'encaminament} (vegeu la secció~\ref{sec:layer3:routing}), 
+    i la seva MAC s'obté a partir d'aquesta IP amb \concept{ARP} (secció~\ref{sec:layer3:arp}).\\[-0.4cm]
+    %     
+    \item La MAC d'origen del frame $F'$
+    és diferent de la MAC de destinació del frame rebut $F$ si el router 
+    ha rebut $F$ per una interfície (\eg \inlineCode{eth7}) i el reenvia per una altra 
+    (\eg,  \inlineCode{eth9}).
+    \end{itemize}
+    
+    \begin{center}     
+    \vspace{0.15cm}
+    \includegraphics[width=0.8\linewidth]{router_ports.jpg}
+    \vspace{0.15cm}
+    \end{center}
+    
+  \item La capçalera IP de $F'$ difereix de la de $F$ en el següent:
+    \begin{itemize}
+    \item El camp \concept{TTL} (temps de vida) es decrementa en $1$.\\
+    Si el TTL arriba a $0$, el datagrama es descarta en lloc de reenviar-se.
+    \item Quan el camp \conceptRef{IP Options}{Options} és present, sovint s'actualitza.
+    \item El \concept{checksum} (suma de verificació) de la capçalera s'actualitza en conseqüència.\\
+    \end{itemize}
+  \end{enumerate}
+\end{enumerate}
+
+\begin{remark}
+ Fixa't que les adreces IP i el payload es copien sense modificar
+  quan es reenvia un datagrama.
+\end{remark}
+
+
+
+
+Quan un router rep un \conceptRef{datagram}{datagrama} IP per reenviar i aquest router 
+està connectat a la mateixa LAN que l'adreça IP de destinació, el router fa un \conceptRef{direct delivery}{lliurament directe} (DD).
+% 
+En cas contrari, el datagrama es reenvia al següent router en un \conceptRef{indirect delivery}{lliurament indirecte} (ID).
+% 
+Un router sap si ha de fer DD o ID, així com l'adreça IP de destinació (i d'origen) que ha de fer servir,
+gràcies a la seva \conceptRef{routing table}{taula d'encaminament}.
+
+Totes les taules d'encaminament tenen com a mínim les columnes següents:
+\begin{itemize}
+\item \textbf{Bloc d'adreces de destinació}: una o més adreces IP que es poden expressar com una combinació IP + màscara de xarxa.
+  Una fila de la taula només es pot aplicar a un datagrama si la seva IP de destinació és dins del bloc d'adreces de destinació d'aquella fila:
+  \begin{itemize}
+  \item Si només s'aplica una fila de la taula, aquesta fila és la que es fa servir per encaminar.
+  \item Si s'aplica més d'una fila a un datagrama, es fa servir la fila amb el bloc d'adreces de destinació més petit 
+    (el més específic).
+  \end{itemize}
+  Un bloc de destinació \conceptRef{default routing table}{\textit{default}} indica el bloc \otherBase{0.0.0.0/0}.
+  Com que és el bloc més gran possible, només s'aplica si no s'aplica cap de les altres files. 
+  L'entrada \textit{default} no és obligatòria.\\[-0.3cm]
+  
+\item \textbf{Gateway/via} (passarel·la): si la fila correspon a un \conceptRef{indirect delivery}{lliurament indirecte}, aquesta columna conté l'adreça IP
+  del següent router. En cas contrari, aquesta columna conté \otherBase{0.0.0.0} per indicar un \conceptRef{direct delivery}{lliurament directe}.\\[-0.3cm]
+  
+\item \textbf{Interfície}: nom intern de la interfície de xarxa (\eg, de la targeta Ethernet) que s'ha de fer servir per lliurar el 
+  datagrama. Els sistemes operatius poden fer servir la convenció que vulguin, sempre que les interfícies es puguin identificar de manera única a la taula.
+  Els noms habituals comencen per \inlineCode{eth}, \inlineCode{wlan}, \inlineCode{atm}, 
+  i, més recentment, \inlineCode{en} i \inlineCode{wl}.
+\end{itemize}
+
+\begin{remark}
+Tots els dispositius tenen la seva pròpia taula d'encaminament, no només els routers.
+\end{remark}
+
+\begin{exercise}
+A continuació es mostra la \conceptRef{routing table}{taula d'encaminament} d'un router petit.
+
+\begin{center}
+\vspace{0.2cm}
+\begin{tabular}{ccc}
+\toprule
+\textbf{Bloc d'adreces destí} & \textbf{gateway/via} & \textbf{Interfície} \\
+\toprule
+\otherBase{\textit{default}} & \otherBase{192.168.0.1} & \inlineCode{eth0}  \\
+\otherBase{192.168.0.0/24} & \otherBase{0.0.0.0} & \inlineCode{eth0} \\
+\otherBase{172.16.0.4/32} & \otherBase{0.0.0.0} & \inlineCode{eth1} \\
+\otherBase{10.49.4.0/28} & \otherBase{10.49.4.1} & \inlineCode{eth2} \\
+\otherBase{10.49.4.3/32} & \otherBase{10.49.4.2} & \inlineCode{eth2} \\
+\bottomrule
+\end{tabular}
+\vspace{0.2cm}
+\end{center}
+
+\begin{itemize}
+\item Dibuixa un mapa de xarxa coherent amb la taula d'encaminament que contingui aquest router.
+  Per a les interfícies del router, indica'n el nom i algunes adreces IP i de capa~2 vàlides.\\[-0.3cm]
+  
+\item Com reenviaria aquest router un datagrama adreçat a una adreça IP \conceptRef{public}{pública}?\\[-0.3cm]
+
+\item Dona una adreça IP de destinació que es processaria amb la fila \otherBase{10.49.4.0/28},
+i una altra que es processaria amb la fila \otherBase{10.49.4.2/32}. 
+Pensa un cas d'ús en què tingui sentit tenir aquestes dues regles.
+\end{itemize}
+\end{exercise}
+
+Perquè Internet funcioni, els routers que interconnecten LANs a escala global han d'estar ben configurats. 
+De vegades no és així, i això pot provocar \conceptRef{routing errors}{errors d'encaminament}. Dos problemes importants 
+que et pots trobar són:
+\begin{itemize}
+\item ``Network is unreachable'': cap de les files de la taula d'encaminament fa servir un bloc d'adreces que contingui 
+  l'adreça de destinació del datagrama. 
+  El router no pot saber quin ha de ser el següent salt, de manera que el datagrama no es reenvia.
+  Això provoca un error ``ICMP Destination Unreachable'' (vegeu la secció~\ref{sec:layer3:icmp}).
+  
+\item ``Time to Live exceeded'': cada vegada que es reenvia un datagrama,
+  el seu \concept{TTL} es decrementa, tal com s'ha dit a la secció~\ref{sec:layer3:ip:format}. 
+  Si diversos routers estan configurats de manera que el datagrama segueix algun tipus de cicle (bucle), 
+  el datagrama es reenviaria infinitament.
+  Quan el \concept{TTL} arriba a 0, el datagrama es descarta i es produeix aquest error.
+  Això provoca un error ``ICMP Time Exceeded'' (vegeu la secció~\ref{sec:layer3:icmp}).
+\end{itemize}
+
+\begin{exercise}
+Es pot produir l'error ``Network unreachable'' si un router té una entrada \otherBase{\textit{default}}?
+\end{exercise}
+
+\begin{exercise}
+Proposa un exemple de LANs interconnectades i especifica les taules d'encaminament necessàries perquè un datagrama 
+segueixi un cicle i provoqui l'error ``TTL exceeded''.
+\end{exercise}
+
+\section{Divisió en subxarxes IP}\label{sec:layer3:subnetting}
+\vspace{6em}
+\begin{bytefield}[bitwidth=1.35em]{32}
+\bitbox[]{1}{\raisebox{2.25em}{\rotatebox{90}{$\leftarrow$\otherBase{0.0.0.0}}}} &
+\bitbox[]{7}{} &
+\bitbox[]{1}{\raisebox{2.5em}{\rotatebox{90}{$\leftarrow$\otherBase{64.0.0.0}}}} &
+\bitbox[]{7}{} &
+\bitbox[]{1}{\raisebox{3.25em}{\rotatebox{90}{$\leftarrow$\otherBase{128.0.0.0}}}} & 
+\bitbox[]{7}{} &
+\bitbox[]{1}{\raisebox{3em}{\rotatebox{90}{$\leftarrow$\otherBase{192.0.0.0}}}}  &
+\bitbox[]{6}{} &
+\bitbox[]{1}{\raisebox{7em}{\rotatebox{90}{$\leftarrow$\otherBase{255.255.255.255}}}}  \\
+\\
+\bitbox{32}{\otherBase{0.0.0.0/0}} \\
+\bitbox{16}{\otherBase{0.0.0.0/1}} & \bitbox{16}{\otherBase{128.0.0.0/1}} \\
+\bitbox{8}{\otherBase{0.0.0.0/2}} & \bitbox{8}{\otherBase{64.0.0.0/2}} & \bitbox{8}{\otherBase{128.0.0.0/2}} & \bitbox{8}{\otherBase{192.0.0.0/2}} \\
+% 
+\bitbox{4}{\otherBase{/3}} & \bitbox{4}{\otherBase{/3}} & \bitbox{4}{\otherBase{/3}} & \bitbox{4}{\otherBase{/3}} &
+\bitbox{4}{\otherBase{/3}} & \bitbox{4}{\otherBase{/3}} & \bitbox{4}{\otherBase{/3}} & \bitbox{4}{\otherBase{/3}} \\
+
+\bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & 
+\bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} &
+\bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & 
+\bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} & \bitbox{2}{\otherBase{/4}} \\ 
+% 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & 
+\bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} \\
+\end{bytefield}
+
+Les \conceptRef{LAN}{LANs} es poden considerar blocs d'adreces (\eg, expressats en format \concept{CIDR})
+amb dues adreces reservades. A les xarxes accessibles directament des d'Internet se'ls ha d'assignar 
+un bloc vàlid prou gran per connectar-hi tots els dispositius necessaris. Per garantir que no hi hagi dos dispositius a Internet
+amb la mateixa IP \conceptRef{public}{pública}, no pot haver-hi dues LANs que continguin la mateixa adreça 
+(tret que l'adreça sigui \conceptRef{private IP}{privada}).
+
+Les $2^{32}$~adreces disponibles a \concept{IPv4} es divideixen en blocs mitjançant 
+\conceptRef{netmask}{màscares de xarxa}. Els blocs més grans es poden dividir per la meitat augmentant 
+en $1$ la longitud de la màscara de xarxa, com es veu a la figura anterior.
+% 
+Per exemple, el bloc inicial \otherBase{0.0.0.0/0} (totes les adreces) 
+es pot dividir en dos blocs \otherBase{/1}, cadascun amb la meitat de les adreces \concept{IPv4} 
+($2^{31}$ -- encara massa gran per a qualsevol LAN real).
+% 
+Aquest procés continua de manera independent per a cada bloc resultant, i s'atura quan la mida de LAN 
+resultant és la desitjada. 
+
+Donat un bloc d'adreces \otherBase{/N} (\eg, d'una única LAN existent), potser volem dividir-lo 
+en subblocs i tenir, en lloc seu, diverses LANs més petites (\conceptRef{subnet}{subxarxes}). 
+% 
+A les subxarxes només podem fer servir adreces del bloc original, però es poden reservar blocs
+per a un ús futur:
+
+\begin{exercise}
+Ets l'administrador de la xarxa \otherBase{192.168.0.0/24} d'un 
+laboratori de recerca. T'agradaria dividir-la en les tres subxarxes destacades a continuació.
+
+\begin{itemize}
+\item Fes un diagrama de les tres xarxes, incloent-hi un router connectat a totes tres
+  mitjançant tres interfícies diferents.\\[-0.4cm]
+  
+\item Dona la taula d'encaminament \textit{mínima} d'aquest router (aquestes xarxes
+no estan connectades a Internet).\\[-0.4cm]
+  
+\item Quants dispositius es poden connectar en total a aquestes tres xarxes, incloent-hi els routers?\\[-0.4cm]
+
+\item Quantes adreces de la xarxa original queden sense assignar?\\[-0.4cm]
+
+\item Quina és la LAN més gran que podem crear amb les adreces sense assignar?\\[-0.75cm]
+\end{itemize}
+% 
+\begin{center}
+\begin{bytefield}[bitwidth=1.375em]{32}
+\bitbox{32}{\otherBase{192.168.0.0/24}} \\
+% 
+\bitbox{16}{\otherBase{192.168.0.0/25}} 
+& \bitbox{16}{\otherBase{192.168.0.128/25}} \\
+% 
+\bitbox{8}[bgcolor=color1!40!white]{\otherBase{192.168.0.0/26}} 
+& \bitbox{8}{\otherBase{192.168.0.64/26}} 
+& \bitbox{8}{\otherBase{192.168.0.128/26}} 
+& \bitbox{8}{\otherBase{192.168.0.192/26}} \\
+% 
+\bitbox{4}{\otherBase{/27}} &
+\bitbox{4}{\otherBase{/27}} &
+\bitbox{4}{\otherBase{/27}} &
+\bitbox{4}{\otherBase{/27}} &
+\bitbox{4}{\otherBase{/27}} &
+\bitbox{4}[bgcolor=color1!40!white]{\otherBase{/27}} &
+\bitbox{4}[bgcolor=color1!40!white]{\otherBase{/27}} &
+\bitbox{4}{\otherBase{/27}}
+\end{bytefield}
+\end{center}
+\end{exercise}
+
+El procés de crear diverses LANs més petites a partir d'un únic bloc d'adreces s'anomena \conceptRef{subnet}{divisió en subxarxes} (\textit{subnetting}).
+El procés invers, combinar diverses LANs en una de més gran, s'anomena \conceptRef{supernet}{agregació en superxarxes} (\textit{supernetting}). 
+
+Dues LANs \otherBase{/N} es poden combinar si i només si les seves adreces de xarxa 
+(la seva IP sense màscara) comparteixen els primers $N-1$ bits. Aquest procés pot continuar fins arribar 
+a una xarxa \otherBase{/0}, sempre que siguem propietaris de les adreces IP de les dues meitats de cada superxarxa.
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item Quina altra xarxa pots combinar amb \otherBase{192.168.0.0/24}
+per obtenir una xarxa \otherBase{/23} $N_{/23}$? Quina és la seva adreça de xarxa?
+
+\item $N_{/23}$ forma part d'exactament una xarxa \otherBase{/22}, $N_{22}$. 
+  Enumera totes les xarxes \otherBase{/24} que hauries de tenir per combinar-les en $N_{22}$.
+\end{itemize}
+\end{exercise}
+
+La \conceptRef{subnetting}{divisió en subxarxes} sovint es basa en quantes adreces IP han d'estar 
+disponibles a cada subxarxa. 
+Aquesta mida determina el nombre de bits de la màscara de la subxarxa, com s'ha vist a la secció~\ref{sec:layer3:lans_and_netmasks}.
+Es poden afegir restriccions addicionals, \eg, fer que les adreces IP d'una subxarxa siguin les més altes,
+o més baixes que les d'altres subxarxes. 
+
+\begin{remark}
+Considera per exemple la xarxa \otherBase{192.168.0.0/16}. 
+Volem dividir aquesta xarxa en subxarxes i crear la xarxa més petita que pugui 
+connectar $100$ dispositius simultàniament. 
+
+Com s'ha vist a la secció~\ref{sec:layer3:netmasks}, això determina que 
+si s'ha de crear una subxarxa a partir d'un  per contenir com a mínim 100 nodes,
+cal dedicar com a mínim $7$~bits d'adreça ($2^6 - 2 = 62,\,2^7=126$) 
+als identificadors de dispositiu i els $32-7=25$ restants 
+a identificar la xarxa, \ie, la subxarxa pot ser tan petita com una \otherBase{/25}.
+\ \\
+\begin{center}
+\begin{bytefield}[bitheight=2em]{32}
+\bitheader{0-31} \\
+\bitbox{16}{\otherBase{192.168}}
+& \bitbox{9}{Free bits}
+& \bitbox{7}{Device ID}
+\end{bytefield}
+\end{center}
+
+Els $9$ bits restants (posicions $16$ a $24$) es poden fixar lliurement si no
+tenim cap altra restricció. Triar un valor per a aquests bits vol dir
+triar una de les $2^9$ xarxes de mida \otherBase{/25} contingudes 
+a la xarxa original, \otherBase{192.168.0.0/16}.
+Posar aquests bits lliures a \otherBase{0} dona el rang d'IP més baix,
+i posar-los a \otherBase{1}, el més alt.
+
+Quan s'han de crear diverses subxarxes, és essencial verificar 
+que cap subxarxa no estigui continguda en una altra. Si no, la mateixa adreça IP 
+pertanyeria a dues LANs, i l'encaminament seria impossible. Per exemple,
+si s'han de crear tres subxarxes per a 100, 500 i 200 dispositius a partir de \otherBase{192.168.0.0/16},
+amb rangs d'adreces en aquest ordre, una divisió possible seria:
+
+\begin{center}
+\begin{bytefield}{32}
+\bitheader{0-31}\\
+\bitbox{16}{\otherBase{192.168}} & \bitboxes{1}{0000 0000 0} & \bitbox{7}{Device ID}
+& \bitbox[]{2}{$\rightarrow$} & \bitbox[]{8}{\otherBase{192.168.0.0/25}} \\
+\bitbox{16}{\otherBase{192.168}} & \bitboxes{1}{0000 001} & \bitbox{9}{Device ID}
+& \bitbox[]{2}{$\rightarrow$} & \bitbox[]{8}{\otherBase{192.168.2.0/23}} \\
+\bitbox{16}{\otherBase{192.168}} & \bitboxes{1}{0000 0001} & \bitbox{8}{Device ID}
+& \bitbox[]{2}{$\rightarrow$} & \bitbox[]{8}{\otherBase{192.168.1.0/24}} \\
+\end{bytefield}
+\end{center}
+
+Recorda que l'adreça de xarxa de cada subxarxa resultant té tots els bits de l'identificador de dispositiu a \otherBase{0},
+i que aquesta adreça normalment es presenta en format \concept{quad decimal}.
+\end{remark}
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item A l'exemple anterior, per què els bits lliures de la segona subxarxa són \otherBase{0000001} 
+i no \otherBase{0000000}?\\[-0.4cm]
+
+\item Repeteix l'exercici assignant les adreces més altes possibles a la tercera subxarxa,
+  després les següents adreces més altes possibles a la segona, 
+  i les adreces més baixes possibles a la primera.\\[-0.4cm]
+  
+\item Quina és la IP de \concept{broadcast} de cada subxarxa?
+\end{itemize}
+\end{exercise}
+
+
+% 
+\section{Fragmentació IP}
+\label{sec:layer3:fragmentation}
+
+Abans que un dispositiu (incloent-hi els \conceptRef{router}{routers} i els ordinadors normals)
+pugui enviar un \conceptRef{datagram}{datagrama} per una LAN, ha de verificar que la seva longitud en bytes 
+no sigui més gran que la \concept{MTU} d'aquesta LAN. Si ho és, el datagrama s'ha de 
+\conceptRef{fragmentation}{fragmentar} en dos o més datagrames més petits que sí que càpiguen en la MTU de la LAN.
+
+Els fragments més petits són datagrames complets amb capçalera i payload. Per tant, 
+més fragments impliquen una \conceptRef{overhead}{sobrecàrrega} més gran. Cadascun d'aquests fragments s'envia 
+i es reenvia individualment com qualsevol altre datagrama, i pot ser que s'hagi de tornar a fragmentar 
+si passa per una altra LAN amb una MTU encara més petita.
+
+Quan s'ha de fragmentar un datagrama, la pila de xarxa segueix 
+els passos següents:
+\begin{enumerate}
+
+\item Es comprova el flag \concept{DF} (don't fragment) del datagrama original. 
+    Si DF=\otherBase{1} però cal fragmentar, el datagrama no es fragmenta 
+    i es produeix un error.\\[-0.2cm]
+
+\item Les dades del \conceptRef{payload}{payload} es divideixen en blocs de mida com a màxim $S$, de manera que $S + H = MTU$ 
+  ($H$ és la longitud de la capçalera del datagrama, normalment $20$~bytes). Només l'últim bloc
+  pot tenir una mida inferior a $S$. Això garanteix que cap fragment no superi la MTU,
+  que és precisament l'objectiu de la fragmentació.\\[-0.2cm]
+  
+\item La \conceptRef{header}{capçalera} del datagrama original es copia a la dels fragments amb les modificacions següents:
+  \begin{itemize}
+  \item El camp Datagram ID pren el mateix valor en tots els fragments d'un datagrama. 
+    El sistema operatiu s'assegura de triar un ID que la seva pila de xarxa no hagi fet servir recentment.
+    El camp Datagram ID s'ignora en els datagrames no fragmentats.\\[-0.3cm]
+    
+  \item El camp \concept{Offset} (desplaçament) de cada fragment indica la posició (índex de byte)
+    del seu primer byte de dades de payload dins del payload del datagrama abans de la fragmentació.
+    Aquest camp no s'expressa en bytes, sinó en paraules de $8$~bytes.
+    %     
+    Donat un offset en bytes, el camp \concept{Offset} es calcula dividint per $8$.
+    Per tant, els offsets dels fragments només poden ser múltiples de $8$.\\[-0.3cm]
+    
+  \item El flag \concept{MF} (more fragments) es posa a \otherBase{1} (activat) 
+    en tots els fragments excepte l'últim. Això ha de ser cert fins i tot si un o més
+    fragments es tornen a fragmentar en una LAN posterior. Així, quan es fragmenta un 
+    datagrama $D$ amb MF=\otherBase{1}, cap dels fragments resultants\\[-0.2cm]
+  \end{itemize}
+  
+\item Els datagrames fragment s'envien de la mateixa manera que s'enviaria un datagrama normal.
+  Els fragments es poden tornar a fragmentar, però només els torna a acoblar el host (equip connectat a la xarxa) de destinació.
+  
+\end{enumerate}
+
+
+\begin{exercise}
+Donats l'\concept{Offset} i el flag \concept{MF}, com podem distingir 
+un datagrama que no s'ha fragmentat d'un fragment de datagrama?
+\end{exercise}
+
+\begin{exercise}
+Per què seria problemàtic posar MF=\otherBase{0} a l'últim datagrama 
+produït en fragmentar un datagrama amb MF=\otherBase{1}?
+\end{exercise}
+
+\begin{exercise}
+Un dispositiu ha d'enviar un datagrama amb una capçalera IP de $20$~bytes i un payload de $2170$~bytes.
+El dispositiu està connectat a la LAN1, i el datagrama ha de travessar 
+la LAN2 i la LAN3 fins que arriba a la LAN4 de destinació. Les MTU d'aquestes LANs són les següents:
+\begin{center}
+\begin{tabular}{r cccc}
+\toprule
+\textbf{LAN} & LAN1 & LAN2 & LAN3 & LAN4 \\
+\textbf{MTU} & 1500 & 710  & 4096 & 864  \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{itemize}
+\item Indica l'offset i la longitud del payload (tots dos en bytes),
+ així com els flags MF i DF dels $4$ datagrames
+ que arriben a la LAN4 com a resultat d'enviar el datagrama
+ (suposant que no hi ha pèrdues ni duplicacions).
+  
+\item Pot el dispositiu d'origen conèixer les MTU de les LANs intermèdies i de 
+destinació?
+\end{itemize}
+
+\end{exercise}
+
+
+\begin{exercise}
+Els datagrames que contenen fragments poden arribar duplicats i/o desordenats. 
+Com hauria de gestionar aquests datagrames la pila de xarxa receptora?
+\end{exercise}
+
+
+\section{ARP -- Address Resolution Protocol}\label{sec:layer3:arp}
+
+L'Address Resolution Protocol (\concept{ARP}) el fa servir la capa~3 (\concept{IP})
+per obtenir l'adreça \concept{MAC} (física) de destinació corresponent a una adreça IP coneguda.
+
+Els paquets ARP s'envien com a payload de frames de capa~2 (\eg, Ethernet). 
+Els paquets ARP \textit{no} són datagrames i \textit{no} contenen capçaleres IP.
+
+\begin{remark}
+La IP que consulta la capa~3 és la del \concept{router} per al \conceptRef{indirect delivery}{lliurament indirecte} i la del dispositiu de destinació
+per al \conceptRef{indirect delivery}{lliurament indirecte}. Recorda també que la IP de destinació del datagrama no canvia durant el reenviament.
+\end{remark}
+
+\subsection{Format del paquet}
+
+\vspace{0.2cm}
+\begin{center}
+\begin{bytefield}[bitheight=3em,bitwidth=1.1em]{32}
+\bitheader{0-31}\\
+% 
+\bitbox{16}{Layer~2 address type \\ (\otherBase{1}: Ethernet)} 
+& \bitbox{16}{Layer~3 address type \\ (\otherBase{0x0800}: IP)} \\ 
+% 
+\bitbox{8}{Layer~2\\address length} & \bitbox{8}{Layer~3\\address length} 
+& \bitbox{16}{ARP operation\\(\otherBase{1}: request, \otherBase{2}: reply)} \\
+% 
+\bitbox[tl]{16}[bgcolor=color2!50!white]{Sender Layer~2 address} &
+\bitbox[trb]{16}[bgcolor=color2!50!white]{} \\
+\bitbox[lbr]{16}[bgcolor=color2!50!white]{} 
+& \bitbox{16}[bgcolor=color2!50!white]{Sender Layer~3 address ...} \\
+\bitbox{16}[bgcolor=color2!50!white]{... Sender Layer~3 address}
+& \bitbox[ltr]{16}[bgcolor=color1!50!white]{Receiver Layer~2 address} \\
+\bitbox[tlb]{16}[bgcolor=color1!50!white]{} & \bitbox[rb]{16}[bgcolor=color1!50!white]{} \\
+\bitbox{32}[bgcolor=color1!50!white]{Receiver Layer~3 address}
+\end{bytefield}
+\end{center}
+
+\begin{remark}
+El protocol \concept{ARP} \textit{no} fa servir capçaleres IP.
+\end{remark}
+\begin{remark}
+``Sender'' i ``receiver'' s'han d'interpretar com ``... d'aquest missatge ARP''.
+\end{remark}
+
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item Quina és la finalitat dels $4$ primers camps d'un paquet ARP?
+\item Quin efecte tenen en els camps restants?
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}
+Quantes adreces vàlides apareixen en un frame Ethernet que transporta una petició ARP?
+I en una resposta ARP?
+\end{exercise}
+
+
+\subsection{Funcionament}
+
+Quan un node \node{A} necessita traduir una adreça IP a una adreça MAC, envia un frame de \concept{broadcast}
+(MAC de destinació \otherBase{ff:ff:ff:ff:ff:ff} que conté un paquet ARP. 
+En aquest paquet ARP, l'operació es posa a \inlineCode{REQUEST} (\otherBase{1}),
+la IP de destinació és la que es vol traduir, i
+la MAC de destinació es posa a \otherBase{00:00:00:00:00:00}.
+
+Quan una pila de xarxa \node{B} veu un paquet de petició ARP, 
+envia un paquet de resposta ARP només si 
+la IP que té configurada és l'adreça IP de destinació de l'ARP.
+Aquesta resposta és idèntica a la petició amb aquests canvis:
+\begin{itemize}
+\item El codi OP del paquet ARP es posa a \inlineCode{REPLY} (\otherBase{2}).
+\item ``Origen'' ara fa referència a \node{B} (a la petició feia referència a \node{A}),
+  i ``destinació'', a \node{A}.
+\item En una resposta s'omplen totes $4$ adreces del paquet 
+  (no poden ser \otherBase{00:00:00:00:00:00}).
+\end{itemize}
+
+\begin{exercise}
+Quan s'executa l'ordre \inlineCode{ip route} en un node, la sortida conté:
+
+\begin{verbatim}
+default via 192.168.0.1 dev wlp5s0 src 192.168.0.2 metric 600 [...]
+\end{verbatim}
+
+Al seu torn, l'ordre \inlineCode{ip link} conté les línies següents:
+
+\begin{verbatim}
+2: enp42s0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 state DOWN [...]
+    link/ether d8:43:ae:61:ed:a4 brd ff:ff:ff:ff:ff:ff
+3: wlp5s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 state UP [...]
+    link/ether 5c:e4:3a:18:97:1b brd ff:ff:ff:ff:ff:ff 
+\end{verbatim}
+
+\begin{itemize}
+\item El node ha de fer el \conceptRef{indirect delivery}{lliurament indirecte} d'un datagrama,
+però no coneix l'adreça MAC del seu router gateway. Indica el valor de 
+tots els camps (incloent-hi la capçalera Ethernet i el missatge ARP) de la petició ARP 
+que enviarà el node per obtenir la MAC del router.
+
+\item Descriu els valors dels camps de la resposta ARP (pots fer servir qualsevol adreça vàlida
+      com a adreça MAC del router).
+\end{itemize}
+\end{exercise}
+
+No és gaire probable que l'adreça MAC associada a una IP canviï sovint.
+Quan es rep una resposta ARP vàlida, el sistema operatiu actualitza una 
+\conceptRef{cache}{memòria cau} afegint-hi (o actualitzant-hi) les traduccions IP $\leftrightarrow$ MAC rebudes.
+% 
+Si el sistema operatiu ha d'enviar un datagrama a aquesta IP abans que caduqui l'entrada de la memòria cau,
+es fa servir directament l'adreça MAC de la taula sense necessitat de missatges ARP addicionals.
+% 
+L'ordre \inlineCode{ip neighbor} mostra el contingut d'aquesta taula, \eg,
+\begin{verbatim}
+192.168.0.1 dev wlp5s0 lladdr cc:2d:14:fc:22:60 REACHABLE
+\end{verbatim}
+
+\begin{remark}
+ARP es pot fer servir per \conceptRef{scan}{escanejar} les IP utilitzades en una LAN. 
+En particular, un node pot fer servir ARP per verificar que ningú més no fa servir la seva adreça IP configurada.
+\end{remark}
+
+ARP es va proposar en una època en què la seguretat de xarxa encara no era un problema. Com a conseqüència,
+no proporciona cap mecanisme per verificar que una resposta ARP determinada sigui correcta.
+% 
+Això es pot aprofitar per \conceptRef{poison}{enverinar} la taula de memòria cau ARP d'un dispositiu enviant 
+respostes ARP \conceptRef{gratuitous}{gratuïtes} (no sol·licitades) a la víctima amb 
+associacions IP $\leftrightarrow$ MAC falses.
+
+Els sistemes operatius moderns normalment ignoren les respostes ARP no sol·licitades, 
+i els \conceptRef{switch}{switches} (commutador) moderns filtren els missatges ARP que no coincideixen amb les
+adreces IP i MAC reals. Tot i així, IPv6 abandona ARP en favor del 
+protocol Neighbor Discovery (ND), més complex.
+
+\begin{exercise}
+Quin impacte podria tenir enverinar la memòria cau ARP d'una víctima, 
+canviant la MAC emmagatzemada del router gateway per la MAC de l'atacant?
+\end{exercise}
+
+\section{ICMP -- Internet Control Message Protocol}\label{sec:layer3:icmp}
+
+L'Internet Control Message Protocol (\concept{ICMP}) és un protocol
+auxiliar (tècnicament part d'\concept{IP}) que es fa servir per provar i depurar
+les comunicacions de xarxa (i entre xarxes). 
+
+
+\subsection{Format del paquet}
+
+Els missatges ICMP s'encapsulen com a payload de datagrames IP.
+A la capçalera IP, el \conceptRef{payload}{protocol del payload} es posa a \otherBase{0x01} (``ICMP'').\\[-0.2cm]
+
+\begin{center}
+\begin{bytefield}[bitwidth=1.2em]{32}
+\bitheader{0-31}\\
+\bitbox{32}[bitheight=3em]{IP Header (see \ref{sec:layer3:ip:format})} \\
+\bitbox{8}{ICMP type} & \bitbox{8}{ICMP subtype} & \bitbox{16}{ICMP checksum} \\
+\bitbox{32}{Rest of ICMP header (mandatory, depends on type)} \\
+\bitbox[tlr]{32}[bitheight=3em]{ICMP data\\{\scriptsize(variable length, byte aligned)}} \\
+\bitbox[lbr]{24}{\hspace{3cm}\raisebox{0.25cm}{$\vdots$}} & \bitbox[lt]{8}{} \\
+\end{bytefield}
+\end{center}
+
+Les combinacions de tipus/subtipus ICMP més habituals que és probable que et trobis avui dia:
+\begin{center}
+\begin{tabular}{ccc l}
+\toprule
+\textbf{Tipus ICMP} & \textbf{Subtipus ICMP} & \textbf{Error?} & \textbf{Significat} \\
+\toprule
+$8$ & $0$       &              & Missatge ICMP Echo Request (\concept{ping}). \\
+$0$ & $0$       &              & Missatge ICMP Echo Reply (resposta \concept{ping}). \\
+$3$ & $0$--$16$ & $\checkmark$ & Destination Unreachable. Subtipus: causa. \\
+$11$ & $0$      & $\checkmark$ & Time to Live Exceeded: \concept{TTL} arriba a $0$.  \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+En aquests missatges ICMP d'error, el camp de dades ICMP conté informació sobre el 
+datagrama que ha causat el missatge ICMP d'error:\\[-0.2cm]
+
+\begin{center}
+\begin{bytefield}[bitwidth=1.2em]{32}
+\bitheader{0,7,8,15,16,23,24,31}\\
+\bitbox{32}[bitheight=3em]{Problematic datagram's complete IP header} \\
+\bitbox{32}[bitheight=2.5em]{Problematic datagram's first $8$~payload bytes} \\
+\end{bytefield}
+\end{center}
+
+En els missatges echo request i echo reply, el camp de dades ICMP és arbitrari dins dels límits
+dels datagrames IP. La fragmentació de datagrames ICMP (\eg, payloads de ping grans) és possible,
+però molts routers ignoren els fragments ICMP.
+
+\subsection{Funcionament}
+
+Els missatges d'error ICMP els envien els \conceptRef{router}{routers} i els hosts normals,
+desencadenats per altres datagrames:
+\begin{itemize}
+\item La família de missatges ``Destination unreachable'' s'envia quan un datagrama no es pot 
+lliurar a la seva destinació, \eg, per una \conceptRef{routing table}{taula d'encaminament} mal configurada, 
+un \concept{port} tancat (vegeu la secció~\ref{sec:layer4}), o simplement perquè el host
+de destinació no està engegat.
+
+\item El missatge ``TTL exceeded'' s'envia quan un router rep un datagrama per a 
+\conceptRef{indirect delivery}{lliurament indirecte} amb \concept{TTL}$=1$ (vegeu la secció~\ref{sec:layer3:routing}).
+\end{itemize}
+
+Per evitar quantitats infinites de trànsit, \textit{no} es generen errors ICMP
+quan els datagrames que els provoquen són:
+\begin{itemize}
+\item Datagrames ICMP (d'error o no).
+\item Fragments de datagrama, excepte el primer.
+\end{itemize}
+
+\begin{exercise}
+Com podem distingir el primer fragment d'un datagrama dels fragments següents?
+\end{exercise}

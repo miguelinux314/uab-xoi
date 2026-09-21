@@ -1,0 +1,62 @@
+\newpage
+\section{Missió 3: Pasturant el caos}\label{sec:mission3}
+
+\begin{minipage}{0.45\linewidth}
+A causa de diferències polítiques, i malgrat tots els esforços de l'assemblea de la colònia, cada base del planeta ha adoptat una tecnologia LAN (xarxa d'àrea local) diferent (!).
+Tot i que les comunicacions dins de cada base són satisfactòries, ara per ara és impossible connectar directament dos ordinadors de dues bases diferents.
+%
+Un cop més, la colònia et demana ajuda.\\
+\end{minipage}
+\hspace{0.04\linewidth}
+\begin{minipage}{0.5\linewidth}
+\vspace{-1cm}\includegraphics[width=\linewidth]{colony_network_map.pdf}
+\end{minipage}
+
+\noindent
+Gràcies als sacrificis de tothom, la colònia ja està en condicions de construir i instal·lar un nou router (encaminador) i dos busos cablejats.
+Al diagrama següent es representen amb una línia més gruixuda.
+%
+% \noindent
+El teu objectiu a llarg termini és fer possible la comunicació entre xarxes entre dos nodes qualssevol de dues bases qualssevol.
+De moment, dissenyaràs la infraestructura física i lògica.\\
+
+\subsection*{Detalls de l'informe}
+
+Totes les bases fan servir el protocol IPv4, i hi ha diverses bases connectades tant al bus Nord com al bus Sud.
+Cada base conté una única LAN. Coordina't amb els altres perquè \textit{no hi hagi dues LAN de la mateixa mida}.
+
+\begin{enumerate}[itemsep=0.1cm]
+\item Dins del teu grup:
+\begin{itemize}[itemsep=0.1cm]
+    \item Determina quantes adreces necessites perquè cada dispositiu es pugui identificar de manera única dins la teva LAN.
+    Tria la mida de LAN mínima que satisfaci aquest requisit i quantifica l'``espai'' lliure disponible a
+    la teva LAN.
+    \item Indica quants dels 32~bits d'una adreça IPv4 necessites per identificar un sol dispositiu connectat a la LAN de la teva base.
+    Quin concepte utilitzat a IP està més estretament relacionat amb aquest nombre? Per a què pot ser útil aquesta estructura?\\[0.2cm]
+\end{itemize}
+
+\begin{center}
+\begin{bytefield}{18}
+\bitbox{8}{Network ID} & \bitbox{15}{Host ID}\\
+\end{bytefield}
+\end{center}
+
+\item En coordinació amb els altres grups de l'aula:
+\begin{itemize}[itemsep=0.1cm]
+\item Crea una LAN per al bus Nord i descriu totes les adreces físiques i lògiques que hi estan connectades.
+\item Assegura't que els blocs d'adreces IPv4 assignats a les LAN siguin de mida diferent i no se solapin.
+\item Fent servir la pissarra o un document compartit, fes una llista de totes les LAN, amb les seves mides i els rangs d'adreces (actualitzats).
+\end{itemize}
+
+\end{enumerate}
+
+\subsection*{Detalls de la retroacció}
+
+Segueix un procés de retroacció semblant al de les missions anteriors, i assegura't de tractar aquests punts:
+
+\begin{enumerate}[itemsep=0.1cm]
+\item Les LAN estan dimensionades correctament?
+\item Hi ha cap col·lisió entre els blocs?
+\item L'informe original extreia tota la informació sobre l'estructura de les adreces IP?
+\end{enumerate}
+

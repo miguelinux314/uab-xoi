@@ -1,0 +1,68 @@
+\newpage
+\section{Misión 4: Inter $\left\{ \begin{array}{l} \textbf{planetary}\\\textbf{net}\end{array} \right.$}\label{sec:mission4}
+
+\begin{minipage}{0.88\linewidth}
+Tras unos años de uso, la colonia por fin valora interconectar redes heterogéneas mediante el protocolo IP.
+Tanto, que ha invertido en una potente HugeAntenna\texttrademark\ que, cree, puede conectarla con la Internet de la Tierra.\\
+
+\noindent
+La asamblea de la colonia está preocupada porque no sabe si las bases podrían comunicarse entre sí y, sobre todo, con la nueva antena. Además, teme la despótica represalia de la Tierra si no logra conectarse a Internet.
+%
+De nuevo, piden tu ayuda.
+
+\end{minipage}
+\hspace{0.01\linewidth}
+\begin{minipage}{0.10\linewidth}
+\vspace{-0.5cm}\includegraphics[width=\linewidth]{./satellite.jpg}
+\end{minipage}
+
+\vspace{0.3cm}
+\noindent
+\textbf{\raisebox{0.03cm}{\warning}¡Atención! Esta misión es crítica}. Tómate tu tiempo, pide toda la ayuda que necesites y mantén el ánimo. Las misiones previas pueden considerarse un entrenamiento para esta -- se recomienda encarecidamente terminarlas con cuidado antes de abordarla.
+\vspace{-0.1cm}
+
+\subsection*{Detalles del informe}
+
+Recuerda la topología de red pedida en la misión anterior.
+A estas alturas deberías tener acceso a un acuerdo consensuado sobre la distribución de direcciones físicas y lógicas
+de los dispositivos de la colonia (si no, ¡dilo!).\\
+
+\noindent
+Considera los \textit{routers} (encaminadores) de la colonia: $\{\textrm{RA}_i\}_{i=1}^{N}$ están conectados al Bus Norte, $\{\textrm{RB}_i\}_{i=1}^{N}$ al Bus Sur, y $\textrm{R}_0$ une ambos buses. La nueva antena se conectará a un tercer controlador de interfaz de red (NIC) de $\textrm{R}_0$.\\
+
+\noindent
+Tu objetivo es ayudar a configurar todas las máquinas de la colonia (sobre todo los routers) para que la información fluya entre bases y, crucialmente, entre la colonia y la Internet de la Tierra.
+% \end{minipage}
+\vspace{-0.2cm}
+
+\begin{enumerate}[itemsep=0.1cm]
+\item Resume las direcciones físicas y lógicas de todas las máquinas de la colonia para que tu informe sea autocontenido. Se sugiere reutilizar la configuración de la misión anterior tras corregir cualquier problema detectado. Usa el formato CIDR siempre que proceda.
+
+\item Da las tablas de encaminamiento funcionales más simples que se te ocurran para estas máquinas:
+\begin{itemize}
+\item Un router $\textrm{RA}_i$ a tu elección,
+y una máquina no router $\textrm{M}_i$ conectada a $\textrm{RA}_i$.
+\item Un router $\textrm{RB}_j$ a tu elección,
+y una máquina no router $\textrm{M}_j$ conectada a $\textrm{RB}_j$.
+\item El router $\textrm{R}_0$.
+\end{itemize}
+
+\item Crea dos diagramas swimlane que muestren \textit{todos} los paquetes transferidos dentro de la colonia en los dos intercambios siguientes. Para cada paquete de estos diagramas, indica \textit{todas} las direcciones que contiene. Especifica en algún lugar la MTU de todas las LANs (redes de área local) implicadas en los intercambios.
+\begin{itemize}
+\item $\textrm{M}_i$ envía datos a $\textrm{M}_j$, y $\textrm{M}_j$ devuelve una respuesta.
+\item $\textrm{M}_i$ envía un mensaje a un servidor en la Tierra, pero no recibe respuesta.
+\end{itemize}
+\end{enumerate}
+
+\subsection*{Detalles de la retroalimentación}
+
+Usa un proceso de retroalimentación similar al de las misiones previas, asegurándote de tratar:
+\begin{itemize}
+\item ¿Hay algún problema en la asignación de direcciones físicas y lógicas?\\[-0.5cm]
+\item ¿Se empleó correctamente el formato CIDR?\\[-0.5cm]
+\item ¿Contienen las tablas de encaminamiento todos los campos necesarios?\\[-0.5cm]
+\item ¿Puede simplificarse más alguna de las tablas?\\[-0.5cm]
+\item ¿Se representan bien las entregas directas e indirectas en los diagramas swimlane?\\[-0.5cm]
+\item ¿Son las MTU coherentes con los diagramas?
+\end{itemize}
+

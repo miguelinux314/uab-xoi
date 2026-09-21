@@ -1,0 +1,22 @@
+{
+  "name": "XOI study guide",
+  "build": {
+    "dockerfile": "../docker/Dockerfile",
+    "context": ".."
+  },
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace/xoi.git,type=bind",
+  "workspaceFolder": "/workspace/xoi.git",
+  "containerEnv": {
+    "UAB_XOI_HOST": "0.0.0.0", "UAB_XOI_PORT": "65535"
+  },
+  "overrideCommand": false,
+  "forwardPorts": [65535],
+  "portsAttributes": {
+    "65535": {
+      "label": "mkdocs serve",
+      "onAutoForward": "notify"
+    }
+  },
+  "remoteUser": "dev",
+  "updateRemoteUserUID": true
+}

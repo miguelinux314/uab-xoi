@@ -1,0 +1,241 @@
+\chapterimage{street_plaque.jpg}
+
+\chapter{¿Dónde estás?}\label{sec:where}
+
+Conectar dos ordenadores los hace mucho más útiles que dos máquinas aisladas.
+Sin embargo, su verdadero potencial solo se libera cuando pueden conectarse a \textit{muchos} otros ordenadores.
+
+Las limitaciones prácticas, como el coste y la ubicación geográfica, hacen imposible conectar
+directamente cada par de ordenadores. En su lugar, los dispositivos se distribuyen en un grafo de redes interconectadas,
+que puede extenderse incluso más allá de la escala de un planeta.
+
+Ya sea localmente, al alcance físico, o en otro continente, se necesita un sistema de direccionamiento
+para identificar, localizar y encaminar los mensajes de modo que lleguen a los peers (pares) a los que van dirigidos, igual que
+hacemos con las ubicaciones físicas.
+
+
+
+\section{Por favor, contacta conmigo}\label{sec:where:topology}
+
+Cuando solo intervienen $2$ \conceptRef{device}{dispositivos}, se puede usar una conexión \conceptRef{point-to-point}{punto a punto}. En este tipo de conexión
+solo existen ``este lado'' y ``el otro lado'' del cable. Además, cuando un dispositivo quiere comunicarse con el otro extremo,
+solo hay un enlace (\eg, un cable) entre el que elegir, así que no hay confusión posible. Como podemos operar esta conexión
+con solo $2$ \conceptRef{network card}{tarjetas de red} y $1$ cable, las conexiones punto a punto son viables para $N=2$ dispositivos.
+
+\begin{wrapfigure}{R}{0.25\linewidth}
+\includegraphics[width=\linewidth]{complete_graph.pdf}
+\end{wrapfigure}
+
+
+Si queremos conectar $N > 2$ dispositivos, una opción ingenua es conectar cada dispositivo con todos los demás
+formando un \conceptRef{complete graph}{\textit{grafo completo}}. Ahora cada dispositivo necesita manejar $N - 1$ cables hacia los otros dispositivos,
+pero comunicarse con cualquier otro dispositivo es tan sencillo como elegir el cable correcto y establecer una conexión punto a punto.
+
+El principal problema de este enfoque es que el número total de conexiones es $N \cdot (N-1) / 2 = O(N^2)$
+(más sobre esto en tu fiel asignatura de \textit{Matemática Discreta}). Esto significa que, para tener $N=10$ dispositivos conectados de esta manera,
+necesitarías por ejemplo $40$ cables \textit{y} $90$ \conceptRef{network card}{tarjetas de red}. Para $N=1000$ dispositivos,
+habría medio millón de conexiones punto a punto, lo cual ya resulta bastante inmanejable.
+
+\begin{remark}
+$O(N^2)$ es la notación de una cota de complejidad \conceptRef{quadratic}{cuadrática}.
+Esto \textit{no} es lo mismo que \conceptRef{exponential}{exponencial} y nunca debe confundirse.
+% 
+\readMore{https://en.wikipedia.org/wiki/Big_O_notation}
+\end{remark}
+
+\begin{wrapfigure}{L}{0.17\linewidth}
+\includegraphics[height=4cm]{bus_graph.pdf}
+\end{wrapfigure}
+
+Nos queda un truco en la manga: los \conceptRef{bus}{buses de datos}, donde una o más líneas de datos
+están conectadas simultáneamente a múltiples dispositivos.
+Esto conserva la simplicidad de las conexiones punto a punto, porque cada dispositivo solo tiene que manejar
+$1$ cable y puede usarlo para comunicarse con todos los demás dispositivos. También se conserva la rentabilidad,
+ya que solo hacen falta $N$ tarjetas de red para $N$ dispositivos ($O(N)$).
+
+La principal ventaja de los buses de datos es también su principal debilidad:
+todos los dispositivos envían y reciben datos usando la misma línea de datos,
+pero no pueden hacerlo al mismo tiempo porque solo hay una línea. Si dos o más lo hacen, se produce
+una \conceptRef{collision}{colisión} que hace imposible la transmisión de datos mientras dura.\\[-0.5cm]
+
+\begin{remark}
+A medida que se desarrollaban las redes de ordenadores, se experimentó con muchas alternativas a la
+\conceptRef{topology}{topología} de bus. Un ejemplo curioso es \concept{Token Ring}, donde los dispositivos
+se conectan formando un círculo y los mensajes se van pasando en un único sentido.
+\end{remark}
+
+En la práctica, no es trivial implementar una tecnología de bus
+en la que se puedan ir añadiendo nuevos dispositivos con el tiempo.
+% 
+Históricamente, esto se hacía a veces perforando físicamente el cable principal del bus
+y añadiendo un cable nuevo hacia el nuevo ordenador que se conectaba.
+Más adelante, esto se simplificó con unos dispositivos llamados \conceptRef{hub}{hubs} (concentradores).
+Funcionaban de forma similar, pero ofrecían \conceptRef{port}{puertos} prefabricados
+y conectores extraíbles.
+% 
+Hoy en día, los hubs han sido sustituidos por los \conceptRef{switch}{switches} (conmutadores).
+Los switches ofrecen la funcionalidad de un bus, conectando todos los dispositivos entre sí,
+y además evitan las colisiones. Por razones obvias, estructurar las conexiones
+en torno a un switch se denomina \conceptRef{star topology}{topología en estrella}.
+
+\begin{exercise}
+¿Qué \textbf{hace falta en un switch} que no hace falta en un hub?
+
+\begin{center}
+\includegraphics[width=0.75\linewidth]{switch.jpg}
+\end{center}
+\end{exercise}
+
+Las topologías de bus funcionan muy bien a escala local y se emplean ampliamente en las
+\conceptRef{LAN}{LANs (\conceptRef{network}{redes} de área local)}. Sin embargo, no resultan rentables
+(a veces ni siquiera son físicamente posibles) cuando los dispositivos están muy separados.
+% 
+En su lugar, los dispositivos pueden organizarse en LANs separadas, cada una conceptualmente un bus,
+y luego esas LANs separadas pueden conectarse mediante conexiones punto a punto más baratas
+y factibles. Considerados en conjunto, esos dispositivos formarían entonces una
+\conceptRef{WAN}{WAN (red de área extensa)}.
+
+\begin{center}
+\includegraphics[width=0.65\linewidth]{lan_wan_structure.pdf}
+\end{center}
+
+
+\section{Necesito encontrarte}\label{sec:where:addresses}
+
+Una vez más, la principal ventaja de los \conceptRef{bus}{buses} de datos es también su principal debilidad:
+todos los dispositivos envían y reciben datos usando la misma línea de datos.
+Aunque no se produzcan colisiones, todos los dispositivos reciben cada mensaje
+enviado al bus.
+Sin embargo, lo que realmente queremos es que nuestro mensaje llegue a su destino,
+y solo a su destino. Llamemos a esto el \textit{problema de encontrar-mi-dispositivo}.
+
+El problema de encontrar-mi-dispositivo no es exclusivo de los buses ni de las \conceptRef{LAN}{LANs}. Al contrario, se vuelve
+muy importante cuando consideramos las \conceptRef{WAN}{WANs}, donde no todos los dispositivos están directamente interconectados.
+En este caso, tenemos que asegurarnos de poder \conceptRef{routing}{encaminar} nuestros mensajes
+entre distintas LANs y de que lleguen a su destino.
+
+Sorprendentemente, ni siquiera las conexiones punto a punto se libran del problema de encontrar-mi-dispositivo.
+Suponiendo que los dispositivos A y B están conectados de ese modo, dos programas distintos pueden querer
+intercambiar información al mismo tiempo, \eg, un software de control de alarmas y
+una aplicación de streaming de música.
+En este escenario, quieres que el \conceptRef{client}{cliente} y el \conceptRef{server}{servidor} del \conceptRef{service}{servicio}
+de monitorización de alarmas se comuniquen entre sí, pero no con el servicio de streaming de música,
+y viceversa.
+
+La solución más común a este problema es usar identificadores que nos permitan
+distinguir entre dispositivos o incluso entre \conceptRef{process}{procesos} en ejecución
+dentro de un \conceptRef{OS}{sistema operativo (SO)}. Algunos de estos identificadores se
+denominan \conceptRef{address}{direcciones}, precisamente porque se usan
+para encontrar y alcanzar un dispositivo remoto.
+
+
+Las \conceptRef{address}{direcciones} son normalmente identificadores \textit{numéricos}, es decir, simplemente un número.
+Como tales, pueden expresarse en distintas bases, incluidas la decimal y la \concept{hexadecimal}.
+Estos números se toman de un conjunto predefinido, y la elección de ese conjunto
+determina el número máximo de elementos que podemos identificar de forma unívoca.
+
+\begin{remark}
+Las direcciones expresadas como \otherBase{d8:43:ae:61:ed:f1} o \otherBase{192.168.1.1}
+(como se verá más adelante en el curso) son también números que podríamos haber expresado
+como \otherBase{237785200061937} y \otherBase{3232235777}, respectivamente
+(lo cual no resulta tan cómodo).
+\end{remark}
+
+\begin{exercise}
+¿\textbf{Cuántos elementos se pueden identificar de forma unívoca} (como máximo) con una dirección que expresamos
+usando 5 bits? ¿Y con 10? ¿Y con 20? Expresa la solución general matemáticamente.
+\end{exercise}
+
+\begin{exercise}
+Supón que hay $1000$~máquinas en una LAN. ¿\textbf{Cuántos bits de dirección hacen falta}?
+¿Y con $800$~máquinas? ¿Y con $1100$? Expresa la solución general matemáticamente.
+\end{exercise} 
+
+\begin{remark}
+En 2019 nos quedamos sin direcciones de Internet (v4). ¡Uy!
+\end{remark}
+
+\section{¿Cómo llego hasta ahí?}
+
+En muchos escenarios se necesitan varias direcciones para llevar a cabo la
+comunicación \conceptRef{end-to-end}{extremo a extremo} deseada. Por ejemplo, puede que necesitemos identificar
+un único dispositivo dentro de una \concept{LAN}, y esa LAN dentro de una \concept{WAN}. A veces necesitaremos
+identificar un \conceptRef{process}{proceso} (un programa en ejecución) dentro de ese dispositivo.
+Esto no es muy distinto de que alguien te visite en persona:
+
+\begin{minipage}{0.5\linewidth}
+\begin{center}
+\begin{bytefield}{16}
+\bitbox{16}{Joseph Edgar Foreman} \\
+\bitbox{16}{123 South Fake St.} \\
+\bitbox{16}{Adams County} \\
+\bitbox{16}{Ohio}
+\end{bytefield}
+\end{center}
+\end{minipage}
+% 
+\begin{minipage}{0.5\linewidth}
+\begin{center}
+\begin{bytefield}{24}
+\bitbox{24}{Process \#1717403} \\
+\bitbox{24}{Device \#51688798} \\
+\bitbox{24}{LAN 3141 (Data Engineering Labs)} \\
+\bitbox{24}{WAN 442 (UAB)}
+\end{bytefield} 
+\end{center}
+\end{minipage}
+
+Sea cual sea el sistema de direccionamiento que usemos, debe contener información suficiente para localizar y alcanzar
+el destino, \ie, para \conceptRef{routing}{encaminar} nuestros mensajes a través del grafo de
+conexiones. El proceso de encaminamiento implica múltiples pasos o ``saltos'' entre redes
+hasta alcanzar la LAN de destino.
+
+El nombre \concept{router} (encaminador) designa un tipo de dispositivo de red
+cuya tarea es reenviar estos mensajes entre redes. Estos dispositivos deben contener
+información suficiente para que, cuando se les entrega un mensaje con una \conceptRef{address}{dirección} de destino,
+puedan decidir qué \conceptRef{network interface}{interfaz de red} usar.
+A su vez, los dispositivos que no son routers solo necesitan configurarse para poder alcanzar el siguiente router.
+
+
+\begin{remark}
+En casa, tu \concept{router} normalmente desempeña también el papel de \concept{switch}, pero son conceptos diferentes.
+\end{remark}
+
+% \begin{center}
+% \includegraphics[width=0.5\linewidth]{how_many_packets.pdf}
+% \end{center}
+
+\begin{exercise}
+Esta figura representa un puñado de dispositivos y sus conexiones físicas.
+Estos dispositivos solo pueden comunicarse enviando mensajes a través de
+esas conexiones. Aun así, \node{3} quiere enviar un mensaje a \node{7}.\\
+% 
+\begin{center}
+\includegraphics[width=0.5\linewidth]{how_many_packets.pdf}\\
+\end{center}
+% 
+\begin{itemize}
+ \item ¿Puedes identificar algún dispositivo que probablemente esté actuando como \concept{switch}? ¿Y como \concept{router}?
+ \item ¿Cuál es el \textbf{número mínimo de mensajes} enviados para que \node{3} pueda contactar con \node{7},
+ y \node{7} pueda responder a \node{3}? Enuméralos en el orden en que se producen.
+ \item ¿Qué información hay que incluir en esos mensajes para que pueda tener lugar la comunicación
+ \node{3} $\leftrightarrow$ \node{7}?
+\end{itemize}
+\label{ex:how_many_packets}
+\end{exercise}
+% 
+
+Los \conceptRef{swimlane diagram}{diagramas swimlane} (diagramas de carriles) como el de abajo se usan para representar las interacciones
+(\eg, el intercambio de mensajes) entre actores (\eg, dispositivos de red). En ellos, el eje vertical representa
+el tiempo, lo que resulta valiosísimo para identificar relaciones causa-efecto.
+\begin{center}
+\includegraphics[width=0.35\linewidth]{swimlane_example.eps}
+\end{center}
+
+\begin{exercise}
+A partir de tu respuesta al Ej.\ref{ex:how_many_packets}, \textbf{elabora un diagrama swimlane}
+que represente los intercambios de mensajes. Para cada mensaje (\eg, encima de las flechas),
+incluye la información de direccionamiento presente en él.
+\end{exercise}
+
+

@@ -1,0 +1,264 @@
+\chapterimage{container.jpg}
+
+\chapter{Això és teu?}\label{sec:packets}
+
+La informació viatja per aquest graf de xarxes en forma de paquets, que contenen una petita quantitat 
+d'informació i de metainformació. 
+
+Els dos extrems de la comunicació han d'acordar el format dels paquets, de manera que aquests paquets es puguin produir 
+i interpretar de manera eficient i automàtica.
+
+Quan els paquets viatgen per una o més xarxes, es poden perdre o desordenar. Si entre dos ordinadors ha de circular 
+un flux continu de dades, els paquets han de contenir mecanismes per detectar les pèrdues i restaurar l'ordre correcte.
+
+\section{Tinc una entrega per a tu}\label{sec:packets:lan_wan}
+
+No és viable establir connexions físiques entre cada parell d'ordinadors que es volen comunicar.
+En lloc d'això, es comparteixen relativament poques connexions per transportar missatges entre molts parells de dispositius.
+
+Si un sol dispositiu transmet dades de manera contínua durant molt de temps, aquella connexió queda bloquejada i pot esdevenir un coll d'ampolla que 
+impedeix que altres dispositius es comuniquin. Per evitar aquest problema, les connexions limiten la quantitat màxima de dades
+que es pot enviar sense interrupció. Com a resultat, els dispositius es veuen obligats a enviar dades en ràfegues discretes anomenades 
+\conceptRef{packet}{paquets}. L'intercanvi d'aquest tipus de missatges a través d'una o més xarxes s'anomena
+\conceptRef{packet switching}{commutació de paquets}.
+
+\begin{remark}
+% The concept of \concept{packet switching} (crucial to the creation of the Internet)
+% was developed in the 1960's (during the cold war) by the US military
+% to have a communications network that would work in case of a nuclear strike.
+%  
+% The problem with the one they had was that, if one station was damaged, the whole system stopped working.
+% However, by using packet switching, any connected subgraph of the network would keep working.
+% 
+% The reasoning for creating a packet-switched network was that they could still retaliate their enemy in case of an attack, which would
+% make them a less attractive target.
+
+Leonard Kleinrock, un dels pioners de la interconnexió de xarxes, disputa l'autoria de la commutació de paquets,
+que sovint s'atribueix a Paul Baran i Donald Davies.
+\end{remark}
+
+Els \conceptRef{packet}{paquets} han de ser petits perquè les connexions no quedin bloquejades durant massa temps. 
+Alhora, volem que els paquets continguin tantes dades com sigui possible, perquè cada paquet 
+conté dades de \conceptRef{overhead}{sobrecàrrega} (com ara les adreces que es tracten a la secció~\ref{sec:where}) que cal
+enviar a més de les dades de payload (càrrega útil) de l'usuari. Les xarxes fixen la longitud màxima dels paquets
+mitjançant un paràmetre anomenat \conceptRef{MTU}{unitat màxima de transmissió} (MTU), \eg, 1500~bytes a Ethernet.
+
+
+La transmissió de paquets a través d'un \conceptRef{data link}{enllaç de dades} s'ha de fer amb cura,
+sobretot quan aquest enllaç és un \concept{bus} compartit per diversos dispositius.
+Cada paquet s'ha de poder distingir individualment de la resta, 
+cosa que es pot fer amb almenys tres estratègies:
+\begin{enumerate}
+\item \textit{Longitud fixa}: tots els paquets tenen la mateixa longitud. L'emissor i el receptor han
+d'haver acordat aquest valor per endavant.
+
+\item \textit{Longitud explícita}: la longitud del paquet s'inclou dins del paquet, \eg, 
+fent servir el primer byte del paquet. L'emissor i el receptor han d'acordar com s'inclou aquesta informació
+i com s'ha d'interpretar.
+
+\item \textit{Seqüències d'escapament}: certes \conceptRef{escape sequence}{seqüències d'escapament} binàries 
+dins de les dades tenen un significat especial. 
+Per exemple, es podria definir que el byte \otherBase{11110000} (\otherBase{0xf0}) 
+significa ``final de paquet'': aquests bits han d'aparèixer després de cada paquet, i només aleshores.
+% 
+Llavors l'emissor podria començar a transmetre el contingut d'un paquet, seguit de \otherBase{0xf0}.
+Les dues parts han d'acordar quines seqüències d'escapament fan servir, què signifiquen i com 
+enviar dades iguals a aquestes seqüències (\eg, hauria de ser possible enviar \otherBase{0xf0f0f0}
+sense provocar un ``final de paquet'' fins que s'hagin transmès tots els bytes).
+\end{enumerate}
+
+\begin{remark}
+També és possible senyalitzar l'\textit{inici} d'un paquet. En aquest cas, es fa servir una seqüència prèvia anomenada \conceptRef{preamble}{preàmbul}.
+\end{remark}
+
+
+\begin{exercise}
+Totes les estratègies descrites més amunt es fan servir avui dia en escenaris reals, segons les 
+característiques, els costos i els compromisos de cadascuna.
+
+Discuteix quina d'aquestes estratègies seria la més adequada per a cadascun d'aquests escenaris:
+\begin{itemize}
+\item Un sol fabricant dissenya el maquinari i el programari que comunica dos extrems.
+Una sola \conceptRef{data line}{línia de dades} s'ha de \conceptRef{multiplex}{multiplexar} per a diverses ordres de control
+i també per a diversos fluxos de dades. La prioritat és un ús eficient de l'energia i del buffer (memòria intermèdia).
+
+\item Diversos dispositius comparteixen un \concept{bus}. De tant en tant envien missatges de longituds diferents,
+però no un volum enorme de dades. La prioritat és el cost.
+
+\item Diversos dispositius comparteixen un \concept{bus}. Envien contínuament missatges de longituds diferents,
+intentant maximitzar la taxa de transmissió efectiva a través del \conceptRef{channel}{canal}. 
+La prioritat és el \concept{throughput} (cabal efectiu).
+\end{itemize}
+\end{exercise}
+
+\section{Si us plau, emplena el formulari}\label{sec:packets:format}
+
+Independentment de l'estratègia emprada, els paquets de dades normalment consten de dues parts: 
+\begin{itemize}
+ \item El \concept{payload} de dades: la informació que cal transmetre, i
+ \item Les \conceptRef{metadata}{metadades}: la metainformació necessària per lliurar el payload.
+\end{itemize}
+La longitud pot ser un dels \conceptRef{field (packet)}{camps} de metadades inclosos en el paquet, juntament amb 
+altres que ajuden a identificar-ne el tipus i la funció.
+% 
+Els dos extrems de la comunicació han de conèixer la ubicació del payload i de les metadades, així com els camps exactes de metadades inclosos, la seva longitud i el seu significat.
+Totes aquestes decisions constitueixen el \conceptRef{packet format}{format del paquet}
+o l'\conceptRef{packet structure}{estructura del paquet}.
+
+Una de les maneres més habituals d'organitzar el payload i les metadades és amb un format \conceptRef{header}{capçalera}-\conceptRef{body}{cos}.
+En aquest cas, primer s'inclou tota la metainformació, seguida de les dades. 
+Altres formats poden incloure un \concept{trailer} o cua final (també conegut com a \concept{tail}, que s'usa sobretot per a la \conceptRef{error detection}{detecció d'errors}
+i la correcció), en combinació amb la capçalera o substituint-la.
+Totes les configuracions següents són possibles.
+
+\begin{minipage}{\linewidth}
+\begin{center}
+\begin{bytefield}{32}
+\bitbox{11}{Header} & \bitbox{21}{Body}\\[-0.35cm]
+\end{bytefield}
+% 
+\begin{bytefield}{32}
+\bitbox{6}{Header} & \bitbox{19}{Body} & \bitbox{7}{Trailer/Tail}\\[-0.35cm]
+\end{bytefield}
+% 
+\begin{bytefield}{32}
+\bitbox{21}{Body} & \bitbox{11}{Trailer/Tail}\\[-0.35cm]
+\end{bytefield}
+% 
+\begin{bytefield}{32}
+\bitbox{32}{Header}
+\end{bytefield}
+\end{center}
+\end{minipage}
+
+
+El format del payload d'un paquet normalment el defineix l'usuari. En canvi, el format de la capçalera
+està definit estrictament perquè es pugui produir i \conceptRef{parsing}{analitzar} fàcilment.
+Aquest format sovint es presenta amb un diagrama que ajuda a identificar les posicions individuals de cada bit i de cada byte,
+com en l'exemple (no real) següent:\\
+
+\begin{center}
+\begin{bytefield}{32}
+\bitheader{0-31} \\
+\begin{rightwordgroup}{Header}
+\bitbox{16}{Length} & \bitbox{8}{Importance} & \bitbox{4}{Type} & \bitbox{4}{Mode}\\
+\bitbox{24}{Destination Address} & \bitbox{8}{(Reserved)} 
+\end{rightwordgroup} \\
+\begin{rightwordgroup}{Body}
+\wordbox[lrt]{1}{Payload} \\
+\skippedwords \\
+\wordbox[lrb]{1}{} 
+\end{rightwordgroup}
+\end{bytefield}
+\end{center}
+
+\begin{remark}
+Els camps també poden tenir longituds fixes o variables, que no necessàriament s'alineen amb els 
+\conceptRef{byte boundary}{límits de byte}. Els camps també poden tenir una longitud igual a $1$~bit,
+i en aquest cas normalment se'ls anomena \concept{flag} (indicador) o bit de flag.
+\end{remark}
+
+
+\begin{remark}
+En diagrames com l'anterior, sovint es fan servir diverses línies (files) perquè es puguin
+imprimir i llegir fàcilment. En aquest cas, el significat és el mateix que si tots els camps s'haguessin
+presentat en una mateixa línia (fila).
+\end{remark}
+
+\begin{exercise}
+El contingut de paquet següent s'ha \conceptRef{sniff}{capturat} d'una \conceptRef{network}{xarxa},
+expressat en \concept{hexadecimal}. Suposant que el paquet té el format de l'exemple anterior:
+% 
+\begin{itemize}
+\item Indica el valor de cada camp (longitud, importància, tipus, mode, adreça de destinació i payload.
+\item Pots endevinar el significat del payload?
+\end{itemize}
+% 
+\begin{center}
+\otherBase{00 0c 00 f3 bb bb bb 00 68 65 6c 70}
+\end{center}
+\end{exercise}
+
+\begin{exercise}
+El codi següent accepta dos arguments: (1, \inlineCode{sys.argv[1]}) la \conceptRef{path}{ruta} d'un fitxer d'entrada, 
+i (2, \inlineCode{sys.argv[2]}) la \conceptRef{path}{ruta} d'un fitxer de sortida.
+Es llegeixen els primers 255 bytes del contingut del fitxer d'entrada, 
+es formategen com un paquet, i els bytes d'aquest paquet
+s'escriuen al fitxer de sortida.
+
+\begin{center}
+\showCode{snippets/simplepacketoutput.py}
+\end{center}
+
+\begin{itemize}
+\item Descriu el \conceptRef{packet format}{format de paquet} que es fa servir al codi, i les seves limitacions.
+
+\item Amplia el format de paquet de manera que 
+ \begin{itemize}
+   \item Els paquets puguin tenir més de 255 bytes
+   \item Es pugui codificar l'\conceptRef{address}{adreça} del dispositiu de destinació
+  \end{itemize}
+  
+\item Proporciona un diagrama de bytes del nou format, 
+així com una explicació del sistema d'adreçament que fas servir.
+
+\item Modifica el codi perquè generi paquets amb el format que proposes.
+\end{itemize}
+\end{exercise}
+
+\begin{remark}
+Llenguatges com Python poden distingir entre fitxers que contenen text i fitxers que contenen dades binàries.
+Al codi anterior, els fitxers s'obren en \conceptRef{binary mode}{mode binari} amb els modes \inlineCode{'rb'} i \inlineCode{'wb'}.
+
+Quan s'obren en mode binari, els bytes del fitxer es representen directament amb un objecte \inlineCode{bytes}, un vector 
+d'enters entre $0$ i $255$. En \conceptRef{text mode}{mode text}, el mètode \inlineCode{open} processa (\conceptRef{decode}{descodifica}) aquests bytes una mica més,
+i retorna una cadena que pot contenir caràcters especials com accents o glifs no llatins. \readMore{https://docs.python.org/3.12/library/functions.html\#open}
+\end{remark}
+
+\section{No paren d'arribar}\label{sec:packets:stream}
+
+Quan es desenvolupen aplicacions que fan servir capacitats de xarxa, sovint és útil 
+imaginar la comunicació com un \conceptRef{stream}{flux}, \ie, com una canonada conceptual on posem 
+les nostres dades (qualsevol quantitat de dades) per un extrem, i surten per l'altre. Si tenim
+aquesta capacitat, aleshores és molt més fàcil enviar fitxers de qualsevol mida i transmetre una quantitat
+inacabable d'àudio o de vídeo. Malauradament, tot el que tenim per simular aquests fluxos són paquets.
+
+Sovint cal reenviar els \conceptRef{packet}{paquets} a través de diverses xarxes. Els \conceptRef{router}{routers} (encaminadors) no són perfectes
+i de vegades estan inoperatius o mal configurats, de manera que no tots els paquets arriben a la seva destinació. A més,
+paquets diferents es poden lliurar per rutes diferents que poden tenir longituds diferents, de manera que els paquets poden arribar
+desordenats.
+
+Si volem simular un \conceptRef{stream}{flux} de dades, els paquets han de contenir prou metainformació perquè es puguin detectar les pèrdues i 
+restaurar l'ordre correcte. Això introdueix una \conceptRef{overhead}{sobrecàrrega} que no és adequada en tots els escenaris --\eg, latència molt baixa--,
+de manera que algunes aplicacions basen la seva comunicació de xarxa en \conceptRef{message}{missatges} en lloc de fluxos.
+
+Quan calen fluxos, es fa servir el concepte d'\concept{offset} (desplaçament) per tornar a muntar diversos missatges en 
+un sol flux. Cada paquet conté alguns bytes del flux de dades, i l'offset n'indica la ubicació exacta dins d'aquest flux.
+
+\begin{exercise}
+
+El diagrama següent descriu un flux de 48 bytes produït per un node d'origen, 
+així com els paquets en què es va dividir abans de la transmissió:\\[-0.25cm]
+
+\begin{center}
+\begin{bytefield}[bitheight=2cm]{48}
+\bitheader{0-47} \\
+\bitbox{10}{\underline{Packet 0} \\Offset 0 \\Length 10}
+\bitbox{14}{\underline{Packet 1} \\Offset 10\\Length 14}
+\bitbox{6 }{\underline{Packet 2} \\Offset 24\\Length 6 }
+\bitbox{18}{\underline{Packet 3} \\Offset 30\\Length 18}
+\end{bytefield}
+\end{center}
+
+\begin{itemize}
+\item Descriu la capçalera mínima que es pot fer servir per transmetre aquest flux.
+\item Suposant que el destinatari rep primer el paquet 2, seguit del paquet 0, i que els altres paquets es perden: quins bytes del flux coneix el 
+  node de destinació, i quins bytes són desconeguts?
+\item Com pot saber el node d'origen que alguns paquets no s'han lliurat?
+\item Què passaria si la destinació rebés un missatge fals, amb offset $7$~bytes i longitud $4$~bytes?
+\end{itemize}
+
+\end{exercise}
+
+
+

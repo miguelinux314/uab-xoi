@@ -1,0 +1,66 @@
+\newpage
+\section{Misión 5: El dinero es la raíz}\label{sec:mission5}
+
+\begin{minipage}{0.90\linewidth}
+Toda la colonia bulle de energía intelectual tras instalar la HugeAntenna\texttrademark\
+y conectarla a Internet de la Tierra -- ¡piensa en todo lo bueno que se han perdido hasta ahora!
+%
+Por desgracia, ahora que la colonia está enganchada a Internet, el tiránico gobierno de la Tierra ha decidido encarecer mucho el uso del enlace de la antena interplanetaria.
+Los precios abusivos causan graves problemas en la sociedad de la colonia, demostrando otra vez que el dinero \mbox{-- o,} quizá, su \mbox{falta --} puede ser la raíz de todos los males.
+%ñ
+¿Ayudarás a la colonia a recuperar la estabilidad financiera?
+
+\end{minipage}
+\hspace{0.015\linewidth}
+\begin{minipage}{0.08\linewidth}
+% \vspace{-0.5cm}
+\includegraphics[width=\linewidth]{./cash.jpg}
+\end{minipage}
+
+% \vspace{0.3cm}
+\noindent
+\textbf{\raisebox{0.03cm}{\warning}¡Atención! Esta misión es crítica}. Tómate tu tiempo, pide toda la ayuda que necesites y mantén el ánimo. Las misiones anteriores pueden considerarse un entrenamiento para esta -- se recomienda encarecidamente terminarlas con cuidado antes de abordarla.
+\vspace{-0.3cm}
+
+\subsection*{Detalles del informe}
+
+La Tierra acepta negociar el precio en Mar\$ (\mbox{Dollaroos marcianos}) por byte transmitido por la HugeAntenna\texttrademark.
+El precio depende de la MTU de la antena, según la figura inferior.
+Observa que $\textrm{MTU} \in \left\{200,\,400,\,\ldots,\,3000\right\}$.
+La asamblea necesita un análisis cuantitativo que justifique la mejor elección de MTU.
+
+\centerline{%
+\begin{minipage}{0.5\linewidth}
+\includegraphics[width=\linewidth]{cost_plot.pdf}
+\end{minipage}
+}
+
+\noindent
+Para simplificar, considera un escenario representativo en el que un usuario de una base de la colonia envía
+\textit{payloads} (carga útil) de exactamente $1900$~bytes directamente sobre~IP.
+
+\begin{enumerate}[itemsep=0.1cm]
+\item Da un mapa topológico de la red de la colonia hasta el enlace entre la HugeAntenna\texttrademark\  y la Tierra, sin incluirlo. En esas LANs (red de área local), indica la MTU más pequeña que evita la fragmentación dentro de la colonia.
+Puedes reutilizar la topología de misiones anteriores o crear una nueva.
+
+\item Considera al menos $4$ valores posibles para la MTU de la HugeAntenna, $2$ menores que $1900$~bytes y dos mayores. Para cada valor de $\textrm{MTU}_\textrm{HugeAntenna}$, indica:
+  \begin{itemize}
+  \item Cuántos paquetes se envían por la Huge Antenna para transmitir el payload.
+  \item Qué campos no son idénticos en esos paquetes (solo si se envía más de un paquete).
+  \item El coste total de enviar el payload.
+  \end{itemize}
+Coordínate con los demás ingenieros para hallar el valor óptimo global de $\textrm{MTU}_\textrm{HugeAntenna}$.
+
+\item Compara el tráfico total (en bytes) transmitido dentro de la colonia al enviar el primer payload (con todas las cachés vacías) frente al segundo (con las cachés llenas y válidas).
+\end{enumerate}
+
+
+\subsection*{Detalles de la retroalimentación}
+
+Sigue un proceso de retroalimentación similar al de misiones anteriores, asegurándote de abordar:
+\begin{itemize}
+\item ¿Están las MTU de la colonia configuradas según lo pedido?
+\item ¿Se considera correctamente la fragmentación al determinar el coste?
+\item ¿Se contabiliza bien la sobrecarga debida a ARP al calcular el tráfico total?
+\end{itemize}
+

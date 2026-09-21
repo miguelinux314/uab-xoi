@@ -1,0 +1,43 @@
+
+%% Python code
+\newcommand {\showCode}[1]{\begin{minipage}{0.9\linewidth}\begin{code}{#1}\inputminted[linenos=true]{python}{code/#1}\end{code}\end{minipage}}
+\newcommand {\showCodeNoOutput}[1]{\begin{minipage}{0.9\linewidth}\begin{codeNoOutput}{#1}\inputminted[linenos=true]{python}{code/#1}\end{codeNoOutput}\end{minipage}}
+\newcommand {\inlineCode}[1]{\mintinline{py}{#1}}
+
+
+%% Formatting
+\newcommand {\compact}{\vspace{-0.5cm}}
+
+%% Index of concepts
+\newcommand {\concept}[1]{{\color{color1}#1}\index{#1}}
+\newcommand {\conceptRef}[2]{{\color{color1}#2}\index{#1}}
+
+%% Fancy links
+\newcommand \secref[1]{Section~\underline{\ref{#1}}}
+% \captionedimage{file}{caption}{width fraction of \linewidth}{link URL}{height}: a linked
+% image of the given height with an optional centered caption below it (chapters/copyright.tex).
+% src/uab_xoi/tex2md.py expands it itself for the website (see expand_captioned_images).
+\newcommand \captionedimage[5]{\begin{minipage}[t]{#3\linewidth}\centering
+\href{#4}{\includegraphics[height=#5]{#1}}\\[0.2cm]#2\end{minipage}}
+% \petraqr{QR file}{URL}: the AI-usage label's QR code (the Petra AI sticker itself is not shown),
+% linked to the label's details page. src/uab_xoi/tex2md.py expands it for the website.
+\newcommand \petraqr[2]{\href{#2}{\includegraphics[height=5cm]{#1}}}
+% "This document is available in: ..." (copyright page, PDF only; the site has a language
+% switcher, see \availableIn in src/uab_xoi/pandoc_prelude.tex). Alphabetical by name, each linked to
+% that edition's PDF on the site. Add a language here when a new edition is published.
+\newcommand \availableIn {\noindent\strAvailableIn\ \href{https://miguelinux314.github.io/uab-xoi/es/assets/xoi-uab-study-guide-es.pdf}{Castellano}, \href{https://miguelinux314.github.io/uab-xoi/ca/assets/xoi-uab-study-guide-ca.pdf}{Catal\`a}, \href{https://miguelinux314.github.io/uab-xoi/assets/xoi-uab-study-guide-en.pdf}{English}.\par}
+\newcommand \readMore[1]{(\href{#1}{\underline{\color{color2}\strReadMore}})}
+
+%% Numbers in other bases
+\newcommand{\otherBase}[1]{{\Large\color{color2}\texttt{#1}}}
+\newcommand \zero {\otherBase{0}}
+\newcommand \one {\otherBase{1}}
+
+%% Graph node
+\newcommand \node[1]{\Circled[outer color=color1]{#1}}
+
+%% TCP commons
+\newcommand \nseq {\#seq}
+\newcommand \nack {\#ack}
+
+%% Text aliases: \ie, \eg, \etc are language-dependent -> <lang>/strings.tex

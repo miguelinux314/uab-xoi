@@ -1,0 +1,332 @@
+:root {
+  --xoi-color1: rgb(243, 102, 25);
+  --xoi-color2: rgb(0, 100, 140);
+  --xoi-color3: rgb(40, 100, 35);
+
+  /* Same glyph as the book's \remark box (\textmusicalnote), for the "note"
+     admonition (used for \begin{remark} — see src/uab_xoi/filters/xoi.lua). */
+  --md-admonition-icon--note: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z%22/%3E%3C/svg%3E');
+
+  /* Body links and the active/current left-nav item both default to
+     --md-primary-fg-color (Material's own rule), which is now `white`
+     (theme.palette in mkdocs.yml) and so invisible - use the same orange as
+     the header title (xoi-color1) for both instead. */
+  --md-typeset-a-color: var(--xoi-color1);
+}
+
+/* The header background is `primary: white` (theme/mkdocs.yml); its text and
+   icons default to near-black for contrast (Material's --md-primary-bg-color
+   is confusingly the *foreground*-on-primary color, not a background) - make
+   that orange (xoi-color1) instead of black, keeping the white bar. */
+.md-header {
+  --md-primary-bg-color: var(--xoi-color1);
+}
+
+.md-typeset .hero {
+  display: block;
+  width: 100%;
+  max-height: 14rem;
+  object-fit: cover;
+  border-radius: 0.2rem;
+  margin: 0 0 1rem 0;
+}
+
+.md-typeset .concept {
+  color: var(--xoi-color1);
+  font-weight: 500;
+  scroll-margin-top: 4rem;
+}
+
+.md-typeset .node {
+  display: inline-block;
+  min-width: 1.4em;
+  height: 1.4em;
+  line-height: 1.3em;
+  text-align: center;
+  border: 1.5px solid var(--xoi-color1);
+  border-radius: 50%;
+  padding: 0 0.2em;
+  font-weight: 600;
+}
+
+.md-typeset code {
+  color: var(--xoi-color2);
+}
+
+.md-typeset .showcode {
+  border-left: 0.2rem solid var(--xoi-color3);
+  padding-left: 0.8rem;
+  margin: 1rem 0;
+}
+
+.md-typeset img {
+  display: block;
+  margin: 0.5rem auto;
+  max-width: 100%;
+}
+
+.md-typeset img.wrap {
+  float: right;
+  max-width: 30%;
+  margin: 0 0 1rem 1rem;
+}
+
+/* 2+ \includegraphics in a row in the source (src/uab_xoi/tex2md.py's figure-row
+   wrapping) flow side by side, like the PDF, instead of each stacking
+   full-width. Markdown puts consecutive inline images in one shared <p>, so
+   centering that paragraph and making its images inline (overriding the
+   general img rule's `display: block`, which is what forced one per line)
+   is enough - no flex needed. Each image's own height="..cm" (kept as a real
+   CSS length by xoi.lua's pass2.Image) caps its size within the row. */
+.md-typeset .figure-row {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.md-typeset .figure-row img {
+  display: inline-block;
+  margin: 0 0.5rem;
+  max-width: 100%;
+  width: auto;
+}
+
+.md-typeset p {
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* The bottom copyright/generator meta bar still renders (dark background by
+   default) even though it's empty (no `copyright:`, `generator: false` in
+   mkdocs.yml) - just an empty band with unwanted bottom space. Drop it;
+   the prev/next page footer (.md-footer-nav, navigation.footer) stays,
+   recolored to match the (white) body instead of Material's default dark
+   footer. */
+.md-footer-meta {
+  display: none;
+}
+
+.md-footer {
+  --md-footer-bg-color: var(--md-default-bg-color);
+  --md-footer-fg-color: var(--md-default-fg-color);
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset table:not([class]) {
+  font-size: 0.7rem;
+}
+
+.md-typeset table:not([class]) td,
+.md-typeset table:not([class]) th {
+  padding: 0.3em 0.6em;
+}
+
+.md-typeset .admonition.example > .admonition-title {
+  font-weight: 700;
+}
+
+/* Material sets admonitions (remark/exercise boxes) at
+   0.64rem - visibly smaller than the 0.8rem body text - to de-emphasize
+   them; match the body size instead. */
+.md-typeset .admonition,
+.md-typeset details {
+  font-size: 0.8rem;
+}
+
+/* Frontpage (src/uab_xoi/tex2md.py's write_frontpage()): centered, cover-page
+   style, with Material's quite large default H1 bottom margin (1.25em)
+   tightened up so the subtitle line right after it doesn't float away. */
+.md-typeset .frontpage {
+  text-align: center;
+}
+
+.md-typeset .frontpage h1 {
+  margin-bottom: 0.3em;
+}
+
+/* Adjacent vertical margins collapse to the larger one: without this, the
+   subtitle paragraph's own top margin (~1em) would still win over the H1
+   fix above and the gap would look the same as before. */
+.md-typeset .frontpage h1 + p {
+  margin-top: 0;
+}
+
+.md-typeset .cover-byline {
+  text-align: center;
+  margin: 1rem 0 0.5rem;
+}
+
+.md-typeset .cover-logos {
+  text-align: center;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.md-typeset .cover-logos img {
+  display: inline-block;
+  height: 28px;
+  width: auto;
+  margin: 0 0.5rem;
+  vertical-align: middle;
+}
+
+/* Exercise boxes use Material's "example" admonition type, whose built-in
+   color is a hardcoded purple (#7c4dff) - override every rule that uses it
+   with the same pale orange as the rest of the site (xoi-color1). */
+.md-typeset .example > .admonition-title,
+.md-typeset .example > summary {
+  background-color: rgba(243, 102, 25, 0.1);
+}
+
+.md-typeset .example > .admonition-title::before,
+.md-typeset .example > summary::before {
+  background-color: var(--xoi-color1);
+}
+
+.md-typeset .example > .admonition-title::after,
+.md-typeset .example > summary::after {
+  color: var(--xoi-color1);
+}
+
+.md-typeset .admonition.example,
+.md-typeset details.example {
+  border-color: var(--xoi-color1);
+}
+
+.md-typeset .admonition.example:focus-within,
+.md-typeset details.example:focus-within {
+  box-shadow: 0 0 0 0.2rem rgba(243, 102, 25, 0.1);
+}
+
+/* The missions coverage matrix (src/uab_xoi/tex2md.py's wrap_wide_table): breaks
+   out of the narrow content column, up to the full viewport width, with a
+   solid background and a higher z-index so it renders above the sidebar/nav
+   on the left instead of being clipped or hidden under them, and scrolls
+   horizontally by dragging (web/js/wide-tables.js) when it doesn't fit. */
+.wide-table {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  z-index: 10;
+  background-color: var(--md-default-bg-color);
+}
+
+.wide-table-inner {
+  overflow-x: auto;
+  cursor: grab;
+  padding: 0.5rem 1rem;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.wide-table-inner.dragging {
+  cursor: grabbing;
+}
+
+.wide-table-inner {
+  /* flex + auto margins center the table when it is narrower than the screen
+     and still scroll (without clipping its left side) when it is wider. */
+  display: flex;
+}
+
+.wide-table-inner table {
+  display: table;
+  flex: none;
+  width: max-content;
+  margin: 0 auto;
+}
+
+/* Alternating white / pale-orange (xoi-color1) rows for readability. */
+.wide-table-inner table tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+.wide-table-inner table tbody tr:nth-child(even) {
+  background-color: rgba(243, 102, 25, 0.1);
+}
+
+/* Material's default palette is indigo/blue for buttons, links/nav hover and
+   syntax highlighting; keep the book's orange accent (xoi-color1) instead.
+   `body[data-md-color-scheme]` outranks Material's own palette selectors
+   (same specificity, but this sheet loads after theirs). */
+body[data-md-color-scheme] {
+  --md-typeset-a-color: var(--xoi-color1);
+  --md-accent-fg-color: var(--xoi-color1);
+  --md-accent-fg-color--transparent: rgba(243, 102, 25, 0.1);
+  --md-code-hl-color: var(--xoi-color1);
+  --md-code-hl-color--light: rgba(243, 102, 25, 0.1);
+  --md-code-hl-keyword-color: #d9480f;
+  --md-code-hl-function-color: #b8460e;
+  --md-code-hl-constant-color: #a5490f;
+  --md-code-hl-number-color: #c2410c;
+  --md-code-hl-special-color: #e8590c;
+}
+
+.md-typeset .md-button--primary {
+  background-color: var(--xoi-color1);
+  border-color: var(--xoi-color1);
+  color: #fff;
+}
+
+.md-typeset .md-button--primary:hover,
+.md-typeset .md-button--primary:focus {
+  background-color: #d9540f;
+  border-color: #d9540f;
+  color: #fff;
+}
+
+.md-typeset .cover-qr {
+  text-align: center;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.md-typeset .cover-qr img {
+  display: inline-block;
+  height: 7rem;
+  width: auto;
+  margin: 0;
+}
+
+/* The general `.md-typeset p { text-align: justify }` rule beats the
+   .frontpage container's own text-align on its paragraphs (subtitle, PDF
+   label, buttons). */
+.md-typeset .frontpage p {
+  text-align: center;
+}
+
+/* Material's JS wraps every table in .md-typeset__scrollwrap > .md-typeset__table
+   (block/inline-block, negative side margins); the scrollwrap is what actually
+   sits in the flex row above, so shrink it to the table and let auto margins
+   center it. */
+.wide-table-inner > .md-typeset__scrollwrap {
+  flex: none;
+  width: max-content;
+  margin: 0 auto;
+}
+
+/* \captionedimage (chapters/copyright.tex): images with a caption below,
+   side by side and centered. */
+.md-typeset .captioned-figure {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 1.2rem;
+  text-align: center;
+}
+
+.md-typeset .captioned-figure p {
+  text-align: center;
+}
+
+.md-typeset .captioned-figure img {
+  height: auto;
+  max-height: 11rem;
+  width: auto;
+  margin: 0 auto 0.4rem;
+}
+
+.md-typeset .captioned-row {
+  text-align: center;
+}
+
+.md-typeset .captioned-figure img {
+  max-height: 26rem;
+}

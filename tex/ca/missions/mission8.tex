@@ -1,0 +1,60 @@
+\newpage
+\section{Missió 8: Que em parles a mi?}\label{sec:mission8}
+
+\begin{minipage}{0.2\linewidth}
+\includegraphics[width=\linewidth]{name_tag}
+\end{minipage}
+%
+\hspace{0.03\linewidth}
+\begin{minipage}{0.80\linewidth}
+    La teva colònia ha estat utilitzant amb èxit (segons Saturn, també \textit{abusant de})
+    la pila TCP/IP per connectar-se a la Internet de la Terra. Tanmateix, fins ara,
+    en cert sentit no existíeu perquè no teníeu \textit{nom}. Això està a punt de canviar,
+    perquè la colònia està instal·lant el seu primer servidor del Sistema de Noms de Domini (DNS), que serà
+    l'autoritat del nou domini de primer nivell (TLD) \texttt{.mars}. Es necessita la teva ajuda per
+    configurar els nous serveis que s'oferiran a tot el Sistema Solar.
+\end{minipage}\ \\[0.2cm]
+
+\subsection*{Detalls de l'informe}
+
+\begin{enumerate}[itemsep=0.1cm]
+\item Resumeix la topologia de xarxa de la teva colònia i inclou els rangs d'adreces IP i els valors d'MTU assignats a cada LAN (xarxa d'àrea local) en notació CIDR. Això farà que el teu informe sigui autocontingut i ajudarà els revisors a fer-te comentaris (pots reutilitzar o actualitzar la configuració de sessions anteriors).
+
+\item Indica clarament quina màquina allotjarà el teu servidor DNS i quina és la seva adreça IP.
+
+\item Especifica 5 serveis $S_1,\,S_2,\,\ldots,\,S_5$ (diferents del DNS) que s'allotjaran a la teva colònia. Un d'ells s'allotjarà a la mateixa màquina que el servidor DNS. Per a cada servei, proporciona:
+    \begin{itemize}[itemsep=0.1cm]
+    \item Una breu explicació del servei i del protocol de capa d'aplicació que utilitza.
+    \item L'entrada o entrades DNS relacionades amb aquest servei que s'han d'incloure al nou servidor DNS.
+    \item Un exemple de consulta (\textit{p.\ ex.}, \texttt{service.mars}) per a la qual es retornaran aquestes entrades, qui enviarà aquesta consulta i quan.
+    \end{itemize}
+
+\item La màquina que allotja el servidor DNS també allotja un altre servei. Com pot distingir entre els dos tipus de trànsit?
+
+\item Algú que utilitza el node $N_1$ de la teva colònia implementarà un script per detectar quan els serveis d'Internet deixen d'estar disponibles. Per fer-ho, farà servir missatges ICMP periòdics per \textit{comprovar} que estan en línia. Explica exactament com funcionarà això i, amb diagrames de carrils (\textit{swimlane}), descriu tot el trànsit dins de la colònia derivat d'una sola \textit{comprovació} per a cadascun dels escenaris següents:
+    \begin{enumerate}[itemsep=0.1cm]
+    \item $N_1$ comprova el servei \texttt{cv.uab.cat} mitjançant resolució iterativa sobre UDP començant pel servidor arrel M.
+    \item $N_1$ comprova el servei $S_1$ (indica'n el nom) mitjançant resolució iterativa sobre TCP començant pel servidor arrel M.
+    \item $N_1$ comprova el servei $S_1$ mitjançant resolució recursiva sobre UDP amb el servidor DNS4EU sense filtrar.
+    \end{enumerate}
+
+Als diagrames, per a cada missatge intercanviat, indica:
+    \begin{itemize}
+    \item El tipus de missatge (de la capa superior) i, si escau, el seu subtipus.
+    \item Totes les adreces implicades.
+    \item Tota la informació relacionada amb el DNS que conté el missatge.
+    \end{itemize}
+
+\end{enumerate}
+
+\subsection*{Detalls de la retroacció}
+
+Tingues en compte requisits i un procés similars als de les missions anteriors, i assegura't de tractar els aspectes clau següents:
+
+\begin{itemize}
+\item S'utilitza l'ICMP d'una manera lògica i efectiva?
+\item Es gestionen correctament les resolucions DNS iterativa i recursiva?
+\item Es representa correctament el cicle de vida de la connexió TCP?
+\end{itemize}
+
+

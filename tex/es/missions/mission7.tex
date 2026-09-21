@@ -1,0 +1,64 @@
+\newpage
+\section{Misión 7: TCP o no TCP}\label{sec:mission7}
+
+\begin{minipage}{0.10\linewidth}
+% \vspace{-0.5cm}
+\includegraphics[width=\linewidth]{shakespeare}
+\end{minipage}
+\hspace{0.03\linewidth}
+\begin{minipage}{0.88\linewidth}
+Años de éxito continuado han consolidado el uso de IPv4 para interconectar redes dentro de Marte y con otros planetas.
+En este tiempo, los equipos de ingeniería de la colonia han descubierto las limitaciones de IPv4 por sí solo
+y la necesidad de usar al menos uno de los principales protocolos de transporte al comunicarse con la Internet de la Tierra.\\
+
+\vspace{-0.25cm}
+Implementar esta cuarta capa y añadirla a las pilas de red existentes de cada nodo de la colonia es una tarea abrumadora. Por ello, en una primera fase solo se implementará uno de los dos principales protocolos de transporte.
+%
+La colonia pide tu ayuda para comparar cuantitativamente ambos protocolos y decidir cuál elegir.
+\end{minipage}
+
+% \vspace{0.3cm}
+\noindent
+\textbf{\raisebox{0.03cm}{\warning}¡Atención! Esta misión es \raisebox{0.25em}{muy} crítica}. Tómate tu tiempo, pide toda la ayuda que necesites y mantén el ánimo. Las misiones anteriores son un entrenamiento para esta --- se recomienda encarecidamente terminarlas con cuidado antes de abordarla.
+\vspace{-0.1cm}
+
+\subsection*{Detalles del informe}
+
+La asamblea te pide que consideres con cuidado estos puntos en tu informe:
+
+\begin{enumerate}[itemsep=0.1cm]
+\item Para que el informe sea autocontenido, incluye la topología de red de la colonia en formato CIDR cuando proceda
+y especifica valores de MTU razonables (puedes reutilizar los de misiones anteriores). Completa la descripción
+indicando el ancho de banda (velocidad del enlace, en bytes por segundo -- supongamos que es constante).
+
+\item Uno de los dos protocolos de transporte candidatos usa un parámetro llamado MSS. Indica cuál y especifica el mayor
+valor que permitiría comunicar dos máquinas cualesquiera de la colonia sin requerir fragmentación. Usa ese valor en el resto del informe.
+
+\item Elige un nodo $N_1$ de una base conectada directamente al Bus Norte y otro nodo $N_2$ de una base conectada directamente al Bus Sur. Para cada uno de los dos protocolos de transporte principales, calcula el tiempo total desde que $N_1$ empieza a transmitir hasta que $N_2$ recibe el primer byte de datos de payload (carga útil). Para ello, supón:
+  \begin{itemize}
+  \item Si el protocolo está orientado a conexión, los datos solo se transfieren una vez establecida la conexión.
+  \item Todos los nodos y routers (encaminadores) tienen potencia de cálculo infinita, es decir, encapsular/desencapsular datos no introduce retardo.
+  \item Las velocidades de transmisión siguen siendo finitas, tal como las definiste antes en tu informe.
+  \item Las tablas de encaminamiento son óptimas.
+  \item Todas las cachés empiezan vacías para cada protocolo y sus entradas siguen siendo válidas una vez fijadas.
+  \end{itemize}
+Te animamos a incluir diagramas de carriles (swimlane) para apoyar tu respuesta.
+
+\item ¿Qué protocolos de transporte incluyen mecanismos de control de congestión? ¿Qué condiciones harían falta para una transmisión continua de $N_1$ a $N_2$ sin esperas debidas al control de congestión?
+
+\item Indica tres casos de uso, \textit{es decir}, aplicaciones de usuario: el primero adecuado solo para uno de los protocolos de transporte, el segundo adecuado para el otro y el tercero adecuado para ambos.
+\end{enumerate}
+
+\vspace{-0.25cm}
+
+\subsection*{Detalles de la retroalimentación}
+
+Usa un proceso de retroalimentación similar al de misiones anteriores, asegurándote de tratar estos aspectos clave:
+\begin{itemize}
+\item ¿Es el MSS elegido coherente con los valores de MTU especificados?
+\item ¿Se calcula bien el tiempo de transmisión de cada paquete?
+\item ¿Ves algún problema con el encaminamiento, la fragmentación o ARP?
+\item ¿Se consideran adecuadamente todos los elementos del control de congestión?
+\item ¿Están bien elegidos los casos de uso propuestos?
+\end{itemize}
+

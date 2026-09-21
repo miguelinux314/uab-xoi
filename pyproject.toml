@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uab-xoi"
+version = "0.1.0"
+description = "Build tooling for the UAB XOI (Computer Networks and Internet) study guide: PDFs, offline zips and the website."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.7",
+    "mkdocs-static-i18n>=1.3",
+    "pymdown-extensions>=10",
+    "pygments>=2.19",
+]
+
+[project.scripts]
+uab-xoi = "uab_xoi.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+uab_xoi = ["pandoc_prelude.tex", "filters/*.lua"]

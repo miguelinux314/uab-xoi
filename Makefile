@@ -1,16 +1,16 @@
-all: code_output swimlane main.pdf
+# Porcelain over the `uab-xoi` command (pyproject.toml, src/uab_xoi/). Other tasks live next to what
+# they act on: docker/Makefile (image, dev containers) and tex/Makefile (single editions, snippets).
+.PHONY: all build serve clean
 
-code_output:
-	cd ./code && sudo python ./generate_output.py
+all: build
 
-swimlane:
-	./chapters/fig/generate_swimlane.sh
+# PDFs + offline zips (build/xoi-uab-study-guide-<lang>.{pdf,zip}) + website (build/site), on the host.
+build:
+	uab-xoi build
 
-main.pdf: *.tex chapters/*.tex
-	pdflatex -shell-escape main
-	# bibtex main
-	pdflatex -shell-escape main
-	pdflatex -shell-escape main
+# Lean live-reloading site (no PDFs, no zips) in Docker: http://localhost:65535/uab-xoi/
+serve:
+	$(MAKE) -C docker serve
 
 clean:
-	rm -f *.blg *.bbl *.upa *.idx *.ind *.ilg *.aux *.upb *.bcf *.toc *.run.xml *.log *.ptc
+	uab-xoi clean

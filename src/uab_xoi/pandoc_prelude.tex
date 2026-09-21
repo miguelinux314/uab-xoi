@@ -1,0 +1,18 @@
+% Macro definitions used when pandoc reads the chapters (replaces alias.tex).
+% Pandoc expands these; the Lua filter (src/uab_xoi/filters/xoi.lua) recognises the
+% \hyperlink targets used as markers.
+\newcommand{\concept}[1]{\hyperlink{concept:#1}{#1}}
+\newcommand{\conceptRef}[2]{\hyperlink{concept:#1}{#2}}
+\newcommand{\node}[1]{\hyperlink{node:#1}{#1}}
+\newcommand{\otherBase}[1]{\texttt{#1}}
+\newcommand{\zero}{\texttt{0}}
+\newcommand{\one}{\texttt{1}}
+\newcommand{\compact}{}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\availableIn}{}
+\newcommand{\readMore}[1]{(\href{#1}{\strReadMore})}
+\newcommand{\nseq}{\#seq}
+\newcommand{\nack}{\#ack}
+\newcommand{\textgreek}[1]{#1}
+% \ie, \eg, \etc are NOT defined here: tex/<lang>/strings.tex (prepended
+% before this file - see Converter.pandoc()) defines them per language.

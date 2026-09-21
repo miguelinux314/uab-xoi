@@ -1,0 +1,49 @@
+\newpage
+\section{Misión 9: Pasillo interplanetario}\label{sec:mission9}
+
+\begin{minipage}{0.2\linewidth}
+% \vspace{-0.5cm}
+\includegraphics[width=\linewidth]{hallway}
+\end{minipage}
+\hspace{0.03\linewidth}
+\begin{minipage}{0.80\linewidth}
+Gracias en parte a tu ayuda configurando la red y los servicios de la colonia,
+tu colonia florece con actividad cultural y científica. El pasillo principal del puerto espacial interplanetario de tu colonia recibe cada día a miles de visitantes de distintos planetas.
+Estos visitantes exigen conectividad a Internet rápida y sencilla desde este pasillo,
+y la asamblea de la colonia te ha designado para ayudar con la configuración.
+\end{minipage}\ \\[0.2cm]
+
+\subsection*{Detalles del informe}
+
+La asamblea te ha pedido que configures un servidor DHCP para los dispositivos de los pasajeros.
+El Sistema Autónomo número 7847 te presta amablemente las $1024$ direcciones más altas de su bloque, que serán las proporcionadas por este servicio.\\
+
+\noindent
+Cada $2$ horas llega al puerto espacial una nave con hasta $300$ personas (cada una con un único dispositivo ávido de Internet). Algunas se marchan de inmediato mientras otras permanecen más tiempo en el puerto espacial, pero como mucho $1000$
+dispositivos necesitan estar conectados al mismo tiempo.
+%
+Justo antes de que el puerto espacial comience a operar por la mañana, todas las direcciones gestionadas por el servidor DHCP deben estar disponibles para su asignación, porque las $5$ primeras naves vienen completamente llenas.
+
+\begin{enumerate}[itemsep=0.1cm]
+\item Averigua quién te está prestando generosamente las $1024$ direcciones IP públicas, y cuál es su bloque completo.
+
+\item Proporciona una tabla de encaminamiento actualizada para el router (encaminador) $\textrm{R}_0$. Este es el router conectado directamente a la \mbox{HugeAntenna\texttrademark} de la colonia, a los buses Norte y Sur, y ahora a la nueva LAN (red de área local) dedicada a los pasajeros. Puedes suponer que esta nueva LAN está conectada a una interfaz recién añadida.
+
+\item ¿Cuál es el Lease Time más largo que puedes configurar que sea compatible con la avalancha matinal? Justifica tu respuesta.
+
+\item Usando diagramas swimlane, proporciona un escenario concreto en el que el máximo de $1000$ dispositivos esté conectado simultáneamente en algún momento durante la hora punta. Indica cuántos mensajes de cada subtipo DHCP intervienen.
+
+\item Si un pasajero se escondiera en la terminal del puerto espacial durante la noche, ¿qué mecanismo usarías para asegurar que su dirección IP asignada esté disponible para su asignación a la mañana siguiente?
+
+\end{enumerate}
+
+
+\subsection*{Detalles de la retroalimentación}
+
+Considera requisitos y un proceso similares a los de las misiones anteriores, asegurándote de tratar los siguientes aspectos clave:
+\begin{itemize}
+\item ¿Es correcta la tabla de encaminamiento, y tan simple como sea posible?
+\item ¿Has encontrado un Lease Time más largo que sea compatible con los requisitos?
+\item ¿Ves algún problema en la descripción del escenario de $1000$ dispositivos concurrentes?
+\end{itemize}
+

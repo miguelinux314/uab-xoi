@@ -1,0 +1,59 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The image runs as a user with the runner's UID/GID so files written
+      # through the bind mount (build/, PDFs) are owned by the runner.
+      - name: Host user ids
+        id: ids
+        run: |
+          echo "uid=$(id -u)" >> "$GITHUB_OUTPUT"
+          echo "gid=$(id -g)" >> "$GITHUB_OUTPUT"
+
+      - uses: docker/setup-buildx-action@v3
+
+      # Same image as `make dev` (docker/Dockerfile); layers cached between runs.
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile
+          load: true
+          tags: xoi-dev
+          build-args: |
+            DEV_UID=${{ steps.ids.outputs.uid }}
+            DEV_GID=${{ steps.ids.outputs.gid }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # The repo is bind-mounted, so the package is installed editable inside the container first.
+      - name: Build PDFs, offline zips and site
+        run: |
+          docker run --rm -v "$PWD:/workspace/xoi.git" xoi-dev \
+            sh -c "pip install -q --no-deps --no-build-isolation -e . && uab-xoi build"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: downloads
+          path: |
+            build/xoi-uab-study-guide-*.pdf
+            build/xoi-uab-study-guide-*.zip
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build/site

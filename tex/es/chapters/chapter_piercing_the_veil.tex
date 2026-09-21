@@ -1,0 +1,284 @@
+\ \\[-10cm]
+¿Cómo intercambian datos los ordenadores? ¿Cómo podemos localizar otras máquinas situadas en cualquier parte del mundo y comunicarnos con ellas?
+Esta parte de la guía explora algunos de los principales retos a los que nos enfrentamos si queremos interconectar dispositivos a escala planetaria, y más allá.
+
+\chapterimage{numbers_background.pdf}
+
+\chapter{Atravesando el velo analógico-digital}\label{sec:piercing}
+
+Enviamos y recibimos \conceptRef{message}{mensajes} constantemente en nuestras esferas personal, profesional y política.
+La disponibilidad casi instantánea de prácticamente cualquier \conceptRef{information}{información} que deseemos es una característica clave de la era actual.
+% 
+Cuando usamos un ordenador de cualquier tipo para compartir u obtener conocimiento, primero hay que transformarlo en \conceptRef{data}{datos} que puedan entender tanto los humanos como los ordenadores.
+Podemos imaginarlo como una secuencia de pasos:
+\begin{center}
+\includegraphics[width=\linewidth]{knowledge_info_data_transmission.pdf}
+\end{center}
+
+Los ordenadores trabajan con \conceptRef{data}{datos} digitales y los transmiten, \ie, secuencias de \conceptRef{symbol}{símbolos} \conceptRef{binary}{binarios}
+\zero\ y \one. 
+Sin embargo, la \conceptRef{transmission}{transmisión} de datos ocurre en el mundo real, donde \zero\ y \one\ son ideas y no objetos tangibles.
+
+Este capítulo estudia cómo esos símbolos digitales \textit{atraviesan el velo}  
+del mundo digital al analógico (físico) en la transmisión, y de vuelta del analógico al digital en la recepción.
+
+
+\section{Información $\leftrightarrow$ Datos $\leftrightarrow$ Mensajes binarios}\label{sec:piercing:information_binary}
+
+Conocimiento, \conceptRef{information}{información} y \conceptRef{data}{datos} no son lo mismo, 
+aunque a menudo se usen indistintamente. En contextos técnicos, deben usarse e interpretarse con precisión.
+% 
+\begin{exercise}
+Supón que estamos al aire libre y queremos contarle a un amigo qué tiempo hace.
+% 
+Tenemos conocimiento sobre todo lo relacionado con el tiempo, porque estamos allí.
+Para comunicarnos, necesitamos centrarnos en una parte de ese conocimiento y decidir qué información enviar.
+Por ejemplo, podríamos querer comunicar la temperatura y decir algo como ``la temperatura es de unos 22ºC''.
+% 
+Hay muchas formas de almacenar esa información como datos dentro de un ordenador. Lo más probable es que representemos el número 
+$22$ como parte de esos datos. ¿Cómo definirías conocimiento, información y datos?
+\end{exercise}
+
+
+Aunque hay muchos tipos de datos, \ie\ numéricos, textuales, visuales, científicos, \etc, en última instancia todos se
+representan mediante números. Por ejemplo, se podría usar la \conceptRef{encoding}{codificación} \concept{ASCII} para representar la cadena ``Bobby''
+como la siguiente secuencia: $66, 111, 98, 98, 121$.
+
+Dentro de un ordenador, esos números se almacenan en registros binarios, \eg\ en la CPU y en la RAM. 
+Sin embargo, hay múltiples formas de representar datos numéricos en formato binario. En concreto,
+debemos prestar mucha atención como mínimo a los siguientes aspectos siempre que leamos o escribamos datos:
+\begin{itemize}
+\item ¿\conceptRef{integer}{entero} o con decimales? 
+\item ¿\conceptRef{bitdepth}{profundidad de bits}? (\eg, 8 bits por número)
+\item ¿\conceptRef{sign}{con signo} o \conceptRef{sign}{sin signo}?
+\item Para números de varios bytes: ¿\concept{big endian} o \concept{little endian}?
+\item Para números con decimales: ¿\conceptRef{floating-point}{coma flotante} o \conceptRef{fixed-point}{coma fija}?
+\end{itemize}
+% 
+\begin{exercise}
+Explica \textbf{cómo completar la segunda fila a partir de la primera} (y viceversa),
+y qué suposiciones necesitas hacer en cada caso.
+% 
+\begin{center}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Número} 
+& $7$ 
+& $2$
+& $-3$
+& $0.75$
+& $260$
+\\
+\midrule
+\textbf{Binario} 
+& \zero\zero\one\one\one
+& \zero\zero\zero\zero\zero\zero\one\zero
+& \one\one\zero\one
+& \one\one\zero\zero
+& \zero\zero\zero\zero\ \zero\one\zero\zero\ \zero\zero\zero\zero\ \zero\zero\zero\one\
+\\
+\bottomrule
+\end{tabular}
+\end{center}
+% 
+¿Y qué hay de à $\leftrightarrow$ \one\one\zero\zero\ \zero\zero\one\one\ \one\zero\one\zero\ \zero\zero\zero\zero?
+\end{exercise}
+
+
+A veces necesitamos inspeccionar el contenido de un registro binario 
+(\eg, para depuración u otros fines de análisis) o establecer ese contenido manualmente.
+% 
+Para los humanos, manejar cadenas binarias de más de unos pocos bits es incómodo y \textit{muy} 
+propenso a errores. 
+Cuando necesitamos inspeccionar o modificar el contenido de un registro binario
+(\eg, para depuración), a menudo usamos la base $16$, \ie, la notación \concept{hexadecimal}.
+
+
+En hexadecimal hay exactamente $16 = 2^4$ dígitos distintos (\otherBase{0} a \otherBase{9}, \otherBase{a} a \otherBase{f})
+con valores decimales de $0$ a $15$, cada uno de los cuales representa exactamente $4$ bits.
+Cuando escribimos valores hexadecimales para un ordenador, \ie, en código fuente, los valores hexadecimales suelen
+ir precedidos de \otherBase{0x}, \eg, \otherBase{0x58a5b0}. 
+Del mismo modo, las expresiones binarias van precedidas de \otherBase{0b}, \eg, \otherBase{0b0011}.
+
+\begin{remark}
+\begin{minipage}{\linewidth}
+\begin{itemize}[leftmargin=0.5cm]
+\item Los espacios, e incluso los saltos de línea, entre dígitos no tienen ningún significado; solo se usan 
+para facilitar la inspección visual.
+% 
+\item En algunos textos, cuando en un contexto pueden aplicarse varias bases, estas se indican
+como subíndices, como en \otherBase{58a5b0$_\textrm{16}$} y \otherBase{0011$_\textrm{2}$}.
+\end{itemize}
+\end{minipage}
+\end{remark}
+
+\begin{exercise}
+Considera el siguiente mensaje, compuesto por una \conceptRef{concatenation}{concatenación} 
+de enteros sin signo de 3 bits: \otherBase{a4 3f 20}.
+\begin{itemize}
+\item ¿Cuántos bits y bytes de longitud tiene?
+\item\textbf{¿Cuáles son los cinco primeros enteros} contenidos en el mensaje?
+\end{itemize}
+\end{exercise}
+
+La mayoría de las veces dejaremos que nuestro código se encargue de manipular los datos. Para ello, necesitamos
+operaciones \conceptRef{bitwise}{a nivel de bits} y de \conceptRef{boolean logic}{lógica booleana} como las siguientes
+
+\begin{center}
+\begin{tabular}{rcccccc}
+\toprule
+\textbf{Operación} & 
+\conceptRef{bitwise}{AND (bits)} &
+\conceptRef{boolean logic}{AND lógico} &
+\conceptRef{bitwise}{OR (bits)} &
+\conceptRef{boolean logic}{OR lógico} &
+\conceptRef{bitwise}{Despl. izq.} &  
+\conceptRef{bitwise}{Despl. der.}
+\\
+\textbf{Python}    &
+\inlineCode{&}       & 
+\inlineCode{and}    & 
+\inlineCode{|}       & 
+\inlineCode{or}    & 
+\inlineCode{<<} &  
+\inlineCode{>>} 
+\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Otras herramientas útiles de python son las funciones \texttt{bin()} y \texttt{hex()}, que convierten un entero 
+en su representación binaria y hexadecimal, respectivamente, e \texttt{int()}, que puede analizar
+una cadena que describe un número y devolver ese número. También podemos controlar el formato con el que mostramos los números;
+\eg, \inlineCode{print(f'{n:08b}')} imprimiría el valor de la variable \inlineCode{n} en forma binaria, 
+usando al menos 8 posiciones y rellenando con ceros las posiciones iniciales vacías
+(más información en la \href{https://docs.python.org/3/reference/lexical_analysis.html#f-strings}{documentación de python}).
+
+\begin{exercise}
+Considera el código que se muestra a continuación. Los números que imprime al ejecutarse tienen una importancia especial en redes y en informática.
+¿Qué tienen en común? (Pista: quizá quieras modificar el código para mostrar sus representaciones binarias).
+
+\begin{center}
+\showCode{snippets/bitwisemanipulation.py}
+\end{center}
+\label{ex:bitwisemanipulation}
+\end{exercise}
+\begin{remark}
+Para listados de código como el anterior, puedes descargar el código fuente y su salida.
+\end{remark}
+
+
+\section{Analógico $\leftrightarrow$ Digital}\label{sec:piercing:analog_digital}
+
+Una vez decidimos qué bits transmitir, necesitamos encontrar una forma de hacer que esos bits lleguen a otra máquina a distancia.
+Primero, tenemos que decidir qué \conceptRef{medium}{medio} usar y qué propiedades físicas podemos controlar y monitorizar.
+Entre las opciones más populares están usar el voltaje en \conceptRef{copper wire}{cables de cobre}, enviar luz por \conceptRef{optical fiber}{fibra óptica} y manipular el 
+\conceptRef{field}{campo} electromagnético mediante \conceptRef{antenna}{antenas}.
+
+\begin{exercise} \textbf{Reflexiona}:\\[-0.5cm]
+\begin{itemize}
+\item ¿Podemos hacer un cable de cobre tan largo como queramos?
+\item ¿Qué medio usan las conexiones Wi-Fi? 
+\item ¿Necesitamos fibras ópticas para realizar comunicaciones basadas en la luz?
+\end{itemize}
+\end{exercise}
+
+
+Si optamos por cables de cobre, podemos poner varios en \conceptRef{parallel}{paralelo} y enviar más datos a la misma velocidad de \conceptRef{clock}{reloj}.
+Esto, sin embargo, tiene el precio de una complejidad y un coste mayores que los diseños en \conceptRef{serial}{serie}. 
+Pueden producirse interferencias de voltaje en las \conceptRef{data line}{líneas de datos} por diversos motivos, 
+incluidos fenómenos físicos como la inducción electromagnética en el cable. 
+No obstante, los cables que cumplen los estándares modernos de transmisión de datos (\eg, IEEE 802.3)
+suelen emplear \conceptRef{twisted pair}{pares trenzados de cables} y apantallamiento,
+entre otras estrategias, para garantizar errores de bit por debajo de $1$~de~cada~$10^{12}$ bits.
+
+\begin{exercise}\label{ex:piercing:copper_connectors}
+\textbf{Observa e identifica} los siguientes conectores de cable:\\[-0.5cm]
+\begin{center}
+\includegraphics[height=3cm]{hdmi_connector.jpg}
+\includegraphics[height=3cm]{coaxial_connector.jpg}
+\includegraphics[height=3cm]{usbc_connector.jpg}
+\includegraphics[height=3cm]{rj11_connector.jpg}
+\end{center}
+\end{exercise}
+
+\begin{wrapfigure}{L}{0.22\linewidth}
+\includegraphics[width=\linewidth]{iceberg.jpg}
+\end{wrapfigure}
+¿Alguna vez has buceado en una piscina, has mirado hacia arriba y el agua parecía un espejo?
+Los cables de fibra óptica funcionan gracias a este fenómeno, llamado \conceptRef{refraction}{refracción}.
+La luz que entra en la fibra por un extremo 
+permanece dentro hasta que sale por el otro. El recubrimiento de la fibra es importante
+para preservar su integridad, pero no participa en el ``rebote'' de 
+la luz mientras avanza por la fibra.
+
+En una fibra óptica \conceptRef{single-mode optical fiber}{monomodo}, el sensor del extremo receptor 
+detecta la presencia o ausencia de un único rango de longitudes de onda. Estos cables son relativamente finos y baratos,
+pero transportan una sola señal.
+% 
+Otra opción es transmitir varias longitudes de onda (\eg, usando varias fuentes láser) al mismo tiempo, 
+por la misma fibra. En el extremo receptor, se usa un prisma para volver a dividir el haz de luz en sus
+componentes \conceptRef{monochrome}{monocromáticos}, que se detectan por separado. 
+De este modo, la \conceptRef{multimodal}{fibra óptica multimodo} permite \conceptRef{multiplex}{multiplexar}
+varias señales, lo que aumenta enormemente la velocidad efectiva de transmisión.
+
+
+\begin{exercise}\label{ex:piercing:laser_refraction}
+Cuando un haz de luz entra en una fibra óptica, lo hace con un cierto ángulo de ataque.
+Este ángulo afecta al tiempo que tarda en llegar al otro extremo. Si proyectamos un cono de luz,
+la luz entra en la fibra con múltiples ángulos de ataque. 
+¿Qué ocurre en el otro extremo si \textbf{encendemos y apagamos este cono de luz} muy rápidamente?
+¿Importa si usamos haces monomodo o multimodo?
+% 
+\begin{center}
+\includegraphics[height=2.5cm]{laser_refraction.jpg}
+\includegraphics[height=2.5cm]{optical_connector.jpg}
+\end{center}
+\end{exercise}
+\newpage
+
+\begin{wrapfigure}{R}{0.3\linewidth}
+\begin{center}
+\includegraphics[width=\linewidth]{dipole.png}
+\end{center}
+\end{wrapfigure}
+
+Aunque hay muchas clases de \conceptRef{antenna}{antenas}, su propósito principal 
+es detectar campos electromagnéticos y/o crearlos. La ecuación de Maxwell-Faraday nos dice
+que los \textit{cambios} en el \conceptRef{field (physics)}{campo} eléctrico $\vec{E}$ crean un \conceptRef{field (physics)}{campo} magnético perpendicular $\vec{B}$,
+y viceversa.
+
+Una antena de \conceptRef{dipole}{dipolo} como la de la derecha aprovecha este concepto aplicando un voltaje alterno $V$,
+que genera ondas electromagnéticas que se propagan hacia fuera desde el eje del dipolo. 
+
+\begin{remark}
+Cuando emitimos una energía $E$ desde un punto en todas las direcciones, esa energía se distribuye sobre una esfera creciente.
+Como el área de una esfera de radio $r$ es $4 \pi r^2$, la cantidad de energía que llega a un punto a distancia $r$
+será del \conceptRef{ballpark}{orden} de $E / r^2$.
+
+Esto se conoce a veces como la ley de la inversa del cuadrado, y es
+la razón por la que las corrientes inducidas en la antena del receptor suelen estar entre nanovoltios 
+($10^{-9}$~V) y picovoltios ($10^{-12}$~V). Sorprendentemente, esto basta para que los detectores modernos lean la señal de datos.
+\end{remark}
+
+
+\begin{wrapfigure}{R}{0.2\linewidth}
+ \includegraphics[width=\linewidth]{modulation.jpg}
+\end{wrapfigure}
+
+
+Independientemente del método elegido para que viajen los datos, sigue siendo necesario atravesar el velo entre las señales analógicas y los datos digitales. 
+Una forma de hacerlo es la \conceptRef{modulation}{modulación}: se produce una señal sinusoidal base llamada \conceptRef{carrier}{portadora},
+y los datos se codifican modificando esta portadora. Por ejemplo, se puede cambiar la \conceptRef{amplitude}{amplitud} de la portadora (ASK),
+su \conceptRef{frequency}{frecuencia} (FSK), o incluso la amplitud y la \conceptRef{phase}{fase} al mismo tiempo (QAM). 
+
+\begin{exercise}
+La figura anterior muestra un ejemplo de modulación en amplitud y otro de modulación en frecuencia. 
+¿Cuál es cuál? Para cada caso: ¿esa \textbf{modulación transmite una señal analógica o digital}?
+\end{exercise}
+
+
+\begin{exercise}
+¿Cuál es la \textbf{diferencia entre ancho de banda y velocidad de transmisión}? 
+¿Por qué crees que se usan indistintamente en contextos no técnicos?
+\end{exercise}

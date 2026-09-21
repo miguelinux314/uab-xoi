@@ -1,0 +1,67 @@
+\ \\[-9cm]
+L'última part d'aquesta guia proposa 9 problemes complexos anomenats missions
+amb un toc de ciència-ficció retrofuturista. Aquests problemes vertebren els continguts de les
+parts anteriors, amb el focus posat en les aplicacions i amb l'objectiu d'assolir una comprensió profunda dels conceptes.
+
+Es recomana als estudiants que treballin totes aquestes missions en ordre i que n'elaborin les solucions
+en forma d'informes formals. També se'ls anima a compartir-les amb la seva
+comunitat d'aprenentatge immediata (p.\ ex., la seva classe) i a intercanviar-se comentaris
+per mitjà de cartes formals.
+
+
+\chapterimage{mars_header}
+\chapter{Missions}
+
+\section*{Continguts de les missions}
+\centerline{%
+\begin{tabular}{rl ccccccccc}
+    &
+    & \multicolumn{9}{c}{\textbf{Missions}} \\
+    \multicolumn{2}{c}{\textbf{Capítols}}                                                                  & \textbf{\hyperref[sec:mission1]{M1}}       & \textbf{\hyperref[sec:mission2]{M2}}        & \textbf{\hyperref[sec:mission3]{M3}}        & \textbf{\hyperref[sec:mission4]{M4!}}       & \textbf{\hyperref[sec:mission5]{M5!}}       & \textbf{\hyperref[sec:mission6]{M6}}          & \textbf{\hyperref[sec:mission7]{M7!!}}           & \textbf{\hyperref[sec:mission8]{M8}}          & \textbf{\hyperref[sec:mission9]{M9}}          \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:piercing}}    & Travessant el vel analògic-digital                 & $\checkmark$      & $\circlearrowleft$ &                    &                    &                    &                      &                         &                      &                      \\
+    \textbf{\S\ref{sec:where}}    & Adreçament i topologies LAN (xarxa d'àrea local)                    & $\checkmark$      & $\circlearrowleft$ & $\circlearrowleft$ & $\circlearrowleft$ & $\circlearrowleft$ &                      &                         &                      & $\circlearrowleft$   \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:packets}}    & Format de paquet i MTU                            & $\checkmark$      & $\checkmark$       & $\circlearrowleft$ & $\circlearrowleft$ & $\checkmark$       & $\checkmark$         & $\checkmark$            & $\circlearrowleft$   &                      \\
+    \textbf{\S\ref{sec:stack_layers}}    & Piles de xarxa i encapsulació                 & $\looparrowright$ & $\checkmark$       & $\circlearrowleft$ & $\circlearrowleft$ & $\circlearrowleft$ & $\checkmark$         & $\circlearrowleft$      &                      &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:internet}}    & Internet: visió general de TCP/IP                    & $\looparrowright$ & $\looparrowright$  & $\looparrowright$  & $\checkmark$       & $\circlearrowleft$ & $\circlearrowleft$   & $\circlearrowleft$      & $\circlearrowleft$   & $\circlearrowleft$   \\
+    \textbf{\S\ref{sec:layer2}}    & Capa 2: comunicació LAN                       &                   & $\checkmark$       & $\circlearrowleft$ & $\checkmark$       & $\checkmark$       &                      & $\circlearrowleft$      & $\circlearrowleft$   &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer3:addressing}}  & Adreçament de capa 3                               &                   & $\looparrowright$  & $\checkmark$       & $\checkmark$       &                    & $\circlearrowleft$   &                         &                      & $\circlearrowleft$   \\
+    \textbf{\S\ref{sec:layer3:ip}}  & Funció i capçalera IP                                               &                   & $\looparrowright$  & $\checkmark$       & $\circlearrowleft$ & $\checkmark$       & $\circlearrowleft$   &                         &                      &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer3:routing}}  & Encaminament IP                                       &                   &                    &                    & $\checkmark$       & $\circlearrowleft$ &                      & $\circlearrowleft$      &                      & $\checkmark$         \\
+    \textbf{\S\ref{sec:layer3:subnetting}}  & Subxarxes IP                                    &                   &                    & $\checkmark$       & $\checkmark$       &                    &                      &                         &                      & $\checkmark$         \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer3:fragmentation}}  & Fragmentació IP                                 &                   & $\looparrowright$  &                    &                    & $\checkmark$       &                      & $\circlearrowleft$      &                      &                      \\
+    \textbf{\S\ref{sec:layer3:arp}}  & ARP                                              &                   &                    &                    & $\looparrowright$  & $\checkmark$       &                      & $\circlearrowleft$      & $\circlearrowleft$   &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer3:icmp}}  & ICMP                                             &                   &                    &                    & $\looparrowright$  &                    &                      &                         & $\checkmark$         &                      \\
+    \textbf{\S\ref{sec:layer4:addressing}}  & Adreçament de capa 4                               &                   &                    &                    &                    &                    & $\checkmark$         &                         & $\checkmark$         &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer4:udp}}  & UDP                                              &                   &                    &                    &                    &                    &                      & $\checkmark$            & $\circlearrowleft$   &                      \\
+    \textbf{\S\ref{sec:layer4:tcp}}  & TCP                                              &                   &                    &                    &                    &                    & $\looparrowright$    & $\checkmark$            & $\circlearrowleft$   &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer4:tcp_opening}}  & Obertura de connexió TCP                           &                   &                    &                    &                    &                    & $\checkmark$         & $\checkmark$            & $\circlearrowleft$   &                      \\
+    \textbf{\S\ref{sec:layer4:established}}  & Intercanvi de dades TCP                                &                   &                    &                    &                    &                    & $\looparrowright$    & $\checkmark$            & $\circlearrowleft$   &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer4:tcp_closing}}  & Tancament de connexió TCP                           &                   &                    &                    &                    &                    &                      & $\looparrowright$       & $\checkmark$         &                      \\
+    \textbf{\S\ref{sec:layer7:dns}} & DNS                                              &                   &                    &                    &                    &                    &                      &                         & $\checkmark$         &                      \\
+    \rowcolor{color1!15!white}
+    \textbf{\S\ref{sec:layer7:dhcp}} & DHCP                                             &                   &                    &                    &                    &                    &                      &                         &                      & $\checkmark$         \\
+    \textbf{\S\ref{sec:layer7:as}} & ASs, IXPs, NPs                                   &                   &                    &                    &                    &                    &                      &                         &                      & $\checkmark$         \\
+\end{tabular}
+}
+\begin{flushright}
+\vspace{0.2cm}$\checkmark$: focus principal --- $\circlearrowleft$: repàs --- $\looparrowright$: anticipació --- !: crític
+\end{flushright}
+
+\section*{Ritme suggerit}
+
+\begin{center}
+\includegraphics[width=\linewidth]{rythm}
+\end{center}
+
+
+

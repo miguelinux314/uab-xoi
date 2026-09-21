@@ -1,0 +1,63 @@
+\newpage
+\section{Missió 7: TCP o no TCP}\label{sec:mission7}
+
+\begin{minipage}{0.10\linewidth}
+% \vspace{-0.5cm}
+\includegraphics[width=\linewidth]{shakespeare}
+\end{minipage}
+\hspace{0.03\linewidth}
+\begin{minipage}{0.88\linewidth}
+Anys d'èxit continuat han consolidat l'ús d'IPv4 per interconnectar xarxes dins de Mart i amb altres planetes.
+Mentrestant, els equips d'enginyeria de la colònia han descobert les limitacions de l'IPv4 nu
+i la necessitat d'usar almenys un dels principals protocols de transport per comunicar-se amb la Internet de la Terra.\\
+
+\vspace{-0.25cm}
+Implementar aquesta quarta capa i afegir-la a les piles de xarxa existents de cada node de la colònia és una tasca descomunal. Per això, en una primera fase només s'implementarà un dels dos protocols de transport principals.
+%
+La colònia et demana ajuda per comparar quantitativament aquests dos protocols i decidir quin triar.
+\end{minipage}
+
+% \vspace{0.3cm}
+\noindent
+\textbf{\raisebox{0.03cm}{\warning}Atenció! Aquesta missió és \raisebox{0.25em}{molt} crítica}. Pren-te-la amb calma, demana tota l'ajuda que calgui i no perdis l'ànim. Les missions anteriors es poden considerar un entrenament per a aquesta --- et recomanem molt que les acabis amb cura abans d'intentar-la.
+\vspace{-0.1cm}
+
+\subsection*{Detalls de l'informe}
+
+L'assemblea et demana que consideris amb cura els punts següents a l'informe:
+
+\begin{enumerate}[itemsep=0.1cm]
+\item Perquè l'informe sigui autocontingut, inclou-hi la topologia de xarxa de la colònia en format CIDR quan escaigui,
+i especifica valors raonables d'MTU (pots reutilitzar els de missions anteriors). Completa la descripció
+especificant l'amplada de banda (velocitat de l'enllaç, en bytes per segon -- suposem que és constant).
+
+\item Un dels dos protocols de transport candidats usa un paràmetre anomenat MSS. Indica quin i especifica el valor
+més gran que permetria la comunicació entre dues màquines qualssevol de la colònia sense requerir fragmentació. Usa aquest valor a la resta de l'informe.
+
+\item Tria un node $N_1$ d'una base connectada directament al Bus Nord. Tria un altre node $N_2$ d'una base connectada directament al Bus Sud. Per a cadascun dels dos protocols de transport principals, calcula el temps total des que $N_1$ comença a transmetre fins que $N_2$ rep el primer byte de dades del payload (càrrega útil). Per fer-ho, suposa:
+  \begin{itemize}
+  \item Si el protocol és orientat a connexió, les dades només es transfereixen un cop establerta la connexió.
+  \item Tots els nodes i routers (encaminadors) tenen potència de càlcul infinita, és a dir, encapsular/desencapsular dades no introdueix cap retard.
+  \item Les velocitats de transmissió segueixen sent finites, tal com les has definit abans a l'informe.
+  \item Les taules d'encaminament són òptimes.
+  \item Totes les memòries cau comencen buides per a cada protocol, i les entrades romanen vàlides un cop establertes.
+  \end{itemize}
+Et recomanem incloure diagrames de carrils (swimlane) per justificar la resposta.
+
+\item Quins protocols de transport inclouen mecanismes de control de congestió? Quines condicions caldrien per permetre una transmissió contínua de $N_1$ a $N_2$ sense esperes degudes al control de congestió?
+
+\item Indica tres casos d'ús, \textit{és a dir}, aplicacions d'usuari: el primer adequat només per a un dels protocols de transport, el segon adequat per a l'altre protocol de transport, i el tercer adequat per a tots dos.
+\end{enumerate}
+
+\vspace{-0.25cm}
+
+\subsection*{Detalls de la retroacció}
+
+Segueix un procés de retroacció similar al de les missions anteriors, i assegura't de tractar aquests aspectes clau:
+\begin{itemize}
+\item L'MSS triat és coherent amb els valors d'MTU especificats?
+\item El temps de transmissió de cada paquet està ben calculat?
+\item Veus algun problema amb l'encaminament, la fragmentació o l'ARP?
+\item Es consideren correctament tots els elements del control de congestió?
+\item Els casos d'ús proposats estan ben triats?
+\end{itemize}

@@ -1,0 +1,360 @@
+\chapterimage{apps.jpg}
+
+\chapter{Capa 7: Aplicación}\label{sec:layer7}
+
+\begin{minipage}{0.4\linewidth}
+\begin{center}
+\begin{bytefield}{16}
+\bitbox{16}{\color{color1} Layer 7: Application} \\
+\bitbox{16}{Layer 4: Transport} \\
+\bitbox{16}{Layer 3: Internet} \\
+\bitbox{16}{Layer 2: Network (LAN)} \\
+\bitbox{16}{Layer 1: Physical} \\
+\end{bytefield}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.6\linewidth}
+\begin{center}
+\includegraphics[width=\linewidth]{network_layer7.pdf}
+\end{center}
+\end{minipage}
+
+La capa superior de la pila de red TCP/IP incluye todas las aplicaciones
+que usan TCP o UDP como transporte. Es, de largo, la que contiene
+el mayor número de protocolos, y donde esos protocolos se crean y se
+reemplazan más rápidamente.
+
+Además de las aplicaciones de usuario, existen varios sistemas y protocolos auxiliares que
+ayudan a configurar y operar todos los hosts (equipos conectados a la red) de Internet.
+En este capítulo se abordan algunos de los más críticos.
+
+\section{DNS -- Domain Name System}\label{sec:layer7:dns}
+
+El protocolo \concept{DNS} se encarga de traducir \conceptRef{domain name}{nombres de dominio}
+como \otherBase{ietf.org} o\\\otherBase{cv.uab.cat} en direcciones \concept{IP}
+que se pueden colocar dentro de \conceptRef{datagram}{datagramas}.
+
+Los servicios DNS funcionan tanto sobre \concept{TCP} como sobre \concept{UDP}, \ie, se pueden habilitar
+ambos protocolos de transporte. En ambos casos se usa el puerto \otherBase{53}.
+
+\subsection{Jerarquía}\label{sec:layer6:dns:hierarchy}
+
+\begin{center}
+\includegraphics[width=0.65\linewidth]{dns_hierarchy.pdf}
+\end{center}
+
+Los nombres de dominio de Internet son secuencias de nombres separados por puntos.
+Estos nombres se presentan de lo específico a lo general, de forma jerárquica.
+Por ejemplo, en \otherBase{cv.uab.cat}, \otherBase{cv} pertenece a \otherBase{uab.cat},
+y \otherBase{uab} a \otherBase{cat}.
+% 
+El nombre situado más a la derecha, \eg, \otherBase{cat} o \otherBase{com},
+debe ser uno de los \conceptRef{top-level domain}{dominios de primer nivel} de la IANA.
+
+Los servidores DNS se organizan de la misma forma jerárquica que esos nombres de dominio.
+Hay $13$ servidores \concept{root DNS} (\inlineCode{Root-A} a \inlineCode{Root-M}),
+que son responsables de todos los dominios de primer nivel.
+Puedes preguntar a cualquiera de ellos por \otherBase{com},
+pero también por \otherBase{su}, y sabrán de ellos.
+
+Eso no significa que un servidor raíz conozca todos los dominios que hay \textit{por debajo}
+de su dominio de primer nivel (\eg, \otherBase{uab.cat}): solo conocen esos
+\href{https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains}{\underline{dominios de primer nivel}}.
+(\eg, \otherBase{cat}).
+% 
+El trabajo de los servidores DNS raíz es redirigirte a otro servidor DNS encargado
+del \conceptRef{top-level domain}{dominio de primer nivel} que has solicitado.
+ 
+De forma similar, los servidores DNS responsables de \otherBase{cat} conocerán
+cualquier dominio \otherBase{*.cat} existente (\eg, \otherBase{uab.cat}),
+pero no sus subdominios (\eg, \otherBase{cv.uab.cat}).
+% 
+El trabajo de esos servidores DNS de dominio de primer nivel es redirigirte a
+otros servidores DNS \conceptRef{authoritative}{autoritativos} para el dominio de segundo nivel
+solicitado (\eg, \otherBase{uab.cat}).
+% 
+Los dominios de segundo nivel pueden entonces estructurar su \conceptRef{zone}{zona} de nombres
+como deseen, incluyendo cualquier número y profundidad de subdominios, así como
+la traducción de nombre a IP \textit{dentro} de su zona de autoridad.
+
+\begin{exercise}
+Todo el mundo usa DNS constantemente. ¿Cuáles serían los riesgos de tener
+un sistema centralizado de traducción de nombres en lugar de la naturaleza distribuida del DNS?
+\end{exercise}
+
+\subsection{Registros}
+
+El DNS puede verse como una base de datos distribuida con distintos tipos de entradas
+llamadas \conceptRef{DNS record}{registros}. Los principales son:
+
+\begin{itemize}
+\item[\textbf{A}:] Una entrada \concept{A} asocia un nombre de dominio a una dirección IPv4.
+\item[\textbf{AAAA}:] Una entrada \concept{AAAA} asocia un nombre de dominio a una dirección IPv6.
+\item[\textbf{NS}:] Un \concept{NS} apunta a un servidor DNS que puede ayudar.
+\item[\textbf{MX}:] Una entrada \concept{MX} proporciona el nombre de dominio del servidor de correo
+  que gestiona los mensajes de un dominio.
+\item[\textbf{CNAME}:] Una entrada \concept{CNAME} asocia un nombre de dominio a otro nombre de dominio.
+\end{itemize}
+
+Las aplicaciones hacen \conceptRef{request}{peticiones} a los servidores DNS indicando el tipo
+de registros que les interesan. Las \conceptRef{reply}{respuestas} del servidor pueden ser para
+los registros \concept{A} o \concept{MX} solicitados,
+pero el cliente también puede recibir una redirección a otro DNS (\concept{NS})
+o un alias a otro nombre de dominio (\concept{CNAME}).
+
+\subsection{Resolución}
+
+La naturaleza distribuida y jerárquica de la base de datos DNS hace que
+a veces sea necesario intercambiar varios mensajes para satisfacer una \conceptRef{query}{consulta} DNS.
+ 
+Por ejemplo, Alice puede realizar una resolución completamente \conceptRef{iterative}{iterativa} por su cuenta.
+Las dos primeras respuestas contienen una entrada \concept{NS} que apunta al siguiente
+servidor DNS y la dirección IP de ese servidor DNS, pero no la dirección IP del
+\otherBase{cv.uab.cat} solicitado.
+
+\begin{center}
+\includegraphics[width=\linewidth]{dns_iterative.eps}
+\end{center}
+
+El proveedor de Internet (\concept{ISP}) de Alice o su empresa ofrecerán probablemente servidores DNS
+cuya tarea es recibir las peticiones de Alice y resolverlas por ella de forma \conceptRef{recursive}{recursiva}.
+
+\begin{center}
+\includegraphics[width=1.05\linewidth]{dns_recursive.eps}
+\end{center}
+
+La combinación de la resolución \conceptRef{recursive}{recursiva} y las tablas de \conceptRef{cache}{caché} hace
+del DNS un sistema bastante eficiente, con una disponibilidad extremadamente alta y baja latencia.
+
+\begin{exercise}
+Puedes usar las herramientas \inlineCode{host} y \inlineCode{dig} para hacer consultas DNS
+y ver los resultados. Por ejemplo, mi salida de \inlineCode{dig uab.cat -t ns}
+contiene las siguientes líneas:
+
+\vspace{0.25cm}
+\begin{verbatim}
+;; QUESTION SECTION:
+;uab.cat.                       IN      NS
+;; ANSWER SECTION:
+uab.cat.                172800  IN      NS      dns.uab.es.
+;; ADDITIONAL SECTION:
+dns.uab.es.             172112  IN      A       158.109.0.1
+\end{verbatim}
+\vspace{0.25cm}
+
+\begin{itemize}
+\item ¿Qué tipo de registro solicité?
+\item ¿Qué dos tipos de registro recibí?
+\item ¿Por qué recibí dos tipos de registro?
+\item Realiza una resolución iterativa manual de \otherBase{cv.uab.cat}.
+  Puedes empezar con algo como \inlineCode{dig @202.12.27.33 cv.uab.cat}
+  para consultar al servidor raíz M.
+\end{itemize}
+\end{exercise}
+
+
+\section{DHCP -- Dynamic Host Configuration Protocol}\label{sec:layer7:dhcp}
+
+Para participar plenamente en Internet, un host necesita tener
+correctamente configurados los siguientes aspectos:
+\begin{itemize}
+\item \textbf{Dirección IP}:
+La dirección IP es necesaria para identificar un nodo en la red, y para que ese nodo sepa qué mensajes van dirigidos a él.
+\item \textbf{Máscara de red}:
+Los nodos necesitan conocerla para determinar cuándo entregar los datagramas directamente y cuándo indirectamente.
+\item \textbf{IP del gateway (pasarela)}:
+Se necesita la dirección IP de al menos un router (encaminador) para entregar indirectamente mensajes con destino fuera de la LAN (red de área local) actual.
+\item \textbf{Dirección IP del servidor DNS}:
+Aunque no es estrictamente necesaria para usar TCP/IP, la dirección de un servidor DNS es extremadamente útil, e imprescindible para resolver
+nombres de dominio en direcciones IP.
+\end{itemize}
+
+Tradicionalmente, estos parámetros había que configurarlos manualmente en cada ordenador.
+Hoy en día, la mayoría de los ordenadores de usuario se configuran automáticamente con \concept{DHCP}.
+Los sistemas operativos modernos incluyen un cliente DHCP que consulta periódicamente la LAN hasta quedar configurado.
+
+\begin{remark}
+El hardware de red viene con una dirección MAC por defecto preconfigurada.
+Además, un nodo necesita conocer su dirección MAC para utilizar el protocolo DHCP.
+Por tanto, las direcciones MAC no se configuran mediante DHCP.
+\end{remark}
+
+\newpage
+DHCP funciona sobre UDP. Los servidores DHCP escuchan en el puerto \otherBase{67}, y los clientes
+escuchan en el puerto \otherBase{68}. El intercambio DHCP ideal consta de $4$ mensajes:
+Discovery, Offer, Request, Acknowledgement.
+
+\begin{center}
+\includegraphics[width=\linewidth]{dhcp_dora.eps}
+\end{center}
+
+\begin{itemize}
+
+\item \textbf{Discovery}\\
+El objetivo de este mensaje es encontrar servidores DHCP dispuestos a proporcionar
+una configuración.\\[-0.3cm]
+
+En la primera comunicación, el cliente
+no conoce la IP del servidor DHCP. En su lugar, usa:
+\begin{itemize}
+\item Su dirección MAC como dirección MAC de origen.
+\item El broadcast (difusión) de la LAN (\otherBase{ff:ff:ff:ff:ff:ff}) como dirección MAC de destino.
+\item \otherBase{0.0.0.0} como IP de origen, lo que significa ``desconocida''.
+\item La dirección de \concept{local broadcast} , \otherBase{255.255.255.255}, como IP de destino.
+\end{itemize}
+
+\vspace{0.25cm}
+\item \textbf{Offer}\\
+Cero o más servidores responderán al cliente con ofertas de configuración.
+Estas configuraciones (\eg, direcciones IP) no son propiedad del cliente
+hasta que el servidor envía un Acknowledgement DHCP.\\[-0.3cm]
+
+El servidor lleva la cuenta de un \concept{pool} (conjunto) de direcciones que asigna
+dinámicamente a los clientes.
+% 
+Las direcciones IP se ofrecen durante un periodo de tiempo fijo, tras el cual expiran
+a menos que se \conceptRef{renew}{renueven} (véase más abajo). Las direcciones que no se renuevan vuelven
+al pool y se ofrecen de nuevo a los clientes cuando hacen peticiones.
+\\[-0.3cm]
+
+\begin{itemize}
+\item El servidor puede usar su dirección IP real y la ofrecida al cliente.
+\item El cliente sabe que es el destinatario porque el servidor se fija en la
+dirección MAC de origen del Discovery del cliente.
+\end{itemize}
+
+\vspace{0.25cm}
+\item \textbf{Request}\\
+El cliente elige una de las ofertas recibidas y pide que se complete la
+asignación.\\[-0.3cm]
+
+\begin{itemize}
+\item El cliente usa la dirección de broadcast local, \otherBase{255.255.255.255}, como \mbox{destino}.
+\item El cliente mantiene \otherBase{0.0.0.0} como origen porque la dirección ofrecida todavía no es suya.
+\end{itemize}
+
+\vspace{0.25cm}
+\item \textbf{Acknowledgement (ACK)}\\
+El servidor confirma la petición. Una vez el cliente recibe este ACK,
+empieza a usar la configuración ofrecida como propia.
+Este ACK no debe confundirse con el de TCP.
+\\[-0.3cm]
+
+\vspace{0.25cm}
+\item \textbf{Negative Acknowledgement (NACK)}\\
+También es posible que el servidor deniegue la petición, \eg, si
+ha pasado demasiado tiempo desde la oferta. En este caso,
+se envía en su lugar un Acknowledgement negativo (NACK). Si se recibe un NACK,
+el cliente debe volver a la fase Discover.
+\end{itemize}
+
+Cuando un servidor DHCP \conceptRef{lease}{cede} una dirección a un cliente, lo hace
+durante un periodo de tiempo limitado $T$. Este periodo lo fija el servidor DHCP y se puede configurar.
+Una vez transcurrido $T/2$, los clientes pueden intentar renovar la configuración cedida. Para ello,
+el ciclo Request-Acknowledgement se repite a lo largo del tiempo hasta que alguno de los dos extremos no logra completarlo a tiempo,
+o el servidor DHCP envía un NACK.
+
+\begin{center}
+\includegraphics[width=\linewidth]{dhcp_renewal.eps}
+\end{center}
+
+\begin{exercise}
+El típico router doméstico implementa tanto un cliente DHCP como un servidor DHCP.
+Explica cómo es posible y por qué resulta útil.
+\end{exercise}
+
+
+\section{Sistemas autónomos}\label{sec:layer7:as}
+
+El encaminamiento se realiza un \conceptRef{hop}{salto} a la vez, usando \conceptRef{routing table}{tablas de encaminamiento}
+como se ha visto en la Sección~\ref{sec:layer3:routing}. Esas tablas deben coordinarse a gran
+escala para garantizar la conectividad del grafo hasta todos los hosts de Internet.
+
+\begin{center}
+  \vspace{-0.2cm}
+ \includegraphics[width=\linewidth]{as.pdf}
+ \vspace{-0.75cm}
+\end{center}
+
+
+\subsection{Organización}
+
+Para facilitar esta coordinación, las LAN se agrupan en \conceptRef{AS}{sistemas autónomos} (\concept{AS}).
+Estos gestionan bloques de direcciones IP no solapados (\otherBase{w.x.y.z/N}) cuya propiedad y gestión son independientes.
+Muchas empresas, universidades e ISP tienen sus propios AS, que están
+\href{https://2ip.io/analytics/asn-list/}{\underline{listados}} públicamente. Por ejemplo, la red de la UAB pertenece al
+AS13041.
+
+Los \conceptRef{IXP}{puntos de intercambio de Internet} (\concept{IXP}) son un tipo especial de AS cuyo propósito es interconectar otros AS,
+en lugar de alojar servicios y/o clientes. Por supuesto, hacer funcionar estos IXP no es gratis, así que se establecen relaciones
+comerciales con los AS interconectados.
+%
+Algunos IXP se comprometen a dar servicio a cualquiera
+que cumpla sus requisitos básicos, no están controlados por ningún operador concreto y ofrecen a sus clientes precios transparentes y a menudo
+equitativos. Este tipo de IXP se denomina \conceptRef{NP}{Punto Neutro} (\concept{NP}), en contraposición
+a los puntos no neutros usados, \textit{e.g.}, solo por un único operador de red.
+
+\newpage
+Todos los AS operan \conceptRef{BR}{routers frontera} (\concept{BR}) para interconectar AS. Cuando un router frontera recibe un datagrama
+con destino dentro del AS, lo reenvía a través de los \conceptRef{internal router}{routers internos} (IR) del AS.
+De forma similar, cuando un host dentro de un AS necesita contactar con un host de otro AS, los datagramas se reenvían por routers frontera
+hasta que llegan al AS de destino y, finalmente, a la LAN de destino.
+
+\subsection{Configuración de la tabla de encaminamiento}
+
+Configurar manualmente las \conceptRef{routing table}{tablas de encaminamiento} de todos los routers frontera y routers internos
+sería demasiado costoso y propenso a errores. En su lugar, se emplean distintos algoritmos para configurarlas automáticamente.
+\begin{itemize}
+\item Dentro del AS, los routers internos y los routers frontera usan uno de los
+\conceptRef{interior gateway protocol}{protocolos de gateway interior} disponibles.
+A menudo se usa \concept{RIP} (Routing Information Protocol) por su configuración relativamente sencilla.
+Dicho esto, los AS pueden elegir libremente el algoritmo que usan internamente en su AS.\\[-0.2cm]
+
+RIP implementa una variación del algoritmo de camino más corto de Bellman-Ford para minimizar el número de \conceptRef{hop}{saltos}
+que los datagramas deben recorrer dentro del AS. Periódicamente (\eg, cada $30$~s), cada IR y BR:\\[-0.4cm]
+% 
+  \begin{enumerate}
+  \item Anuncia su distancia \textit{percibida} al resto de routers del AS.
+  \item Actualiza sus distancias percibidas a partir de los anuncios de otros routers.
+  \item Actualiza en consecuencia su \conceptRef{routing table}{tabla de encaminamiento} hacia todas las LAN del AS.
+  \end{enumerate}
+
+\begin{exercise}
+RIP usa el número de saltos como métrica de coste.
+% 
+¿Por qué puede resultar problemático?
+% 
+¿Cómo se puede resolver este problema?
+\end{exercise}
+
+\vspace{0.25cm}
+\item Entre AS, solo hay que configurar los routers frontera; los routers interiores simplemente necesitan dirigir
+el tráfico exterior a través de los routers frontera. \\[-0.3cm]
+
+Los routers frontera ejecutan un \conceptRef{exterior gateway protocol}{protocolo de gateway exterior} además del
+protocolo de gateway interior usado dentro del AS. Los distintos AS deben ponerse de acuerdo en el
+algoritmo que usan, así que normalmente se usa \concept{BGP} (border gateway protocol).\\[-0.3cm]
+
+\concept{BGP} es un protocolo más complejo que \concept{RIP}. Esta complejidad
+es necesaria porque BGP coordina routers frontera pertenecientes a distintos AS, \ie,
+con distintos propietarios:\\[-0.4cm]
+\begin{itemize}
+\item RIP usa un único número (la distancia, \ie, el número de \conceptRef{hop}{saltos})
+para guiar un algoritmo de camino más corto en el grafo. BGP usa \conceptRef{path}{caminos} en lugar de distancias.
+Esto permite a BGP elegir rutas con más \conceptRef{hop}{saltos}, pero más deseables para el AS,
+\eg, en términos de tiempo, coste económico, carga interna, etc.\\[-0.4cm]
+
+\item BGP se diseñó teniendo en mente la seguridad y la confianza, e incluye mecanismos
+para verificar la autenticidad de los caminos anunciados por un router frontera.
+\end{itemize}
+\end{itemize}
+
+\begin{remark}
+BGP también puede usarse como protocolo de gateway interior del AS.
+Normalmente esto solo lo hacen AS muy grandes.
+\end{remark}
+
+\begin{exercise}
+¿Cómo puede BGP traducir el interés económico en configuraciones de encaminamiento?
+\end{exercise}
+

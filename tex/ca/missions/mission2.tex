@@ -1,0 +1,41 @@
+\newpage
+\section{Missió 2: Pergamí infinit}\label{sec:mission2}
+
+\begin{minipage}{0.225\linewidth}
+\vspace{-0.5cm}\includegraphics[width=\linewidth]{stairway}
+\end{minipage}
+\hspace{0.025\linewidth}
+\begin{minipage}{0.75\linewidth}
+%
+Després de revisar la primera ronda d'informes, l'assemblea de la colònia està entusiasmada amb la idea d'explorar aquesta nova idea de \textit{xarxa d'ordinadors}. Tanmateix, abans d'invertir en cap de les propostes, l'assemblea demana dissenys més complets i concrets. En concret, hauràs d'afegir la possibilitat d'enviar missatges arbitràriament llargs, potencialment infinits, i parar atenció a l'estructura de la pila de xarxa (detalls \mbox{a continuació}).\\
+\end{minipage}
+
+\noindent
+S'espera que cadascun de vosaltres publiqui un \textbf{informe formal} (en PDF) al ``fòrum d'intercanvi de la Missió 2'' del Campus Virtual abans de la següent sessió de 2h en què es programi una nova missió (consulta el calendari al Campus Virtual). Després d'això, comptem amb tu perquè publiquis una \textbf{carta formal de resposta amb comentaris} (també en PDF) sobre almenys una altra solució, abans de la següent sessió d'1h.
+
+\subsection*{Detalls de l'informe}
+El nou informe ha de ser autònom, de manera que la persona que el revisi no necessiti llegir el primer.
+La proposta que descriguis en aquest informe no ha de seguir exactament la primera: pots manllevar tantes idees i introduir tants canvis com consideris oportú.
+%
+\begin{enumerate}[itemsep=0.1cm]
+\item Resumeix la \textbf{capa física i la disposició topològica} de les teves xarxes d'ordinadors (tractades als punts 1 i 2 de la missió anterior).
+
+\item Indica la MTU de la teva xarxa i \textbf{per què cal definir un valor finit de MTU}. Amb aquesta restricció, explica \textbf{com permetràs enviar missatges de longitud arbitrària (\textit{infinita})}.
+
+\item Descriu el \textbf{sistema d'adreçament} (actualitzat) i les seves limitacions. Pots mantenir o canviar el sistema que vas proposar a la missió anterior, sempre que t'asseguris que és vàlid.
+
+\item Proposa una \textbf{pila de xarxa de 3 capes} (anomenem-les L3, L2 i L1, de dalt a baix) en què la funcionalitat de longitud arbitrària dels missatges es resolgui exclusivament a L3, l'adreçament exclusivament a L2, i L1 se centri només en les conversions digital/analògica i analògica/digital.
+
+\item Inclou un exemple en què s'enviï un missatge de longitud 1.5~vegades la MTU. En el teu exemple, proporciona els \textbf{bytes d'entrada i de sortida de cada capa} a l'origen i a la destinació de la comunicació.
+\end{enumerate}
+
+\subsection*{Detalls dels comentaris}
+
+Segueix un procés de comentaris semblant al de les missions anteriors, assegurant-te de tractar:
+\begin{enumerate}[itemsep=0.1cm]
+\item Hi veus algun defecte greu o algun punt incomplet que impediria que la proposta es fes realitat?
+\item Hi ha algun límit real a la longitud dels missatges de la proposta que revises?
+\item Has pogut interpretar el contingut del missatge inclòs a l'informe? Inclou els bytes d'una possible resposta de la mateixa longitud, basant-te en la teva comprensió d'aquest informe.
+\item Hi ha alguna part de la proposta que revises que millori la teva?
+\end{enumerate}
+

@@ -1,0 +1,361 @@
+\chapterimage{apps.jpg}
+
+\chapter{Capa 7: Aplicació}\label{sec:layer7}
+
+\begin{minipage}{0.4\linewidth}
+\begin{center}
+\begin{bytefield}{16}
+\bitbox{16}{\color{color1} Layer 7: Application} \\
+\bitbox{16}{Layer 4: Transport} \\
+\bitbox{16}{Layer 3: Internet} \\
+\bitbox{16}{Layer 2: Network (LAN)} \\
+\bitbox{16}{Layer 1: Physical} \\
+\end{bytefield}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.6\linewidth}
+\begin{center}
+\includegraphics[width=\linewidth]{network_layer7.pdf}
+\end{center}
+\end{minipage}
+
+La capa superior de la pila de xarxa TCP/IP inclou totes les aplicacions
+que utilitzen TCP o UDP per al transport. És, amb diferència, la que conté
+el nombre més gran de protocols, i on aquests protocols es creen i se substitueixen
+més ràpidament.
+
+A més de les aplicacions d'usuari, hi ha diversos sistemes i protocols auxiliars que
+ajuden en la configuració i el funcionament de tots els hosts (equips connectats a la xarxa) d'Internet.
+En aquest capítol s'aborden alguns dels més crítics.
+
+\section{DNS -- Sistema de noms de domini}\label{sec:layer7:dns}
+
+El protocol \concept{DNS} és responsable de traduir \conceptRef{domain name}{noms de domini}
+com ara \otherBase{ietf.org} o\\\otherBase{cv.uab.cat} a adreces \concept{IP}
+que es poden posar dins dels \conceptRef{datagram}{datagrames}.
+
+Els serveis DNS funcionen tant sobre \concept{TCP} com sobre \concept{UDP}, \ie, es poden habilitar
+tots dos protocols de transport. En tots dos casos, s'utilitza el port \otherBase{53}.
+
+\subsection{Jerarquia}\label{sec:layer6:dns:hierarchy}
+
+\begin{center}
+\includegraphics[width=0.65\linewidth]{dns_hierarchy.pdf}
+\end{center}
+
+Els noms de domini d'Internet són seqüències de noms separats per punts.
+Aquests noms es presenten del més específic al més general de manera jeràrquica.
+Per exemple, a \otherBase{cv.uab.cat}, \otherBase{cv} pertany a \otherBase{uab.cat},
+i \otherBase{uab} a \otherBase{cat}.
+% 
+El nom de més a la dreta, \eg, \otherBase{cat} o \otherBase{com},
+ha de ser un dels \conceptRef{top-level domain}{dominis de primer nivell} de la IANA.
+
+Els servidors DNS s'organitzen de la mateixa manera jeràrquica que aquests noms de domini.
+Hi ha $13$ servidors \conceptRef{root DNS}{DNS arrel} (de \inlineCode{Root-A} a \inlineCode{Root-M}),
+que són responsables de tots els dominis de primer nivell.
+Pots preguntar a qualsevol d'ells per \otherBase{com},
+però també per \otherBase{su}, i en sabran la resposta.
+
+Això no vol dir que cada servidor arrel conegui tots els dominis \textit{dins}
+del seu domini de primer nivell (\eg, \otherBase{uab.cat}): només coneixen aquests
+\href{https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains}{\underline{dominis de primer nivell}}.
+(\eg, \otherBase{cat}).
+% 
+La feina dels servidors DNS arrel és redirigir-te a un altre servidor DNS encarregat
+del \conceptRef{top-level domain}{domini de primer nivell} que has demanat.
+ 
+De manera semblant, els servidors DNS responsables de \otherBase{cat} coneixeran
+qualsevol domini \otherBase{*.cat} existent (\eg, \otherBase{uab.cat}),
+però no els subdominis (\eg, \otherBase{cv.uab.cat}).
+% 
+La feina d'aquests servidors DNS de domini de primer nivell és redirigir-te a
+altres servidors DNS \conceptRef{authoritative}{autoritatius} per al domini de segon nivell
+sol·licitat (\eg, \otherBase{uab.cat}).
+% 
+Els dominis de segon nivell poden llavors estructurar la seva \conceptRef{zone}{zona} de noms
+com vulguin, incloent-hi qualsevol nombre i profunditat de subdominis, així com
+la traducció de nom a IP \textit{dins} de la zona d'autoritat.
+
+\begin{exercise}
+Tothom fa servir el DNS constantment. Quins serien els riscos de tenir
+un sistema de traducció de noms centralitzat en lloc de la naturalesa distribuïda del DNS?
+\end{exercise}
+
+\subsection{Registres}
+
+El DNS es pot veure com una base de dades distribuïda amb diferents tipus d'entrades
+anomenades \conceptRef{DNS record}{registres}. Els principals són:
+
+\begin{itemize}
+\item[\textbf{A}:] Una entrada \concept{A} associa un nom de domini a una adreça IPv4.
+\item[\textbf{AAAA}:] Una entrada \concept{AAAA} associa un nom de domini a una adreça IPv6.
+\item[\textbf{NS}:] Una entrada \concept{NS} apunta a un servidor DNS que pot ajudar.
+\item[\textbf{MX}:] Una entrada \concept{MX} proporciona el nom de domini del servidor de correu electrònic
+  que gestiona els missatges d'un domini.
+\item[\textbf{CNAME}:] Una entrada \concept{CNAME} associa un nom de domini a un altre nom de domini.
+\end{itemize}
+
+Les aplicacions fan \conceptRef{request}{peticions} als servidors DNS indicant el tipus
+de registres que els interessen. Les \conceptRef{reply}{respostes} del servidor poden ser
+els registres \concept{A} o \concept{MX} demanats,
+però el client també pot rebre una redirecció a un altre DNS (\concept{NS})
+o un àlies a un altre nom de domini (\concept{CNAME}).
+
+\subsection{Resolució}
+
+La naturalesa distribuïda i jeràrquica de la base de dades del DNS fa que
+de vegades calgui intercanviar múltiples missatges per satisfer una \conceptRef{query}{consulta} DNS.
+ 
+Per exemple, l'Alice pot fer una resolució completament \conceptRef{iterative}{iterativa} tota sola.
+Les dues primeres respostes contenen una entrada \concept{NS} que apunta al següent
+servidor DNS i l'adreça IP d'aquest servidor DNS, però no l'adreça IP del
+\otherBase{cv.uab.cat} demanat.
+
+\begin{center}
+\includegraphics[width=\linewidth]{dns_iterative.eps}
+\end{center}
+
+El proveïdor d'Internet (\concept{ISP}) o l'empresa de l'Alice probablement oferiran servidors DNS
+la feina dels quals és rebre les peticions de l'Alice i resoldre-les per ella de manera
+\conceptRef{recursive}{recursiva}.
+
+\begin{center}
+\includegraphics[width=1.05\linewidth]{dns_recursive.eps}
+\end{center}
+
+La combinació de la resolució \conceptRef{recursive}{recursiva} i les taules de \conceptRef{cache}{memòria cau} fa
+del DNS un sistema força eficient, amb una disponibilitat altíssima i una latència baixa.
+
+\begin{exercise}
+Pots utilitzar les eines \inlineCode{host} i \inlineCode{dig} per fer consultes DNS
+i veure'n els resultats. Per exemple, la meva sortida de \inlineCode{dig uab.cat -t ns}
+conté les línies següents:
+
+\vspace{0.25cm}
+\begin{verbatim}
+;; QUESTION SECTION:
+;uab.cat.                       IN      NS
+;; ANSWER SECTION:
+uab.cat.                172800  IN      NS      dns.uab.es.
+;; ADDITIONAL SECTION:
+dns.uab.es.             172112  IN      A       158.109.0.1
+\end{verbatim}
+\vspace{0.25cm}
+
+\begin{itemize}
+\item Quin tipus de registre he demanat?
+\item Quins dos tipus de registre he rebut?
+\item Per què he rebut dos tipus de registre?
+\item Fes una resolució iterativa manual de \otherBase{cv.uab.cat}.
+  Pots començar amb alguna cosa com \inlineCode{dig @202.12.27.33 cv.uab.cat}
+  per consultar el servidor arrel M.
+\end{itemize}
+\end{exercise}
+
+
+\section{DHCP -- Protocol de configuració dinàmica de hosts}\label{sec:layer7:dhcp}
+
+Per poder participar plenament a Internet, un host ha de tenir
+correctament configurats els aspectes següents:
+\begin{itemize}
+\item \textbf{Adreça IP}:
+L'adreça IP és necessària per identificar un node a la xarxa, i perquè aquest node sàpiga quins missatges van adreçats a ell.
+\item \textbf{Màscara de subxarxa}:
+Els nodes l'han de conèixer per determinar quan han de lliurar els datagrames directament, i quan indirectament.
+\item \textbf{IP del gateway (passarel·la)}:
+Cal l'adreça IP d'almenys un router (encaminador) per lliurar indirectament missatges amb destinació fora de la LAN (xarxa d'àrea local) actual.
+\item \textbf{Adreça IP del servidor DNS}:
+Tot i que no és estrictament necessària per utilitzar TCP/IP, l'adreça d'un servidor DNS és extremadament útil, i necessària per resoldre
+noms de domini a adreces IP.
+\end{itemize}
+
+Tradicionalment, aquests paràmetres s'havien de configurar manualment a cada ordinador.
+Avui dia, la majoria dels ordinadors d'usuari es configuren automàticament amb \concept{DHCP}.
+Els sistemes operatius moderns contenen un client DHCP que consulta periòdicament la LAN fins que queda configurat.
+
+\begin{remark}
+El maquinari de xarxa ve amb una adreça MAC per defecte preconfigurada.
+A més, un node necessita conèixer la seva adreça MAC per fer funcionar el protocol DHCP.
+Per tant, les adreces MAC no es configuren mitjançant DHCP.
+\end{remark}
+
+\newpage
+DHCP funciona sobre UDP. Els servidors DHCP escolten al port \otherBase{67}, i els clients
+escolten al port \otherBase{68}. L'intercanvi DHCP ideal consta de $4$ missatges:
+Discovery, Offer, Request, Acknowledgement.
+
+\begin{center}
+\includegraphics[width=\linewidth]{dhcp_dora.eps}
+\end{center}
+
+\begin{itemize}
+
+\item \textbf{Discovery}\\
+L'objectiu d'aquest missatge és trobar servidors DHCP disposats a proporcionar
+una configuració.\\[-0.3cm]
+
+En la primera comunicació, el client
+no coneix la IP del servidor DHCP. En lloc d'això, utilitza:
+\begin{itemize}
+\item La seva adreça MAC com a adreça MAC d'origen.
+\item L'adreça de broadcast (difusió) de la LAN (\otherBase{ff:ff:ff:ff:ff:ff}) com a adreça MAC de destinació.
+\item \otherBase{0.0.0.0} com a IP d'origen, que vol dir ``desconeguda''.
+\item L'adreça de \conceptRef{local broadcast}{broadcast local}, \otherBase{255.255.255.255}, com a IP de destinació.
+\end{itemize}
+
+\vspace{0.25cm}
+\item \textbf{Offer}\\
+Zero o més servidors respondran al client amb ofertes de configuració.
+Aquestes configuracions (\eg, adreces IP) no són propietat del client
+fins que el servidor envia un DHCP Acknowledgement.\\[-0.3cm]
+
+El servidor porta el control d'un \conceptRef{pool}{conjunt} d'adreces que
+assigna dinàmicament als clients.
+% 
+Les adreces IP s'ofereixen durant un període de temps fix, després del qual caduquen
+tret que es \conceptRef{renew}{renovin} (vegeu més avall). Les adreces que no es renoven tornen
+al conjunt i s'ofereixen de nou als clients a mesura que fan peticions.
+\\[-0.3cm]
+
+\begin{itemize}
+\item El servidor pot utilitzar la seva adreça IP real i la que ofereix al client.
+\item El client sap que n'és el destinatari perquè el servidor té en compte
+l'adreça MAC d'origen del Discovery del client.
+\end{itemize}
+
+\vspace{0.25cm}
+\item \textbf{Request}\\
+El client tria una de les ofertes rebudes i demana que
+es completi l'assignació.\\[-0.3cm]
+
+\begin{itemize}
+\item El client utilitza l'adreça de broadcast local, \otherBase{255.255.255.255}, com a \mbox{destinació}.
+\item El client manté \otherBase{0.0.0.0} com a origen perquè l'adreça oferta encara no és seva.
+\end{itemize}
+
+\vspace{0.25cm}
+\item \textbf{Acknowledgement (ACK)}\\
+El servidor confirma la petició. Un cop el client rep aquest ACK,
+comença a utilitzar la configuració oferta com a pròpia.
+Aquest ACK no s'ha de confondre amb el de TCP.
+\\[-0.3cm]
+
+\vspace{0.25cm}
+\item \textbf{Negative Acknowledgement (NACK)}\\
+També és possible que el servidor denegui la petició, \eg, si
+ha passat massa temps des de l'oferta. En aquest cas,
+s'envia un Acknowledgement negatiu (NACK). Si es rep un NACK,
+el client ha de tornar a la fase de Discover.
+\end{itemize}
+
+Quan un servidor DHCP \conceptRef{lease}{cedeix} una adreça a un client, ho fa
+durant un període de temps limitat $T$. Aquest període el fixa el servidor DHCP, i es pot configurar.
+Un cop transcorregut $T/2$, els clients poden intentar renovar la configuració cedida. Per fer-ho,
+es repeteix el cicle Request-Acknowledgement al llarg del temps fins que un dels dos extrems no el completa a temps,
+o bé el servidor DHCP envia un NACK.
+
+\begin{center}
+\includegraphics[width=\linewidth]{dhcp_renewal.eps}
+\end{center}
+
+\begin{exercise}
+El router domèstic típic implementa alhora un client DHCP i un servidor DHCP.
+Explica com és possible i per què és útil.
+\end{exercise}
+
+
+\section{Sistemes autònoms}\label{sec:layer7:as}
+
+L'encaminament es fa \conceptRef{hop}{salt} a salt, utilitzant \conceptRef{routing table}{taules d'encaminament}
+tal com s'ha explicat a la Secció~\ref{sec:layer3:routing}. Aquestes taules s'han de coordinar a gran
+escala per garantir la connectivitat del graf amb tots els hosts d'Internet.
+
+\begin{center}
+  \vspace{-0.2cm}
+ \includegraphics[width=\linewidth]{as.pdf}
+ \vspace{-0.75cm}
+\end{center}
+
+
+\subsection{Organització}
+
+Per facilitar aquesta coordinació, les LAN s'agrupen en \conceptRef{AS}{sistemes autònoms} (\concept{AS}).
+Aquests gestionen blocs d'adreces IP que no se solapen (\otherBase{w.x.y.z/N}), amb propietat i gestió separades.
+Moltes empreses, universitats i ISP tenen els seus propis AS, que estan
+\href{https://2ip.io/analytics/asn-list/}{\underline{llistats}} públicament. Per exemple, la xarxa de la UAB pertany a
+l'AS13041.
+
+Els \conceptRef{IXP}{punts d'intercanvi d'Internet} (\concept{IXP}) són un tipus especial d'AS el propòsit dels quals és interconnectar altres AS,
+en lloc d'allotjar serveis i/o clients. Per descomptat, fer funcionar aquests IXP no és gratuït, així que s'estableixen relacions
+comercials amb els AS interconnectats.
+%
+Alguns IXP es comprometen a donar servei a qualsevol que
+compleixi els seus requisits bàsics, no estan controlats per cap operador únic, i ofereixen preus transparents i sovint equitatius
+als seus clients. Aquest tipus d'IXP s'anomena \conceptRef{NP}{punt neutre} (\concept{NP}), en contraposició
+als punts no neutres utilitzats, \textit{p.\,ex.}, per un sol operador de xarxa.
+
+\newpage
+Tots els AS fan funcionar \conceptRef{BR}{routers frontera} (\concept{BR}) per interconnectar AS. Quan un router frontera rep un datagrama
+amb destinació dins de l'AS, el reenvia a través dels \conceptRef{internal router}{routers interns} (IR) de l'AS.
+De manera semblant, quan un host dins d'un AS necessita contactar amb un host d'un altre AS, els datagrames es reenvien a través de routers frontera
+fins que arriben a l'AS de destinació i, finalment, a la LAN de destinació.
+
+\subsection{Configuració de la taula d'encaminament}
+
+Configurar manualment les \conceptRef{routing table}{taules d'encaminament} de tots els routers frontera i routers interns
+seria massa costós i propens a errors. En lloc d'això, s'utilitzen diferents algorismes per configurar-les automàticament.
+\begin{itemize}
+\item Dins de l'AS, els routers interns i els routers frontera utilitzen un dels
+\conceptRef{interior gateway protocol}{protocols de gateway interior} disponibles.
+Sovint s'utilitza \concept{RIP} (Routing Information Protocol) per la seva configuració relativament senzilla.
+Dit això, els AS poden triar lliurement l'algorisme que utilitzen internament.\\[-0.2cm]
+
+RIP implementa una variant de l'algorisme de camí més curt de Bellman-Ford per minimitzar el nombre de \conceptRef{hop}{salts}
+que els datagrames han de fer dins de l'AS. Periòdicament (\eg, cada $30$~s), cada IR i BR:\\[-0.4cm]
+% 
+  \begin{enumerate}
+  \item Anuncia la seva distància \textit{percebuda} als altres routers de l'AS.
+  \item Actualitza les seves distàncies percebudes a partir dels anuncis dels altres routers.
+  \item Actualitza en conseqüència la seva \conceptRef{routing table}{taula d'encaminament} cap a totes les LAN de l'AS.
+  \end{enumerate}
+
+\begin{exercise}
+RIP utilitza el nombre de salts com a mètrica de cost.
+% 
+Per què podria ser problemàtic?
+% 
+Com es pot resoldre aquest problema?
+\end{exercise}
+
+\vspace{0.25cm}
+\item Entre AS, només cal configurar els routers frontera; els routers interns simplement han de dirigir
+el trànsit exterior a través dels routers frontera. \\[-0.3cm]
+
+Els routers frontera executen un \conceptRef{exterior gateway protocol}{protocol de gateway exterior} a més del
+protocol de gateway interior utilitzat dins de l'AS. Els diferents AS s'han de posar d'acord en
+l'algorisme que utilitzen, de manera que normalment s'utilitza \concept{BGP} (border gateway protocol).\\[-0.3cm]
+
+\concept{BGP} és un protocol més complex que \concept{RIP}. Aquesta complexitat
+és necessària perquè BGP coordina routers frontera que pertanyen a AS diferents, \ie,
+amb propietaris diferents:\\[-0.4cm]
+\begin{itemize}
+\item RIP utilitza un únic nombre (la distància, \ie, el nombre de \conceptRef{hop}{salts})
+per guiar un algorisme de camí més curt sobre un graf. BGP utilitza \conceptRef{path}{camins} en lloc de distàncies.
+Això permet a BGP triar rutes amb més \conceptRef{hop}{salts}, però més convenients per a l'AS,
+\eg, en termes de temps, cost econòmic, càrrega interna, etc.\\[-0.4cm]
+
+\item BGP es va dissenyar tenint en compte la seguretat i la confiança, i inclou mecanismes
+per verificar l'autenticitat dels camins anunciats per un router frontera.
+\end{itemize}
+\end{itemize}
+
+\begin{remark}
+BGP també es pot utilitzar com a protocol de gateway interior de l'AS.
+Normalment això només ho fan AS molt grans.
+\end{remark}
+
+\begin{exercise}
+Com pot BGP traduir interessos econòmics en configuracions d'encaminament?
+\end{exercise}
+

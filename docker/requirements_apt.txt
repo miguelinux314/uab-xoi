@@ -1,0 +1,41 @@
+# Debian 13 packages needed to build the PDFs and the site (docker/Dockerfile).
+# One package per line; comments and blank lines are ignored.
+
+make
+mscgen
+ghostscript
+poppler-utils
+dvisvgm
+pandoc
+curl
+ca-certificates
+# setcap: lets the venv python open raw sockets (code/snippets) without root
+libcap2-bin
+
+# TeX Live, split by what tex/common/style/style.tex actually loads (mapped with
+# `dpkg -S $(kpsewhich <pkg>.sty)` on a texlive-full host):
+#   latex-base: babel, hyperref, geometry, graphicx, fancyhdr, amsmath, ...
+#   latex-recommended: xcolor, microtype, parskip, booktabs, listings
+#   latex-extra: minted, imakeidx, enumitem, wrapfig, schedule, titletoc,
+#                circledsteps/circledtext, todonotes, standalone, ...
+#   pictures: tikz, pgf-pie, qrcode
+#   science: bytefield
+#   fonts-recommended: avant (psnfss)
+#   fonts-extra: fourier (math font) -- large, but the only Debian source of it
+#   lang-spanish / lang-greek: babel spanish, LGR font encoding
+#   font-utils: epstopdf (needs ghostscript above)
+#   plain-generic: tracklang (pulled in by pdfcomment -> datetime2)
+texlive-latex-base
+texlive-latex-recommended
+texlive-latex-extra
+texlive-pictures
+texlive-science
+texlive-fonts-recommended
+texlive-fonts-extra
+texlive-lang-spanish
+texlive-lang-greek
+texlive-font-utils
+texlive-plain-generic
+
+python3
+python3-venv

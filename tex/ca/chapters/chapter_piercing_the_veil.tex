@@ -1,0 +1,284 @@
+\ \\[-10cm]
+Com intercanvien dades els ordinadors? Com podem localitzar altres màquines situades arreu del món i comunicar-nos-hi?
+Aquesta part de la guia explora alguns dels principals reptes que hem d'afrontar si volem interconnectar dispositius a escala planetària, i més enllà.
+
+\chapterimage{numbers_background.pdf}
+
+\chapter{Travessant el vel analògic-digital}\label{sec:piercing}
+
+Enviem i rebem \conceptRef{message}{missatges} constantment en els nostres àmbits personal, professional i polític.
+La disponibilitat gairebé instantània de pràcticament qualsevol \conceptRef{information}{informació} desitjada és una característica clau de l'era actual.
+% 
+Quan fem servir un ordinador de qualsevol mena per compartir o obtenir coneixement, primer cal transformar-lo en \conceptRef{data}{dades} que puguin entendre tant els humans com els ordinadors.
+Això es pot imaginar com una seqüència de passos:
+\begin{center}
+\includegraphics[width=\linewidth]{knowledge_info_data_transmission.pdf}
+\end{center}
+
+Els ordinadors treballen amb \conceptRef{data}{dades} digitals i les transmeten, \ie, seqüències \conceptRef{binary}{binàries}
+de \zero\ i \one\ com a \conceptRef{symbol}{símbols}. 
+Tanmateix, la \conceptRef{transmission}{transmissió} de dades té lloc en el món real, on \zero\ i \one\ són idees i no objectes tangibles.
+
+Aquest capítol estudia com aquests símbols digitals \textit{travessen el vel}  
+del món digital al món analògic (físic) en la transmissió, i de tornada de l'analògic al digital en la recepció.
+
+
+\section{Informació $\leftrightarrow$ Dades $\leftrightarrow$ Missatges binaris}\label{sec:piercing:information_binary}
+
+El coneixement, la \conceptRef{information}{informació} i les \conceptRef{data}{dades} no són el mateix, 
+tot i que sovint s'utilitzen indistintament. En contextos tècnics, cal utilitzar-los i interpretar-los amb precisió.
+% 
+\begin{exercise}
+Suposem que som a l'aire lliure i volem explicar al nostre amic quin temps fa.
+% 
+Tenim coneixement de tot el que està relacionat amb el temps, perquè som allà.
+Per a la nostra comunicació, ens hem de centrar en una part d'aquest coneixement i decidir quina informació enviem.
+Per exemple, podríem voler comunicar la temperatura i dir alguna cosa com ``la temperatura és d'uns 22ºC''.
+% 
+Hi ha moltes maneres d'emmagatzemar aquesta informació com a dades dins d'un ordinador. El més probable és que representem el nombre 
+$22$ com a part d'aquestes dades. Com definiries coneixement, informació i dades?
+\end{exercise}
+
+
+Tot i que hi ha molts tipus de dades, \ie\ numèriques, textuals, visuals, científiques, \etc, al final totes
+es representen amb nombres. Per exemple, es podria fer servir la \conceptRef{encoding}{codificació} \concept{ASCII} per representar la cadena ``Bobby''
+com la seqüència següent: $66, 111, 98, 98, 121$.
+
+Dins d'un ordinador, aquests nombres s'emmagatzemen en registres binaris, \eg\ a la CPU i a la RAM. 
+Tanmateix, hi ha diverses maneres de representar dades numèriques en format binari. Més concretament,
+hem de parar molta atenció, com a mínim, als aspectes següents sempre que llegim o escrivim dades:
+\begin{itemize}
+\item \conceptRef{integer}{enter} o amb decimals? 
+\item \conceptRef{bitdepth}{profunditat de bits}? (\eg, 8 bits per nombre)
+\item \conceptRef{sign}{amb signe} o \conceptRef{sign}{sense signe}?
+\item Per a nombres de diversos bytes: \concept{big endian} o \concept{little endian}?
+\item Per a nombres amb decimals: \conceptRef{floating-point}{coma flotant} o \conceptRef{fixed-point}{coma fixa}?
+\end{itemize}
+% 
+\begin{exercise}
+Explica \textbf{com completar la segona fila a partir de la primera} (i viceversa),
+i quines suposicions has de fer en cada cas.
+% 
+\begin{center}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Nombre} 
+& $7$ 
+& $2$
+& $-3$
+& $0.75$
+& $260$
+\\
+\midrule
+\textbf{Binari} 
+& \zero\zero\one\one\one
+& \zero\zero\zero\zero\zero\zero\one\zero
+& \one\one\zero\one
+& \one\one\zero\zero
+& \zero\zero\zero\zero\ \zero\one\zero\zero\ \zero\zero\zero\zero\ \zero\zero\zero\one\
+\\
+\bottomrule
+\end{tabular}
+\end{center}
+% 
+I què passa amb à $\leftrightarrow$ \one\one\zero\zero\ \zero\zero\one\one\ \one\zero\one\zero\ \zero\zero\zero\zero?
+\end{exercise}
+
+
+De vegades hem d'inspeccionar el contingut d'un registre binari 
+(\eg, per depurar o amb altres finalitats d'anàlisi) o establir-ne el contingut manualment.
+% 
+Per als humans, és incòmode i \textit{molt} propens a errors 
+manipular cadenes binàries de més d'uns quants bits. 
+Quan hem d'inspeccionar o modificar el contingut d'un registre binari
+(\eg, per depurar), sovint fem servir la base $16$, \ie, la notació \concept{hexadecimal}.
+
+
+En hexadecimal, hi ha exactament $16 = 2^4$ dígits diferents (de \otherBase{0} a \otherBase{9}, de \otherBase{a} a \otherBase{f})
+amb valors decimals de $0$ a $15$, cadascun dels quals representa exactament $4$ bits.
+Quan escrivim valors hexadecimals per a un ordinador, \ie, en codi font, els valors hexadecimals
+normalment van precedits de \otherBase{0x}, \eg, \otherBase{0x58a5b0}. 
+De manera semblant, les expressions binàries van precedides de \otherBase{0b}, \eg, \otherBase{0b0011}.
+
+\begin{remark}
+\begin{minipage}{\linewidth}
+\begin{itemize}[leftmargin=0.5cm]
+\item Els espais i fins i tot els salts de línia entre dígits no tenen cap significat; només s'utilitzen 
+per facilitar la inspecció visual.
+% 
+\item En alguns textos, quan en un context hi ha diverses bases possibles, s'indiquen
+com a subíndexs, com a \otherBase{58a5b0$_\textrm{16}$} i \otherBase{0011$_\textrm{2}$}.
+\end{itemize}
+\end{minipage}
+\end{remark}
+
+\begin{exercise}
+Considera el missatge següent, format per una \conceptRef{concatenation}{concatenació} 
+d'enters sense signe de 3 bits: \otherBase{a4 3f 20}.
+\begin{itemize}
+\item Quants bits i quants bytes fa?
+\item\textbf{Quins són els cinc primers enters} continguts en el missatge?
+\end{itemize}
+\end{exercise}
+
+La majoria de vegades, deixarem que el nostre codi s'encarregui de manipular les dades. Per fer-ho, necessitem
+operacions \conceptRef{bitwise}{a nivell de bits} i de \conceptRef{boolean logic}{lògica booleana} com les següents
+
+\begin{center}
+\begin{tabular}{rcccccc}
+\toprule
+\textbf{Operació} & 
+\conceptRef{bitwise}{AND (bits)} &
+\conceptRef{boolean logic}{AND lògica} &
+\conceptRef{bitwise}{OR (bits)} &
+\conceptRef{boolean logic}{OR lògica} &
+\conceptRef{bitwise}{Despl. esq.} &  
+\conceptRef{bitwise}{Despl. dre.}
+\\
+\textbf{Python}    &
+\inlineCode{&}       & 
+\inlineCode{and}    & 
+\inlineCode{|}       & 
+\inlineCode{or}    & 
+\inlineCode{<<} &  
+\inlineCode{>>} 
+\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Altres eines útils de Python són les funcions \texttt{bin()} i \texttt{hex()}, que converteixen un enter 
+en la seva representació binària i hexadecimal, respectivament, i \texttt{int()}, que pot analitzar
+una cadena que descriu un nombre i retornar aquest nombre. També podem controlar el format amb què mostrem els nombres,
+\eg, \inlineCode{print(f'{n:08b}')} mostraria el valor de la variable \inlineCode{n} en forma binària, 
+fent servir com a mínim 8 posicions i omplint amb zeros les posicions buides de l'esquerra
+(més informació a la \href{https://docs.python.org/3/reference/lexical_analysis.html#f-strings}{documentació de Python}).
+
+\begin{exercise}
+Considera el codi que es mostra a continuació. Els nombres que s'imprimeixen en executar-lo tenen una importància especial en xarxes i en informàtica.
+Què tenen en comú? (Pista: potser et convé modificar el codi perquè en mostri les representacions binàries).
+
+\begin{center}
+\showCode{snippets/bitwisemanipulation.py}
+\end{center}
+\label{ex:bitwisemanipulation}
+\end{exercise}
+\begin{remark}
+Per a llistats de codi com l'anterior, pots descarregar el codi font i la seva sortida.
+\end{remark}
+
+
+\section{Analògic $\leftrightarrow$ Digital}\label{sec:piercing:analog_digital}
+
+Un cop decidim quins bits volem transmetre, hem de trobar una manera de fer que aquests bits arribin a una altra màquina a distància.
+Primer, hem de decidir quin \conceptRef{medium}{mitjà} fem servir i quines propietats físiques podem controlar i monitorar.
+Entre les opcions més habituals hi ha fer servir el voltatge en \conceptRef{copper wire}{cables de coure}, enviar llum per \conceptRef{optical fiber}{fibra òptica} i manipular el 
+\conceptRef{field}{camp} electromagnètic mitjançant \conceptRef{antenna}{antenes}.
+
+\begin{exercise} \textbf{Reflexiona}:\\[-0.5cm]
+\begin{itemize}
+\item Podem fer un cable de coure tan llarg com vulguem?
+\item Quin mitjà fan servir les connexions Wi-Fi? 
+\item Necessitem fibres òptiques per fer comunicacions basades en la llum?
+\end{itemize}
+\end{exercise}
+
+
+Si optem per cables de coure, en podem posar diversos en \conceptRef{parallel}{paral·lel} i enviar més dades a la mateixa velocitat de \conceptRef{clock}{rellotge}.
+Això, però, té el preu d'una complexitat i un cost més grans que els dissenys en \conceptRef{serial}{sèrie}. 
+Es poden produir interferències de voltatge a les \conceptRef{data line}{línies de dades} per diversos motius, 
+incloent-hi fenòmens físics com la inducció electromagnètica al cable. 
+Tot i així, els cables que compleixen els estàndards moderns de transmissió de dades (\eg, IEEE 802.3)
+sovint fan servir \conceptRef{twisted pair}{parells trenats de cables} i apantallament,
+entre altres estratègies, per garantir errors de bit per sota d'$1$~de~cada~$10^{12}$ bits.
+
+\begin{exercise}\label{ex:piercing:copper_connectors}
+\textbf{Observa i identifica} els connectors de cable següents:\\[-0.5cm]
+\begin{center}
+\includegraphics[height=3cm]{hdmi_connector.jpg}
+\includegraphics[height=3cm]{coaxial_connector.jpg}
+\includegraphics[height=3cm]{usbc_connector.jpg}
+\includegraphics[height=3cm]{rj11_connector.jpg}
+\end{center}
+\end{exercise}
+
+\begin{wrapfigure}{L}{0.22\linewidth}
+\includegraphics[width=\linewidth]{iceberg.jpg}
+\end{wrapfigure}
+Alguna vegada t'has capbussat en una piscina, has mirat cap amunt i l'aigua semblava un mirall?
+Els cables de fibra òptica funcionen gràcies a aquest fenomen, anomenat \conceptRef{refraction}{refracció}.
+La llum que entra a la fibra per un extrem 
+s'hi queda a dins fins que surt per l'altre extrem. El recobriment de la fibra és important
+per preservar-ne la integritat, però aquest recobriment no participa en el ``rebot'' de 
+la llum mentre avança per la fibra.
+
+En una fibra òptica \conceptRef{single-mode optical fiber}{monomode}, el sensor de l'extrem receptor 
+detecta la presència o l'absència d'un únic rang de longituds d'ona. Aquests cables són relativament prims i barats,
+però transporten un sol senyal.
+% 
+Una altra opció és transmetre diverses longituds d'ona (\eg, fent servir diverses fonts làser) alhora, 
+per la mateixa fibra. A l'extrem receptor, es fa servir un prisma per tornar a dividir el feix de llum en els seus
+components \conceptRef{monochrome}{monocromàtics}, que es detecten per separat. 
+D'aquesta manera, la \conceptRef{multimodal}{fibra òptica multimode} permet \conceptRef{multiplex}{multiplexar}
+diversos senyals, cosa que augmenta molt la taxa de transmissió efectiva.
+
+
+\begin{exercise}\label{ex:piercing:laser_refraction}
+Quan un feix de llum entra en una fibra òptica, ho fa amb un cert angle d'incidència.
+Aquest angle afecta el temps que triga a arribar a l'altre extrem. Si projectem un con de llum,
+la llum entra a la fibra amb diversos angles d'incidència. 
+Què passa a l'altre extrem si \textbf{encenem i apaguem aquest con de llum} molt ràpidament?
+És rellevant si fem servir feixos monomode o multimode?
+% 
+\begin{center}
+\includegraphics[height=2.5cm]{laser_refraction.jpg}
+\includegraphics[height=2.5cm]{optical_connector.jpg}
+\end{center}
+\end{exercise}
+\newpage
+
+\begin{wrapfigure}{R}{0.3\linewidth}
+\begin{center}
+\includegraphics[width=\linewidth]{dipole.png}
+\end{center}
+\end{wrapfigure}
+
+Tot i que hi ha moltes classes d'\conceptRef{antenna}{antenes}, la seva finalitat principal 
+és detectar camps electromagnètics i/o crear-ne. L'equació de Maxwell-Faraday ens diu
+que els \textit{canvis} en el \conceptRef{field (physics)}{camp} elèctric $\vec{E}$ creen un \conceptRef{field (physics)}{camp} magnètic perpendicular $\vec{B}$,
+i a l'inrevés.
+
+Una antena de \conceptRef{dipole}{dipol} com la de la dreta aprofita aquest concepte aplicant un voltatge altern $V$,
+que genera ones electromagnètiques que es propaguen cap a fora de l'eix del dipol. 
+
+\begin{remark}
+Quan emetem una certa energia $E$ des d'un punt en totes direccions, aquesta energia es distribueix al voltant d'una esfera creixent.
+Com que l'àrea d'una esfera de radi $r$ és $4 \pi r^2$, la quantitat d'energia que arriba a un punt a distància $r$
+serà de l'\conceptRef{ballpark}{ordre de magnitud} de $E / r^2$.
+
+Això de vegades s'anomena llei de l'invers del quadrat, i és
+el motiu pel qual els corrents induïts a l'antena del receptor solen estar entre els nanovolts 
+($10^{-9}$~V) i els picovolts ($10^{-12}$~V). Sorprenentment, això és suficient perquè els detectors moderns llegeixin el senyal de dades.
+\end{remark}
+
+
+\begin{wrapfigure}{R}{0.2\linewidth}
+ \includegraphics[width=\linewidth]{modulation.jpg}
+\end{wrapfigure}
+
+
+Independentment del mètode triat perquè les dades viatgin, cal travessar igualment el vel entre els senyals analògics i les dades 
+digitals. Una manera de fer-ho és la \conceptRef{modulation}{modulació}: es genera un senyal sinusoïdal de base anomenat \conceptRef{carrier}{portadora},
+i les dades es codifiquen modificant aquesta portadora. Per exemple, es pot canviar l'\conceptRef{amplitude}{amplitud} de la portadora (ASK),
+la seva \conceptRef{frequency}{freqüència} (FSK), o fins i tot l'amplitud i la \conceptRef{phase}{fase} alhora (QAM). 
+
+\begin{exercise}
+La figura anterior mostra un exemple de modulació d'amplitud i un de modulació de freqüència. 
+Quin és quin? Per a cada cas: \textbf{aquesta modulació transmet un senyal analògic o digital}?
+\end{exercise}
+
+
+\begin{exercise}
+Quina és la \textbf{diferència entre amplada de banda i velocitat de transmissió}? 
+Per què creus que s'utilitzen indistintament en contextos no tècnics?
+\end{exercise}

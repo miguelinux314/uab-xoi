@@ -1,0 +1,82 @@
+\documentclass[11pt,fleqn]{book} % Default font size and left-justified equations
+
+\ifdefined\printMode
+\else
+\newcommand {\printMode} {1} % 0: not print mode. 1: yes print mode.
+\fi
+
+% Language selection: main_en.tex / main_es.tex / main_ca.tex define \docLang, which is
+% also the folder holding that edition's strings.tex, chapters/ and missions/.
+% Compiling main.tex directly gives the English edition.
+\ifdefined\docLang
+\else
+\def\docLang{en}
+\fi
+
+\input{\docLang/strings.tex}
+\input{common/alias.tex}
+\input{common/style/style.tex}
+
+\begin{document}
+
+\input{common/chapters/cover.tex}
+\input{\docLang/chapters/copyright.tex}
+\input{common/chapters/table_of_contents.tex}
+
+\input{\docLang/chapters/chapter_the_course.tex}
+
+\part{\strPartNetworks}
+\input{\docLang/chapters/chapter_piercing_the_veil.tex}
+\input{\docLang/chapters/chapter_where_are_you.tex}
+\input{\docLang/chapters/chapter_packets.tex}
+\input{\docLang/chapters/chapter_stack_layers.tex}
+
+\part{\strPartInternet}
+\input{\docLang/chapters/chapter_tcpip.tex}
+\input{\docLang/chapters/chapter_layer2.tex}
+\input{\docLang/chapters/chapter_layer3.tex}
+\input{\docLang/chapters/chapter_layer4.tex}
+\input{\docLang/chapters/chapter_layer7.tex}
+
+\part{\strPartMissions}
+\input{\docLang/missions/mission_index.tex}
+\input{\docLang/missions/mission1.tex}
+\input{\docLang/missions/mission2.tex}
+\input{\docLang/missions/mission3.tex}
+\input{\docLang/missions/mission4.tex}
+\input{\docLang/missions/mission5.tex}
+\input{\docLang/missions/mission6.tex}
+\input{\docLang/missions/mission7.tex}
+\input{\docLang/missions/mission8.tex}
+\input{\docLang/missions/mission9.tex}
+
+\input{common/chapters/indices.tex}
+
+% PEnding:
+% TODO: add  somewhere
+%  - history timeline
+% - first draft: 8-bit network addresses (a bit off!)
+%  - a section where stuff like NAT, firewall, IDS, etc. can be introduced?
+% TODO: timeline points
+% \begin{remark}
+% Many interesting historical reviews of the creation of the Internet are available online,
+% \eg, \href{https://www.youtube.com/watch?v=oIezCGjxV3A}{\underline{this video}}.
+% Some events of particular importance are:
+% \begin{itemize}
+% \item[\textbf{1962}: ] Packet Switching
+% \item[\textbf{1969}: ] ARPANET
+% \item[\textbf{1974}: ] TCP/IP
+% \item[\textbf{1986}: ] IETF
+% Pat Thaler: chairwoman 802.3 10BASE-T (twisted pair) (https://www.youtube.com/watch?v=f8PP5IHsL8Y
+% \item[\textbf{1991}: ] WWW
+% \item[\textbf{1993}: ] CIDR addressing
+% \item[\textbf{1998}: ] Google
+% % - How about 2016 IANA?
+% \end{itemize}
+% \end{remark}
+
+\begin{comment}
+
+\end{comment}
+
+\end{document}

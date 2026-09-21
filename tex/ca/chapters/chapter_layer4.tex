@@ -1,0 +1,614 @@
+\chapterimage{tubes.jpg}
+
+\chapter{Capa 4: Transport}\label{sec:layer4}
+
+\begin{minipage}{0.4\linewidth}
+\begin{center}
+\begin{bytefield}{16}
+\bitbox{16}{Layer 7: Application} \\
+\bitbox{16}{\color{color1} Layer 4: Transport} \\
+\bitbox{16}{Layer 3: Internet} \\
+\bitbox{16}{Layer 2: Network (LAN)} \\
+\bitbox{16}{Layer 1: Physical} \\
+\end{bytefield}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.6\linewidth}
+\begin{center}
+\includegraphics[width=\linewidth]{network_layer4.pdf}
+\end{center}
+\end{minipage}
+
+\vspace{-0.75cm}
+
+\subsection*{Capacitats}
+
+La capa de \conceptRef{transport}{Transport} comunica \conceptRef{process}{processos} (programes)
+que s'executen en \conceptRef{host}{hosts} (equips connectats a la xarxa) potencialment diferents. Aquests processos s'identifiquen
+mitjançant adreces de capa~4 anomenades \conceptRef{port}{ports}.
+
+La capa de transport ofereix dues maneres diferents de comunicar-se: sense \conceptRef{connection}{connexions} (\concept{UDP})
+i amb connexions (\concept{TCP}).
+
+\concept{UDP} no estableix cap \conceptRef{connection}{connexió} amb el host de destinació perquè la prioritat és
+enviar unes dades de \concept{payload} (càrrega útil) tan ràpid com sigui possible.
+En canvi, UDP envia paquets anomenats \conceptRef{user datagram}{datagrames d'usuari} directament a la destinació,
+sense esperar cap mena de confirmació de recepció per part de la capa UDP de la destinació.
+Les capçaleres UDP són simples i petites, i també mantenen petita la \conceptRef{overhead}{sobrecàrrega} d'aquest protocol.
+
+\concept{TCP} estableix una \conceptRef{connection}{connexió} abans d'enviar cap dada de \concept{payload}
+per assegurar-se que tots dos extrems estan preparats. A més, TCP espera la \conceptRef{ACK}{confirmació} (acusament de recepció)
+de cada byte de dades de payload. Si no n'hi ha, les dades es \conceptRef{retransmission}{retransmeten}
+després d'un període d'espera, cosa que dona \conceptRef{reliability}{fiabilitat} a TCP. TCP també fa servir una manera molt enginyosa
+de limitar la velocitat d'intercanvi de dades (\conceptRef{flow control}{control de flux}) perquè ordinadors ràpids i lents puguin coexistir
+i comunicar-se amb TCP/IP. Per oferir totes aquestes funcionalitats, TCP és un protocol més complex que UDP,
+fa servir capçaleres més grans i introdueix una \conceptRef{overhead}{sobrecàrrega} més gran.
+
+\begin{exercise}
+Quines de les aplicacions següents creus que fan servir \concept{UDP} i quines \concept{TCP}?
+\begin{itemize}
+\item Jocs multijugador
+\item La WWW
+\item BitTorrent
+\item Reproducció de vídeo en temps real (\textit{streaming})
+\end{itemize}
+\end{exercise}
+
+\subsection*{Protocols}
+
+\begin{center}
+\includegraphics[width=0.95\linewidth]{protocols_layer4.pdf}
+\end{center}
+
+La capa de transport és a la part superior de la pila que proporciona el sistema operatiu.
+Pràcticament totes les aplicacions, i per tant els seus protocols de comunicació,
+fan servir \concept{TCP}, \concept{UDP} (o fins i tot tots dos) per intercanviar dades per la xarxa.
+A la figura anterior es mostren alguns protocols importants que fan servir TCP o UDP.
+
+Tant TCP com UDP encapsulen les seves PDU en \conceptRef{datagram}{datagrames} \concept{IP}.
+Generalment es fa servir \concept{IPv4}, però \concept{IPv6} també és una possibilitat quan està disponible.
+
+\begin{remark}
+Ni TCP ni UDP canvien de cap manera quan es fa servir IPv6 en lloc d'IPv4, \ie,
+no hi ha cap protocol TCPv6. En canvi, \inlineCode{tcp6} i altres expressions que inclouen
+TCP i 6 es refereixen a TCP (normal) sobre IPv6.
+\end{remark}
+
+
+\section{Adreçament de la capa 4}\label{sec:layer4:addressing}
+
+Les ``adreces'' de TCP i UDP s'anomenen \conceptRef{port}{ports} i són enters sense signe de $16$ bits.
+Per als humans, els ports s'expressen principalment de dues maneres:
+\begin{itemize}
+\item Com a número, \eg, 22, 80 o 443.
+\item Com el nom del servei que habitualment fa servir aquest port, \eg, \concept{sshd}, \conceptRef{HTTP}{http}, \conceptRef{HTTPs}{https}.
+\end{itemize}
+
+Quan es rep una PDU de capa~4, el sistema operatiu fa servir el port de la seva capçalera per saber quin dels
+processos en execució ha de rebre les dades.
+Al seu torn, els processos s'han de \conceptRef{bind}{vincular} a un port TCP o a un port TCP (o a tots dos)
+per indicar al sistema operatiu de quin port esperen rebre dades.
+
+Només un procés alhora es pot vincular a un port per enviar dades, però els ports TCP i UDP
+es tracten de manera independent:
+\begin{itemize}
+ \item Si un procés està vinculat al port \otherBase{TCP/100}, no rebrà el trànsit UDP adreçat al port 100.
+ \item Si un procés està vinculat al port \otherBase{TCP/100}, un altre procés (o fins i tot el mateix) es pot
+   vincular a \otherBase{UDP/100}.  
+\end{itemize}
+
+El port número \otherBase{0} està reservat, de manera que el rang de ports utilitzable és \otherBase{1}--\otherBase{65535}.
+Els ports \otherBase{1}--\otherBase{1023} només es vinculen a
+processos amb privilegis (\eg, un \conceptRef{server}{servidor} http), mentre que les aplicacions client (\eg, un \concept{client} http)
+només es poden vincular als ports \otherBase{1024}--\otherBase{65535} segons la seva disponibilitat.
+
+\begin{exercise}
+Quants servidors diferents es poden executar en una màquina per oferir alguna funcionalitat a altres hosts de la xarxa?
+\end{exercise}
+
+
+\section{UDP -- User Datagram Protocol}\label{sec:layer4:udp}
+\subsection{Format dels paquets}
+
+Tots els \conceptRef{user datagram}{datagrames d'usuari} que fa servir UDP tenen una capçalera de $8$ bytes i
+l'estructura següent:
+
+\begin{center}
+\begin{bytefield}{32}
+\bitheader{0-31}\\
+\bitbox{16}{Source UDP Port} & \bitbox{16}{Destination UDP Port} \\
+\bitbox{16}{Length (header and data)} & \bitbox{16}{Checksum} \\
+\bitbox[tlr]{32}[bitheight=3em]{Payload data\\{\scriptsize(variable length, byte aligned)}} \\
+\bitbox[lbr]{24}{\hspace{3cm}\raisebox{0.25cm}{$\vdots$}} & \bitbox[lt]{8}{} \\
+\end{bytefield}
+\end{center}
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item Quina és la mida màxima de payload que es pot enviar en un únic \conceptRef{user datagram}{datagrama d'usuari}?
+\item És desitjable la \conceptRef{fragmentation}{fragmentació} quan es fa servir UDP?
+\end{itemize}
+\end{exercise}
+
+\subsection{Funcionament}
+
+\begin{center}
+\includegraphics[width=0.5\linewidth]{udp_socket.pdf}
+\end{center}
+
+Els clients UDP primer creen un \concept{socket} (punt de connexió) i després envien directament els datagrames d'usuari amb \inlineCode{sendto}.
+No cal establir ni tancar cap connexió.
+
+Els servidors UDP primer s'han de \conceptRef{bind}{vincular} al port que volen exposar als clients, i després
+reben cada datagrama en una crida individual a la funció de lectura (\inlineCode{recvfrom}).
+
+La funció bind és purament interna al servidor: implica canvis en la seva configuració
+(la taula que associa números de port i \conceptRef{process}{processos}), però no genera cap missatge.
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item Pot funcionar un servidor UDP sense enviar cap dada per la xarxa?
+\item Pot un client rebre trànsit UDP sense vincular-se a un port?
+\item Poden dos hosts diferents vincular-se al mateix port i tot i així intercanviar \conceptRef{user datagram}{datagrames d'usuari}?
+\end{itemize}
+\end{exercise}
+
+
+\begin{exercise}
+El fragment de codi següent mostra l'esquelet bàsic d'un servidor UDP:
+
+\begin{center}
+\showCodeNoOutput{snippets/udpserver.py}
+\end{center}
+
+\begin{itemize}
+\item Executa el servidor i, en un altre terminal, executa \inlineCode{ncat -u localhost 4567} i escriu una mica de text per provar
+  el servidor.
+\item Implementa l'extrem client de la comunicació i prova'l amb el servidor.
+\item Quina informació important obtens si canvies \inlineCode{s.recvfrom} per \inlineCode{s.recvmsg}?
+\end{itemize}
+
+\begin{remark}
+Aquest codi fa servir \conceptRef{socket}{sockets} UDP normals, de manera que no necessita permisos d'administrador
+ni la capacitat \inlineCode{CAP_NET_RAW}, com passava a l'exercici~\ref{ex:layer2:echo},
+que en canvi requeria accés a sockets de capa~2 (\eg, Ethernet).
+\end{remark}
+\end{exercise}
+
+\section{TCP -- Transport Control Protocol}\label{sec:layer4:tcp}
+\subsection{Format dels paquets}
+
+Les PDU de \concept{TCP} s'anomenen \conceptRef{segment}{segments}.
+La seva \conceptRef{header}{capçalera} fa com a mínim $20$ bytes, però pot ser més llarga quan es fan servir certes opcions:
+
+\begin{center}
+\begin{bytefield}[bitheight=3em,bitwidth=1.1em]{32}
+\bitheader{0-31}\\
+\begin{rightwordgroup}{Mandatory\\header part\\{\scriptsize($20$ bytes)}}
+\bitbox{16}{Source TCP port} & \bitbox{16}{Destination TCP port} \\
+\bitbox{32}{Sequence (seq) number} \\
+\bitbox{32}{Acknowledgement (ack) number} \\
+\bitheader{0-31}\\
+\bitbox{4}{Header\\length/$4$} 
+& \bitbox{4}{\otherBase{0}} 
+& \bitbox{1}{\rotatebox{90}{\small CWR}} 
+& \bitbox{1}{\rotatebox{90}{\small ECE}} 
+& \bitbox{1}{\rotatebox{90}{\small URG}} 
+& \bitbox{1}{\rotatebox{90}{\small ACK}} 
+& \bitbox{1}{\rotatebox{90}{\small PSH}} 
+& \bitbox{1}{\rotatebox{90}{\small RST}} 
+& \bitbox{1}{\rotatebox{90}{\small SYN}} 
+& \bitbox{1}{\rotatebox{90}{\small FIN}} 
+& \bitbox{16}{Window size\\{\small (bytes)}}\\
+\bitbox{16}{Checksum} & \bitbox{16}{Urgent pointer}
+\end{rightwordgroup} \\
+\begin{rightwordgroup}[curlyshrinkage=10pt]{Optional\\header part\\{\scriptsize($4$ byte words)}}
+\bitbox[tlr]{32}{Options\\{\scriptsize(variable length, optional)}} \\
+\bitbox[lbr]{24}{\hspace{3cm}\raisebox{0.25cm}{$\vdots$}} & \bitbox{8}{Padding to\\$32$ bits}
+\end{rightwordgroup} \\
+\begin{rightwordgroup}[curlyshrinkage=10pt]{Payload}
+\bitbox[tlr]{32}[bitheight=3em]{Payload data\\{\scriptsize(variable length, byte aligned)}} \\
+\bitbox[lbr]{24}{\hspace{3cm}\raisebox{0.25cm}{$\vdots$}} & \bitbox[lt]{8}{}
+\end{rightwordgroup}
+\end{bytefield}
+\end{center}
+
+Les capçaleres TCP contenen vuit flags (indicadors) d'$1$ bit. D'aquests, quatre es fan servir per a funcionalitats bàsiques de TCP que es tracten a les
+seccions següents. En l'ordre en què apareixen:
+\begin{itemize}
+\item ACK: flag de \conceptRef{ACK}{confirmació} -- ``el \textit{meu} número ack és vàlid''
+\item RST: flag de \conceptRef{RST}{reinici} -- ``\textit{avorta} la connexió''
+\item SYN: flag de \conceptRef{SYN}{sincronització} -- ``obro el \textit{meu} extrem de la connexió''
+\item FIN: flag de \conceptRef{FIN}{finalització} -- ``no enviaré més dades de \textit{payload}''
+\end{itemize}
+
+\begin{exercise}
+Com pot saber l'extrem receptor la mida de les opcions i de les dades de payload?
+\end{exercise}
+
+\subsection{Funcionament}
+
+TCP és un protocol \conceptRef{stateful}{amb estat}. Els \conceptRef{socket}{sockets} TCP passen per
+diversos estats durant la comunicació. Cada extrem de la comunicació té el seu propi
+socket amb el seu propi estat.
+% 
+A grans trets, les connexions es poden classificar com a ``Connectant'',
+``Connexió establerta'' o ``Tancant la connexió''.
+% 
+Les dades de payload només s'han d'intercanviar mentre s'està a ``Connexió establerta''.
+
+\begin{center}
+ \includegraphics[width=0.75\linewidth]{tcp_socket.pdf}
+\end{center}
+
+Els sockets TCP poden estar en un d'$11$ estats. Aquests estats, juntament amb dos comptadors de $16$ bits
+(\conceptRef{acknowledgement number}{número de confirmació} i \conceptRef{sequence number}{número de seqüència}) permeten la \conceptRef{reliability}{fiabilitat} de la comunicació
+que s'espera de TCP. El significat d'aquests estats i de les seves transicions s'explica als
+capítols següents.
+
+\section{TCP: ``Connectant''}\label{sec:layer4:tcp_opening}
+
+\begin{center}
+\includegraphics{3_way_handshake.eps}
+\end{center}
+
+Quan es crea un \concept{socket}, comença a l'estat \texttt{CLOSED}.
+L'extrem que actua com a servidor comença a escoltar al \concept{port} configurat per al servei
+i passa a l'estat \texttt{LISTEN}. En aquest estat no s'intercanvia payload.
+
+Una connexió s'estableix mitjançant un \concept{3-way handshake} (negociació inicial) fent servir els
+flags de capçalera \texttt{SYN} i \texttt{ACK}.
+% 
+Gràcies a aquest handshake, cada extrem de la comunicació arriba a l'estat \texttt{ESTABLISHED} en un moment diferent.
+Un cop hi arriben, estan preparats per intercanviar dades de payload.
+
+\begin{remark}
+A TCP, tots dos extrems es comuniquen com a peers (parells) en igualtat de condicions: no importa qui ha iniciat la comunicació.
+Dit això, normalment un extrem fa una ``obertura activa'' (el client)
+i l'altre una ``obertura passiva'' (el servidor).
+\end{remark}
+
+Cada extrem de la comunicació porta el compte dels seus comptadors de
+\conceptRef{acknowledgement number}{número de confirmació} (\nack) i de \conceptRef{sequence number}{número de seqüència} (\nseq).
+% 
+El valor de \nseq\ el tria cada extrem per separat (i normalment a l'atzar):
+$A,\,B \in [0, 2^{32} - 1]$. 
+
+Durant l'obertura de la connexió, cada extrem envia exactament un segment amb el flag \concept{SYN} activat.
+Aquests segments intercanvien (sincronitzen) els seus números de seqüència inicials $A$ i $B$.
+
+Els segments amb el flag \concept{ACK} activat (tots excepte el primer segment del client)
+tenen el \nack\ fixat a ``el següent \nseq\ que s'espera de l'altre extrem''.
+Aquest \nack\ s'ha de llegir com ``he rebut correctament tots els segments corresponents fins a
+\nack, sense incloure'l''.
+
+
+Els números \nack\ i \nseq\ esperats durant el \concept{3-way handshake} són:
+\begin{center}
+\includegraphics[width=\linewidth]{3_way_handshake_counters.eps}
+\end{center}
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item Com pot saber un extrem que l'altre extrem ha rebut el \nseq\ que ha triat?
+\item Per què el tercer segment té el \nseq\ fixat a $A+1$ i no a $A$?
+\item Quin \nseq\ tindrà el següent segment que enviï el servidor?
+\end{itemize}
+\end{exercise}
+
+
+\section{TCP: ``Connexió establerta''}\label{sec:layer4:established}
+
+\subsection{Fluxos i números de seqüència}
+
+TCP ofereix la il·lusió d'un \conceptRef{stream}{flux} de dades: dos conductes de dades en les direccions d'entrada i de sortida
+(una connexió \conceptRef{full duplex}{full-duplex}). Aquests conductes són \conceptRef{reliability}{fiables},
+\ie, s'hi apliquen mecanismes per evitar la pèrdua, la duplicació i la reordenació de dades.
+
+\begin{center}
+\includegraphics[width=0.75\linewidth]{tcp_two_pipes.pdf}
+\end{center}
+
+A cada byte de dades de payload se li assigna un número de seqüència (\nseq) a la capçalera TCP.
+El primer byte de dades de
+payload té \nseq\ $=A+1$, on $A$ és el número de seqüència inicial establert durant l'obertura
+de la connexió (vegeu la secció~\ref{sec:layer4:tcp_opening}). A cada nou byte de dades se li assigna el
+\nseq\ següent (sense salts).
+
+\begin{center}
+\begin{tabular}{r |c|c|c|c|c|c|c|c|c|c| l}
+\textbf{\nseq} & $A$ & $A+1$ & $A+2$ & $A+3$ & $A+4$ & $A+5$ & $A+6$ & $A+7$ & $A+8$ & $A+9$ & $\cdots$ \\[0.2cm]
+\textbf{contingut}  & \raisebox{-0.5em}{\rotatebox{90}{SYN}} & 
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x48} \\ \inlineCode{'H'}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x69} \\ \inlineCode{'i'}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x21} \\ \inlineCode{'!'}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x0a} \\ \inlineCode{'\n'}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x48} \\ \inlineCode{'H'}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x6f} \\ \inlineCode{'o'}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x77} \\ \inlineCode{'w'}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x20} \\ \inlineCode{' '}}
+\end{minipage} &  
+\begin{minipage}{2.5em}
+\centering{\otherBase{0x61} \\ \inlineCode{'a'}}
+\end{minipage} &  
+$\cdots$ \\
+\end{tabular}
+\end{center}
+
+\begin{exercise}
+El \nseq\ que ve després de $2^{32} - 1$ és $0$. Per què?
+\end{exercise}
+
+A TCP, les dades de payload s'envien sempre juntament amb la \textit{primera} posició que ocupen dins del
+\conceptRef{stream}{flux} i la seva longitud.
+Per exemple, a partir de les dades que es mostren més amunt, es podrien generar dos segments:
+
+\begin{enumerate}
+\item \nseq\ $= A+1$, len $= 4$, dades $= $ \otherBase{0x48 69 21 0a} (\inlineCode{'Hi!\n'})
+\item \nseq\ $= A+5$, len $= 13$, dades $=$ \otherBase{0x48 6f 77 20 61 72 65 20 79 6f 75 3f 0a}
+\end{enumerate}
+
+\begin{exercise}
+Quin seria el \nseq\ del següent segment amb dades de payload noves?
+\end{exercise}
+
+L'extrem receptor d'un \concept{segment} TCP fa servir aquesta informació per recompondre
+una còpia de les dades en l'ordre correcte, fins i tot si els segments arriben desordenats.
+%
+Aquestes dades es passen a la \conceptRef{layer}{capa} superior
+a través d'un \conceptRef{buffer}{buffer} (memòria intermèdia), o directament si el flag TCP \concept{PSH} (push) està activat.
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_reassembly.pdf}
+\end{center}
+
+
+\subsection{Fiabilitat i retransmissió}
+TCP necessita que l'altre extrem \conceptRef{ACK}{confirmi} totes les dades transmeses.
+Cada vegada que es reben dades en un segment TCP, l'extrem receptor envia una confirmació
+encara que en aquell moment no hagi d'enviar cap dada.
+El número de confirmació (\nack) de la capçalera TCP serveix per indicar a l'altre extrem que s'han rebut totes les dades fins a
+\nack\ (sense incloure'l).
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_ack.eps}
+\end{center}
+
+\begin{remark}
+El camp \nseq\ d'una capçalera TCP fa referència als números de seqüència de l'emissor.
+El camp \nack\ fa referència als números de seqüència del receptor.
+\end{remark}
+
+Les dades de payload s'inclouen a les confirmacions TCP sempre que n'hi hagi de disponibles.
+Recíprocament, el valor més recent de \nack\ s'inclou sempre que s'envien dades,
+\ie, les confirmacions viatgen \conceptRef{piggyback}{a cavall} de les dades de payload.
+
+Per exemple, si l'Alice envia una petició de $25$ bytes, en Bob pot enviar la seva resposta de $10$ bytes
+i la confirmació de les dades de l'Alice en el mateix segment TCP. L'Alice ha de confirmar
+les dades d'en Bob i, si cal, aviat envia un segment sense dades. L'Alice tornarà a enviar
+dades més endavant quan calgui.
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_ack_piggyback.eps}
+\end{center}
+
+Un segment TCP que no es confirma després d'un cert període d'espera es
+\conceptRef{retransmission}{retransmet}. Aquest temps el decideix el sistema operatiu de cada extrem
+a partir del temps mitjà que es triga a enviar un segment i rebre'n una resposta
+(el temps d'anada i tornada, \concept{RTT}).
+
+Les confirmacions s'envien encara que siguin idèntiques a una d'anterior. Això és perquè
+les confirmacions també es poden perdre.
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_ack_retransmission.eps}
+\end{center}
+
+
+\begin{exercise}
+Suposant que tots dos extrems segueixen TCP correctament:
+\begin{itemize}
+ \item Proporciona un conjunt de valors vàlids per a (a) fins a (i).
+ \item Com canvia la història si (f) i (h) són idèntics/diferents?
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_ack_exercise.eps}
+\end{center}
+\end{exercise}
+
+\subsection{Límits de transmissió}
+
+Les dades per transmetre sovint es produeixen a ràfegues. Voldríem enviar-ne tantes
+com fos possible tan aviat com fos possible, però TCP hi imposa dos límits.
+
+El primer límit, la \conceptRef{MSS}{mida màxima de segment (MSS, Maximum Segment Size)}, és la quantitat màxima de dades de payload
+per segment permesa en una connexió TCP.
+
+\begin{center}
+\begin{bytefield}[bitheight=3em]{45}
+\bitbox{5}{Ethernet header} & 
+\bitbox{5}{IP header} & 
+\bitbox{5}{TCP header} & 
+\bitbox{20}{TCP Payload data}\\[0.25cm]
+
+\bitbox[]{5 }[bitheight=1.5em]{} & 
+\bitbox[]{5 }[bitheight=1.5em]{} & 
+\bitbox[]{5 }[bitheight=1.5em]{} & 
+\bitbox[t]{20}[bitheight=1.5em]{MSS}\\
+
+\bitbox[]{5 }[bitheight=1.5em]{} & 
+\bitbox[t]{30}[bitheight=1.5em]{MTU}\\[-0.75cm]
+\end{bytefield}
+\end{center}
+
+La raó d'aquest límit és evitar la fragmentació per motius de rendiment,
+\eg, a causa de l'elevat cost en temps i memòria del reassemblatge.
+
+Per defecte, la MSS és de $536$~bytes a \concept{IPv4},
+però es pot negociar amb les opcions de la capçalera TCP durant la fase d'obertura de la connexió.
+A \concept{IPv6}, la MSS per defecte és de $1220$~bytes.
+
+\begin{exercise}
+Ethernet té una \concept{MTU} de $1500$~bytes. Suposant que els \conceptRef{datagram}{datagrames} només travessen
+2 xarxes Ethernet:
+% 
+\begin{itemize}
+\item Quina és la \concept{MSS} més gran que no pot causar fragmentació, MSS$_\textrm{max}$?
+\item Quina és la \conceptRef{overhead}{sobrecàrrega} per a MSS$_\textrm{max}$ i per a MSS$_\textrm{max}$ + 1?
+\end{itemize}
+\end{exercise}
+
+El segon límit afecta la quantitat màxima de dades de payload que es poden enviar
+abans que l'altre extrem respongui amb un nou \conceptRef{acknowledgement number}{\nack}:
+l'anomenada mida de la \conceptRef{transmission window}{finestra de transmissió}.
+% 
+Un host no enviarà dades (per moltes que n'hi hagi de disponibles, o per urgents que siguin) fins que no arribin aquests \nack.
+% 
+Quan l'ordinador més lent respon, ho fa sempre amb el \nack\ més recent.
+
+\begin{exercise}
+Quines són les mides de MSS i de finestra de transmissió més probables en aquest exemple?
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_ack_window.eps}
+\end{center}
+\end{exercise}
+
+El valor de la finestra de transmissió s'anuncia amb tots i cadascun dels segments TCP:
+aquest valor és un camp obligatori de les capçaleres TCP.
+% 
+A mesura que la connexió avança, cada host pot canviar el valor que anuncia segons
+la seva pròpia càrrega i necessitats.
+
+\begin{remark}
+Cada host anuncia la seva pròpia mida de finestra.
+\end{remark}
+
+
+Aquest límit serveix per evitar que els ordinadors ràpids saturin els més lents (o sobrecarregats):
+sense el límit, l'ordinador més lent podria necessitar un buffer de mida infinitament creixent per emmagatzemar els
+segments encara no processats enviats per l'ordinador més ràpid. Amb aquest límit,
+en el punt de saturació, tots dos extrems envien segments al mateix ritme encara que triguin temps molt
+diferents a produir-los i processar-los.
+
+\section{TCP: ``Tancant la connexió''}\label{sec:layer4:tcp_closing}
+
+\subsection{FIN, \nseq\ i \nack}
+
+Un cop la connexió és \texttt{ESTABLISHED}, s'hi manté fins que un dels dos extrems decideix
+tancar-la.
+
+Un node anuncia que ha acabat d'enviar dades i que vol tancar la connexió enviant un
+segment amb el flag \concept{FIN} activat a la capçalera. L'altre extrem pot continuar
+enviant dades, i en aquest cas espera respostes amb valors de \nack\ actualitzats. L'altre extrem
+també pot optar per tancar la connexió tan bon punt veu el primer FIN.
+% 
+En tots dos casos,
+si s'envien $k$~bytes de dades i $A$
+és el \nseq\ inicial, s'espera un segment amb \nack\ $= A+k+2$.
+
+\begin{center}
+\begin{tabular}{r |c|c|c|c|c|}
+\textbf{\nseq}    & $A$ & $A+1$ & $\cdots$ & $A+k$ & $A+k+1$ \\[0.2cm]
+\textbf{contingut}  & \raisebox{-0.5em}{\rotatebox{90}{SYN}} & Dades $\cdots$ & $\cdots$ & $\cdots$ dades & \raisebox{-0.5em}{\rotatebox{90}{FIN}} \\[0.2cm]
+\end{tabular}
+\end{center}
+
+Fixa't que el flag FIN ocupa ell mateix un número de seqüència i s'ha de confirmar com el SYN
+(vegeu la secció~\ref{sec:layer4:tcp_opening}), \eg:
+
+\subsection{Tancament bilateral}
+
+Després que un extrem tanqui el seu costat de la connexió, l'altre pot continuar enviant dades indefinidament.
+Quan el segon costat acaba d'enviar dades, també envia un segment amb el flag \concept{FIN} activat.
+
+
+\begin{center}
+\includegraphics[width=0.9\linewidth]{tcp_close_more_data.eps}
+\end{center}
+
+Fixa't que, si l'altre extrem vol acabar la connexió en rebre un segment FIN,
+el procés de tancament es condensa en $3$ segments en lloc de $4$, \eg,
+
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_close_no_more_data.eps}
+\end{center}
+
+
+
+\begin{remark}
+Fixa't que:
+\begin{itemize}
+\item Cada extrem envia només un segment amb el flag FIN, excepte en cas de retransmissió.
+\item El segment amb el flag FIN pot contenir dades de payload. En aquest cas:
+  \begin{itemize}
+  \item Les dades de payload ocupen números de seqüència \textit{anteriors} al del FIN.
+  \item L'altre extrem ha de fer ACK tant de les dades de payload com del FIN.
+  \end{itemize}
+\end{itemize}
+\end{remark}
+
+
+\subsection{Tancament unilateral}
+
+De vegades, cal acabar les connexions i no hi ha prou temps o interès
+per passar pel procés de tancament bilateral de diversos passos.
+% 
+Aquest pot ser el cas, \eg, quan un \conceptRef{process}{procés} falla, quan es bloqueja un port TCP o UDP determinat,
+i en altres situacions d'error.
+
+En aquest escenari, el host que ha detectat la situació anòmala simplement envia un segment
+amb el flag \concept{RST} (reset) activat. Els extrems receptors no han de confirmar
+el RST; en canvi, els recursos de la connexió s'alliberen directament, \eg,
+
+\begin{center}
+\includegraphics[width=\linewidth]{tcp_close_reset.eps} 
+\end{center}
+
+Seguir el procediment de tancament bilateral o unilateral de la connexió ajuda a reduir els
+recursos de càlcul necessaris per mantenir les piles de xarxa de milers de milions de dispositius arreu del món.
+
+\begin{remark}
+Una connexió \textit{no es pot} reobrir després de tancar-se. El flag RST s'hauria pogut
+anomenar amb més precisió ``terminació forçada''.
+\end{remark}
+
+\begin{exercise}
+El diagrama següent mostra els $11$ estats de TCP i (gairebé)
+totes les transicions d'estat possibles.
+
+\begin{center}
+ \includegraphics[width=\linewidth]{tcp_state_transition.pdf}
+\end{center}
+
+\begin{itemize}
+\item Indica el cicle de vida del socket d'un servidor HTTP com un camí al graf.
+\item Indica el cicle de vida del socket del client HTTP corresponent com un camí al graf.
+\item L'estat \inlineCode{CLOSING} no es descriu a les seccions anteriors.
+  Quina creus que n'és la finalitat?
+\end{itemize}
+
+\begin{remark}
+ Aquest diagrama està adaptat de ``TCP/IP Illustrated, Volume 2: The Implementation,''
+de Gary R. Wright i W. Richard Stevens.
+\end{remark}
+
+
+\end{exercise}

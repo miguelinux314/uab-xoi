@@ -1,0 +1,48 @@
+\newpage
+\section{Missió 9: Vestíbul interplanetari}\label{sec:mission9}
+
+\begin{minipage}{0.2\linewidth}
+% \vspace{-0.5cm}
+\includegraphics[width=\linewidth]{hallway}
+\end{minipage}
+\hspace{0.03\linewidth}
+\begin{minipage}{0.80\linewidth}
+En part gràcies a la teva ajuda per configurar la xarxa i els serveis de la colònia,
+la teva colònia bull d'activitat cultural i científica. El vestíbul principal del port espacial interplanetari de la colònia rep cada dia milers de visitants de diferents planetes.
+Aquests visitants reclamen una connexió a Internet ràpida i senzilla des d'aquest vestíbul,
+i l'assemblea de la colònia t'ha designat per ajudar amb la configuració.
+\end{minipage}\ \\[0.2cm]
+
+\subsection*{Detalls de l'informe}
+
+L'assemblea t'ha demanat que configuris un servidor DHCP per als dispositius dels passatgers.
+El Sistema Autònom número 7847 t'està cedint amablement les $1024$ adreces més altes del seu bloc, que seran les que proporcionarà aquest servei.\\
+
+\noindent
+Cada $2$ hores arriba al port espacial una nau amb fins a $300$ persones (cadascuna amb un únic dispositiu, afamat d'Internet). Algunes marxen immediatament mentre que d'altres es queden més temps al port espacial, però com a màxim hi ha $1000$
+dispositius que necessiten estar connectats alhora.
+%
+Just abans que el port espacial comenci a operar al matí, totes les adreces gestionades pel servidor DHCP han d'estar disponibles per ser concedides, perquè les primeres $5$ naus arriben completament plenes.
+
+\begin{enumerate}[itemsep=0.1cm]
+\item Esbrina qui t'està cedint generosament les $1024$ adreces IP públiques i quin és el seu bloc complet.
+
+\item Proporciona una taula d'encaminament actualitzada per al router (encaminador) $\textrm{R}_0$. Aquest és el router connectat directament a la \mbox{HugeAntenna\texttrademark} de la colònia, als Busos Nord i Sud, i ara també a la nova LAN (xarxa d'àrea local) dedicada als passatgers. Pots suposar que aquesta nova LAN està connectada a una interfície afegida de nou.
+
+\item Quin és el temps de concessió (Lease Time) més llarg que pots configurar que sigui compatible amb l'hora punta del matí? Justifica la teva resposta.
+
+\item Fent servir diagrames de tipus swimlane, proporciona un escenari concret en què el màxim de $1000$ dispositius estiguin connectats simultàniament en algun moment durant l'hora punta. Indica quants missatges de cada subtipus DHCP hi intervenen.
+
+\item Si un passatger s'amagués a la terminal del port espacial durant la nit, quin mecanisme faries servir per assegurar que la seva adreça IP assignada estigui disponible per ser concedida l'endemà al matí?
+
+\end{enumerate}
+
+
+\subsection*{Detalls de la retroacció}
+
+Considera requisits i un procés similars als de les missions anteriors, assegurant-te de tractar els aspectes clau següents:
+\begin{itemize}
+\item La taula d'encaminament és correcta i tan senzilla com sigui possible?
+\item Has trobat un Lease Time més llarg que sigui compatible amb els requisits?
+\item Hi veus cap problema en la descripció de l'escenari amb $1000$ dispositius concurrents?
+\end{itemize}

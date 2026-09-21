@@ -1,0 +1,65 @@
+\newpage
+\section{Missió 5: Els diners són l'arrel}\label{sec:mission5}
+
+\begin{minipage}{0.90\linewidth}
+Tota la colònia bull d'energia intel·lectual després d'instal·lar la HugeAntenna\texttrademark\
+i connectar-la a la Internet de la Terra -- pensa en totes les coses xules que s'han perdut fins ara!
+%
+Malauradament, ara que la colònia està enganxada a Internet, el tirànic govern de la Terra ha decidit apujar molt el cost d'usar l'enllaç de l'antena interplanetària.
+Els preus abusius causen greus problemes a la societat colonial, i demostren un cop més que els diners \mbox{-- o,} potser, la seva \mbox{manca --} poden ser l'arrel de tot mal.
+%ñ
+Ajudaràs la colònia a recuperar l'estabilitat financera?
+
+\end{minipage}
+\hspace{0.015\linewidth}
+\begin{minipage}{0.08\linewidth}
+% \vspace{-0.5cm}
+\includegraphics[width=\linewidth]{./cash.jpg}
+\end{minipage}
+
+% \vspace{0.3cm}
+\noindent
+\textbf{\raisebox{0.03cm}{\warning}Atenció! Aquesta missió és crítica}. Pren-te temps, demana tota l'ajuda que calgui i no perdis l'ànim. Les missions anteriors són un entrenament per a aquesta -- et recomanem molt que les acabis amb cura abans d'intentar-la.
+\vspace{-0.3cm}
+
+\subsection*{Detalls de l'informe}
+
+La Terra està disposada a negociar el preu en Mar\$ (\mbox{Dollaroos marcians}) per byte transmès per la HugeAntenna\texttrademark.
+Aquest preu dependrà de la MTU de l'antena, com mostra la figura següent.
+Fixa't que $\textrm{MTU} \in \left\{200,\,400,\,\ldots,\,3000\right\}$.
+L'assemblea necessita una anàlisi quantitativa que justifiqui la millor elecció de MTU.
+
+\centerline{%
+\begin{minipage}{0.5\linewidth}
+\includegraphics[width=\linewidth]{cost_plot.pdf}
+\end{minipage}
+}
+
+\noindent
+Per simplificar l'anàlisi, considera un escenari representatiu en què un usuari d'una de les bases de la colònia envia
+\textit{payloads} (càrrega útil) d'exactament $1900$~bytes directament sobre~IP.
+
+\begin{enumerate}[itemsep=0.1cm]
+\item Proporciona un mapa topològic de la xarxa de la colònia fins a l'enllaç entre la HugeAntenna\texttrademark\  i la Terra, sense incloure'l. En aquestes LANs (xarxa d'àrea local), indica la MTU més petita que evita la fragmentació dins la colònia.
+Pots reutilitzar la topologia de missions anteriors o crear-ne una de nova.
+
+\item Considera almenys $4$ valors possibles per a la MTU de la HugeAntenna, $2$ menors de $1900$~bytes i dos de majors. Per a cada valor de $\textrm{MTU}_\textrm{HugeAntenna}$, indica:
+  \begin{itemize}
+  \item Quants paquets s'envien per la Huge Antenna per transmetre el payload.
+  \item Quins camps no són idèntics en aquests paquets (només si s'envia més d'un paquet).
+  \item El cost total d'enviar el payload.
+  \end{itemize}
+Coordina't amb els altres enginyers per trobar el valor òptim global de $\textrm{MTU}_\textrm{HugeAntenna}$.
+
+\item Compara el trànsit total (en bytes) transmès dins la colònia en enviar el primer payload (amb totes les memòries cau buides) respecte al segon payload (amb les memòries cau plenes i vàlides).
+\end{enumerate}
+
+
+\subsection*{Detalls de la retroacció}
+
+Segueix un procés de retroacció similar al de les missions anteriors, i assegura't de tractar:
+\begin{itemize}
+\item Les MTU de la colònia estan configurades com es demana?
+\item Es considera correctament la fragmentació en determinar el cost?
+\item Es comptabilitza bé la sobrecàrrega deguda a ARP en calcular el trànsit total?
+\end{itemize}

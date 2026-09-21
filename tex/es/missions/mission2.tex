@@ -1,0 +1,41 @@
+\newpage
+\section{Misión 2: Scroll infinito}\label{sec:mission2}
+
+\begin{minipage}{0.225\linewidth}
+\vspace{-0.5cm}\includegraphics[width=\linewidth]{stairway}
+\end{minipage}
+\hspace{0.025\linewidth}
+\begin{minipage}{0.75\linewidth}
+%
+Tras revisar la primera ronda de informes, la asamblea de la colonia está entusiasmada con la idea de explorar este nuevo concepto de \textit{red de ordenadores}. Sin embargo, antes de invertir en ninguna de las propuestas, la asamblea pide diseños más completos y concretos. En particular, tendrás que añadir la posibilidad de enviar mensajes arbitrariamente largos, potencialmente infinitos, y prestar atención a la estructura de la pila de protocolos de red (detalles \mbox{abajo}).\\
+\end{minipage}
+
+\noindent
+Se espera que cada uno de vosotros publique un \textbf{informe formal} (en PDF) en el ``Foro de intercambio de la Misión 2'' del Campus Virtual antes de la siguiente sesión de 2h con una nueva misión programada (consulta el calendario en el Campus Virtual). Después, contamos contigo para que publiques una \textbf{carta de respuesta formal con comentarios} (también en PDF) para al menos otra solución, antes de la sesión de 1h posterior.
+
+\subsection*{Detalles del informe}
+El nuevo informe debe ser autónomo, de manera que quien lo revise no necesite leer el primero.
+La propuesta que describas en este informe no tiene por qué seguir exactamente la primera: puedes tomar prestadas tantas ideas e introducir tantos cambios como consideres oportuno.
+%
+\begin{enumerate}[itemsep=0.1cm]
+\item Resume la \textbf{capa física y la disposición topológica} de tus redes de ordenadores (tratadas en los puntos 1 y 2 de la misión anterior).
+
+\item Indica la MTU de tu red y \textbf{por qué es necesario definir un valor de MTU finito}. Con esta restricción, explica \textbf{cómo permitirás enviar mensajes de longitud arbitraria (\textit{infinita})}.
+
+\item Describe el \textbf{sistema de direccionamiento} (actualizado) y sus limitaciones. Puedes mantener o cambiar el sistema que propusiste en la misión anterior siempre que te asegures de que es válido.
+
+\item Propón una \textbf{pila de protocolos de red de 3 capas} (llamémoslas L3, L2 y L1, de arriba abajo) en la que la funcionalidad de longitud arbitraria del mensaje se resuelva exclusivamente en L3, el direccionamiento exclusivamente en L2, y L1 se centre únicamente en las conversiones digital/analógica y analógica/digital.
+
+\item Incluye un ejemplo en el que se envíe un mensaje de longitud 1,5~veces la MTU. En tu ejemplo, proporciona los \textbf{bytes de entrada y de salida de cada capa} del origen y del destino de la comunicación.
+\end{enumerate}
+
+\subsection*{Detalles de los comentarios}
+
+Utiliza un proceso de comentarios similar al de las misiones anteriores, asegurándote de tratar:
+\begin{enumerate}[itemsep=0.1cm]
+\item ¿Ves algún fallo importante o algún punto incompleto que impediría que la propuesta se hiciera realidad?
+\item ¿Existe algún límite real a la longitud del mensaje en la propuesta que estás revisando?
+\item ¿Has podido interpretar el contenido del mensaje incluido en el informe? Incluye los bytes de una posible respuesta de la misma longitud, según tu comprensión de ese informe.
+\item ¿Hay alguna parte de la propuesta que revisas que mejore la tuya?
+\end{enumerate}
+

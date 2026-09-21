@@ -1,0 +1,264 @@
+\chapterimage{container.jpg}
+
+\chapter{¿Esto es tuyo?}\label{sec:packets}
+
+La información viaja por este grafo de redes en forma de paquetes, que contienen una pequeña cantidad de 
+información y de meta-información. 
+
+El formato de los paquetes debe estar acordado por ambos extremos de la comunicación, de modo que esos paquetes puedan 
+producirse e interpretarse de forma eficiente y automática.
+
+Cuando los paquetes viajan por una o varias redes, pueden perderse o desordenarse. Si tiene que fluir un flujo continuo de datos 
+entre dos ordenadores, los paquetes deben contener mecanismos para detectar pérdidas y restaurar el orden correcto.
+
+\section{Tengo un paquete para ti}\label{sec:packets:lan_wan}
+
+No es viable establecer conexiones físicas entre cada par de ordenadores que quieren comunicarse.
+En su lugar, se comparten relativamente pocas conexiones para transportar mensajes entre muchos pares de dispositivos.
+
+Si un único dispositivo transmite datos de forma continua durante mucho tiempo, esa conexión queda bloqueada y puede convertirse en un cuello de botella que 
+impida comunicarse a otros dispositivos. Para evitar este problema, las conexiones limitan la cantidad máxima de datos
+que pueden enviarse sin interrupción. Como resultado, los dispositivos se ven obligados a enviar los datos en ráfagas discretas llamadas 
+\conceptRef{packet}{paquetes}. El intercambio de este tipo de mensajes a través de una o varias redes se denomina
+\conceptRef{packet switching}{conmutación de paquetes}.
+
+\begin{remark}
+% The concept of \concept{packet switching} (crucial to the creation of the Internet)
+% was developed in the 1960's (during the cold war) by the US military
+% to have a communications network that would work in case of a nuclear strike.
+%  
+% The problem with the one they had was that, if one station was damaged, the whole system stopped working.
+% However, by using packet switching, any connected subgraph of the network would keep working.
+% 
+% The reasoning for creating a packet-switched network was that they could still retaliate their enemy in case of an attack, which would
+% make them a less attractive target.
+
+Leonard Kleinrock, uno de los pioneros de la interconexión de redes, disputa la autoría de la conmutación de paquetes,
+que a menudo se atribuye a Paul Baran y a Donald Davies.
+\end{remark}
+
+\conceptRef{packet}{Los paquetes} deben ser pequeños para que las conexiones no queden bloqueadas demasiado tiempo. 
+Al mismo tiempo, queremos que los paquetes contengan tantos datos como sea posible, porque cada paquete 
+contiene datos de \concept{overhead} (sobrecarga), como las direcciones que se comentan en la Sección~\ref{sec:where}, que hay
+que enviar además de los datos de payload (carga útil) del usuario. Las redes fijan la longitud máxima de paquete
+mediante un parámetro llamado \conceptRef{MTU}{unidad máxima de transmisión} (MTU), \eg, 1500~bytes en Ethernet.
+
+
+La transmisión de paquetes a través de un \conceptRef{data link}{enlace de datos} debe hacerse con cuidado,
+en particular cuando ese enlace es un \concept{bus} compartido por varios dispositivos.
+Cada paquete debe poder distinguirse individualmente del resto, 
+lo que puede conseguirse mediante al menos tres estrategias:
+\begin{enumerate}
+\item \textit{Longitud fija}: la longitud de todos los paquetes es la misma. El emisor y el receptor deben haber
+acordado este valor de antemano.
+
+\item \textit{Longitud explícita}: la longitud del paquete se incluye en el propio paquete, \eg, 
+usando el primer byte del paquete. El emisor y el receptor deben ponerse de acuerdo sobre cómo se incluye
+esta información y cómo interpretarla.
+
+\item \textit{Secuencias de escape}: ciertas \conceptRef{escape sequence}{secuencias de escape} binarias 
+dentro de los datos tienen un significado especial. 
+Por ejemplo, podría definirse que el byte \otherBase{11110000} (\otherBase{0xf0}) 
+significa ``fin de paquete'': estos bits deben aparecer después de cada paquete, y solo entonces.
+% 
+Así, el emisor podría empezar a transmitir el contenido de un paquete, seguido de \otherBase{0xf0}.
+Ambas partes deben acordar qué secuencias de escape usar, qué significan y cómo 
+enviar datos iguales a esas secuencias (\eg, debería ser posible enviar \otherBase{0xf0f0f0}
+sin provocar un ``fin de paquete'' hasta que se hayan transmitido todos los bytes).
+\end{enumerate}
+
+\begin{remark}
+También es posible señalar el \textit{principio} de un paquete. En ese caso se utiliza una secuencia previa llamada \conceptRef{preamble}{preámbulo}.
+\end{remark}
+
+
+\begin{exercise}
+Todas las estrategias descritas arriba se usan hoy en día en escenarios reales, dependiendo de las 
+características, los costes y los compromisos de cada una.
+
+Discute cuál de estas estrategias sería la más apropiada para cada uno de estos escenarios:
+\begin{itemize}
+\item Un único fabricante diseña el hardware y el software que comunica dos extremos.
+Una única \conceptRef{data line}{línea de datos} debe \conceptRef{multiplex}{multiplexarse} para varios comandos de control
+y también para varios flujos de datos. La prioridad es un uso eficiente de la energía y del buffer (memoria intermedia).
+
+\item Varios dispositivos comparten un \concept{bus}. De vez en cuando envían mensajes de distintas longitudes,
+pero no un volumen enorme de datos. La prioridad es el coste.
+
+\item Varios dispositivos comparten un \concept{bus}. Envían continuamente mensajes de distintas longitudes,
+intentando maximizar la tasa efectiva de transmisión por el \conceptRef{channel}{canal}. 
+La prioridad es el \concept{throughput} (caudal efectivo).
+\end{itemize}
+\end{exercise}
+
+\section{Por favor, rellena el formulario}\label{sec:packets:format}
+
+Independientemente de la estrategia empleada, los paquetes de datos suelen constar de dos partes: 
+\begin{itemize}
+ \item \concept{payload} de datos: la información que hay que transmitir, y
+ \item \conceptRef{metadata}{metadatos}: la meta-información necesaria para entregar el payload.
+\end{itemize}
+La longitud puede ser uno de los \conceptRef{field (packet)}{campos} de metadatos incluidos en el paquete, junto con 
+otros que ayudan a identificar su tipo y su función.
+% 
+La ubicación del payload y de los metadatos, así como los campos de metadatos exactos que se incluyen, su longitud y su significado
+deben ser conocidos por ambos extremos de la comunicación. Todas estas decisiones constituyen el \conceptRef{packet format}{formato de paquete}
+o \conceptRef{packet structure}{estructura de paquete}.
+
+Una de las formas más habituales de disponer el payload y los metadatos es con un formato \conceptRef{header}{cabecera}-\conceptRef{body}{cuerpo}.
+En este caso, toda la meta-información se incluye primero, seguida de los datos. 
+Otros formatos pueden incluir un \concept{trailer} (cola), también conocido como \concept{tail}, que se usa sobre todo para la \conceptRef{error detection}{detección de errores}
+y su corrección, en combinación con la cabecera o en su lugar.
+Todas las configuraciones siguientes son posibles.
+
+\begin{minipage}{\linewidth}
+\begin{center}
+\begin{bytefield}{32}
+\bitbox{11}{Header} & \bitbox{21}{Body}\\[-0.35cm]
+\end{bytefield}
+% 
+\begin{bytefield}{32}
+\bitbox{6}{Header} & \bitbox{19}{Body} & \bitbox{7}{Trailer/Tail}\\[-0.35cm]
+\end{bytefield}
+% 
+\begin{bytefield}{32}
+\bitbox{21}{Body} & \bitbox{11}{Trailer/Tail}\\[-0.35cm]
+\end{bytefield}
+% 
+\begin{bytefield}{32}
+\bitbox{32}{Header}
+\end{bytefield}
+\end{center}
+\end{minipage}
+
+
+El formato del payload de un paquete normalmente lo define el usuario. El formato de la cabecera, en cambio,
+está estrictamente definido para que pueda producirse y \conceptRef{parsing}{analizarse} con facilidad.
+Este formato suele presentarse mediante un diagrama que ayuda a identificar las posiciones individuales de bit y de byte,
+como en el siguiente ejemplo (ficticio):\\
+
+\begin{center}
+\begin{bytefield}{32}
+\bitheader{0-31} \\
+\begin{rightwordgroup}{Header}
+\bitbox{16}{Length} & \bitbox{8}{Importance} & \bitbox{4}{Type} & \bitbox{4}{Mode}\\
+\bitbox{24}{Destination Address} & \bitbox{8}{(Reserved)} 
+\end{rightwordgroup} \\
+\begin{rightwordgroup}{Body}
+\wordbox[lrt]{1}{Payload} \\
+\skippedwords \\
+\wordbox[lrb]{1}{} 
+\end{rightwordgroup}
+\end{bytefield}
+\end{center}
+
+\begin{remark}
+Los campos también pueden tener longitudes fijas o variables, que no encajan necesariamente con las 
+\conceptRef{byte boundary}{fronteras de byte}. Los campos también pueden tener una longitud igual a $1$~bit,
+en cuyo caso normalmente se le llama \concept{flag} (indicador) o bit de flag.
+\end{remark}
+
+
+\begin{remark}
+En diagramas como el anterior se usan a menudo varias líneas (filas) para que puedan
+imprimirse y leerse con facilidad. En ese caso, el significado es el mismo que si todos los campos se hubieran
+presentado a lo largo de la misma línea (fila).
+\end{remark}
+
+\begin{exercise}
+El siguiente contenido de un paquete fue \conceptRef{sniff}{capturado} de una \conceptRef{network}{red},
+expresado en \concept{hexadecimal}. Suponiendo que el paquete tiene el formato del ejemplo anterior:
+% 
+\begin{itemize}
+\item Indica el valor de cada campo (longitud, importancia, tipo, modo, dirección de destino y payload.
+\item ¿Puedes adivinar el significado del payload?
+\end{itemize}
+% 
+\begin{center}
+\otherBase{00 0c 00 f3 bb bb bb 00 68 65 6c 70}
+\end{center}
+\end{exercise}
+
+\begin{exercise}
+El siguiente código acepta dos argumentos: (1, \inlineCode{sys.argv[1]}) la \conceptRef{path}{ruta} de un fichero de entrada, 
+y (2, \inlineCode{sys.argv[2]}) la \conceptRef{path}{ruta} de un fichero de salida.
+Se leen los primeros 255 bytes del contenido del fichero de entrada, 
+se formatean como un paquete y los bytes de ese paquete
+se escriben en el fichero de salida.
+
+\begin{center}
+\showCode{snippets/simplepacketoutput.py}
+\end{center}
+
+\begin{itemize}
+\item Describe el \conceptRef{packet format}{formato de paquete} usado en el código, y sus limitaciones.
+
+\item Extiende el formato de paquete para que 
+ \begin{itemize}
+   \item los paquetes puedan ser más largos de 255 bytes
+   \item pueda codificarse la \conceptRef{address}{dirección} del dispositivo de destino
+  \end{itemize}
+  
+\item Proporciona un diagrama de bytes del nuevo formato, 
+así como una explicación del sistema de direccionamiento que estés usando.
+
+\item Modifica el código para que produzca paquetes con el formato que has propuesto.
+\end{itemize}
+\end{exercise}
+
+\begin{remark}
+Lenguajes como Python pueden distinguir entre ficheros que contienen texto y ficheros que contienen datos binarios.
+En el código anterior, los ficheros se abren en \conceptRef{binary mode}{modo binario} usando los modos \inlineCode{'rb'} y \inlineCode{'wb'}.
+
+Cuando se abre en modo binario, los bytes del fichero se representan directamente mediante un objeto \inlineCode{bytes}, un array de 
+enteros entre $0$ y $255$. En \conceptRef{text mode}{modo texto}, esos bytes son procesados (\conceptRef{decode}{decodificados}) además por el método \inlineCode{open},
+que devuelve una cadena que puede contener caracteres especiales como acentos o glifos no latinos. \readMore{https://docs.python.org/3.12/library/functions.html\#open}
+\end{remark}
+
+\section{No paran de llegar}\label{sec:packets:stream}
+
+Al desarrollar aplicaciones que usan capacidades de red, a menudo resulta útil 
+imaginar la comunicación como un \conceptRef{stream}{flujo}, \ie, como una tubería conceptual donde ponemos 
+nuestros datos (cualquier cantidad de datos) por un extremo y salen por el otro. Si tenemos
+esta capacidad, resulta mucho más fácil enviar ficheros de cualquier tamaño y transmitir una cantidad interminable
+de audio o de vídeo. Por desgracia, lo único que tenemos para simular esos flujos son paquetes.
+
+\conceptRef{packet}{Los paquetes} a menudo tienen que reenviarse a través de varias redes. Los \conceptRef{router}{routers} (encaminadores) no son perfectos
+y a veces están fuera de servicio o mal configurados, así que no todos los paquetes llegan a su destino. Además,
+paquetes distintos pueden entregarse por rutas distintas que pueden tener longitudes distintas, de modo que los paquetes pueden llegar
+desordenados.
+
+Si queremos simular un \conceptRef{stream}{flujo} de datos, los paquetes deben contener suficiente meta-información para que puedan detectarse las pérdidas y 
+restaurarse el orden correcto. Esto introduce un \concept{overhead} que no es adecuado en todos los escenarios --\eg, latencia muy baja--,
+así que algunas aplicaciones basan su comunicación en red en \conceptRef{message}{mensajes} en lugar de en flujos.
+
+Cuando se requieren flujos, se usa el concepto de \concept{offset} (desplazamiento) para reensamblar varios mensajes en 
+un único flujo. Cada paquete contiene algunos bytes del flujo de datos, y el offset indica la posición exacta dentro de ese flujo.
+
+\begin{exercise}
+
+El siguiente diagrama describe un flujo de 48 bytes producido por un nodo origen, 
+así como los paquetes en los que se dividió antes de la transmisión:\\[-0.25cm]
+
+\begin{center}
+\begin{bytefield}[bitheight=2cm]{48}
+\bitheader{0-47} \\
+\bitbox{10}{\underline{Packet 0} \\Offset 0 \\Length 10}
+\bitbox{14}{\underline{Packet 1} \\Offset 10\\Length 14}
+\bitbox{6 }{\underline{Packet 2} \\Offset 24\\Length 6 }
+\bitbox{18}{\underline{Packet 3} \\Offset 30\\Length 18}
+\end{bytefield}
+\end{center}
+
+\begin{itemize}
+\item Describe la cabecera mínima que puede usarse para transmitir este flujo.
+\item Suponiendo que el receptor recibe primero el Paquete 2, después el Paquete 0, y que los demás paquetes se pierden: ¿qué bytes del flujo conoce el 
+  nodo de destino y qué bytes desconoce?
+\item ¿Cómo puede saber el nodo origen que algunos paquetes no se entregaron?
+\item ¿Qué ocurriría si el destino recibiera un mensaje espurio, con offset de $7$~bytes y longitud de $4$~bytes?
+\end{itemize}
+
+\end{exercise}
+
+
+

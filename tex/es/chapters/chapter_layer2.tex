@@ -1,0 +1,221 @@
+\chapterimage{lan_party.jpg}
+\chapter{Capa 2: comunicación en red (LAN)}\label{sec:layer2}
+
+\begin{minipage}{0.4\linewidth}
+\begin{center}
+\begin{bytefield}{16}
+\bitbox{16}{Layer 7: Application} \\
+\bitbox{16}{Layer 4: Transport} \\
+\bitbox{16}{Layer 3: Internet} \\
+\bitbox{16}{\color{color1} Layer 2: Network (LAN)} \\
+\bitbox{16}{Layer 1: Physical} \\
+\end{bytefield}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.6\linewidth}
+\begin{center}
+\includegraphics[width=\linewidth]{network_layer2.pdf}
+\end{center}
+\end{minipage}
+
+\vspace{-0.75cm}
+
+% \section{Layer~2 overview}
+\subsection*{Capacidades}
+
+Los protocolos de capa~2 permiten que varios dispositivos intercambien mensajes
+y se identifiquen entre sí dentro de una red local (\concept{LAN}, red de área local).
+% 
+No se puede contactar \textit{directamente} con los dispositivos de fuera de la LAN mediante protocolos de capa~2.
+
+La capa~2 abstrae a las capas superiores (incluidas las aplicaciones de usuario) de los detalles concretos del hardware conectado.
+Esto hace más fácil (léase: más barato) escribir el código una vez y ejecutarlo en cualquier sitio.
+
+Los mensajes de capa~2 tienen una longitud limitada. La cantidad máxima de datos de payload (carga útil)
+que se pueden insertar en un protocolo de capa~2 se denomina \conceptRef{MTU}{unidad máxima de transmisión (MTU)},
+\eg, $1500$~bytes en Ethernet.
+
+Algunos protocolos de capa~2 también pueden proporcionar \conceptRef{authentication}{autenticación} de usuario y
+protección \conceptRef{cryptography}{criptográfica}; 
+\concept{Wi-Fi} es un ejemplo destacado,
+aunque las redes cableadas también pueden emplear, \eg, IEEE 802.1X.
+
+\vspace{-0.3cm}
+\begin{center}
+\includegraphics[width=0.9\linewidth]{protocols_layer2.pdf}
+\end{center}
+\vspace{-0.5cm}
+
+\subsection*{Protocolos}
+Se han definido y se siguen definiendo muchos \conceptRef{protocol}{protocolos} dentro de la capa~2. Los más importantes en la actualidad:\\[-0.65cm]
+\begin{itemize}
+\item \concept{Ethernet} (IEEE 802.3), que se trata en \secref{sec:layer2:ethernet}.
+\item \concept{Wi-Fi} (\eg, IEEE 802.11be, alias Wi-Fi 7, de 2024).
+\end{itemize}
+
+Dentro de \concept{TCP/IP}, la capa~2 \conceptRef{encapsulation}{encapsula} las siguientes \conceptRef{PDU}{PDU} de protocolo
+(ambas se tratan en el Capítulo~\ref{sec:layer3}):\\[-0.65cm]
+\begin{itemize}
+  \item \conceptRef{datagram}{Datagramas} \concept{IPv4} e \concept{IPv6}.
+  \item Mensajes \concept{ARP}.\\[-0.75cm]
+\end{itemize}
+
+\vspace{0.5cm}
+
+\begin{remark}
+La orden \inlineCode{ip link} muestra y permite configurar tus interfaces,
+incluida la dirección \concept{MAC}.
+
+Tu sistema operativo suele asignar automáticamente los nombres internos de las interfaces según su tipo,
+\eg, \inlineCode{eth0} o \inlineCode{wlan1}.
+% 
+Normalmente se pueden renombrar las interfaces, porque los nombres de interfaz
+no forman parte de TCP/IP; se usan exclusivamente dentro de ese sistema operativo.
+\end{remark}
+
+
+\section{Direccionamiento de capa~2}
+En la mayoría de las tecnologías de LAN, las direcciones de capa~2 son identificadores numéricos únicos para cada dispositivo dentro de la LAN. 
+El tipo más frecuente son las direcciones MAC de Ethernet (técnicamente EUI-48), que ocupan $6$~bytes (\ie, $48$~bits).
+También se usan fuera de Ethernet, \eg, en Wi-Fi y Bluetooth.
+
+Las direcciones MAC se presentan a las personas habitualmente en el siguiente formato:\\\otherBase{01:23:45:67:89:ab}.
+Algunas direcciones tienen un significado especial y no son identificadores válidos de dispositivo.
+Por ejemplo, \otherBase{ff:ff:ff:ff:ff:ff} es la dirección de \concept{broadcast} (difusión), que significa ``todos los de la LAN''. 
+% 
+Además, \otherBase{00:00:00:00:00:00} se usa para representar una dirección MAC desconocida
+% 
+(consulta \href{https://www.iana.org/assignments/ethernet-numbers/ethernet-numbers.xml}{\underline{RFC~9542}} 
+para una descripción completa de las direcciones MAC reservadas, incluidas las de \concept{multicast} (envío a un grupo)).
+
+El hardware de red viene con una dirección MAC integrada, única y predefinida, lista para usar.
+Las MAC de los dispositivos se pueden configurar a nivel de sistema operativo, pero permanecen constantes mientras están en uso.
+
+
+\section{Protocolo Ethernet de capa 2}\label{sec:layer2:ethernet}
+
+\subsection{Formato de paquete}
+La capa~2 de Ethernet define el siguiente formato, usado en todos los mensajes.
+Los paquetes de este tipo se denominan \conceptRef{frame}{frames} (tramas):\\[-0.25cm]
+
+\begin{center}
+\begin{bytefield}[bitheight=3em]{48}
+\bitheader{0,7,8,15,16,23,24,31,32,39,40,47}\\
+\bitbox{48}{Destination MAC Address} \\ 
+\bitbox{48}{Source MAC Address} \\
+\bitbox{16}{Payload type} & 
+\bitbox[tlr]{32}[bitheight=3em]{Payload data\\{\scriptsize(variable length, byte aligned)}} \\
+\bitbox[lbr]{40}{\hspace{7cm}\raisebox{0.25cm}{$\vdots$}} & \bitbox[lt]{8}{} \\
+% 
+% \bitbox[tr]{32}{Payload data (variable length)} \\
+% \bitbox[lr]{48}{\raisebox{1em}{$\vdots$}} \\
+% \bitbox[lbr]{24}{} & \bitbox[t]{24}{} 
+\end{bytefield}
+\end{center}
+
+\begin{itemize}
+\item \textbf{MAC de destino}: la dirección MAC del dispositivo de destino, 
+  o \otherBase{ff:ff:ff:ff:ff:ff} para \concept{broadcast}.
+\item \textbf{MAC de origen}: la MAC del dispositivo que envía el frame.
+\item \textbf{Tipo de payload}: identificador del protocolo 
+  \conceptRef{encapsulation}{encapsulado} en el payload,\\\eg, 
+  \otherBase{0x0800}~$\rightarrow$~\concept{IPv4}, 
+  \otherBase{0x86DD}~$\rightarrow$~\concept{IPv6}, y
+  \otherBase{0x0806}~$\rightarrow$~\concept{ARP}. 
+  A veces se le llama \href{https://en.wikipedia.org/wiki/EtherType#Values}{\underline{EtherType}}.
+  
+\item \textbf{Payload}: contenido que se solicita enviar, \eg, por IPv4 o ARP.
+  La longitud máxima de este campo, la \concept{MTU}, es de $1500$~bytes en ethernet.
+\end{itemize}
+
+\begin{exercise}\ \\[-0.5cm]
+\begin{itemize}
+\item ¿Cuántas direcciones MAC diferentes hay en Ethernet (incluidos los \conceptRef{address block}{bloques} reservados)?
+\item ¿Son suficientes para que cada dispositivo de la Tierra con capacidad de conectarse a internet tenga una MAC única?
+\end{itemize}
+\end{exercise}
+
+\begin{exercise} 
+¿Es válido el siguiente frame?
+% 
+\begin{center}
+\otherBase{c2 21 90 15 \quad bc b6 42 40 \quad e5 f7 5e 32 \quad 08 42 77 57}\\
+\otherBase{03 ca 27 6b \quad 1f 97 e9 02 \quad 24 7f 80 fa \quad 8b 61 59 2a}\\
+\otherBase{81 b6 73 b0 \quad b4 e1 75 4f \quad ef 40 dd 9f \quad 34 3c 48 67}
+\end{center}
+\end{exercise}
+
+\newpage
+\subsection{Funcionamiento}
+
+Los mensajes dentro de una LAN Ethernet se envían normalmente en modo \concept{unicast} (envío a un único destinatario), \ie, son mensajes de uno a uno.
+Esto permite que los \conceptRef{switch}{switches} (conmutadores) minimicen el consumo de \conceptRef{power}{energía} y de \conceptRef{bandwidth}{ancho de banda}.
+% 
+En \concept{unicast}, el dispositivo de origen debe conocer la MAC del destino.
+% 
+\begin{center}
+\includegraphics[width=\linewidth]{ethernet_message_unicast.eps}
+\end{center}
+
+Ethernet también admite el \concept{broadcast} a todos los nodos de la LAN. En este caso, la dirección
+MAC de destino debe ser \otherBase{ff:ff:ff:ff:ff:ff}.
+% 
+Cuando un dispositivo recibe un frame, lo descarta salvo que el campo de MAC de destino del frame
+sea idéntico a su propia dirección MAC, o sea el de \concept{broadcast}. 
+
+Un nodo también descartará un frame con un campo de tipo de payload (\concept{EtherType}) no soportado. 
+% 
+Si el tipo de payload sí está soportado, se usa para decidir qué parte del sistema operativo recibe el mensaje,
+\eg, la pila \concept{IPv4} o el subsistema \concept{ARP}.
+
+\begin{exercise} Siguiendo con el ejemplo de la figura anterior, la tarjeta de red del nodo~B recibe
+un \concept{frame} que empieza con los siguientes bytes. ¿Debería aceptarlo B?
+\begin{center}
+\otherBase{00 11 22 00 \quad 00 0a ff ff \quad ff ff ff ff \quad 08 DD \ldots}
+\end{center}
+\end{exercise}
+
+\begin{exercise}
+Los siguientes scripts ejemplifican cómo enviar y recibir frames \concept{Ethernet} en crudo. 
+El \conceptRef{client}{cliente} envía $5$ frames idénticos de \concept{EtherType} \otherBase{0x1234} y después termina.
+El \conceptRef{server}{servidor} espera hasta recibir $5$ frames Ethernet de ese tipo (se comprueba en las líneas 12-13) y después termina.
+% 
+\begin{itemize}
+\item Cambia la dirección MAC y el nombre de interfaz del cliente por los tuyos.
+\item Haz que el servidor rechace los frames que no vayan dirigidos a él.
+\item Amplía estos scripts para implementar una aplicación sencilla con capacidades de \concept{LAN}.\\
+  Ejemplos sugeridos:
+    \begin{itemize}
+    \item Un servicio de \conceptRef{echo}{eco} de capa 2 que distinga entre peticiones y respuestas.
+    \item Un chat \concept{peer-to-peer} (par a par) de capa 2 que incluya el apodo del origen en todos los mensajes.
+    \item Un servicio de calculadora de capa 2 que soporte operaciones aritméticas básicas\\
+      (\inlineCode{+}, \inlineCode{-},\inlineCode{*}, división entera \inlineCode{//}, opcionalmente división \inlineCode{/}).
+    \end{itemize}
+\item ¿Qué falta para que tu aplicación pueda conectarse al resto de \concept{Internet} más allá de tu \concept{LAN}?
+\end{itemize}
+
+\label{ex:layer2:echo}
+\end{exercise}
+
+\vfill
+
+\begin{center}
+\showCode{snippets/ethernetclient.py}
+\end{center}
+
+\begin{center}
+\showCode{snippets/ethernetserver.py}
+\end{center}
+
+\begin{remark}
+Tendrás que ejecutar estos scripts con privilegios, \eg, con \inlineCode{sudo}.
+% 
+Como alternativa, puedes añadir permanentemente las capacidades \texttt{CAP\_NET\_RAW}
+a tu binario de python con
+\begin{center}
+\inlineCode{sudo setcap cap_net_raw+ep ./venv/bin/python}.  
+\end{center}
+% 
+Después de eso, puedes ejecutar \inlineCode{./venv/bin/python script.py} directamente sin \inlineCode{sudo}.\\[-0.5cm]
+\end{remark}
+

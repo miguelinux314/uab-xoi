@@ -1,0 +1,255 @@
+\ \\[-10cm]
+La part anterior d'aquesta guia d'estudi ha explorat alguns dels principals reptes de comunicar múltiples ordinadors.
+\concept{Internet} és una solució que funciona per a aquests reptes: la que els humans han creat durant l'últim mig segle,
+ara central en moltes activitats socials, comercials i polítiques. 
+% 
+Aquesta part estudia les principals funcionalitats que ofereix Internet, així com el \conceptRef{suit}{conjunt} de \conceptRef{protocol}{protocols} 
+emprats per aconseguir-les.
+
+
+\chapterimage{earth.jpg}
+
+\chapter{Internet}\label{sec:internet}
+
+Les comunicacions modernes es basen en \conceptRef{stack}{piles} de xarxa organitzades en capes. 
+Potser acabes de descarregar aquesta guia d'Internet.
+% 
+Quines capes s'utilitzen exactament? Quins protocols s'empren, i amb quina finalitat?
+% 
+Aquest capítol ofereix una introducció per respondre aquestes preguntes.\\[-1cm]
+
+\section{La pila TCP/IP}
+
+
+\concept{Internet} és una solució pràctica al problema de la comunicació global entre ordinadors,
+el desenvolupament de la qual va començar a finals dels anys seixanta i principis dels setanta, i encara continua.
+
+La commutació de \conceptRef{packet}{paquets} es va concebre a principis dels anys seixanta, i la primera 
+implementació d'àrea extensa, \concept{ARPANET}, va començar el 1969. 
+% 
+Un repte clau en aquell moment era interconnectar les \conceptRef{network}{xarxes} existents, 
+propietat de diferents organitzacions i basades en diferents tecnologies i \conceptRef{protocol}{protocols}.
+% 
+Perquè tot fos viable, calia complir tots els requisits següents:
+\begin{itemize}
+    \item Les xarxes existents havien de funcionar sense actualitzacions de la infraestructura física 
+      ni dels seus protocols, només de la manera com s'utilitzen aquests protocols.
+    \item Les xarxes existents havien de continuar gestionant-se de manera independent a nivell local (organització interna autònoma).
+    \item Els paquets no sempre s'entreguen: alguns es perden.
+    \item Els missatges que arriben poden no estar en ordre, i poden estar repetits.
+\end{itemize}
+
+La solució adoptada per ARPANET --i més tard per tot el món-- 
+és el conjunt de protocols \concept{TCP/IP}, descrit per primera vegada el 1974. 
+És un enfocament per capes, dissenyat per ``endollar-se'' damunt de 
+les \conceptRef{LAN}{LANs} (xarxes d'àrea local) existents, amb l'objectiu d'oferir capacitats 
+de xarxa a totes les aplicacions d'usuari.
+
+\begin{center}
+\begin{bytefield}{16}
+\begin{rightwordgroup}[curlyshrinkage=10pt]{User programs}
+\wordbox{3}{Layer 7: Application}
+\end{rightwordgroup} \\
+\begin{rightwordgroup}[curlystyle=\color{color1},curlyshrinkage=10pt]{{\color{color1} TCP/IP}}
+\wordbox{1}{Layer 4: Transport}\\
+\wordbox{1}{Layer 3: Internet}
+\end{rightwordgroup} \\
+\begin{rightwordgroup}[curlyshrinkage=10pt]{Existing/future LAN technologies}
+\wordbox{1}{Layer 2: Network}\\
+\wordbox{1}{Layer 1: Physical}
+\end{rightwordgroup}
+\end{bytefield}
+\end{center} 
+ 
+En poques paraules, els principals serveis que ofereixen aquestes capes són els següents:
+\begin{enumerate}
+\item[\textbf{Layer 1}] \textbf{(Física)}: 
+  Enviar dades \concept{digital}s a través de mitjans \conceptRef{analog}{analògics}.
+\item[\textbf{Layer 2}] \textbf{(Xarxa)}:
+  Identificar i comunicar dispositius dins de la mateixa \concept{LAN}.\\
+  De vegades s'utilitza el terme capa d'``enllaç de dades'' (del model OSI).
+\item[\textbf{Layer 3}] \textbf{(Internet)}:
+  Identificar i comunicar dispositius a través de totes les \conceptRef{LAN}{LANs}.\\
+  De vegades s'utilitza el terme capa de ``xarxa'' (també del model OSI).
+\item[\textbf{Layer 4}] \textbf{(Transport)}:
+  Identificar i comunicar programes (serveis).\\
+  A més (tria'n \textit{només} una):
+  \begin{enumerate}[label=\alph*)]
+   \item Assegurar que un \conceptRef{stream}{flux} de dades arriba correctament a l'altre extrem, 
+   i en ordre \\-- \textit{però} s'introdueix una \conceptRef{overhead}{sobrecàrrega} 
+   i cal establir \conceptRef{connection}{connexions} (\concept{TCP}).
+     
+   \item Utilitzar missatges simples i relativament eficients, amb una sobrecàrrega petita\\
+   -- \textit{però} els missatges es poden perdre, desordenar o duplicar (\concept{UDP}).
+  \end{enumerate}
+\item[\textbf{Layer 7}] \textbf{(Aplicació)}:
+  Fer qualsevol cosa que l'usuari pugui necessitar. \\
+  No t'oblidis de la seguretat (\eg, criptografia) 
+  ni de l'eficiència (\eg, compressió): la capa 4 i les inferiors no ho proporcionen.
+\end{enumerate}
+
+\section{Visió general dels protocols TCP/IP}
+
+Es defineixen múltiples \conceptRef{protocol}{protocols} per implementar la funcionalitat
+de cada \conceptRef{layer}{capa}. Aquestes definicions inclouen el \conceptRef{packet format}{format de paquet} requerit,
+les regles per intercanviar aquests paquets i la seva semàntica.
+% 
+Aquests protocols s'han d'entendre com un sistema, en el qual cada part té tasques molt específiques.
+
+Alguns dels protocols més rellevants per a les comunicacions a través d'Internet 
+es mostren a la figura següent. En aquesta:
+\begin{itemize}
+\item Les fletxes contínues indiquen que un protocol s'encapsula dins d'un altre. 
+  Si el destí és una capa, cal utilitzar un dels protocols d'aquesta capa.
+
+\item Les caixes discontínues indiquen protocols auxiliars definits per ajudar altres funcions. 
+Les fletxes discontínues indiquen quina capa utilitza quin protocol auxiliar.
+
+\item Les caixes amb línies més gruixudes indiquen els protocols destacats en aquesta guia d'estudi.
+\end{itemize}
+
+\includegraphics[width=\linewidth]{protocol_dependencies.pdf}
+
+\begin{exercise}
+Volem enviar la frase ``Perdó, arribaré 5 minuts tard'' per correu electrònic.
+El nostre client de correu enviarà aquestes dades amb el protocol SMTP, que al seu torn
+utilitza TCP (part de la capa 4).
+% 
+Suposant que SMTP utilitza capçaleres a la seva \concept{PDU}, quantes capçaleres 
+contindrà la \concept{PDU} corresponent de la capa 2?
+\end{exercise}
+
+\begin{exercise}
+Per què creus que la capa~3 només té un protocol (dos si comptes IPv4 i IPv6 per separat)? 
+\end{exercise}
+
+\section{Qui mana a Internet?}
+
+La \conceptRef{IETF}{Internet Engineering Task Force (IETF)} es va crear el 1986
+per desenvolupar i publicar estàndards per utilitzar a Internet. 
+% 
+El seu principal resultat són els documents \conceptRef{RFC}{``Request for Comment'' (RFC)},
+que contenen descripcions tècniques completes d'aquests estàndards.
+
+
+Aquests RFCs els creen grups de treball d'experts, 
+perquè tothom els pugui utilitzar lliurement i de franc. 
+% 
+Qualsevol persona pot participar en aquests grups de treball, inclosos investigadors,
+governs i agents de la indústria. 
+% 
+Les decisions es prenen quan hi està d'acord entre el 80 i el 90\% dels participants, de manera que cap 
+entitat controla per si sola el procés d'estandardització.
+% 
+\begin{remark}
+``Rebutgem els reis, els presidents i les votacions. 
+Creiem en el consens aproximat i en el codi que funciona'' 
+--- Dave Clark (IETF), 1992.
+
+Consulta el DOI \href{https://dx.doi.org/10.1109/MAHC.2006.42}{\underline{10.1109/MAHC.2006.42}} per a 
+una breu història de lluita pel poder.
+\end{remark}
+
+Els estàndards RFC són descriptius, no prescriptius. Això vol dir que ningú vigila l'ús correcte 
+d'aquests estàndards. En canvi, els fabricants tenen l'incentiu de complir els RFCs 
+perquè els seus productes siguin compatibles amb els d'altres. 
+% 
+El valor dels RFCs (i de qualsevol altre estàndard) depèn que
+els usuaris els adoptin. Per aquest motiu, els RFCs es poden actualitzar i \conceptRef{retire (standard)}{retirar}.
+
+Els protocols TCP/IP s'imposen perquè són flexibles i funcionen raonablement bé en la majoria de situacions, 
+tot i que no són òptims pràcticament en cap. 
+A més, els protocols TCP/IP són lliures, a diferència dels protocols \conceptRef{privative}{privatius}
+que obligaven a comprar la solució d'un fabricant concret.
+% 
+\begin{remark}
+Avui és difícil imaginar un món \textit{no} 
+dominat per l'arquitectura TCP/IP, 
+però es van comercialitzar i mantenir piles completament diferents fins a finals dels noranta.
+En són exemples AppleTalk i IPX/SPX, d'Apple i Novell, respectivament.
+\end{remark}
+
+% https://www.icann.org/en/blogs/details/cheers-to-the-multistakeholder-community-30-9-2016-en
+
+Alguns aspectes de TCP/IP, com ara els identificadors únics 
+(inclòs el \concept{DNS}, el sistema de noms de domini)
+i els números reservats, han de ser acordats per tothom perquè Internet funcioni correctament.
+% 
+La \concept{IANA} (Internet Assigned Numbers Authority) treballa en coordinació amb la \concept{IETF}
+per definir els \conceptRef{RFC}{RFCs} adequats.
+
+\begin{remark}
+Des del 2016, la IANA és gestionada per una organització sense ànim de lucre amb múltiples parts interessades 
+(\conceptRef{ICANN}{ICANN - Internet Corporation for Assigned Names and Numbers}).
+% 
+Des del 2004, la responsabilitat dels dominis regionals 
+(\eg, \url{.cat}, \url{.fr}, \url{.es}) s'ha transferit a organitzacions 
+d'àmbit continental anomenades registres regionals d'Internet (\conceptRef{RIR}{RIRs}).
+\end{remark}
+
+
+
+% # Based on https://www.youtube.com/watch?v=oIezCGjxV3A
+% year,text
+% 1962,Packet Switching
+% 1969,ARPANET
+% 1974,TCP/IP
+% 1986,IETF
+% 1991,WWW
+% 1993,CIDR addressing
+% 1998,Google
+% ``The Internet doesn't do what the endpoints can do (\eg, reliability or compression).''
+
+
+% - In February 1980, the Institute of Electrical and Electronics Engineers (IEEE) started project 802 to standardize local area networks (LAN).[16][27 (https://en.wikipedia.org/wiki/Ethernet)
+
+% "protocols": "the first sheet of a volume" (on which contents and errata were written
+
+% \begin{remark}
+% Extra:
+% \begin{itemize}
+%     \item Video: https://www.youtube.com/watch?v=oIezCGjxV3A (part 1), https://www.youtube.com/watch?v=RN4gSBTANUY (part 2)
+%     \item Monographic: https://cacm.acm.org/research/on-the-hourglass-model/
+% \end{itemize}
+% \end{remark}
+
+
+% \begin{itemize}
+% \item [\textbf{Layer 1}:] \textbf{Physical}
+%     \begin{itemize}
+%     \item[Features:] Ship \concept{digital} \otherBase{0}s and \otherBase{1}s through the real, \concept{analog} world.
+%     \item[Offers:] Send and receive blocks of bytes.
+%     \end{itemize}
+% 
+% \item [\textbf{Layer 2}:] \textbf{Network}\\
+% 
+% 
+% \item [\textbf{Layer 3}:] \textbf{Internet}\\
+% \item [\textbf{Layer 4}:] \textbf{Transport}\\
+% \item [\textbf{Layer 7}:] \textbf{Application}\\
+% \end{itemize}
+% 
+% \begin{remark}
+% The \concept{OSI} model is a conceptual stack of layers that divides problems a bit differently from \concept{TCP/IP}. 
+% TCP/IP was created on the go while the infrastructure of the Internet started its development, became its de-facto standard,
+% and is used everywhere. The OSI model is useful to analyze and design communication protocols, but has limited practical usage.
+% \end{remark}
+% 
+% 
+% The network stack is normally part of the \concept{operating system} (OS).
+% Only the \inlineCode{send} and \inlineCode{receive} functions of Layer 4 are exposed to the users of the OS.
+% %
+% This way, data transmitted by the \concept{network interface} are guaranteed to be properly formatted and follow
+% the protocols of each stack layer.
+% 
+% \begin{remark}
+% In order to control the lower layers --\eg, to transmit custom PDUs--, one needs to be the \texttt{root} user
+% or give the \texttt{CAP\_NET\_RAW} kernel capability to a user program
+% (or the equivalent in privative systems).
+% \end{remark}
+% 
+% 
+% \section{}\label{sec:stack_layers:organization}
+% 
+% - internet organization 
+% bodies and stuff

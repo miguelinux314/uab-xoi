@@ -1,0 +1,141 @@
+site_name: "Computer Networks and Internet: Study Guide"
+site_description: Study guide for the Computer Networks and Internet course (UAB, 104353)
+site_url: https://miguelinux314.github.io/uab-xoi/
+docs_dir: ../build/site_src
+site_dir: ../build/site
+
+theme:
+  name: material
+  language: en
+  # The header logo is an inline animated SVG (web/overrides/partials/logo.html,
+  # dot + 3 waves, ~2 s "bleep" on every page load, CSS only); the favicon is
+  # the same shape, static.
+  custom_dir: overrides
+  favicon: img/favicon.svg
+  features:
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.expand
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - search.highlight
+    - toc.follow
+  # White header (matches the PDF's plain white page background) with the
+  # PDF's color1 (orange, RGB 243,102,25 -> style/style.tex) as the accent.
+  # Light only, no dark-mode toggle.
+  palette:
+    - scheme: default
+      primary: white
+      accent: deep orange
+
+# No `copyright:` (no attribution footer line), and `generator: false` drops
+# the "Made with Material for MkDocs" footer credit. No `repo_url` -> no
+# GitHub button in the header.
+extra:
+  generator: false
+
+extra_css:
+  - css/xoi.css
+extra_javascript:
+  # "scripts", not "js": see src/uab_xoi/tex2md.py's comment on this copy step.
+  - scripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - scripts/wide-tables.js
+  - scripts/search-highlight.js
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      linenums_style: pymdownx-inline
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: folder
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: es
+          name: Castellano
+          build: true
+          site_name: "Redes de Ordenadores e Internet: Guía de Estudio"
+          nav_translations:
+            Home: Inicio
+            License and credits: Licencia y créditos
+            AI usage: Uso de IA
+            About this course: Sobre esta asignatura
+            Course: Curso
+            Computer Networks: Redes de ordenadores
+            Internet: Internet
+            Missions: Misiones
+            Index of concepts: Índice de conceptos
+        - locale: ca
+          name: Català
+          build: true
+          site_name: "Xarxes d'Ordinadors i Internet: Guia d'Estudi"
+          nav_translations:
+            Home: Inici
+            License and credits: Llicència i crèdits
+            AI usage: Ús d'IA
+            About this course: Sobre aquesta assignatura
+            Course: Curs
+            Computer Networks: Xarxes d'ordinadors
+            Internet: Internet
+            Missions: Missions
+            Index of concepts: Índex de conceptes
+        - locale: en
+          name: English
+          build: true
+          default: true
+
+# 3 top-level tabs (navigation.tabs, shown in the top navbar / hamburger
+# menu), each foldable in the left sidebar: Home (a hand-composed landing
+# page - src/uab_xoi/tex2md.py's write_frontpage() - plus its own License/Credits/
+# course-logistics pages), Course (the technical chapters, foldable Computer
+# Networks/Internet groups underneath) and Missions. navigation.indexes makes
+# clicking the "Home" tab itself go straight to index.md.
+nav:
+  - Home:
+      - index.md
+      - License and credits: license.md
+      - AI usage: ai_usage.md
+      - About this course: course.md
+  - Course:
+      - Computer Networks:
+          - piercing_the_veil.md
+          - where_are_you.md
+          - packets.md
+          - stack_layers.md
+      - Internet:
+          - tcpip.md
+          - layer2.md
+          - layer3.md
+          - layer4.md
+          - layer7.md
+      - Index of concepts: concepts.md
+  - Missions:
+      - missions/index.md
+      - missions/mission1.md
+      - missions/mission2.md
+      - missions/mission3.md
+      - missions/mission4.md
+      - missions/mission5.md
+      - missions/mission6.md
+      - missions/mission7.md
+      - missions/mission8.md
+      - missions/mission9.md
