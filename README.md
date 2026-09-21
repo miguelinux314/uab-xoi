@@ -48,8 +48,7 @@ uab-xoi serve    # lean live-reloading site (no PDFs or zips), port 65535
 uab-xoi clean    # remove every generated file
 ```
 
-Each edition can also be compiled on its own from `tex/` (for example from Kile, with the project file
-`xoistudyguide.kilepr`): `pdflatex -shell-escape main_en.tex` (or `main_es.tex`, `main_ca.tex`).
+Each edition can also be compiled on its own from `tex/`: `pdflatex -shell-escape main_en.tex` (or `main_es.tex`, `main_ca.tex`).
 
 ## Contributing
 
