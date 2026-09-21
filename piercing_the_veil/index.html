@@ -1,0 +1,1858 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Study guide for the Computer Networks and Internet course (UAB, 104353)">
+      
+      
+      
+        <link rel="canonical" href="https://miguelinux314.github.io/uab-xoi/piercing_the_veil/">
+      
+      
+        <link rel="prev" href="../networks/">
+      
+      
+        <link rel="next" href="../where_are_you/">
+      
+      
+        
+          <link rel="alternate" href="../es/piercing_the_veil/" hreflang="es">
+        
+          <link rel="alternate" href="../ca/piercing_the_veil/" hreflang="ca">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>[2] Piercing the analog-digital veil - Computer Networks and Internet: Study Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/xoi.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sec-piercing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Computer Networks and Internet: Study Guide" class="md-header__button md-logo" aria-label="Computer Networks and Internet: Study Guide" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Computer Networks and Internet: Study Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              [2] Piercing the analog-digital veil
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../es/piercing_the_veil/" hreflang="es" class="md-select__link">
+              Castellano
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../ca/piercing_the_veil/" hreflang="ca" class="md-select__link">
+              Català
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../networks/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Course
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../missions/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Missions
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Computer Networks and Internet: Study Guide" class="md-nav__button md-logo" aria-label="Computer Networks and Internet: Study Guide" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    Computer Networks and Internet: Study Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href=".." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License and credits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../course/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About this course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Course
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part I: Computer Networks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part I: Computer Networks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part I: Computer Networks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [2] Piercing the analog-digital veil
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [2] Piercing the analog-digital veil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sec-piercing-information_binary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.1] Information ↔ Data ↔ Binary messages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-piercing-analog_digital" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.2] Analog ↔ Digital
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../where_are_you/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [3] Where are you?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [4] Is this yours?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stack_layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [5] A Stack of Layers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part II: Internet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part II: Internet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part II: Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tcpip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [6] The Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [7] Layer 2: Network (LAN) communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [8] Layer 3: Internet(work) communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [9] Layer 4: Transport
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [10] Layer 7: Application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index of concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../missions/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missions
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Missions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 1: Sharing is caring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 2: Infinite scroll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 3: Herding chaos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 4: Inter planetary net
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 5: Money is the root
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 6: Annoy two whole planets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 7: To TCP or not to TCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 8: You talking to me?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 9: Interplanetary Hallway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sec-piercing-information_binary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.1] Information ↔ Data ↔ Binary messages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-piercing-analog_digital" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.2] Analog ↔ Digital
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><img alt="" class="hero" src="../assets/fig/numbers_background.svg" /></p>
+<h1 id="sec-piercing">[2] Piercing the analog-digital veil<a class="headerlink" href="#sec-piercing" title="Permanent link">&para;</a></h1>
+<p>We send and receive <span class="concept" id="c1" data-key="message">messages</span> constantly in our personal, professional and political spheres. The almost-instantaneous availability of virtually any desired <span class="concept" id="c2" data-key="information">information</span> is a key characteristic of the current era. When we use a computer of any kind to share or retrieve knowledge, first it must be transformed into <span class="concept" id="c3" data-key="data">data</span> that can be understood both by humans and computers. This can be imagined as a sequence of steps:</p>
+<p><img alt="image" src="../assets/fig/knowledge_info_data_transmission.svg" style="width:22.95cm" /></p>
+<p>Computers work with and transmit digital <span class="concept" id="c4" data-key="data">data</span>, <em>i.e.</em>, sequences of binary <code>0</code> and <code>1</code> symbols. However, data transmission happens in the real world, where <code>0</code> and <code>1</code> are ideas and not tangible objects.</p>
+<p>This chapter studies how those digital symbols <em>pierce the veil</em> from the digital to the analog (physical) world on transmission, and back from analog to digital on reception.</p>
+<h2 id="sec-piercing-information_binary">[2.1] Information ↔ Data ↔ Binary messages<a class="headerlink" href="#sec-piercing-information_binary" title="Permanent link">&para;</a></h2>
+<p>Knowledge, <span class="concept" id="c5" data-key="information">information</span>, and <span class="concept" id="c6" data-key="data">data</span> are not the same thing, although they are often used interchangeably. In technical contexts, they should be used and interpreted accurately.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 2.1</p>
+<p>Suppose we are outdoors and we want to tell our friend about the weather. We have knowledge about everything related to the weather, because we are there. For our communication, we need to focus on part of that knowledge, and decide what information to send. For instance, we could want to communicate the temperature, and say something like “the temperature is about 22ºC”. There are many ways in which we can store that information as data inside a computer. Most likely, we will represent the number <span class="arithmatex">\(22\)</span> as part of those data. How would you define knowledge, information and data?</p>
+</div>
+<p>Even though there are many types of data, <em>i.e.</em> numerical, textual, visual, scientific, <em>etc.</em>, these are eventually represented by numbers. For instance, one could use <span class="concept" id="c7" data-key="ASCII">ASCII</span> encoding to represent the string “Bobby” as the following sequence: <span class="arithmatex">\(66, 111, 98, 98, 121\)</span>.</p>
+<p>Inside a computer, those numbers are stored in binary registers, <em>e.g.</em> in the CPU and in the RAM. However, there are multiple ways of representing numerical data in binary format. More specifically, we need to pay close attention to at least the following aspects whenever reading or writing data:</p>
+<ul>
+<li>
+<p>integer or with decimals?</p>
+</li>
+<li>
+<p><span class="concept" id="c8" data-key="bitdepth">bitdepth</span>? (<em>e.g.</em>, 8 bits per number)</p>
+</li>
+<li>
+<p><span class="concept" id="c9" data-key="sign">signed</span> or <span class="concept" id="c10" data-key="sign">unsigned</span>?</p>
+</li>
+<li>
+<p>For multibyte numbers: <span class="concept" id="c11" data-key="big endian">big endian</span> or <span class="concept" id="c12" data-key="little endian">little endian</span>?</p>
+</li>
+<li>
+<p>For numbers with decimals: <span class="concept" id="c13" data-key="floating-point">floating-point</span> or <span class="concept" id="c14" data-key="fixed-point">fixed-point</span>?</p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Exercise 2.2</p>
+<p>Explain <strong>how to complete the second row given the first</strong> (and vice-versa), and what assumptions you need to make in each case.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Number</strong></th>
+<th style="text-align: center;"><span class="arithmatex">\(7\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(2\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(-3\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(0.75\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(260\)</span></th>
+<th style="text-align: center;"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Binary</strong></td>
+<td style="text-align: center;"><code>00111</code></td>
+<td style="text-align: center;"><code>00000010</code></td>
+<td style="text-align: center;"><code>1101</code></td>
+<td style="text-align: center;"><code>1100</code></td>
+<td style="text-align: center;"><code>0000</code> <code>0100</code> <code>0000</code> <code>0001</code></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p>How about à <span class="arithmatex">\(\leftrightarrow\)</span> <code>1100</code> <code>0011</code> <code>1010</code> <code>0000</code>?</p>
+</div>
+<p>Sometimes we need to inspect the contents of a binary register (<em>e.g.</em>, for debugging or other analysis purposes) or to set those contents manually. For humans, it is inconvenient and <em>very</em> prone to error to handle binary strings longer than a few bits. When we need to inspect or modify the contents of a binary register (<em>e.g.</em>, for debugging purposes), we often use base <span class="arithmatex">\(16\)</span>, <em>i.e.</em>, <span class="concept" id="c15" data-key="hexadecimal">hexadecimal</span> notation.</p>
+<p>In hexadecimal, there are exactly <span class="arithmatex">\(16 = 2^4\)</span> different digits (<code>0</code> to <code>9</code>, <code>a</code> to <code>f</code>) with decimal values from <span class="arithmatex">\(0\)</span> to <span class="arithmatex">\(15\)</span>, each of which represents exactly <span class="arithmatex">\(4\)</span> bits. When we writing hexadecimal values to a computer, <em>i.e.</em>, in source code, hexadecimal values are typically preceded by <code>0x</code>, <em>e.g.</em>, <code>0x58a5b0</code>. Similarly, binary expressions are preceded by <code>0b</code>, <em>e.g.</em>, <code>0b0011</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>
+<p>Spaces and even line breaks between digits do not carry any meaning, they are only used to facilitate visual inspection.</p>
+</li>
+<li>
+<p>In some texts, when multiple bases are applicable in a context, they are shown as subscripts as in <code>58a5b0</code><span class="arithmatex">\(_\textrm{16}\)</span> and <code>0011</code><span class="arithmatex">\(_\textrm{2}\)</span>.</p>
+</li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Exercise 2.3</p>
+<p>Consider the following message, which is composed of a concatenation of 3-bit unsigned integers: <code>a4 3f 20</code>.</p>
+<ul>
+<li>
+<p>How many bits and bytes long is it?</p>
+</li>
+<li>
+<p><strong>What are the first five integers</strong> contained in the message?</p>
+</li>
+</ul>
+</div>
+<p>Most often, we will let our code handle data manipulation. To do that, we need <span class="concept" id="c16" data-key="bitwise">bitwise</span> and <span class="concept" id="c17" data-key="boolean logic">boolean logic</span> operations such as the following</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;"><strong>Operation</strong></th>
+<th style="text-align: center;"><span class="concept" id="c18" data-key="bitwise">bitwise AND</span></th>
+<th style="text-align: center;"><span class="concept" id="c19" data-key="boolean logic">logic AND</span></th>
+<th style="text-align: center;"><span class="concept" id="c20" data-key="bitwise">bitwise OR</span></th>
+<th style="text-align: center;"><span class="concept" id="c21" data-key="boolean logic">logic OR</span></th>
+<th style="text-align: center;"><span class="concept" id="c22" data-key="bitwise">left shift</span></th>
+<th style="text-align: center;"><span class="concept" id="c23" data-key="bitwise">right shift</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>Python</strong></td>
+<td style="text-align: center;"><code>&amp;</code></td>
+<td style="text-align: center;"><code>and</code></td>
+<td style="text-align: center;"><code>|</code></td>
+<td style="text-align: center;"><code>or</code></td>
+<td style="text-align: center;"><code>&lt;&lt;</code></td>
+<td style="text-align: center;"><code>&gt;&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>Other useful python tools are the <code>bin()</code> and <code>hex()</code> functions, that convert an integer into its binary and hexadecimal representation, respectively, and <code>int()</code>, which can parse a string describing a number and return that number. We can also control the format in which we show numbers, <em>e.g.</em>, <code>print(f'{n:08b}')</code> would print the value of variable <code>n</code> in binary form, using at least 8 positions and filling the empty leading positions with zeros (more in the <a href="https://docs.python.org/3/reference/lexical_analysis.html#f-strings">python docs</a>).</p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 2.4</p>
+<p>Consider the code shown next. The numbers printed when run are of special importance in networking and computer science. What do they have in common? (Hint: You may want to modify the code to show their binary representations).</p>
+<p><div class="showcode" markdown="1">
+<strong><code>snippets/bitwisemanipulation.py</code></strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Code</label><label for="__tabbed_1_2">Output</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="n">a</span> <span class="o">=</span> <span class="mh">0xff</span>
+<span class="linenos" data-linenos="2 "></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="linenos" data-linenos="3 "></span><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+<span class="linenos" data-linenos="4 "></span>    <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xff</span>
+<span class="linenos" data-linenos="5 "></span>    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>255
+254
+252
+248
+240
+224
+192
+128
+0
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p><a id="ex-bitwisemanipulation"></a></p>
+</div>
+<h2 id="sec-piercing-analog_digital">[2.2] Analog ↔ Digital<a class="headerlink" href="#sec-piercing-analog_digital" title="Permanent link">&para;</a></h2>
+<p>Once we decide what bits to transmit, we need to find a way of making those bits available to another machine at a distance. First, we need to decide what <span class="concept" id="c24" data-key="medium">medium</span> to use and what physical properties we can control and monitor. Popular choices include using voltage on copper wires, sending light over optical fiber and manipulating the electromagnetic <span class="concept" id="c25" data-key="field">field</span> using antennas.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 2.5</p>
+<p><strong>Ponder</strong>:</p>
+<ul>
+<li>
+<p>Can we make a copper cable as long as we desire?</p>
+</li>
+<li>
+<p>What medium do Wi-Fi connection use?</p>
+</li>
+<li>
+<p>Do we need optical fibers to perform light-based communication?</p>
+</li>
+</ul>
+</div>
+<p>If we opt for copper wires, we can put several in <span class="concept" id="c26" data-key="parallel">parallel</span> and send more data at the same clock speed. This, however, comes at the price of additional complexity and cost than <span class="concept" id="c27" data-key="serial">serial</span> designs. Voltage interferences in the data lines may happen for a number of reasons, including physical phenomena such as electromagnetic induction in the wire. Notwithstanding, cables compliant with modern data transmission standards (<em>e.g.</em>, IEEE 802.3) often employ twisted pairs of cables and shielding among other strategies to guarantee bit errors below <span class="arithmatex">\(1\)</span> in <span class="arithmatex">\(10^{12}\)</span> bits.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 2.6</p>
+<p><a id="ex-piercing-copper_connectors"></a> <strong>Consider and identify</strong> the following wire connectors:</p>
+<div class="figure-row" markdown="1">
+<p><img alt="image" src="../assets/fig/hdmi_connector.jpg" style="height:3cm" /> <img alt="image" src="../assets/fig/coaxial_connector.jpg" style="height:3cm" /> <img alt="image" src="../assets/fig/usbc_connector.jpg" style="height:3cm" /> <img alt="image" src="../assets/fig/rj11_connector.jpg" style="height:3cm" /></p>
+</div>
+</div>
+<p><img alt="image" class="wrap" src="../assets/fig/iceberg.jpg" /></p>
+<p>Have you ever been diving in a swimming pool, looked up and the water was mirror-like? Optical fiber cables work of this phenomenon, called refraction. Light that enters the fiber through one end stays inside until it exits through the other end. The coating of the fiber is important to support its integrity, but that coating does not participate in the “bouncing” of light when advancing through the fiber.</p>
+<p>In a single-mode optical fiber, the sensor at the receiving end detects the presence or absence of a single wavelength range. These cables are relatively thin and cheap, but carry a single signal. Another option is to transmit multiple wavelengths (<em>e.g.</em>, using several laser sources) at the same time, through the same fiber. At the receiving end, a prism is used to divide the beam of light back into its monochrome components, which are sensed separately. In this way, multi-modal optical fiber allows <span class="concept" id="c28" data-key="multiplex">multiplexing</span> several signals, greatly increasing the effective transmission rate.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 2.7</p>
+<p><a id="ex-piercing-laser_refraction"></a> When a beam of light enters an optical fiber, it does so with a certain angle of attack. This angle affects the time it takes to reach the other end. If we project a cone of light, light enters the fiber at multiple angles of attack. What happens at the other end if we <strong>turn this cone of light on and off</strong> very quickly? Is it relevant whether we use monomodal or multimodal beams?</p>
+<div class="figure-row" markdown="1">
+<p><img alt="image" src="../assets/fig/laser_refraction.jpg" style="height:2.5cm" /> <img alt="image" src="../assets/fig/optical_connector.jpg" style="height:2.5cm" /></p>
+</div>
+</div>
+<p><img alt="image" class="wrap" src="../assets/fig/dipole.png" /></p>
+<p>Even though there are many classes of antennas, their main purpose is to detect electromagnetic fields and/or to create them. The Maxwell-Faraday equation tells us that <em>changes</em> in the electric <span class="concept" id="c29" data-key="field (physics)">field</span> <span class="arithmatex">\(\vec{E}\)</span> create a perpendicular magnetic <span class="concept" id="c30" data-key="field (physics)">field</span> <span class="arithmatex">\(\vec{B}\)</span>, and the other way around.</p>
+<p>A dipole antenna like the one to the right uses this concept by applying an alternating voltage <span class="arithmatex">\(V\)</span>, which generates electromagnetic waves that propagate outwards the dipole axis.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When we emit some energy <span class="arithmatex">\(E\)</span> from a point in all directions, that energy is distributed around a growing sphere. Since the area of a sphere of radius <span class="arithmatex">\(r\)</span> is <span class="arithmatex">\(4 \pi r^2\)</span>, the amount of energy that reaches a point at distance <span class="arithmatex">\(r\)</span> will be in the ballpark of <span class="arithmatex">\(E / r^2\)</span>.</p>
+<p>This is sometimes referred to as the inverse square law, and is the reason why currents inducted in the receiver’s antenna are usually between nanovolts (<span class="arithmatex">\(10^{-9}\)</span> V) and picovolts (<span class="arithmatex">\(10^{-12}\)</span> V). Surprisingly, this is enough for modern detectors to read the data signal.</p>
+</div>
+<p><img alt="image" class="wrap" src="../assets/fig/modulation.jpg" /></p>
+<p>Regardless of the method chosen to let the data travel, the veil between analog signals and digital data must still be pierced. Once way of doing this is modulation: a base sinusoidal signal called carrier is produced, and the data are encoded by modifying this carrier. For instance, one can change the amplitude of the carrier (ASK), its frequency (FSK), or even the amplitude and the phase at the same time (QAM).</p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 2.8</p>
+<p>The figure above displays an example of amplitude modulation and of frequency modulation. Which is which? For each case: is that <strong>modulation transmitting an analog or a digital signal</strong>?</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Exercise 2.9</p>
+<p>What’s the <strong>difference between bandwidth and transmission speed</strong>? Why do you think they are interchangeably used in non-technical contexts?</p>
+</div>
+<script>window.XOI_ASSETS = "../assets/";</script>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../networks/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Part I: Computer Networks">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Part I: Computer Networks
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../where_are_you/" class="md-footer__link md-footer__link--next" aria-label="Next: [3] Where are you?">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                [3] Where are you?
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.indexes", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "search.highlight", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../scripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../scripts/wide-tables.js"></script>
+      
+        <script src="../scripts/search-highlight.js"></script>
+      
+        <script src="../scripts/technical-terms.js"></script>
+      
+        <script src="../scripts/goatcounter.js"></script>
+      
+        <script src="https://gc.zgo.at/count.js" async></script>
+      
+    
+  </body>
+</html>

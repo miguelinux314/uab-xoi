@@ -1,0 +1,1814 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Study guide for the Computer Networks and Internet course (UAB, 104353)">
+      
+      
+      
+        <link rel="canonical" href="https://miguelinux314.github.io/uab-xoi/es/stack_layers/">
+      
+      
+        <link rel="prev" href="../packets/">
+      
+      
+        <link rel="next" href="../internet/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+          <link rel="alternate" href="../../ca/stack_layers/" hreflang="ca">
+        
+          <link rel="alternate" href="../../stack_layers/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>[5] Una pila de capas - Redes de Ordenadores e Internet: Guía de Estudio</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/xoi.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sec-stack_layers" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../" title="Redes de Ordenadores e Internet: Guía de Estudio" class="md-header__button md-logo" aria-label="Redes de Ordenadores e Internet: Guía de Estudio" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Redes de Ordenadores e Internet: Guía de Estudio
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              [5] Una pila de capas
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Castellano
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../ca/stack_layers/" hreflang="ca" class="md-select__link">
+              Català
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../stack_layers/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Portada
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../networks/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Curso
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../missions/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Misiones
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Redes de Ordenadores e Internet: Guía de Estudio" class="md-nav__button md-logo" aria-label="Redes de Ordenadores e Internet: Guía de Estudio" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    Redes de Ordenadores e Internet: Guía de Estudio
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portada
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Portada
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licencia y créditos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uso de IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../course/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sobre esta asignatura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Curso
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Curso
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte I: Redes de ordenadores
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte I: Redes de ordenadores
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte I: Redes de ordenadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../piercing_the_veil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [2] Atravesando el velo analógico-digital
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../where_are_you/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [3] ¿Dónde estás?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [4] ¿Esto es tuyo?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [5] Una pila de capas
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [5] Una pila de capas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sec-stack_layers-send" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [5.1] Envío de datos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-stack_layers-receive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [5.2] Recepción de datos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte II: Internet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte II: Internet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte II: Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tcpip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [6] Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [7] Capa 2: comunicación en red (LAN)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [8] Capa 3: comunicación Internet(work)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [9] Capa 4: Transporte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [10] Capa 7: Aplicación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice de conceptos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../missions/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misiones
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Misiones
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 1: Compartir es vivir
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 2: Scroll infinito
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 3: Pastoreando el caos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 4: Inter planetary net
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 5: El dinero es la raíz
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 6: Molestar a dos planetas enteros
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 7: TCP o no TCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 8: ¿Me hablas a mí?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 9: Pasillo interplanetario
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sec-stack_layers-send" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [5.1] Envío de datos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-stack_layers-receive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [5.2] Recepción de datos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><img alt="" class="hero" src="../assets/fig/onions.jpg" /></p>
+<h1 id="sec-stack_layers">[5] Una pila de capas<a class="headerlink" href="#sec-stack_layers" title="Permanent link">&para;</a></h1>
+<p>La comunicación entre ordenadores moderna se consigue mediante una <span class="concept" id="c1" data-key="stack">stack</span> de <span class="concept" id="c2" data-key="layer">capas</span> de red. Cada pila se centra en algunos problemas y es responsable de proporcionar ciertas funcionalidades, p.ej. <span class="concept" id="c3" data-key="address">direccionamiento</span> y <span class="concept" id="c4" data-key="sequencing">sequencing</span> (secuenciación) correcta (introducidos en los capítulos anteriores).</p>
+<p>Cada <span class="concept" id="c5" data-key="layer">layer</span> define un <em>par</em> de funciones <code>send</code>/<code>receive</code>, que es responsable de algunas de estas funcionalidades. Cada capa utiliza el <code>send</code> y el <code>receive</code> de la capa inferior, es decir, las funcionalidades de una capa se apoyan en las funcionalidades de todas las capas que tiene por debajo.</p>
+<p>Para coordinar las capas y hacer posible la comunicación <span class="concept" id="c6" data-key="virtual">virtual</span> entre ellas, cada capa define un <span class="concept" id="c7" data-key="packet format">packet format</span> (formato de paquete) distinto, que <span class="concept" id="c8" data-key="encapsulation">encapsula</span> un paquete de la capa que tiene por encima.</p>
+<h2 id="sec-stack_layers-send">[5.1] Envío de datos<a class="headerlink" href="#sec-stack_layers-send" title="Permanent link">&para;</a></h2>
+<p>Para implementar estas capacidades, cada capa transmite no solo los <code>data</code> proporcionados por la capa superior, sino también una cabecera con toda la metainformación necesaria para esa capacidad. Así, cada capa necesita definir el <span class="concept" id="c9" data-key="packet format">packet format</span>, añadiendo cierto <span class="concept" id="c10" data-key="overhead">overhead</span> (sobrecarga) (típicamente una <span class="concept" id="c11" data-key="header">cabecera</span>) al <span class="concept" id="c12" data-key="payload">payload</span> (carga útil), p.ej.:</p>
+<p><img alt="image" src="../assets/rendered/8746c4fadf58334d.svg" style="width:16.7cm" /></p>
+<p>Cuando un programa de usuario quiere enviar algunos datos, utiliza el método <code>send</code> de la capa <em>superior</em> de la pila, lo que acaba provocando que la capa física transmita ciertos datos, p.ej. a través de un cable o una antena. La siguiente figura representa la estructura de una <span class="concept" id="c13" data-key="stack">stack</span> de 4 capas:</p>
+<p><img alt="image" src="../assets/fig/encapsulation_send.svg" style="width:22.95cm" /></p>
+<p>Los paquetes producidos por cada capa se denominan genéricamente <span class="concept" id="c14" data-key="PDU">PDU</span>s (Protocol Data Unit). Las PDU de cada capa tienen nombres específicos como <span class="concept" id="c15" data-key="frame">frame</span> (trama), <span class="concept" id="c16" data-key="datagram">datagrama</span> o <span class="concept" id="c17" data-key="segment">segmento</span>. Estos nombres deben usarse con precisión en contextos técnicos.</p>
+<p>Cada capa incluye la <span class="concept" id="c18" data-key="PDU">PDU</span> de la capa superior dentro de la definición del <span class="concept" id="c19" data-key="packet format">packet format</span> de su propia PDU. Este proceso se denomina <span class="concept" id="c20" data-key="encapsulation">encapsulación</span>.</p>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 5.1</p>
+<p>El programa de usuario quiere enviar <span class="arithmatex">\(420\)</span> bytes de datos utilizando la <span class="concept" id="c21" data-key="stack">stack</span> de la figura anterior. Supón un tamaño de cabecera para las capas 2, 3 y 4 de <span class="arithmatex">\(14\)</span> bytes, <span class="arithmatex">\(20\)</span> bytes y <span class="arithmatex">\(20\)</span> bytes, respectivamente.</p>
+<ul>
+<li>
+<p>¿Cuál es el tamaño del <span class="concept" id="c22" data-key="payload">payload</span> y el tamaño del <span class="concept" id="c23" data-key="overhead">overhead</span> de la <span class="concept" id="c24" data-key="PDU">PDU</span> de cada <span class="concept" id="c25" data-key="layer">capa</span>?</p>
+</li>
+<li>
+<p>¿Cuál es el tamaño del <span class="concept" id="c26" data-key="payload">payload</span> y el tamaño del <span class="concept" id="c27" data-key="overhead">overhead</span> de toda la <span class="concept" id="c28" data-key="stack">stack</span>?</p>
+</li>
+</ul>
+</div>
+<h2 id="sec-stack_layers-receive">[5.2] Recepción de datos<a class="headerlink" href="#sec-stack_layers-receive" title="Permanent link">&para;</a></h2>
+<p>Cuando un <span class="concept" id="c29" data-key="packet">paquete</span> llega a la <span class="concept" id="c30" data-key="stack">stack</span> de red del destinatario, se procesa en orden inverso, es decir, las capas se recorren de abajo arriba. Cada capa inspecciona <em>solo</em> la <span class="concept" id="c31" data-key="header">cabecera</span> correspondiente a esa capa. Si todo es correcto, la capa elimina la cabecera y pasa el resto del paquete a la capa superior. A su vez, la capa de arriba pasa los datos restantes (el <span class="concept" id="c32" data-key="payload">payload</span>) al destinatario. Continuando con el ejemplo de la pila de 4 capas:</p>
+<p><img alt="image" src="../assets/fig/encapsulation_receive.svg" style="width:22.95cm" /></p>
+<p>En una <span class="concept" id="c33" data-key="stack">pila de red</span>, solo la capa inferior interactúa directamente con el exterior, p.ej. solo la tarjeta de red física de un ordenador está conectada a un cable que lleva datos a otros ordenadores. Al mismo tiempo, los datos enviados por la capa inferior incluyen las <span class="concept" id="c34" data-key="PDU">PDU</span> de todas las capas mediante la <span class="concept" id="c35" data-key="encapsulation">encapsulation</span>. Gracias a esto, existe una comunicación <span class="concept" id="c36" data-key="virtual">virtual</span> entre cada capa de un extremo y su homóloga en el otro extremo de la comunicación. La siguiente figura representa la comunicación real (línea continua) y la virtual (línea discontinua) en nuestro ejemplo:</p>
+<p><img alt="image" src="../assets/fig/horizontal_layer_communication.svg" style="width:11.48cm" /></p>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 5.2</p>
+<p>Otro ejemplo de <span class="concept" id="c37" data-key="stack">stack</span> de red tiene 3 capas: L1, L2 y L3 de abajo arriba.</p>
+<p>La <span class="concept" id="c38" data-key="PDU">PDU</span> de la capa L2 es la siguiente:</p>
+<p><img alt="image" src="../assets/rendered/fd127232d6867630.svg" style="width:14.9cm" /></p>
+<p>La <span class="concept" id="c39" data-key="PDU">PDU</span> de la capa L3 es la siguiente:</p>
+<p><img alt="image" src="../assets/rendered/9c1eee379410e64f.svg" style="width:14.9cm" /></p>
+<p>La capa L1 recibe un <span class="concept" id="c40" data-key="packet">paquete</span> de datos y su función <code>receive</code> devuelve los siguientes datos (supón enteros <span class="concept" id="c41" data-key="unsigned">unsigned</span> (sin signo) y orden <span class="concept" id="c42" data-key="big endian">big endian</span> cuando sea necesario:</p>
+<p><code>01 23 00 0a 01 00 00 06 00 aa 00 bb 43 20</code></p>
+<ul>
+<li>
+<p>¿Qué <span class="concept" id="c43" data-key="payload">payload</span> de datos se envió al programa destinatario en este <span class="concept" id="c44" data-key="packet">paquete</span>?</p>
+</li>
+<li>
+<p>Si este es el último <span class="concept" id="c45" data-key="packet">paquete</span> de la comunicación, ¿cuántos datos (de <span class="concept" id="c46" data-key="payload">payload</span>) se enviaron al programa de usuario destinatario?</p>
+</li>
+<li>
+<p>Como máximo, ¿cuántos ordenadores distintos pueden conectarse usando esta <span class="concept" id="c47" data-key="stack">stack</span>?</p>
+</li>
+<li>
+<p>Enviamos un fichero como payload de esta pila. ¿Cuál es su tamaño máximo posible?</p>
+</li>
+</ul>
+<p><a id="ex-how_it_is_done-three_layer_network"></a></p>
+</div>
+<div class="showcode">
+<p><strong><code>snippets/encapsulation.py</code></strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Código</label><label for="__tabbed_1_2">Salida</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+<span class="linenos" data-linenos=" 2 "></span><span class="kn">import</span><span class="w"> </span><span class="nn">struct</span>
+<span class="linenos" data-linenos=" 3 "></span>
+<span class="linenos" data-linenos=" 4 "></span><span class="k">def</span><span class="w"> </span><span class="nf">layer2_encapsulate</span><span class="p">(</span><span class="n">address</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="w">    </span><span class="sd">"""Encapsulate a PDU of layer 3 into a PDU of layer 2."""</span>
+<span class="linenos" data-linenos=" 6 "></span>    <span class="k">assert</span> <span class="mh">0x0000</span> <span class="o">&lt;=</span> <span class="n">address</span> <span class="o">&lt;=</span> <span class="mh">0xffff</span><span class="p">,</span> <span class="s2">"Invalid layer 2 address"</span>
+<span class="linenos" data-linenos=" 7 "></span>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mh">0xffff</span><span class="p">,</span> <span class="s2">"Too much data for a layer 2 PDU"</span>
+<span class="linenos" data-linenos=" 8 "></span>    <span class="k">return</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">"&gt;H"</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span>
+<span class="linenos" data-linenos=" 9 "></span>                 <span class="o">+</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">"&gt;H"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="linenos" data-linenos="10 "></span>                 <span class="o">+</span> <span class="n">data</span><span class="p">)</span>
+<span class="linenos" data-linenos="11 "></span>
+<span class="linenos" data-linenos="12 "></span><span class="k">def</span><span class="w"> </span><span class="nf">layer3_encapsulate</span><span class="p">(</span><span class="n">offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="linenos" data-linenos="13 "></span><span class="w">    </span><span class="sd">"""Encapsulate a chunk of user data into a PDU of layer 3."""</span>
+<span class="linenos" data-linenos="14 "></span>    <span class="k">assert</span> <span class="mh">0x0000</span> <span class="o">&lt;=</span> <span class="n">offset</span> <span class="o">&lt;=</span> <span class="mh">0xffff</span><span class="p">,</span> <span class="s2">"Invalid layer 3 offset"</span>
+<span class="linenos" data-linenos="15 "></span>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mh">0xffff</span><span class="p">,</span> <span class="s2">"Too much data for a layer 3 PDU"</span>
+<span class="linenos" data-linenos="16 "></span>    <span class="k">return</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">"&gt;H"</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+<span class="linenos" data-linenos="17 "></span>                 <span class="o">+</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">"&gt;H"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="linenos" data-linenos="18 "></span>                 <span class="o">+</span> <span class="n">data</span><span class="p">)</span>
+<span class="linenos" data-linenos="19 "></span>
+<span class="linenos" data-linenos="20 "></span><span class="k">def</span><span class="w"> </span><span class="nf">stack_send</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">output_file</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">BinaryIO</span><span class="p">):</span>
+<span class="linenos" data-linenos="21 "></span>    <span class="n">layer3_pdu</span> <span class="o">=</span> <span class="n">layer3_encapsulate</span><span class="p">(</span><span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="linenos" data-linenos="22 "></span>    <span class="n">layer2_pdu</span> <span class="o">=</span> <span class="n">layer2_encapsulate</span><span class="p">(</span><span class="n">address</span><span class="o">=</span><span class="mh">0xabcd</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">layer3_pdu</span><span class="p">)</span>
+<span class="linenos" data-linenos="23 "></span>    <span class="n">output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">layer2_pdu</span><span class="p">)</span>
+<span class="linenos" data-linenos="24 "></span>
+<span class="linenos" data-linenos="25 "></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+<span class="linenos" data-linenos="26 "></span>    <span class="k">with</span> <span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">input_file</span><span class="p">,</span>
+<span class="linenos" data-linenos="27 "></span>          <span class="nb">open</span><span class="p">(</span><span class="s2">"/dev/stdout"</span><span class="p">,</span> <span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_file</span><span class="p">):</span>
+<span class="linenos" data-linenos="28 "></span>        <span class="n">payload</span> <span class="o">=</span> <span class="n">input_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="linenos" data-linenos="29 "></span>        <span class="n">stack_send</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="n">output_file</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>��\x04�\x00\x00\x04�import typing
+import struct
+
+def layer2_encapsulate(address: int, data: bytes) -&gt; bytes:
+    """Encapsulate a PDU of layer 3 into a PDU of layer 2."""
+    assert 0x0000 &lt;= address &lt;= 0xffff, "Invalid layer 2 address"
+    assert len(data) &lt;= 0xffff, "Too much data for a layer 2 PDU"
+    return bytes(struct.pack("&gt;H", address)
+                 + struct.pack("&gt;H", len(data))
+                 + data)
+
+def layer3_encapsulate(offset: int, data: bytes) -&gt; bytes:
+    """Encapsulate a chunk of user data into a PDU of layer 3."""
+    assert 0x0000 &lt;= offset &lt;= 0xffff, "Invalid layer 3 offset"
+    assert len(data) &lt;= 0xffff, "Too much data for a layer 3 PDU"
+    return bytes(struct.pack("&gt;H", offset)
+                 + struct.pack("&gt;H", len(data))
+                 + data)
+
+def stack_send(data: bytes, output_file: typing.BinaryIO):
+    layer3_pdu = layer3_encapsulate(offset=0, data=data)
+    layer2_pdu = layer2_encapsulate(address=0xabcd, data=layer3_pdu)
+    output_file.write(layer2_pdu)
+
+if __name__ == '__main__':
+    with (open(__file__, "rb") as input_file,
+          open("/dev/stdout", "wb") as output_file):
+        payload = input_file.read()
+        stack_send(data=payload, output_file=output_file)
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 5.3</p>
+<p>El código anterior toma unos datos y escribe los bytes que se enviarían a la capa 1 (la <span class="concept" id="c48" data-key="physical layer">capa física</span>) de la <span class="concept" id="c49" data-key="network stack">pila de red</span> del ejercicio <a href="./#ex-how_it_is_done-three_layer_network">5.2</a>. Implementa el extremo receptor de la pila de la siguiente manera:</p>
+<ul>
+<li>
+<p>Implementa una función <code>layer2_decapsulate(data: bytes) -&gt; (int, bytes)</code> que tome una PDU de la capa 2 y devuelva la tupla <code>(address, payload)</code>, donde <code>address</code> es la dirección de destino y <code>payload</code> es la PDU de la capa 3 encapsulada.</p>
+</li>
+<li>
+<p>Implementa una función <code>layer3_decapsulate(data: bytes) -&gt; (int, bytes)</code> que tome una PDU de la capa 3 y devuelva la tupla <code>(offset, payload)</code>, donde <code>offset</code> es el offset (desplazamiento) de la carga útil, y <code>payload</code> es el fragmento de datos enviado por el otro extremo de la comunicación.</p>
+</li>
+<li>
+<p>Implementa una función <code>stack_receive(data: bytes)</code> que decodifique una PDU de la capa 1 (usando las dos funciones anteriores) y muestre una línea de mensaje similar a</p>
+<p><code>"Received a chunk of data. Length: 12 bytes, Address: 0xabcd, Offset: 0."</code></p>
+</li>
+<li>
+<p>Completa la función <code>stack_send</code> de forma que los datos de entrada se dividan en fragmentos de como mucho 100 bytes, se produzca una PDU de la capa 1 válida para cada uno de esos fragmentos, y esas PDU de la capa 1 se pasen a <code>stack_receive</code>.</p>
+</li>
+<li>
+<p>¿Funcionaría tu implementación si las PDU de la capa 1 se ordenaran aleatoriamente antes de pasarlas a la pila receptora?</p>
+</li>
+</ul>
+<p><a id="ex-how_it_is_done-implementation_three_layer_network"></a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La biblioteca <code>struct</code> de Python es útil, aunque no obligatoria, para dar formato a los bytes de un <span class="concept" id="c50" data-key="packet">paquete</span>.</p>
+</div>
+<script>window.XOI_ASSETS = "../assets/";</script>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../packets/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [4] ¿Esto es tuyo?">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                [4] ¿Esto es tuyo?
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../internet/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Parte II: Internet">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                Parte II: Internet
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "search.highlight", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../scripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../scripts/wide-tables.js"></script>
+      
+        <script src="../../scripts/search-highlight.js"></script>
+      
+        <script src="../../scripts/technical-terms.js"></script>
+      
+        <script src="../../scripts/goatcounter.js"></script>
+      
+        <script src="https://gc.zgo.at/count.js" async></script>
+      
+    
+  </body>
+</html>

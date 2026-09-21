@@ -1,0 +1,1768 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Study guide for the Computer Networks and Internet course (UAB, 104353)">
+      
+      
+      
+        <link rel="canonical" href="https://miguelinux314.github.io/uab-xoi/es/where_are_you/">
+      
+      
+        <link rel="prev" href="../piercing_the_veil/">
+      
+      
+        <link rel="next" href="../packets/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+          <link rel="alternate" href="../../ca/where_are_you/" hreflang="ca">
+        
+          <link rel="alternate" href="../../where_are_you/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>[3] ¿Dónde estás? - Redes de Ordenadores e Internet: Guía de Estudio</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/xoi.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sec-where" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../" title="Redes de Ordenadores e Internet: Guía de Estudio" class="md-header__button md-logo" aria-label="Redes de Ordenadores e Internet: Guía de Estudio" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Redes de Ordenadores e Internet: Guía de Estudio
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              [3] ¿Dónde estás?
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Castellano
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../ca/where_are_you/" hreflang="ca" class="md-select__link">
+              Català
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../where_are_you/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Portada
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../networks/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Curso
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../missions/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Misiones
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Redes de Ordenadores e Internet: Guía de Estudio" class="md-nav__button md-logo" aria-label="Redes de Ordenadores e Internet: Guía de Estudio" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    Redes de Ordenadores e Internet: Guía de Estudio
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portada
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Portada
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licencia y créditos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uso de IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../course/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sobre esta asignatura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Curso
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Curso
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte I: Redes de ordenadores
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte I: Redes de ordenadores
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte I: Redes de ordenadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../piercing_the_veil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [2] Atravesando el velo analógico-digital
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [3] ¿Dónde estás?
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [3] ¿Dónde estás?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sec-where-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [3.1] Por favor, contacta conmigo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-where-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [3.2] Necesito encontrarte
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-where-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [3.3] ¿Cómo llego hasta ahí?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [4] ¿Esto es tuyo?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stack_layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [5] Una pila de capas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte II: Internet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte II: Internet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte II: Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tcpip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [6] Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [7] Capa 2: comunicación en red (LAN)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [8] Capa 3: comunicación Internet(work)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [9] Capa 4: Transporte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [10] Capa 7: Aplicación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice de conceptos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../missions/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misiones
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Misiones
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 1: Compartir es vivir
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 2: Scroll infinito
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 3: Pastoreando el caos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 4: Inter planetary net
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 5: El dinero es la raíz
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 6: Molestar a dos planetas enteros
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 7: TCP o no TCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 8: ¿Me hablas a mí?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 9: Pasillo interplanetario
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sec-where-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [3.1] Por favor, contacta conmigo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-where-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [3.2] Necesito encontrarte
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-where-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [3.3] ¿Cómo llego hasta ahí?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><img alt="" class="hero" src="../assets/fig/street_plaque.jpg" /></p>
+<h1 id="sec-where">[3] ¿Dónde estás?<a class="headerlink" href="#sec-where" title="Permanent link">&para;</a></h1>
+<p>Conectar dos ordenadores los hace mucho más útiles que dos máquinas aisladas. Sin embargo, su verdadero potencial solo se libera cuando pueden conectarse a <em>muchos</em> otros ordenadores.</p>
+<p>Las limitaciones prácticas, como el coste y la ubicación geográfica, hacen imposible conectar directamente cada par de ordenadores. En su lugar, los dispositivos se distribuyen en un grafo de redes interconectadas, que puede extenderse incluso más allá de la escala de un planeta.</p>
+<p>Ya sea localmente, al alcance físico, o en otro continente, se necesita un sistema de direccionamiento para identificar, localizar y encaminar los mensajes de modo que lleguen a los peers (pares) a los que van dirigidos, igual que hacemos con las ubicaciones físicas.</p>
+<h2 id="sec-where-topology">[3.1] Por favor, contacta conmigo<a class="headerlink" href="#sec-where-topology" title="Permanent link">&para;</a></h2>
+<p>Cuando solo intervienen <span class="arithmatex">\(2\)</span> <span class="concept" id="c1" data-key="device">dispositivos</span>, se puede usar una conexión <span class="concept" id="c2" data-key="point-to-point">punto a punto</span>. En este tipo de conexión solo existen “este lado” y “el otro lado” del cable. Además, cuando un dispositivo quiere comunicarse con el otro extremo, solo hay un enlace (p.ej. un cable) entre el que elegir, así que no hay confusión posible. Como podemos operar esta conexión con solo <span class="arithmatex">\(2\)</span> <span class="concept" id="c3" data-key="network card">tarjetas de red</span> y <span class="arithmatex">\(1\)</span> cable, las conexiones punto a punto son viables para <span class="arithmatex">\(N=2\)</span> dispositivos.</p>
+<p><img alt="image" class="wrap" src="../assets/fig/complete_graph.svg" /></p>
+<p>Si queremos conectar <span class="arithmatex">\(N &gt; 2\)</span> dispositivos, una opción ingenua es conectar cada dispositivo con todos los demás formando un <span class="concept" id="c4" data-key="complete graph"><em>grafo completo</em></span>. Ahora cada dispositivo necesita manejar <span class="arithmatex">\(N - 1\)</span> cables hacia los otros dispositivos, pero comunicarse con cualquier otro dispositivo es tan sencillo como elegir el cable correcto y establecer una conexión punto a punto.</p>
+<p>El principal problema de este enfoque es que el número total de conexiones es <span class="arithmatex">\(N \cdot (N-1) / 2 = O(N^2)\)</span> (más sobre esto en tu fiel asignatura de <em>Matemática Discreta</em>). Esto significa que, para tener <span class="arithmatex">\(N=10\)</span> dispositivos conectados de esta manera, necesitarías por ejemplo <span class="arithmatex">\(40\)</span> cables <em>y</em> <span class="arithmatex">\(90\)</span> <span class="concept" id="c5" data-key="network card">tarjetas de red</span>. Para <span class="arithmatex">\(N=1000\)</span> dispositivos, habría medio millón de conexiones punto a punto, lo cual ya resulta bastante inmanejable.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><span class="arithmatex">\(O(N^2)\)</span> es la notación de una cota de complejidad <span class="concept" id="c6" data-key="quadratic">cuadrática</span>. Esto <em>no</em> es lo mismo que <span class="concept" id="c7" data-key="exponential">exponencial</span> y nunca debe confundirse. (<a href="https://en.wikipedia.org/wiki/Big_O_notation">leer más...</a>)</p>
+</div>
+<p><img alt="image" class="wrap" src="../assets/fig/bus_graph.svg" style="height:4cm" /></p>
+<p>Nos queda un truco en la manga: los <span class="concept" id="c8" data-key="bus">buses de datos</span>, donde una o más líneas de datos están conectadas simultáneamente a múltiples dispositivos. Esto conserva la simplicidad de las conexiones punto a punto, porque cada dispositivo solo tiene que manejar <span class="arithmatex">\(1\)</span> cable y puede usarlo para comunicarse con todos los demás dispositivos. También se conserva la rentabilidad, ya que solo hacen falta <span class="arithmatex">\(N\)</span> tarjetas de red para <span class="arithmatex">\(N\)</span> dispositivos (<span class="arithmatex">\(O(N)\)</span>).</p>
+<p>La principal ventaja de los buses de datos es también su principal debilidad: todos los dispositivos envían y reciben datos usando la misma línea de datos, pero no pueden hacerlo al mismo tiempo porque solo hay una línea. Si dos o más lo hacen, se produce una <span class="concept" id="c9" data-key="collision">colisión</span> que hace imposible la transmisión de datos mientras dura.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>A medida que se desarrollaban las redes de ordenadores, se experimentó con muchas alternativas a la <span class="concept" id="c10" data-key="topology">topología</span> de bus. Un ejemplo curioso es <span class="concept" id="c11" data-key="Token Ring">Token Ring</span>, donde los dispositivos se conectan formando un círculo y los mensajes se van pasando en un único sentido.</p>
+</div>
+<p>En la práctica, no es trivial implementar una tecnología de bus en la que se puedan ir añadiendo nuevos dispositivos con el tiempo. Históricamente, esto se hacía a veces perforando físicamente el cable principal del bus y añadiendo un cable nuevo hacia el nuevo ordenador que se conectaba. Más adelante, esto se simplificó con unos dispositivos llamados <span class="concept" id="c12" data-key="hub">hubs</span> (concentradores). Funcionaban de forma similar, pero ofrecían <span class="concept" id="c13" data-key="port">puertos</span> prefabricados y conectores extraíbles. Hoy en día, los hubs han sido sustituidos por los <span class="concept" id="c14" data-key="switch">switches</span> (conmutadores). Los switches ofrecen la funcionalidad de un bus, conectando todos los dispositivos entre sí, y además evitan las colisiones. Por razones obvias, estructurar las conexiones en torno a un switch se denomina <span class="concept" id="c15" data-key="star topology">topología en estrella</span>.</p>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 3.1</p>
+<p>¿Qué <strong>hace falta en un switch</strong> que no hace falta en un hub?</p>
+<p><img alt="image" src="../assets/fig/switch.jpg" style="width:17.21cm" /></p>
+</div>
+<p>Las topologías de bus funcionan muy bien a escala local y se emplean ampliamente en las <span class="concept" id="c16" data-key="LAN">LANs (<span class="concept" id="c17" data-key="network">redes</span> de área local)</span>. Sin embargo, no resultan rentables (a veces ni siquiera son físicamente posibles) cuando los dispositivos están muy separados. En su lugar, los dispositivos pueden organizarse en LANs separadas, cada una conceptualmente un bus, y luego esas LANs separadas pueden conectarse mediante conexiones punto a punto más baratas y factibles. Considerados en conjunto, esos dispositivos formarían entonces una <span class="concept" id="c18" data-key="WAN">WAN (red de área extensa)</span>.</p>
+<p><img alt="image" src="../assets/fig/lan_wan_structure.svg" style="width:14.92cm" /></p>
+<h2 id="sec-where-addresses">[3.2] Necesito encontrarte<a class="headerlink" href="#sec-where-addresses" title="Permanent link">&para;</a></h2>
+<p>Una vez más, la principal ventaja de los <span class="concept" id="c19" data-key="bus">buses</span> de datos es también su principal debilidad: todos los dispositivos envían y reciben datos usando la misma línea de datos. Aunque no se produzcan colisiones, todos los dispositivos reciben cada mensaje enviado al bus. Sin embargo, lo que realmente queremos es que nuestro mensaje llegue a su destino, y solo a su destino. Llamemos a esto el <em>problema de encontrar-mi-dispositivo</em>.</p>
+<p>El problema de encontrar-mi-dispositivo no es exclusivo de los buses ni de las <span class="concept" id="c20" data-key="LAN">LANs</span>. Al contrario, se vuelve muy importante cuando consideramos las <span class="concept" id="c21" data-key="WAN">WANs</span>, donde no todos los dispositivos están directamente interconectados. En este caso, tenemos que asegurarnos de poder <span class="concept" id="c22" data-key="routing">encaminar</span> nuestros mensajes entre distintas LANs y de que lleguen a su destino.</p>
+<p>Sorprendentemente, ni siquiera las conexiones punto a punto se libran del problema de encontrar-mi-dispositivo. Suponiendo que los dispositivos A y B están conectados de ese modo, dos programas distintos pueden querer intercambiar información al mismo tiempo, p.ej. un software de control de alarmas y una aplicación de streaming de música. En este escenario, quieres que el <span class="concept" id="c23" data-key="client">cliente</span> y el <span class="concept" id="c24" data-key="server">servidor</span> del <span class="concept" id="c25" data-key="service">servicio</span> de monitorización de alarmas se comuniquen entre sí, pero no con el servicio de streaming de música, y viceversa.</p>
+<p>La solución más común a este problema es usar identificadores que nos permitan distinguir entre dispositivos o incluso entre <span class="concept" id="c26" data-key="process">procesos</span> en ejecución dentro de un <span class="concept" id="c27" data-key="OS">sistema operativo (SO)</span>. Algunos de estos identificadores se denominan <span class="concept" id="c28" data-key="address">direcciones</span>, precisamente porque se usan para encontrar y alcanzar un dispositivo remoto.</p>
+<p>Las <span class="concept" id="c29" data-key="address">direcciones</span> son normalmente identificadores <em>numéricos</em>, es decir, simplemente un número. Como tales, pueden expresarse en distintas bases, incluidas la decimal y la <span class="concept" id="c30" data-key="hexadecimal">hexadecimal</span>. Estos números se toman de un conjunto predefinido, y la elección de ese conjunto determina el número máximo de elementos que podemos identificar de forma unívoca.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Las direcciones expresadas como <code>d8:43:ae:61:ed:f1</code> o <code>192.168.1.1</code> (como se verá más adelante en el curso) son también números que podríamos haber expresado como <code>237785200061937</code> y <code>3232235777</code>, respectivamente (lo cual no resulta tan cómodo).</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 3.2</p>
+<p>¿<strong>Cuántos elementos se pueden identificar de forma unívoca</strong> (como máximo) con una dirección que expresamos usando 5 bits? ¿Y con 10? ¿Y con 20? Expresa la solución general matemáticamente.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 3.3</p>
+<p>Supón que hay <span class="arithmatex">\(1000\)</span> máquinas en una LAN. ¿<strong>Cuántos bits de dirección hacen falta</strong>? ¿Y con <span class="arithmatex">\(800\)</span> máquinas? ¿Y con <span class="arithmatex">\(1100\)</span>? Expresa la solución general matemáticamente.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>En 2019 nos quedamos sin direcciones de Internet (v4). ¡Uy!</p>
+</div>
+<h2 id="sec-where-route">[3.3] ¿Cómo llego hasta ahí?<a class="headerlink" href="#sec-where-route" title="Permanent link">&para;</a></h2>
+<p>En muchos escenarios se necesitan varias direcciones para llevar a cabo la comunicación <span class="concept" id="c31" data-key="end-to-end">extremo a extremo</span> deseada. Por ejemplo, puede que necesitemos identificar un único dispositivo dentro de una <span class="concept" id="c32" data-key="LAN">LAN</span>, y esa LAN dentro de una <span class="concept" id="c33" data-key="WAN">WAN</span>. A veces necesitaremos identificar un <span class="concept" id="c34" data-key="process">proceso</span> (un programa en ejecución) dentro de ese dispositivo. Esto no es muy distinto de que alguien te visite en persona:</p>
+<p><img alt="image" src="../assets/rendered/1cf4c69a5c913104.svg" style="width:7.74cm" /></p>
+<p><img alt="image" src="../assets/rendered/9bbb360d3c30e3a1.svg" style="width:11.33cm" /></p>
+<p>Sea cual sea el sistema de direccionamiento que usemos, debe contener información suficiente para localizar y alcanzar el destino, es decir, para <span class="concept" id="c35" data-key="routing">encaminar</span> nuestros mensajes a través del grafo de conexiones. El proceso de encaminamiento implica múltiples pasos o “saltos” entre redes hasta alcanzar la LAN de destino.</p>
+<p>El nombre <span class="concept" id="c36" data-key="router">router</span> (encaminador) designa un tipo de dispositivo de red cuya tarea es reenviar estos mensajes entre redes. Estos dispositivos deben contener información suficiente para que, cuando se les entrega un mensaje con una <span class="concept" id="c37" data-key="address">dirección</span> de destino, puedan decidir qué <span class="concept" id="c38" data-key="network interface">interfaz de red</span> usar. A su vez, los dispositivos que no son routers solo necesitan configurarse para poder alcanzar el siguiente router.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>En casa, tu <span class="concept" id="c39" data-key="router">router</span> normalmente desempeña también el papel de <span class="concept" id="c40" data-key="switch">switch</span>, pero son conceptos diferentes.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 3.4</p>
+<p>Esta figura representa un puñado de dispositivos y sus conexiones físicas. Estos dispositivos solo pueden comunicarse enviando mensajes a través de esas conexiones. Aun así, <span class="node">3</span> quiere enviar un mensaje a <span class="node">7</span>.</p>
+<p><img alt="image" src="../assets/fig/how_many_packets.svg" style="width:11.48cm" /></p>
+<ul>
+<li>
+<p>¿Puedes identificar algún dispositivo que probablemente esté actuando como <span class="concept" id="c41" data-key="switch">switch</span>? ¿Y como <span class="concept" id="c42" data-key="router">router</span>?</p>
+</li>
+<li>
+<p>¿Cuál es el <strong>número mínimo de mensajes</strong> enviados para que <span class="node">3</span> pueda contactar con <span class="node">7</span>, y <span class="node">7</span> pueda responder a <span class="node">3</span>? Enuméralos en el orden en que se producen.</p>
+</li>
+<li>
+<p>¿Qué información hay que incluir en esos mensajes para que pueda tener lugar la comunicación <span class="node">3</span> <span class="arithmatex">\(\leftrightarrow\)</span> <span class="node">7</span>?</p>
+</li>
+</ul>
+<p><a id="ex-how_many_packets"></a></p>
+</div>
+<p>Los <span class="concept" id="c43" data-key="swimlane diagram">diagramas swimlane</span> (diagramas de carriles) como el de abajo se usan para representar las interacciones (p.ej. el intercambio de mensajes) entre actores (p.ej. dispositivos de red). En ellos, el eje vertical representa el tiempo, lo que resulta valiosísimo para identificar relaciones causa-efecto.</p>
+<p><img alt="image" src="../assets/fig/swimlane_example.svg" style="width:8.03cm" /></p>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 3.5</p>
+<p>A partir de tu respuesta al Ej.<a href="./#ex-how_many_packets">3.4</a>, <strong>elabora un diagrama swimlane</strong> que represente los intercambios de mensajes. Para cada mensaje (p.ej. encima de las flechas), incluye la información de direccionamiento presente en él.</p>
+</div>
+<script>window.XOI_ASSETS = "../assets/";</script>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../piercing_the_veil/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [2] Atravesando el velo analógico-digital">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                [2] Atravesando el velo analógico-digital
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../packets/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: [4] ¿Esto es tuyo?">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                [4] ¿Esto es tuyo?
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "search.highlight", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../scripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../scripts/wide-tables.js"></script>
+      
+        <script src="../../scripts/search-highlight.js"></script>
+      
+        <script src="../../scripts/technical-terms.js"></script>
+      
+        <script src="../../scripts/goatcounter.js"></script>
+      
+        <script src="https://gc.zgo.at/count.js" async></script>
+      
+    
+  </body>
+</html>

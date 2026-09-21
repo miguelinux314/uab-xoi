@@ -1,0 +1,2564 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Study guide for the Computer Networks and Internet course (UAB, 104353)">
+      
+      
+      
+        <link rel="canonical" href="https://miguelinux314.github.io/uab-xoi/layer4/">
+      
+      
+        <link rel="prev" href="../layer3/">
+      
+      
+        <link rel="next" href="../layer7/">
+      
+      
+        
+          <link rel="alternate" href="../es/layer4/" hreflang="es">
+        
+          <link rel="alternate" href="../ca/layer4/" hreflang="ca">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>[9] Layer 4: Transport - Computer Networks and Internet: Study Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/xoi.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sec-layer4" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Computer Networks and Internet: Study Guide" class="md-header__button md-logo" aria-label="Computer Networks and Internet: Study Guide" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Computer Networks and Internet: Study Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              [9] Layer 4: Transport
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../es/layer4/" hreflang="es" class="md-select__link">
+              Castellano
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../ca/layer4/" hreflang="ca" class="md-select__link">
+              Català
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../networks/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Course
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../missions/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Missions
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Computer Networks and Internet: Study Guide" class="md-nav__button md-logo" aria-label="Computer Networks and Internet: Study Guide" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    Computer Networks and Internet: Study Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href=".." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License and credits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../course/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About this course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Course
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part I: Computer Networks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part I: Computer Networks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part I: Computer Networks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../piercing_the_veil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [2] Piercing the analog-digital veil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../where_are_you/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [3] Where are you?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [4] Is this yours?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stack_layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [5] A Stack of Layers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part II: Internet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part II: Internet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part II: Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tcpip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [6] The Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [7] Layer 2: Network (LAN) communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [8] Layer 3: Internet(work) communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [9] Layer 4: Transport
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [9] Layer 4: Transport
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capabilities
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocols
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-addressing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.1] Layer 4 addressing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-udp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.2] UDP – User Datagram Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.2] UDP – User Datagram Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packet-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packet format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-tcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.3] TCP – Transport Control Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.3] TCP – Transport Control Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packet-format_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packet format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-tcp_opening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.4] TCP: “Connecting”
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-established" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.5] TCP: “Connection established”
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.5] TCP: “Connection established”">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#streams-and-sequence-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streams and sequence numbers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reliability-and-retransmission" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reliability and retransmission
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transmission-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transmission limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-tcp_closing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.6] TCP: “Closing connection”
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.6] TCP: “Closing connection”">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fin-seq-and-ack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FIN, #seq and #ack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-sided-close" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two-sided close
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-sided-close" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One-sided close
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [10] Layer 7: Application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index of concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../missions/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missions
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Missions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 1: Sharing is caring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 2: Infinite scroll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 3: Herding chaos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 4: Inter planetary net
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 5: Money is the root
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 6: Annoy two whole planets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 7: To TCP or not to TCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 8: You talking to me?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 9: Interplanetary Hallway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capabilities
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocols
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-addressing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.1] Layer 4 addressing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-udp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.2] UDP – User Datagram Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.2] UDP – User Datagram Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packet-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packet format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-tcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.3] TCP – Transport Control Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.3] TCP – Transport Control Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packet-format_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packet format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-tcp_opening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.4] TCP: “Connecting”
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-established" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.5] TCP: “Connection established”
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.5] TCP: “Connection established”">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#streams-and-sequence-numbers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Streams and sequence numbers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reliability-and-retransmission" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reliability and retransmission
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transmission-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transmission limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-tcp_closing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.6] TCP: “Closing connection”
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.6] TCP: “Closing connection”">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fin-seq-and-ack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FIN, #seq and #ack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-sided-close" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two-sided close
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-sided-close" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One-sided close
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><img alt="" class="hero" src="../assets/fig/tubes.jpg" /></p>
+<h1 id="sec-layer4">[9] Layer 4: Transport<a class="headerlink" href="#sec-layer4" title="Permanent link">&para;</a></h1>
+<div class="figure-row">
+<p><img alt="image" src="../assets/rendered/201e251269964a23.svg" style="width:7.74cm" /></p>
+<p><img alt="image" src="../assets/fig/network_layer4.svg" style="width:13.77cm" /></p>
+</div>
+<h3 id="capabilities">Capabilities<a class="headerlink" href="#capabilities" title="Permanent link">&para;</a></h3>
+<p>The <span class="concept" id="c1" data-key="transport">Transport</span> layer communicates <span class="concept" id="c2" data-key="process">processes</span> (programs) running in potentially different <span class="concept" id="c3" data-key="host">hosts</span>. These processes are identified using Layer 4 addresses called <span class="concept" id="c4" data-key="port">ports</span>.</p>
+<p>The transport layer offers two different ways of communication: without <span class="concept" id="c5" data-key="connection">connections</span> (<span class="concept" id="c6" data-key="UDP">UDP</span>) and with connections (<span class="concept" id="c7" data-key="TCP">TCP</span>).</p>
+<p><span class="concept" id="c8" data-key="UDP">UDP</span> doesn’t establish a <span class="concept" id="c9" data-key="connection">connection</span> with the destination host because the priority is to send some data <span class="concept" id="c10" data-key="payload">payload</span> as fast as possible. Instead, UDP sends packets called <span class="concept" id="c11" data-key="user datagram">user datagrams</span> directly to the destination, without expecting any sort of confirmation of reception from the destination’s UDP layer. UDP headers are simple and small as well keep the <span class="concept" id="c12" data-key="overhead">overhead</span> of this protocol small.</p>
+<p><span class="concept" id="c13" data-key="TCP">TCP</span> establishes a <span class="concept" id="c14" data-key="connection">connection</span> before sending any <span class="concept" id="c15" data-key="payload">payload</span> data to make sure both ends are ready. In addition, TCP expects <span class="concept" id="c16" data-key="ACK">acknowledgement</span> (confirmation) of reception of every byte of payload data. Otherwise, data are <span class="concept" id="c17" data-key="retransmission">retransmitted</span> after a wait period, giving TCP <span class="concept" id="c18" data-key="reliability">reliability</span>. TCP also uses a very clever way to limit the data exchange speed (<span class="concept" id="c19" data-key="flow control">flow control</span>) so that fast and slow computers can coexist and communicate using TCP/IP. To provide all these features, TCP is a more complex protocol than UDP, uses larger headers and introduces a greater <span class="concept" id="c20" data-key="overhead">overhead</span>.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 9.1</p>
+<p>Which of the following applications do you think use <span class="concept" id="c21" data-key="UDP">UDP</span> and <span class="concept" id="c22" data-key="TCP">TCP</span>?</p>
+<ul>
+<li>
+<p>Multiplayer gaming</p>
+</li>
+<li>
+<p>The WWW</p>
+</li>
+<li>
+<p>BitTorrent</p>
+</li>
+<li>
+<p>Video streaming</p>
+</li>
+</ul>
+</div>
+<h3 id="protocols">Protocols<a class="headerlink" href="#protocols" title="Permanent link">&para;</a></h3>
+<p><img alt="image" src="../assets/fig/protocols_layer4.svg" style="width:21.8cm" /></p>
+<p>The transport layer is at the top of the stack provided by the OS. Virtually all applications, and therefore their communication protocols, employ <span class="concept" id="c23" data-key="TCP">TCP</span>, <span class="concept" id="c24" data-key="UDP">UDP</span> (or even both) to exchange data over the net. Some important protocols that use TCP or UDP are shown in the previous figure.</p>
+<p>Both TCP and UDP encapsulate their PDUs in <span class="concept" id="c25" data-key="IP">IP</span> <span class="concept" id="c26" data-key="datagram">datagrams</span>. Generally, <span class="concept" id="c27" data-key="IPv4">IPv4</span> is used, but <span class="concept" id="c28" data-key="IPv6">IPv6</span> is also a possibility when available.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Neither TCP nor UDP change in any way when IPv6 is used instead of IPv4, <em>i.e.</em>, there is not a TCPv6 protocol. Instead, <code>tcp6</code> and other expressions that include TCP and 6 refer to (regular) TCP over IPv6.</p>
+</div>
+<h2 id="sec-layer4-addressing">[9.1] Layer 4 addressing<a class="headerlink" href="#sec-layer4-addressing" title="Permanent link">&para;</a></h2>
+<p>TCP and UDP “addresses” are called <span class="concept" id="c29" data-key="port">ports</span> and are <span class="arithmatex">\(16\)</span>-bit unsigned integers. To humans, ports are expressed in two main ways:</p>
+<ul>
+<li>
+<p>As a number, <em>e.g.</em>, 22, 80 or 443.</p>
+</li>
+<li>
+<p>As the name of the service that typically uses that port, <em>e.g.</em>, <span class="concept" id="c30" data-key="sshd">sshd</span>, <span class="concept" id="c31" data-key="HTTP">http</span>, <span class="concept" id="c32" data-key="HTTPs">https</span>.</p>
+</li>
+</ul>
+<p>When a Layer 4 PDU is received, the port in its header is used by the OS to know which of the running processes must receive the data. In turn, processes have to <span class="concept" id="c33" data-key="bind">bind</span> to a TCP port or to a TCP port (or both) to let the OS know the port they expect data from.</p>
+<p>Only one process may bind to a port at a time for sending data, but TCP and UDP ports are treated independently:</p>
+<ul>
+<li>
+<p>If a process is bound to port <code>TCP/100</code>, it will not receive UDP traffic to port 100.</p>
+</li>
+<li>
+<p>If a process is bound to port <code>TCP/100</code>, another process (or even the same one) can bind to <code>UDP/100</code>.</p>
+</li>
+</ul>
+<p>Port number <code>0</code> is reserved, so the usable range or ports is <code>1</code>–<code>65535</code>. Ports <code>1</code>–<code>1023</code> are only bound to processes with privileges (<em>e.g.</em>, an http <span class="concept" id="c34" data-key="server">server</span>), whereas client applications (<em>e.g.</em>, an http <span class="concept" id="c35" data-key="client">client</span>) can only bind to ports <code>1024</code>–<code>65535</code> based on their availability.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 9.2</p>
+<p>How many different servers can be run in a machine to provide some feature to other hosts in the network?</p>
+</div>
+<h2 id="sec-layer4-udp">[9.2] UDP – User Datagram Protocol<a class="headerlink" href="#sec-layer4-udp" title="Permanent link">&para;</a></h2>
+<h3 id="packet-format">Packet format<a class="headerlink" href="#packet-format" title="Permanent link">&para;</a></h3>
+<p>The <span class="concept" id="c36" data-key="user datagram">user datagrams</span> used by UDP all have an <span class="arithmatex">\(8\)</span>-byte header and have the following structure:</p>
+<p><img alt="image" src="../assets/rendered/aad623d23758a83b.svg" style="width:14.9cm" /></p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 9.3</p>
+<ul>
+<li>
+<p>What is the maximum payload size that can be sent in a single <span class="concept" id="c37" data-key="user datagram">user datagram</span>?</p>
+</li>
+<li>
+<p>Is <span class="concept" id="c38" data-key="fragmentation">fragmentation</span> desirable when using UDP?</p>
+</li>
+</ul>
+</div>
+<h3 id="operation">Operation<a class="headerlink" href="#operation" title="Permanent link">&para;</a></h3>
+<p><img alt="image" src="../assets/fig/udp_socket.svg" style="width:11.48cm" /></p>
+<p>UDP clients first create a <span class="concept" id="c39" data-key="socket">socket</span> and then directly send the user datagrams with <code>sendto</code>. There is no need to stablish or close a connection.</p>
+<p>UDP servers must first <span class="concept" id="c40" data-key="bind">bind</span> to the port to be exposed to clients, and then receive each datagram in an individual call to the read function (<code>recvfrom</code>).</p>
+<p>The bind function is purely internal to the server: it entails changes in its configuration (the table mapping port numbers and <span class="concept" id="c41" data-key="process">processes</span>), but it does not generate any message.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 9.4</p>
+<ul>
+<li>
+<p>Can a UDP server work without sending any data through the network?</p>
+</li>
+<li>
+<p>Can a client receive UDP traffic without binding to a port?</p>
+</li>
+<li>
+<p>Can two different hosts bind to the same port and still exchange <span class="concept" id="c42" data-key="user datagram">user datagrams</span>?</p>
+</li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Exercise 9.5</p>
+<p>The following snippet of code shows a basic UDP server skeleton:</p>
+<p><div class="showcode" markdown="1">
+<strong><code>snippets/udpserver.py</code></strong></p>
+<p><div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="linenos" data-linenos="2 "></span>
+<span class="linenos" data-linenos="3 "></span><span class="n">port</span> <span class="o">=</span> <span class="mi">4567</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">family</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+<span class="linenos" data-linenos="5 "></span><span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s1">''</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+<span class="linenos" data-linenos="6 "></span><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="linenos" data-linenos="7 "></span>    <span class="n">user_datagram</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recvfrom</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<span class="linenos" data-linenos="8 "></span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Received UDP on </span><span class="si">{</span><span class="n">port</span><span class="si">=}</span><span class="s2">: </span><span class="si">{</span><span class="n">user_datagram</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+</div></p>
+<ul>
+<li>
+<p>Run the server, and in another terminal run <code>ncat -u localhost 4567</code> and type some text to test the server.</p>
+</li>
+<li>
+<p>Implement the client end of the communication and test it against the server.</p>
+</li>
+<li>
+<p>What important information do you get if you change <code>s.recvfrom</code> to <code>s.recvmsg</code>?</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This code uses regular UDP <span class="concept" id="c43" data-key="socket">sockets</span>, so it does not need administrator nor the <code>CAP_NET_RAW</code> capability, as it happened in Exercise <a href="../layer2/#ex-layer2-echo">7.4</a>, which required access to Layer 2 (<em>e.g.</em>, Ethernet) sockets instead.</p>
+</div>
+</div>
+<h2 id="sec-layer4-tcp">[9.3] TCP – Transport Control Protocol<a class="headerlink" href="#sec-layer4-tcp" title="Permanent link">&para;</a></h2>
+<h3 id="packet-format_1">Packet format<a class="headerlink" href="#packet-format_1" title="Permanent link">&para;</a></h3>
+<p><span class="concept" id="c44" data-key="TCP">TCP</span> PDUs are called <span class="concept" id="c45" data-key="segment">segments</span>. Their <span class="concept" id="c46" data-key="header">header</span> is at least <span class="arithmatex">\(20\)</span> bytes long, but can grow longer when certain options are used:</p>
+<p><img alt="image" src="../assets/rendered/9f87b6164c23f91e.svg" style="width:22.86cm" /></p>
+<p>TCP headers contain eight <span class="arithmatex">\(1\)</span>-bit flags. Of these, four are used to core TCP features addressed in the following sections. In the order they appear:</p>
+<ul>
+<li>
+<p>ACK: <span class="concept" id="c47" data-key="ACK">acknowledgement</span> flag – “<em>my</em> ack number is valid”</p>
+</li>
+<li>
+<p>RST: <span class="concept" id="c48" data-key="RST">reset</span> flag – “<em>abort</em> the connection”</p>
+</li>
+<li>
+<p>SYN: <span class="concept" id="c49" data-key="SYN">synchronization</span> flag – “I’m opening <em>my</em> end of the connection”</p>
+</li>
+<li>
+<p>FIN: <span class="concept" id="c50" data-key="FIN">finalization</span> flag – “I won’t send any more <em>payload</em> data”</p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Exercise 9.6</p>
+<p>How can the receiving end know the size of the options and of the payload data?</p>
+</div>
+<h3 id="operation_1">Operation<a class="headerlink" href="#operation_1" title="Permanent link">&para;</a></h3>
+<p>TCP is a <span class="concept" id="c51" data-key="stateful">stateful</span> protocol. TCP <span class="concept" id="c52" data-key="socket">sockets</span> transition between multiple states during communication. Each end of the communication has its own socket with its own state. Roughly speaking, connections can be classified as “Connecting”, “Connection established”, or “Closing connection”. Payload data is only meant to be exchanged while in “Connection established”.</p>
+<p><img alt="image" src="../assets/fig/tcp_socket.svg" style="width:17.21cm" /></p>
+<p>TCP sockets can be in one of <span class="arithmatex">\(11\)</span> states. These states, together with two <span class="arithmatex">\(16\)</span>-bit counters (<span class="concept" id="c53" data-key="acknowledgement number">acknowledgement number</span> and <span class="concept" id="c54" data-key="sequence number">sequence number</span>) enable the communication <span class="concept" id="c55" data-key="reliability">reliability</span> expected of TCP. The meaning of these states and their transitions are explained in the following chapters.</p>
+<h2 id="sec-layer4-tcp_opening">[9.4] TCP: “Connecting”<a class="headerlink" href="#sec-layer4-tcp_opening" title="Permanent link">&para;</a></h2>
+<p><img alt="image" src="../assets/fig/3_way_handshake.svg" style="width:20.01cm" /></p>
+<p>When a <span class="concept" id="c56" data-key="socket">socket</span> is created, it beings as <code>CLOSED</code>. The end acting as a server begins listening to the service’s configured <span class="concept" id="c57" data-key="port">port</span> and changes to the <code>LISTEN</code> state. Payload is not interchanged in this state.</p>
+<p>A connection is established via a <span class="concept" id="c58" data-key="3-way handshake">3-way handshake</span> using the <code>SYN</code> and <code>ACK</code> header flags. Each end of the communication reaches the <code>ESTABLISHED</code> state at a different time thanks to this handshake. Once they do, they are ready to exchange payload data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In TCP, both ends communicate as equal peers, it is unimportant who started the communication. That said, normally one end performs an “active open” (the client) and the other a “passive open” (the server).</p>
+</div>
+<p>Each end of the communication keeps track of its <span class="concept" id="c59" data-key="acknowledgement number">acknowledgement number</span> (#ack) and <span class="concept" id="c60" data-key="sequence number">sequence number</span> (#seq) counters. The value of #seq is chosen separately (and typically randomly) by each end: <span class="arithmatex">\(A,\,B \in [0, 2^{32} - 1]\)</span>.</p>
+<p>Once during the connection opening, each end sends exactly one segment with the <span class="concept" id="c61" data-key="SYN">SYN</span> flag enabled. These segments exchange (synchronize) their initial sequence numbers <span class="arithmatex">\(A\)</span> and <span class="arithmatex">\(B\)</span>.</p>
+<p>Segments with the <span class="concept" id="c62" data-key="ACK">ACK</span> flag enabled (all except for the client’s first segment) have their #ack set to “the next #seq expected from the other end”. This #ack should be red as “I have correctly received all segments corresponding to, but not including, #ack”.</p>
+<p>The expected #ack and #seq numbers during the <span class="concept" id="c63" data-key="3-way handshake">3-way handshake</span> are:</p>
+<p><img alt="image" src="../assets/fig/3_way_handshake_counters.svg" style="width:22.95cm" /></p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 9.7</p>
+<ul>
+<li>
+<p>How can one end know that the other end has received their chosen #seq?</p>
+</li>
+<li>
+<p>Why does the third segment have its #seq set to <span class="arithmatex">\(A+1\)</span> and not <span class="arithmatex">\(A\)</span>?</p>
+</li>
+<li>
+<p>What #seq will the next segment sent by the server have?</p>
+</li>
+</ul>
+</div>
+<h2 id="sec-layer4-established">[9.5] TCP: “Connection established”<a class="headerlink" href="#sec-layer4-established" title="Permanent link">&para;</a></h2>
+<h3 id="streams-and-sequence-numbers">Streams and sequence numbers<a class="headerlink" href="#streams-and-sequence-numbers" title="Permanent link">&para;</a></h3>
+<p>TCP offers the illusion of a data <span class="concept" id="c64" data-key="stream">stream</span>: two pipes of data in the In and Out directions (a <span class="concept" id="c65" data-key="full duplex">full-duplex</span> connection). These pipes are <span class="concept" id="c66" data-key="reliability">reliable</span>, <em>i.e.</em>, mechanisms are put in place to prevent data loss, duplication and reordering.</p>
+<p><img alt="image" src="../assets/fig/tcp_two_pipes.svg" style="width:17.21cm" /></p>
+<p>Every byte of payload data is assigned a sequence number (#seq) in the TCP header. The first byte of payload data has #seq <span class="arithmatex">\(=A+1\)</span>, where <span class="arithmatex">\(A\)</span> is the initial sequence number established during connection opening (see Section <a href="./#sec-layer4-tcp_opening">9.4</a>). Each new byte of data is assigned the next #seq (no gaps).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;"><strong>#seq</strong></th>
+<th style="text-align: center;"><span class="arithmatex">\(A\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+1\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+2\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+3\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+4\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+5\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+6\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+7\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+8\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+9\)</span></th>
+<th style="text-align: left;"><span class="arithmatex">\(\cdots\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>content</strong></td>
+<td style="text-align: center;">SYN</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'H'</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'i'</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'!'</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'\n'</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'H'</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'o'</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'w'</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>' '</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'a'</code></td>
+<td style="text-align: center;"><span class="arithmatex">\(\cdots\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Exercise 9.8</p>
+<p>The #seq that comes after <span class="arithmatex">\(2^{32} - 1\)</span> is <span class="arithmatex">\(0\)</span>. Why?</p>
+</div>
+<p>Payload data in TCP is always sent together with the <em>first</em> position they occupy in the <span class="concept" id="c67" data-key="stream">stream</span> and their length. For instance, inferring from the data shown above, two segments could be produced:</p>
+<ol>
+<li>
+<p>#seq <span class="arithmatex">\(= A+1\)</span>, len <span class="arithmatex">\(= 4\)</span>, data <span class="arithmatex">\(=\)</span> <code>0x48 69 21 0a</code> (<code>'Hi!\n'</code>)</p>
+</li>
+<li>
+<p>#seq <span class="arithmatex">\(= A+5\)</span>, len <span class="arithmatex">\(= 13\)</span>, data <span class="arithmatex">\(=\)</span> <code>0x48 6f 77 20 61 72 65 20 79 6f 75 3f 0a</code></p>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Exercise 9.9</p>
+<p>What would be the #seq of the next segment with new payload data?</p>
+</div>
+<p>The receiving end of a TCP <span class="concept" id="c68" data-key="segment">segment</span> uses this information to stitch together a copy the data in the right order, even if the segments themselves arrive out of order. These data are passed on to the upper <span class="concept" id="c69" data-key="layer">layer</span> in a <span class="concept" id="c70" data-key="buffer">buffered</span> fashion, or directly if the <span class="concept" id="c71" data-key="PSH">PSH</span> (push) TCP flag is enabled.</p>
+<p><img alt="image" src="../assets/fig/tcp_reassembly.svg" style="width:22.95cm" /></p>
+<h3 id="reliability-and-retransmission">Reliability and retransmission<a class="headerlink" href="#reliability-and-retransmission" title="Permanent link">&para;</a></h3>
+<p>TCP needs all transmitted data be <span class="concept" id="c72" data-key="ACK">acknowledged</span> by the other end. Whenever some data is received in a TCP segment, the receiving end sends back a confirmation even if no data need to be sent at that point. The acknowledgement number (#ack) in the TCP header is used to tell the other end that all data up to (but not including) #ack.</p>
+<p><img alt="image" src="../assets/fig/tcp_ack.svg" style="width:22.95cm" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The #seq field of a TCP header refers to the sender’s sequence numbers. The #ack field refers to the receiver’s sequence numbers.</p>
+</div>
+<p>Payload data is included in TCP confirmations whenever any data is available. Conversely, the most recent value of #ack is included whenever any data is sent, <em>i.e.</em>, acknowledgments <span class="concept" id="c73" data-key="piggyback">piggyback</span> payload data.</p>
+<p>For instance, if Alice sends a <span class="arithmatex">\(25\)</span>-byte request, Bob may send his <span class="arithmatex">\(10\)</span>-byte response and the acknowledgement for Alice’s data in the same TCP segment. Alice needs to acknowledge Bob’s data, and soon sends a segment with no data if needed. Alice will resume sending data later when needed.</p>
+<p><img alt="image" src="../assets/fig/tcp_ack_piggyback.svg" style="width:22.95cm" /></p>
+<p>A TCP segment that is not acknowledged after a certain wait period is <span class="concept" id="c74" data-key="retransmission">retransmitted</span>. That time is decided by the OS on each end based on the average time it takes for a segment to be sent and a reply be received (the round-trip time, <span class="concept" id="c75" data-key="RTT">RTT</span>).</p>
+<p>Acknowledgements are sent even if that acknowledgement is identical to a previous one. This is because acknowledgements can also be lost.</p>
+<p><img alt="image" src="../assets/fig/tcp_ack_retransmission.svg" style="width:22.95cm" /></p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 9.10</p>
+<p>Assuming both ends are correctly following TCP:</p>
+<ul>
+<li>
+<p>Provide a set of valid values for (a) to (i).</p>
+</li>
+<li>
+<p>How does the story change if (f) and (h) are identical/different?</p>
+</li>
+</ul>
+<p><img alt="image" src="../assets/fig/tcp_ack_exercise.svg" style="width:22.95cm" /></p>
+</div>
+<h3 id="transmission-limits">Transmission limits<a class="headerlink" href="#transmission-limits" title="Permanent link">&para;</a></h3>
+<p>Data for transmission is often produced in bursts. We would like to send as much as possible as soon as possible, but there are two limits put in place in TCP.</p>
+<p>The first limit, the <span class="concept" id="c76" data-key="MSS">Maximum Segment Size (MSS)</span> is the maximum amount of payload data per segment allowed in a TCP connection.</p>
+<p><img alt="image" src="../assets/rendered/dd1b19f9ae0c25de.svg" style="width:16.25cm" /></p>
+<p>The reason for this limit is to prevent fragmentation, for performance reasons, <em>e.g.</em>, due to the elevated cost in time and memory of reassembly.</p>
+<p>The MSS is <span class="arithmatex">\(536\)</span> bytes in <span class="concept" id="c77" data-key="IPv4">IPv4</span> by default, but can be negotiated with the TCP header Options during the connection opening phase. In <span class="concept" id="c78" data-key="IPv6">IPv6</span>, the default MSS is <span class="arithmatex">\(1220\)</span> bytes.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 9.11</p>
+<p>Ethernet has an <span class="concept" id="c79" data-key="MTU">MTU</span> of <span class="arithmatex">\(1500\)</span> bytes. Assuming <span class="concept" id="c80" data-key="datagram">datagrams</span> travel through 2 Ethernet networks only:</p>
+<ul>
+<li>
+<p>What is the largest <span class="concept" id="c81" data-key="MSS">MSS</span> that cannot cause fragmentation, MSS<span class="arithmatex">\(_\textrm{max}\)</span>?</p>
+</li>
+<li>
+<p>What is the <span class="concept" id="c82" data-key="overhead">overhead</span> for MSS<span class="arithmatex">\(_\textrm{max}\)</span> and for MSS<span class="arithmatex">\(_\textrm{max}\)</span> + 1?</p>
+</li>
+</ul>
+</div>
+<p>The second limit is to the maximum amount of payload data that can be sent before the other end replies with a new <span class="concept" id="c83" data-key="acknowledgement number">#ack</span>: the so-called <span class="concept" id="c84" data-key="transmission window">transmission window</span> size. A host will not send data (however much is available, or how urgent it is) until those #ack arrive. When the slower computer replies, it does so always with the most recent #ack.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 9.12</p>
+<p>What is the most likely MSS and transmission window sizes for this example?</p>
+<p><img alt="image" src="../assets/fig/tcp_ack_window.svg" style="width:22.95cm" /></p>
+</div>
+<p>The value of the transmission window is announced with each and every TCP segment: this value is a mandatory field of TCP headers. As the connection progresses, each host can change the value they announce based on their own load and necessities.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Each host announces its own window size.</p>
+</div>
+<p>This limit is to prevent fast computers from overwhelming slower (or overworked) ones: without the limit the slower computer could need an infinitely increasing buffer size to store the not-yet-processed segments sent by the faster computer. With this limit in place, at the saturation point, both ends send segments at the same rate even if it takes vastly different times to produce and process them.</p>
+<h2 id="sec-layer4-tcp_closing">[9.6] TCP: “Closing connection”<a class="headerlink" href="#sec-layer4-tcp_closing" title="Permanent link">&para;</a></h2>
+<h3 id="fin-seq-and-ack">FIN, #seq and #ack<a class="headerlink" href="#fin-seq-and-ack" title="Permanent link">&para;</a></h3>
+<p>Once the connection is <code>ESTABLISHED</code>, it remains so until either end decides to close it.</p>
+<p>A node announces it is done sending data and wants to close the connection by sending a segment with the <span class="concept" id="c85" data-key="FIN">FIN</span> flag active in the header. The other end may continue sending data, in which case it expects replies with updated #ack values. The other end may also choose to close the connection as soon as it sees the first FIN. Either way, if <span class="arithmatex">\(k\)</span> bytes of data are sent and <span class="arithmatex">\(A\)</span> is the initial #seq, then one segment with #ack <span class="arithmatex">\(= A+k+2\)</span> is expected.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;"><strong>#seq</strong></th>
+<th style="text-align: center;"><span class="arithmatex">\(A\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+1\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(\cdots\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+k\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+k+1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>content</strong></td>
+<td style="text-align: center;">SYN</td>
+<td style="text-align: center;">Data <span class="arithmatex">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\cdots\)</span> data</td>
+<td style="text-align: center;">FIN</td>
+</tr>
+</tbody>
+</table>
+<p>Note how FIN flag occupies a sequence number itself and must be acknowledged like the SYN (see Section <a href="./#sec-layer4-tcp_opening">9.4</a>), <em>e.g.</em>:</p>
+<h3 id="two-sided-close">Two-sided close<a class="headerlink" href="#two-sided-close" title="Permanent link">&para;</a></h3>
+<p>After one end closes its side of the connection, the other may continue sending data indefinitely. When the second side is done sending data, it also sends a segment with the <span class="concept" id="c86" data-key="FIN">FIN</span> flag enabled.</p>
+<p><img alt="image" src="../assets/fig/tcp_close_more_data.svg" style="width:20.66cm" /></p>
+<p>Note that, in case the other end wants to end the connection as it receives a FIN segment, the closing process is condensed in <span class="arithmatex">\(3\)</span> instead of <span class="arithmatex">\(4\)</span> segments, <em>e.g.</em>,</p>
+<p><img alt="image" src="../assets/fig/tcp_close_no_more_data.svg" style="width:22.95cm" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that:</p>
+<ul>
+<li>
+<p>Each end sends only one segment with the FIN flag, except for retransmission.</p>
+</li>
+<li>
+<p>The segment with the FIN flag may contain payload data. In that case:</p>
+<ul>
+<li>
+<p>The payload data occupies sequence numbers <em>before</em> the FIN’s.</p>
+</li>
+<li>
+<p>The other end must ACK both the payload data and the FIN.</p>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 id="one-sided-close">One-sided close<a class="headerlink" href="#one-sided-close" title="Permanent link">&para;</a></h3>
+<p>Sometimes, connections must be terminated and there is not enough time or interest to go through the multi-step, two-sided connection closing process. This may be the case, <em>e.g.</em>, when a <span class="concept" id="c87" data-key="process">process</span> crashes, a given TCP o UDP port is blocked, and other situations of error.</p>
+<p>In this scenario, the host that detected the abnormal situation simply sends a segment with its <span class="concept" id="c88" data-key="RST">RST</span> (reset) flag enabled. The receiving ends should not acknowledge the RST; instead, the connection resources are directly freed, <em>e.g.</em>,</p>
+<p><img alt="image" src="../assets/fig/tcp_close_reset.svg" style="width:22.95cm" /></p>
+<p>Following the two-sided or the one-sided connection close procedure helps reduce the computation resources required to maintain the network stacks of billions of devices worldwide.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A connection <em>cannot</em> be re-open after it is closed. The RST flag could have been more accurately called “forceful termination”.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Exercise 9.13</p>
+<p>The following diagram displays the <span class="arithmatex">\(11\)</span> TCP states and (almost) all possible state transitions.</p>
+<p><img alt="image" src="../assets/fig/tcp_state_transition.svg" style="width:22.95cm" /></p>
+<ul>
+<li>
+<p>Indicate the life cycle of an HTTP server’s socket as a path in the graph.</p>
+</li>
+<li>
+<p>Indicate the life cycle of the corresponding HTTP client’s socket as a path in the graph.</p>
+</li>
+<li>
+<p>The <code>CLOSING</code> state is not described in the previous sections. What do you think is its purpose?</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This diagram is adapted from “TCP/IP Illustrated, Volume 2: The Implementation,” by Gary R. Wright and W. Richard Stevens.</p>
+</div>
+</div>
+<script>window.XOI_ASSETS = "../assets/";</script>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../layer3/" class="md-footer__link md-footer__link--prev" aria-label="Previous: [8] Layer 3: Internet(work) communication">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                [8] Layer 3: Internet(work) communication
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../layer7/" class="md-footer__link md-footer__link--next" aria-label="Next: [10] Layer 7: Application">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                [10] Layer 7: Application
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.indexes", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "search.highlight", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../scripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../scripts/wide-tables.js"></script>
+      
+        <script src="../scripts/search-highlight.js"></script>
+      
+        <script src="../scripts/technical-terms.js"></script>
+      
+        <script src="../scripts/goatcounter.js"></script>
+      
+        <script src="https://gc.zgo.at/count.js" async></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1768 @@
+
+<!doctype html>
+<html lang="ca" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Study guide for the Computer Networks and Internet course (UAB, 104353)">
+      
+      
+      
+        <link rel="canonical" href="https://miguelinux314.github.io/uab-xoi/ca/where_are_you/">
+      
+      
+        <link rel="prev" href="../piercing_the_veil/">
+      
+      
+        <link rel="next" href="../packets/">
+      
+      
+        
+          <link rel="alternate" href="../../es/where_are_you/" hreflang="es">
+        
+          <link rel="alternate" href="./" hreflang="ca">
+        
+          <link rel="alternate" href="../../where_are_you/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>[3] On ets? - Xarxes d'Ordinadors i Internet: Guia d'Estudi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/xoi.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sec-where" class="md-skip">
+          Salta el contingut
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Capçalera">
+    <a href="../" title="Xarxes d&#39;Ordinadors i Internet: Guia d&#39;Estudi" class="md-header__button md-logo" aria-label="Xarxes d'Ordinadors i Internet: Guia d'Estudi" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Xarxes d'Ordinadors i Internet: Guia d'Estudi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              [3] On ets?
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Selecciona la llengua">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../es/where_are_you/" hreflang="es" class="md-select__link">
+              Castellano
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="ca" class="md-select__link">
+              Català
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../where_are_you/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Cerca" placeholder="Cerca" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Cerca">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Neteja" aria-label="Neteja" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicialitzant cerca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestanyes" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Inici
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../networks/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Curs
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../missions/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Missions
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegació" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Xarxes d&#39;Ordinadors i Internet: Guia d&#39;Estudi" class="md-nav__button md-logo" aria-label="Xarxes d'Ordinadors i Internet: Guia d'Estudi" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    Xarxes d'Ordinadors i Internet: Guia d'Estudi
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inici
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Inici
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Llicència i crèdits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ús d'IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../course/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sobre aquesta assignatura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Curs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Curs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part I: Xarxes d'ordinadors
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part I: Xarxes d'ordinadors
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part I: Xarxes d'ordinadors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../piercing_the_veil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [2] Travessant el vel analògic-digital
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [3] On ets?
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [3] On ets?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Taula de continguts">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Taula de continguts
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sec-where-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [3.1] Si us plau, contacta’m
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-where-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [3.2] Necessito trobar-te
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-where-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [3.3] Com hi arribo?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [4] Això és teu?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stack_layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [5] Una pila de capes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part II: Internet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part II: Internet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part II: Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tcpip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [6] Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [7] Capa 2: Comunicació de xarxa (LAN)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [8] Capa 3: comunicació entre xarxes (Internet)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [9] Capa 4: Transport
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [10] Capa 7: Aplicació
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Índex de conceptes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../missions/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missions
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Missions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 1: Compartir és estimar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 2: Pergamí infinit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 3: Pasturant el caos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 4: Inter planetary net
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 5: Els diners són l’arrel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 6: Empipa dos planetes sencers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 7: TCP o no TCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 8: Que em parles a mi?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 9: Vestíbul interplanetari
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Taula de continguts">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Taula de continguts
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sec-where-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [3.1] Si us plau, contacta’m
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-where-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [3.2] Necessito trobar-te
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-where-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [3.3] Com hi arribo?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><img alt="" class="hero" src="../assets/fig/street_plaque.jpg" /></p>
+<h1 id="sec-where">[3] On ets?<a class="headerlink" href="#sec-where" title="Permanent link">&para;</a></h1>
+<p>Connectar dos ordinadors els fa molt més útils que dues màquines aïllades. Tanmateix, el seu veritable potencial només es desbloqueja quan es poden connectar a <em>moltíssims</em> altres ordinadors.</p>
+<p>Limitacions pràctiques com el cost i la ubicació geogràfica fan que sigui impossible connectar directament cada parell d’ordinadors. En lloc d’això, els dispositius es distribueixen en un graf de xarxes interconnectades, que es pot estendre fins i tot més enllà de l’escala d’un planeta.</p>
+<p>Tant si és localment, a l’abast físic, com en un altre continent, cal un sistema d’adreçament per identificar, localitzar i encaminar els missatges perquè arribin als peers (parells) previstos, tal com fem amb les ubicacions físiques.</p>
+<h2 id="sec-where-topology">[3.1] Si us plau, contacta’m<a class="headerlink" href="#sec-where-topology" title="Permanent link">&para;</a></h2>
+<p>Quan només hi intervenen <span class="arithmatex">\(2\)</span> <span class="concept" id="c1" data-key="device">dispositius</span>, es pot fer servir una connexió <span class="concept" id="c2" data-key="point-to-point">punt a punt</span>. En aquest tipus de connexió, només hi ha “aquest costat” i “l’altre costat” del cable. A més, quan un dispositiu vol comunicar-se amb l’altre extrem, només hi ha un enllaç (p. ex., un cable) on triar, de manera que no hi ha cap confusió possible. Com que podem fer funcionar aquesta connexió amb només <span class="arithmatex">\(2\)</span> <span class="concept" id="c3" data-key="network card">targetes de xarxa</span> i <span class="arithmatex">\(1\)</span> cable, les connexions punt a punt són viables per a <span class="arithmatex">\(N=2\)</span> dispositius.</p>
+<p><img alt="image" class="wrap" src="../assets/fig/complete_graph.svg" /></p>
+<p>Si volem connectar <span class="arithmatex">\(N &gt; 2\)</span> dispositius, una opció ingènua és connectar cada dispositiu amb tots els altres en un <span class="concept" id="c4" data-key="complete graph"><em>graf complet</em></span>. Ara cada dispositiu ha de gestionar <span class="arithmatex">\(N - 1\)</span> cables cap als altres dispositius, però comunicar-se amb qualsevol altre dispositiu és tan fàcil com triar el cable correcte i establir una connexió punt a punt.</p>
+<p>El problema principal d’aquest enfocament és que el nombre total de connexions és <span class="arithmatex">\(N \cdot (N-1) / 2 = O(N^2)\)</span> (en saber més al teu estimat curs de <em>Matemàtica Discreta</em>). Això vol dir que, per tenir <span class="arithmatex">\(N=10\)</span> dispositius connectats d’aquesta manera, necessitaries per exemple <span class="arithmatex">\(40\)</span> cables <em>i</em> <span class="arithmatex">\(90\)</span> <span class="concept" id="c5" data-key="network card">targetes de xarxa</span>. Per a <span class="arithmatex">\(N=1000\)</span> dispositius, hi hauria mig milió de connexions punt a punt, cosa que ja és força ingestionable.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p><span class="arithmatex">\(O(N^2)\)</span> és la notació d’una fita de complexitat <span class="concept" id="c6" data-key="quadratic">quadràtica</span>. <em>No</em> és el mateix que <span class="concept" id="c7" data-key="exponential">exponencial</span> i no s’han de confondre mai. (<a href="https://en.wikipedia.org/wiki/Big_O_notation">llegir-ne més...</a>)</p>
+</div>
+<p><img alt="image" class="wrap" src="../assets/fig/bus_graph.svg" style="height:4cm" /></p>
+<p>Tenim un truc amagat a la màniga: els <span class="concept" id="c8" data-key="bus">busos de dades</span>, en què una o més línies de dades estan connectades simultàniament a diversos dispositius. Això conserva la simplicitat de les connexions punt a punt, perquè cada dispositiu només ha de gestionar <span class="arithmatex">\(1\)</span> cable i el pot fer servir per comunicar-se amb tots els altres dispositius. També es conserva la rendibilitat, ja que només calen <span class="arithmatex">\(N\)</span> targetes de xarxa per a <span class="arithmatex">\(N\)</span> dispositius (<span class="arithmatex">\(O(N)\)</span>).</p>
+<p>El principal avantatge dels busos de dades és també la seva principal debilitat: tots els dispositius envien i reben dades per la mateixa línia de dades, però no ho poden fer alhora perquè només hi ha una línia. Si dos o més ho fan, es produeix una <span class="concept" id="c9" data-key="collision">col·lisió</span> que fa impossible la transmissió de dades mentre dura.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>A mesura que es desenvolupaven les xarxes d’ordinadors, es van provar moltes alternatives a la <span class="concept" id="c10" data-key="topology">topologia</span> de bus. Un exemple curiós és <span class="concept" id="c11" data-key="Token Ring">Token Ring</span>, en què els dispositius estan connectats al voltant d’un cercle i els missatges hi circulen en un sol sentit.</p>
+</div>
+<p>A la pràctica, no és trivial implementar una tecnologia de bus on es puguin afegir nous dispositius amb el temps. Històricament, de vegades es feia perforant físicament el cable principal del bus i afegint un cable nou cap a l’ordinador que s’hi connectava. Més endavant, això es va simplificar amb uns dispositius anomenats <span class="concept" id="c12" data-key="hub">hubs</span> (concentradors). Funcionaven de manera semblant, però oferien <span class="concept" id="c13" data-key="port">ports</span> ja integrats i connectors extraïbles. Avui dia, els hubs han estat substituïts pels <span class="concept" id="c14" data-key="switch">switches</span> (commutadors). Els switches ofereixen la funcionalitat d’un bus, connectant cada dispositiu amb tots els altres, i a més eviten les col·lisions. Per raons òbvies, estructurar les connexions al voltant d’un switch s’anomena <span class="concept" id="c15" data-key="star topology">topologia en estrella</span>.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercici 3.1</p>
+<p>Què <strong>cal en un switch</strong> que no calgui en un hub?</p>
+<p><img alt="image" src="../assets/fig/switch.jpg" style="width:17.21cm" /></p>
+</div>
+<p>Les topologies de bus funcionen molt bé a escala local i s’utilitzen àmpliament en <span class="concept" id="c16" data-key="LAN"><span class="concept" id="c17" data-key="network">xarxes</span> d’àrea local (LANs)</span>. Tanmateix, no són rendibles (de vegades ni tan sols físicament possibles) quan els dispositius són lluny els uns dels altres. En lloc d’això, els dispositius es poden organitzar en LANs separades, cadascuna conceptualment un bus, i després aquestes LANs separades es poden connectar mitjançant connexions punt a punt més barates i factibles. Considerats en conjunt, aquests dispositius formarien llavors una <span class="concept" id="c18" data-key="WAN">xarxa d’àrea extensa (WAN)</span>.</p>
+<p><img alt="image" src="../assets/fig/lan_wan_structure.svg" style="width:14.92cm" /></p>
+<h2 id="sec-where-addresses">[3.2] Necessito trobar-te<a class="headerlink" href="#sec-where-addresses" title="Permanent link">&para;</a></h2>
+<p>Un cop més, el principal avantatge dels <span class="concept" id="c19" data-key="bus">busos</span> de dades és també la seva principal debilitat: tots els dispositius envien i reben dades per la mateixa línia de dades. Encara que no hi hagi col·lisions, cada missatge enviat al bus el reben tots els dispositius. Tanmateix, el que realment volem és que el nostre missatge arribi al seu destí, i només al seu destí. Anomenem-ho el <em>problema de trobar el meu dispositiu</em>.</p>
+<p>El problema de trobar el meu dispositiu no és exclusiu dels busos o de les <span class="concept" id="c20" data-key="LAN">LANs</span>. Al contrari, esdevé molt important quan considerem les <span class="concept" id="c21" data-key="WAN">WANs</span>, on no tots els dispositius estan interconnectats directament. En aquest cas, hem d’assegurar-nos que podem <span class="concept" id="c22" data-key="routing">encaminar</span> els nostres missatges entre diferents LANs i que arriben al seu destí.</p>
+<p>Sorprenentment, ni tan sols les connexions punt a punt estan a resguard del problema de trobar el meu dispositiu. Suposant que els dispositius A i B estan connectats d’aquesta manera, dos programes diferents poden voler intercanviar informació al mateix temps, p. ex., un programari de control d’alarmes i una aplicació de reproducció de música en temps real. En aquest escenari, vols que el <span class="concept" id="c23" data-key="client">client</span> i el <span class="concept" id="c24" data-key="server">servidor</span> del <span class="concept" id="c25" data-key="service">servei</span> de monitoratge de l’alarma es comuniquin entre ells, però no amb el servei de música en temps real, i viceversa.</p>
+<p>La solució més habitual a aquest problema és fer servir identificadors que ens permetin diferenciar entre dispositius o fins i tot entre <span class="concept" id="c26" data-key="process">processos</span> en execució dins d’un <span class="concept" id="c27" data-key="OS">sistema operatiu (SO)</span>. Alguns d’aquests identificadors s’anomenen <span class="concept" id="c28" data-key="address">adreces</span>, precisament perquè s’utilitzen per trobar i arribar a un dispositiu remot.</p>
+<p>Les <span class="concept" id="c29" data-key="address">adreces</span> solen ser identificadors <em>numèrics</em>, és a dir, només un nombre. Com a tals, es poden expressar en bases diferents, incloent-hi la decimal i l’<span class="concept" id="c30" data-key="hexadecimal">hexadecimal</span>. Aquests nombres s’extreuen d’un conjunt predefinit, i l’elecció d’aquest conjunt determina el nombre màxim d’elements que podem identificar de manera única.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Les adreces expressades com <code>d8:43:ae:61:ed:f1</code> o <code>192.168.1.1</code> (com es veurà més endavant al curs) també són nombres que hauríem pogut expressar com <code>237785200061937</code> i <code>3232235777</code>, respectivament (cosa que no és tan pràctica).</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Exercici 3.2</p>
+<p><strong>Quants elements es poden identificar de manera única</strong> (com a màxim) amb una adreça que expressem amb 5 bits? I amb 10? I amb 20? Expressa la solució general matemàticament.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Exercici 3.3</p>
+<p>Suposem que hi ha <span class="arithmatex">\(1000\)</span> màquines en una LAN. <strong>Quants bits d’adreça calen</strong>? I per a <span class="arithmatex">\(800\)</span> màquines? I per a <span class="arithmatex">\(1100\)</span>? Expressa la solució general matemàticament.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>El 2019 ens vam quedar sense adreces d’Internet (v4). Ups!</p>
+</div>
+<h2 id="sec-where-route">[3.3] Com hi arribo?<a class="headerlink" href="#sec-where-route" title="Permanent link">&para;</a></h2>
+<p>En molts escenaris, calen diverses adreces per dur a terme la comunicació <span class="concept" id="c31" data-key="end-to-end">extrem a extrem</span> desitjada. Per exemple, pot ser que hàgim d’identificar un únic dispositiu dins d’una <span class="concept" id="c32" data-key="LAN">LAN</span>, i aquesta LAN dins d’una <span class="concept" id="c33" data-key="WAN">WAN</span>. De vegades, caldrà identificar un <span class="concept" id="c34" data-key="process">procés</span> (un programa en execució) dins d’aquest dispositiu. No és gaire diferent de quan algú et ve a visitar en persona:</p>
+<p><img alt="image" src="../assets/rendered/eca588630dc3d823.svg" style="width:7.74cm" /></p>
+<p><img alt="image" src="../assets/rendered/f4df73296c7216d7.svg" style="width:11.33cm" /></p>
+<p>Sigui quin sigui el sistema d’adreçament que fem servir, ha de contenir prou informació per localitzar i arribar al destí, és a dir, per <span class="concept" id="c35" data-key="routing">encaminar</span> els nostres missatges a través del graf de connexions. El procés d’encaminament implica diversos passos o “salts” entre xarxes fins que s’arriba a la LAN de destí.</p>
+<p>El nom <span class="concept" id="c36" data-key="router">router</span> (encaminador) designa un tipus de dispositiu de xarxa la feina del qual és reenviar aquests missatges entre xarxes. Aquests dispositius han de contenir prou informació perquè, quan reben un missatge amb una <span class="concept" id="c37" data-key="address">adreça</span> de destí, puguin decidir quina <span class="concept" id="c38" data-key="network interface">interfície de xarxa</span> han de fer servir. Per la seva banda, els dispositius que no són routers només cal que estiguin configurats per poder arribar al router següent.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>A casa, el teu <span class="concept" id="c39" data-key="router">router</span> normalment també fa el paper de <span class="concept" id="c40" data-key="switch">switch</span>, però són conceptes diferents.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Exercici 3.4</p>
+<p>Aquesta figura representa un grapat de dispositius i les seves connexions físiques. Aquests dispositius només es poden comunicar enviant missatges a través d’aquestes connexions. Tot i així, <span class="node">3</span> vol enviar un missatge a <span class="node">7</span>.</p>
+<p><img alt="image" src="../assets/fig/how_many_packets.svg" style="width:11.48cm" /></p>
+<ul>
+<li>
+<p>Pots identificar algun dispositiu que probablement actuï com a <span class="concept" id="c41" data-key="switch">switch</span>? I com a <span class="concept" id="c42" data-key="router">router</span>?</p>
+</li>
+<li>
+<p>Quin és el <strong>nombre mínim de missatges</strong> enviats perquè <span class="node">3</span> pugui contactar amb <span class="node">7</span>, i <span class="node">7</span> pugui respondre a <span class="node">3</span>? Enumera’ls en l’ordre en què es produeixen.</p>
+</li>
+<li>
+<p>Quina informació s’ha d’incloure en aquests missatges perquè la comunicació <span class="node">3</span> <span class="arithmatex">\(\leftrightarrow\)</span> <span class="node">7</span> pugui tenir lloc?</p>
+</li>
+</ul>
+<p><a id="ex-how_many_packets"></a></p>
+</div>
+<p>Els <span class="concept" id="c43" data-key="swimlane diagram">diagrames de carrils</span> com el de sota s’utilitzen per representar les interaccions (p. ex., intercanvi de missatges) entre actors (p. ex., dispositius de xarxa). En aquests diagrames, l’eix vertical representa el temps, cosa que és molt valuosa per identificar relacions de causa-efecte.</p>
+<p><img alt="image" src="../assets/fig/swimlane_example.svg" style="width:8.03cm" /></p>
+<div class="admonition example">
+<p class="admonition-title">Exercici 3.5</p>
+<p>A partir de la teva resposta a l’Ex.<a href="./#ex-how_many_packets">3.4</a>, <strong>elabora un diagrama de carrils</strong> que representi els intercanvis de missatges. Per a cada missatge (p. ex., damunt de les fletxes), inclou-hi la informació d’adreçament que conté.</p>
+</div>
+<script>window.XOI_ASSETS = "../assets/";</script>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Torna a l'inici
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Peu de pàgina" >
+        
+          
+          <a href="../piercing_the_veil/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [2] Travessant el vel analògic-digital">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                [2] Travessant el vel analògic-digital
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../packets/" class="md-footer__link md-footer__link--next" aria-label="Següent: [4] Això és teu?">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Següent
+              </span>
+              <div class="md-ellipsis">
+                [4] Això és teu?
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "search.highlight", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiat al porta-retalls", "clipboard.copy": "C\u00f2pia al porta-retalls", "search.result.more.one": "1 m\u00e9s en aquesta p\u00e0gina", "search.result.more.other": "# m\u00e9s en aquesta p\u00e0gina", "search.result.none": "Cap document coincideix", "search.result.one": "1 document coincident", "search.result.other": "# documents coincidents", "search.result.placeholder": "Escriu per a comen\u00e7ar a cercar", "search.result.term.missing": "Desaparegut", "select.version": "Selecciona la versi\u00f3"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../scripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../scripts/wide-tables.js"></script>
+      
+        <script src="../../scripts/search-highlight.js"></script>
+      
+        <script src="../../scripts/technical-terms.js"></script>
+      
+        <script src="../../scripts/goatcounter.js"></script>
+      
+        <script src="https://gc.zgo.at/count.js" async></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2885 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Study guide for the Computer Networks and Internet course (UAB, 104353)">
+      
+      
+      
+        <link rel="canonical" href="https://miguelinux314.github.io/uab-xoi/es/layer3/">
+      
+      
+        <link rel="prev" href="../layer2/">
+      
+      
+        <link rel="next" href="../layer4/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+          <link rel="alternate" href="../../ca/layer3/" hreflang="ca">
+        
+          <link rel="alternate" href="../../layer3/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>[8] Capa 3: comunicación Internet(work) - Redes de Ordenadores e Internet: Guía de Estudio</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/xoi.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sec-layer3" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../" title="Redes de Ordenadores e Internet: Guía de Estudio" class="md-header__button md-logo" aria-label="Redes de Ordenadores e Internet: Guía de Estudio" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Redes de Ordenadores e Internet: Guía de Estudio
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              [8] Capa 3: comunicación Internet(work)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Castellano
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../ca/layer3/" hreflang="ca" class="md-select__link">
+              Català
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../layer3/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Portada
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../networks/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Curso
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../missions/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Misiones
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Redes de Ordenadores e Internet: Guía de Estudio" class="md-nav__button md-logo" aria-label="Redes de Ordenadores e Internet: Guía de Estudio" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    Redes de Ordenadores e Internet: Guía de Estudio
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portada
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Portada
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licencia y créditos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uso de IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../course/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sobre esta asignatura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Curso
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Curso
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte I: Redes de ordenadores
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte I: Redes de ordenadores
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte I: Redes de ordenadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../piercing_the_veil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [2] Atravesando el velo analógico-digital
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../where_are_you/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [3] ¿Dónde estás?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [4] ¿Esto es tuyo?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stack_layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [5] Una pila de capas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte II: Internet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte II: Internet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte II: Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tcpip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [6] Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [7] Capa 2: comunicación en red (LAN)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [8] Capa 3: comunicación Internet(work)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [8] Capa 3: comunicación Internet(work)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#capacidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacidades
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocolos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocolos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer3-addressing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.1] Direccionamiento en la capa 3
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[8.1] Direccionamiento en la capa 3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direcciones-publicas-y-reservadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direcciones públicas y reservadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sec-layer3-netmasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.1.2] Máscaras de red
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bloques-de-direcciones-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloques de direcciones IP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sec-layer3-lans_and_netmasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.1.4] LANs y máscaras de red
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer3-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.2] IP – Internet Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[8.2] IP – Internet Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sec-layer3-ip-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.2.1] Formato del paquete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funcionamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funcionamiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer3-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.3] Encaminamiento IP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer3-subnetting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.4] Subnetting IP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer3-fragmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.5] Fragmentación IP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer3-arp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.6] ARP – Address Resolution Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[8.6] ARP – Address Resolution Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formato-del-paquete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formato del paquete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funcionamiento_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funcionamiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer3-icmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.7] ICMP – Internet Control Message Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[8.7] ICMP – Internet Control Message Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formato-del-paquete_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formato del paquete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funcionamiento_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funcionamiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [9] Capa 4: Transporte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [10] Capa 7: Aplicación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice de conceptos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../missions/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misiones
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Misiones
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 1: Compartir es vivir
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 2: Scroll infinito
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 3: Pastoreando el caos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 4: Inter planetary net
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 5: El dinero es la raíz
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 6: Molestar a dos planetas enteros
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 7: TCP o no TCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 8: ¿Me hablas a mí?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 9: Pasillo interplanetario
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#capacidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacidades
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocolos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocolos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer3-addressing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.1] Direccionamiento en la capa 3
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[8.1] Direccionamiento en la capa 3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direcciones-publicas-y-reservadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direcciones públicas y reservadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sec-layer3-netmasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.1.2] Máscaras de red
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bloques-de-direcciones-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bloques de direcciones IP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sec-layer3-lans_and_netmasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.1.4] LANs y máscaras de red
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer3-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.2] IP – Internet Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[8.2] IP – Internet Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sec-layer3-ip-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.2.1] Formato del paquete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funcionamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funcionamiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer3-routing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.3] Encaminamiento IP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer3-subnetting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.4] Subnetting IP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer3-fragmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.5] Fragmentación IP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer3-arp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.6] ARP – Address Resolution Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[8.6] ARP – Address Resolution Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formato-del-paquete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formato del paquete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funcionamiento_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funcionamiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer3-icmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [8.7] ICMP – Internet Control Message Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[8.7] ICMP – Internet Control Message Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formato-del-paquete_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formato del paquete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funcionamiento_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funcionamiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><img alt="" class="hero" src="../assets/fig/golden_gate.jpg" /></p>
+<h1 id="sec-layer3">[8] Capa 3: comunicación Internet(work)<a class="headerlink" href="#sec-layer3" title="Permanent link">&para;</a></h1>
+<div class="figure-row">
+<p><img alt="image" src="../assets/rendered/91ce67436c84ea13.svg" style="width:7.74cm" /></p>
+<p><img alt="image" src="../assets/fig/network_layer3.svg" style="width:13.77cm" /></p>
+</div>
+<h3 id="capacidades">Capacidades<a class="headerlink" href="#capacidades" title="Permanent link">&para;</a></h3>
+<p>El <span class="concept" id="c1" data-key="IP">Internet Protocol (IP)</span> permite intercambiar <span class="concept" id="c2" data-key="datagram">datagramas</span> (<span class="concept" id="c3" data-key="PDU">PDUs</span> de la capa 3) entre dispositivos de distintas <span class="concept" id="c4" data-key="LAN">LANs</span> (redes de área local). Su sistema de direccionamiento identifica los dispositivos de forma global y hace posible <span class="concept" id="c5" data-key="routing">encaminar</span> datagramas allí donde lo necesitemos.</p>
+<p>Los dispositivos que se comunican mediante IP pueden pertenecer a LANs basadas en tecnologías diferentes y con distintos tipos de dirección <span class="concept" id="c6" data-key="MAC">MAC</span>. Esto tiene dos implicaciones:</p>
+<ul>
+<li>
+<p>Un datagrama que “cabe” en la <span class="concept" id="c7" data-key="MTU">MTU</span> de la LAN de origen puede ser demasiado grande para la MTU de la LAN de destino (o de cualquier LAN intermedia). IP define un sistema de <span class="concept" id="c8" data-key="fragmentation">fragmentación</span> para dividir datagramas, que solo se reconstruyen en el destino final.</p>
+</li>
+<li>
+<p>Cuando enviamos un datagrama, conocemos la <span class="concept" id="c9" data-key="IP">dirección IP</span> del dispositivo de destino, pero no necesariamente su dirección <span class="concept" id="c10" data-key="MAC">MAC</span>. Solo necesitaremos esa MAC si formamos parte de la LAN de destino. IP usa <span class="concept" id="c11" data-key="ARP">ARP</span> para traducir direcciones IP conocidas a direcciones MAC del tipo de la LAN de destino.</p>
+</li>
+</ul>
+<p>Los <span class="concept" id="c12" data-key="datagram">datagramas</span> pueden viajar por redes que no controlan ni el origen ni el destino, por lo que pueden perderse, desordenarse y duplicarse. La capa 3 no proporciona mecanismos para tratar esto; las capas superiores deben implementar mecanismos de protección cuando sea necesario (p.ej. para implementar los <span class="concept" id="c13" data-key="stream">flujos de datos</span> de <span class="concept" id="c14" data-key="TCP">TCP</span>).</p>
+<p><img alt="image" src="../assets/fig/protocols_layer3.svg" style="width:20.66cm" /></p>
+<h3 id="protocolos">Protocolos<a class="headerlink" href="#protocolos" title="Permanent link">&para;</a></h3>
+<p>La versión 4 de <span class="concept" id="c15" data-key="IP">IP</span> es <em>el</em> protocolo usado en la capa 3, es decir, es común a prácticamente todas las comunicaciones de Internet tal y como la conocemos hoy. Desde hace muchos años, Internet intenta hacer la transición hacia <span class="concept" id="c16" data-key="IPv6">IPv6</span>, pero el proceso no está completo y solo <span class="concept" id="c17" data-key="IPv4">IPv4</span> proporciona cobertura global.</p>
+<p><span class="concept" id="c18" data-key="IPv4">IPv4</span> delega en el protocolo <span class="concept" id="c19" data-key="ARP">ARP</span> la traducción de direcciones IP conocidas a direcciones MAC dentro de cada LAN. ARP <em>no</em> usa datagramas IP.</p>
+<p>Los siguientes protocolos encapsulan sus <span class="concept" id="c20" data-key="PDU">PDUs</span> en el payload (carga útil) de los <span class="concept" id="c21" data-key="datagram">datagramas</span> IP:</p>
+<ul>
+<li>
+<p>Transport Control Protocol (<span class="concept" id="c22" data-key="TCP">TCP</span>)</p>
+</li>
+<li>
+<p>User Datagram Protocol (<span class="concept" id="c23" data-key="UDP">UDP</span>)</p>
+</li>
+<li>
+<p>Internet Control Message Protocol (<span class="concept" id="c24" data-key="ICMP">ICMP</span>)</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Los comandos <code>ip address</code>, <code>ip route</code> y <code>ip neighbor</code> (entre otros) te permiten consultar varios aspectos de tu configuración IP.</p>
+</div>
+<h2 id="sec-layer3-addressing">[8.1] Direccionamiento en la capa 3<a class="headerlink" href="#sec-layer3-addressing" title="Permanent link">&para;</a></h2>
+<p>Las direcciones <span class="concept" id="c25" data-key="IPv4">IPv4</span> tienen <span class="arithmatex">\(32\)</span> bits de longitud. Lo más habitual es presentarlas a las personas en formato <span class="concept" id="c26" data-key="quad decimal">cuádruple decimal</span>, p.ej. </p>
+<p><code>142.250.201.67</code></p>
+<p>Las direcciones <span class="concept" id="c27" data-key="IPv6">IPv6</span> tienen <span class="arithmatex">\(128\)</span> bits (<span class="arithmatex">\(12\)</span> bytes) de longitud, es decir, son <span class="arithmatex">\(4\)</span> veces mayores que una dirección IPv4. Se expresan en formato hexadecimal, p.ej. como sigue. Fíjate en cómo dos signos de dos puntos “<code>::</code>” indican “rellena con ceros”, y “<code>::</code>” solo puede aparecer una vez por dirección IPv6.</p>
+<p><code>fe80::f524:a73a:e946:7c02</code></p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Cuando una dirección <span class="concept" id="c28" data-key="IPv6">IPv6</span> se usa como parte de una URL, se rodea con corchetes, p.ej. <code>https://[fe80::f524:a73a:e946:7c02]/</code>.</p>
+</div>
+<h3 id="direcciones-publicas-y-reservadas">Direcciones públicas y reservadas<a class="headerlink" href="#direcciones-publicas-y-reservadas" title="Permanent link">&para;</a></h3>
+<p>La mayoría de las direcciones IP son <span class="concept" id="c29" data-key="public IP">públicas</span> y únicas en todo Internet, es decir, la IP anterior tiene el mismo significado en todo el mundo: identifica un único dispositivo conectado. Muchas direcciones son <span class="concept" id="c30" data-key="reserved IP address">reservadas/privadas</span> y solo pueden usarse dentro de un ámbito concreto (p.ej. una LAN) o en una situación concreta. Algunas de las más comunes son las siguientes (hay <a href="https://en.wikipedia.org/wiki/Reserved_IP_addresses#IPv4"><u>algunas más</u></a>, también para IPv6):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Bloque de direcciones IP</strong></th>
+<th style="text-align: left;"><strong>Ámbito de la dirección</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>127.*.*.*</code></td>
+<td style="text-align: left;">Este ordenador (localhost)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>10.*.*.*</code></td>
+<td style="text-align: left;">Interno (privado)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>172.16.*.*</code></td>
+<td style="text-align: left;">Interno (privado)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>192.168.*.*</code></td>
+<td style="text-align: left;">Interno (privado)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>0.*.*.*</code></td>
+<td style="text-align: left;">Usos especiales</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>169.254.*.*</code></td>
+<td style="text-align: left;">Usos especiales</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>255.255.255.255</code></td>
+<td style="text-align: left;">Usos especiales</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.1</p>
+<ul>
+<li>
+<p>¿Cuántas direcciones <span class="concept" id="c31" data-key="IPv4">IPv4</span> distintas hay (incluyendo las reservadas y privadas)?</p>
+</li>
+<li>
+<p>¿Son suficientes ahora y en el futuro?</p>
+</li>
+<li>
+<p>¿Es problemático que una dirección como <code>192.168.0.1</code> la estén usando simultáneamente miles (probablemente millones) de ordenadores en Internet ahora mismo?</p>
+</li>
+<li>
+<p>¿Cuáles de estas corresponden a direcciones <span class="concept" id="c32" data-key="link local">link local</span>?</p>
+</li>
+</ul>
+</div>
+<h3 id="sec-layer3-netmasks">[8.1.2] Máscaras de red<a class="headerlink" href="#sec-layer3-netmasks" title="Permanent link">&para;</a></h3>
+<p>Los <span class="arithmatex">\(32\)</span> bits de una dirección IP pueden dividirse en dos partes usando una <span class="concept" id="c33" data-key="netmask">máscara de red</span>:</p>
+<p><img alt="image" src="../assets/rendered/388f61bfd811dfec.svg" style="width:14.9cm" /></p>
+<p>La primera parte identifica la LAN o el grupo de LANs al que pertenece un dispositivo. La segunda parte identifica un único dispositivo dentro de la LAN. La máscara de red determina cuántos bits se asignan a cada parte.</p>
+<p>En la figura anterior, la máscara de red asigna 10 bits al Network ID y 22 al Device ID. Esta máscara puede tomar cualquier valor entre <span class="arithmatex">\(0\)</span> (todos los bits son Device ID) y <span class="arithmatex">\(32\)</span> (todos los bits son Network ID).</p>
+<p>Las máscaras de red se presentan a las personas de dos formas principales:</p>
+<ul>
+<li>
+<p><code>/N</code>, donde <span class="arithmatex">\(N\)</span> es el número de bits asignados al Network ID. Se usa en el formato <span class="concept" id="c34" data-key="CIDR">CIDR</span>.</p>
+</li>
+<li>
+<p>El formato <span class="concept" id="c35" data-key="quad decimal">cuádruple decimal</span> (<code>A.B.C.D</code>) de <span class="arithmatex">\(N\)</span> bits puestos a <code>1</code>, seguidos de <span class="arithmatex">\((32-N)\)</span> bits puestos a <code>0</code>.</p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.2</p>
+<p>La máscara de red del ejemplo anterior puede expresarse en binario (aunque no es muy cómodo):</p>
+<p><img alt="image" src="../assets/rendered/49122872345613e2.svg" style="width:17.2cm" /></p>
+<ul>
+<li>
+<p>Expresa la máscara de red del ejemplo anterior en los formatos CIDR y cuádruple decimal.</p>
+</li>
+<li>
+<p>¿Cuál es tu IP y tu máscara de red? Exprésalas de esas mismas dos formas principales.</p>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Las máscaras de red también se usan en IPv6, pero con un valor máximo de <span class="arithmatex">\(N\)</span> de <span class="arithmatex">\(128\)</span> en lugar de <span class="arithmatex">\(32\)</span>.</p>
+</div>
+<h3 id="bloques-de-direcciones-ip">Bloques de direcciones IP<a class="headerlink" href="#bloques-de-direcciones-ip" title="Permanent link">&para;</a></h3>
+<p>Las máscaras de red se usan combinadas con direcciones IP para definir <span class="concept" id="c36" data-key="IP address block">bloques de direcciones IP</span> que empiezan por los mismos <span class="arithmatex">\(N\)</span> bits (donde <span class="arithmatex">\(N\)</span> es la máscara de red). Por ejemplo, <code>192.168.3.0/24</code> (en formato <span class="concept" id="c37" data-key="CIDR">CIDR</span>) y <code>192.168.3.0/255.255.255.0</code> se refieren al bloque de direcciones entre <code>192.168.3.0</code> y <code>192.168.3.255</code>, ambas incluidas (<code>192.168.3.*</code> en la notación informal de la tabla anterior).</p>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.3</p>
+<p>Los bloques IP pueden ser menores, iguales o mayores que una red IP. Da ejemplos en los que un bloque IP se refiera a:</p>
+<ul>
+<li>
+<p>Una única IP.</p>
+</li>
+<li>
+<p>La mitad de las direcciones IP de la red <code>192.168.3.0/24</code>.</p>
+</li>
+<li>
+<p>Todas las direcciones de la red <code>192.168.3.0/24</code>, más <span class="arithmatex">\(256\)</span> direcciones adicionales.</p>
+</li>
+<li>
+<p>Todas las IP posibles.</p>
+</li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.4</p>
+<ul>
+<li>
+<p>¿Puede expresarse toda <span class="concept" id="c38" data-key="netmask">máscara de red</span> como una <span class="concept" id="c39" data-key="IP address">dirección IP</span>?</p>
+</li>
+<li>
+<p>Enumera todas las máscaras de red posibles.</p>
+</li>
+</ul>
+</div>
+<p>Cuando nos referimos a un bloque de direcciones (como una LAN), la dirección IP de esta combinación IP + máscara de red debe tener todos los bits de Device ID puestos a <code>0</code>. Así, <code>192.168.3.0/24</code> se refiere correctamente a una red, pero <code>192.168.3.1/24</code> se refiere en cambio a un dispositivo (el que tiene la IP <code>192.168.3.1</code>) de esa red (<code>192.168.3.0/24</code>).</p>
+<h3 id="sec-layer3-lans_and_netmasks">[8.1.4] LANs y máscaras de red<a class="headerlink" href="#sec-layer3-lans_and_netmasks" title="Permanent link">&para;</a></h3>
+<p>Las máscaras de red <em>no</em> tienen por qué ser múltiplos de <span class="arithmatex">\(8\)</span>. Considera el siguiente ejemplo en el que<br />
+<code>192.168.76.1/19</code> (la IP + máscara de red de un dispositivo) se usa para obtener su dirección de red<br />
+(<code>192.168.64.0/19</code>):</p>
+<p><img alt="image" src="../assets/rendered/d30096b828db96da.svg" style="width:22.53cm" /></p>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.5</p>
+<ul>
+<li>
+<p>En el ejemplo anterior, en realidad solo necesitábamos transformar un valor decimal a binario, y un valor decimal a binario. ¿Cuál?</p>
+</li>
+<li>
+<p>¿Es esto siempre cierto al convertir combinaciones IP+máscara de red en direcciones de red?</p>
+</li>
+<li>
+<p>Expresa la máscara de red en formato <span class="concept" id="c40" data-key="quad decimal">cuádruple decimal</span>.</p>
+</li>
+</ul>
+</div>
+<p>Dado un bloque de direcciones IP + máscara de red y la dirección IP de un dispositivo, es inmediato determinar si la IP de ese dispositivo pertenece al bloque (si y solo si coinciden los primeros <span class="arithmatex">\(N\)</span> bits, donde <code>/N</code> es la máscara de red en formato CIDR).</p>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.6</p>
+<p>Determina si cada una de las siguientes direcciones pertenece a la misma red que el siguiente dispositivo <code>123.45.67.89/14</code>:</p>
+<ul>
+<li>
+<p><code>23.45.67.89</code></p>
+</li>
+<li>
+<p><code>123.45.203.25</code></p>
+</li>
+<li>
+<p><code>123.43.255.255</code></p>
+</li>
+<li>
+<p><code>0.45.67.1</code></p>
+</li>
+</ul>
+</div>
+<p>Una <span class="concept" id="c41" data-key="network">red IP</span> (una LAN) es un bloque de direcciones, pero no todas esas direcciones pueden asignarse a dispositivos. Siempre hay dos direcciones reservadas:</p>
+<ul>
+<li>
+<p>La dirección con todos los bits de nodo puestos a <code>0</code>: identifica la propia LAN.</p>
+</li>
+<li>
+<p>La dirección con todos los bits de nodo puestos a <code>1</code>: identifica el <span class="concept" id="c42" data-key="broadcast">broadcast</span> (difusión) dentro de la LAN.</p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.7</p>
+<ul>
+<li>
+<p>Enumera todas las direcciones que pueden asignarse a dispositivos en <code>192.168.54.0/29</code>.</p>
+</li>
+<li>
+<p>Indica la dirección de broadcast de esa red.</p>
+</li>
+</ul>
+</div>
+<p>La máscara de red <code>/N</code> determina el número de dispositivos que pueden estar conectados al mismo tiempo a una red: <span class="arithmatex">\(2^{32-N} - 2\)</span>. Cuando se dice que una LAN es “pequeña” o “más grande”, el tamaño se refiere a ese número de direcciones de dispositivo disponibles.</p>
+<p>A la inversa, el número <span class="arithmatex">\(M\)</span> de dispositivos que necesitamos conectar a la misma LAN determina el tamaño de LAN más pequeño (la máscara de red <code>/N</code> más larga) en el que caben todos esos dispositivos a la vez:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>Máscara de red</strong></th>
+<th style="text-align: center;"><strong>Direcciones totales</strong></th>
+<th style="text-align: center;"><strong>Dispositivos máx.</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>/N</code></td>
+<td style="text-align: center;"><span class="arithmatex">\(2^{32-N}\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(2^{32-N} - 2\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/30</code></td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/29</code></td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/28</code></td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">14</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/27</code></td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">30</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/26</code></td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">62</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/25</code></td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">126</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\vdots\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Todos los <span class="concept" id="c43" data-key="router">routers</span> (encaminadores) necesitan una dirección IP válida por cada LAN a la que están conectados. Por tanto, los routers <em>sí</em> cuentan para el número máximo de dispositivos conectados en una LAN.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.8</p>
+<ul>
+<li>
+<p>¿Cuál es el tamaño mínimo de red en el que caben <span class="arithmatex">\(256\)</span> dispositivos conectados?</p>
+</li>
+<li>
+<p>¿Cuál es la máscara de red <code>/N</code> más larga que permitiría conectarse a todo el mundo en tu ciudad?</p>
+</li>
+<li>
+<p>¿Cuántas direcciones contiene una red <code>/0</code>?</p>
+</li>
+<li>
+<p>¿Cuántas redes <code>/0</code> pueden existir? ¿Reciben algún nombre?</p>
+</li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.9</p>
+<p>El siguiente fragmento de código toma una dirección IP y muestra sus <span class="arithmatex">\(4\)</span> bytes expresados en cuádruple decimal y en binario. Amplía (o sustituye) el código para que puedas:</p>
+<ul>
+<li>
+<p>Transformar <span class="arithmatex">\(32\)</span> bits en una cadena en cuádruple decimal.</p>
+</li>
+<li>
+<p>Mostrar una máscara de red en formato de dirección IP y en formato CIDR.</p>
+</li>
+<li>
+<p>Dada la IP y la máscara de red de un dispositivo, determinar si otra IP pertenece a la misma red.</p>
+</li>
+</ul>
+<p><div class="showcode" markdown="1">
+<strong><code>snippets/ipcalculator.py</code></strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Código</label><label for="__tabbed_1_2">Salida</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="k">def</span><span class="w"> </span><span class="nf">print_ip_binary</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="linenos" data-linenos="2 "></span>    <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ip</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)]</span>
+<span class="linenos" data-linenos="3 "></span>    <span class="nb">print</span><span class="p">(</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">part</span><span class="si">:</span><span class="s2">8d</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">))</span>
+<span class="linenos" data-linenos="4 "></span>    <span class="nb">print</span><span class="p">(</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">part</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">))</span>
+<span class="linenos" data-linenos="5 "></span>
+<span class="linenos" data-linenos="6 "></span><span class="n">print_ip_binary</span><span class="p">(</span><span class="n">ip</span> <span class="o">=</span> <span class="s2">"192.168.0.1"</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>     192      168        0        1
+11000000 10101000 00000000 00000001
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h2 id="sec-layer3-ip">[8.2] IP – Internet Protocol<a class="headerlink" href="#sec-layer3-ip" title="Permanent link">&para;</a></h2>
+<h3 id="sec-layer3-ip-format">[8.2.1] Formato del paquete<a class="headerlink" href="#sec-layer3-ip-format" title="Permanent link">&para;</a></h3>
+<p><span class="concept" id="c44" data-key="IP">IP</span> define un formato de <span class="concept" id="c45" data-key="packet">paquete</span> con una <span class="concept" id="c46" data-key="header">cabecera</span> de <em>al menos</em> <span class="arithmatex">\(20\)</span> bytes. Pueden incluirse partes opcionales, siempre que el tamaño total de la cabecera sea múltiplo de <span class="arithmatex">\(32\)</span> bits (<span class="arithmatex">\(4\)</span> bytes). El payload puede estar vacío, así que el tamaño mínimo de un datagrama es de <span class="arithmatex">\(20\)</span> bytes.</p>
+<p><img alt="image" src="../assets/rendered/87e6ae22d3df3eec.svg" style="width:24.68cm" /></p>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.10</p>
+<ul>
+<li>
+<p>¿Cómo puede calcularse la longitud del payload a partir de la cabecera?</p>
+</li>
+<li>
+<p>¿Cuál es la longitud máxima del payload?</p>
+</li>
+<li>
+<p>¿Qué valores pueden tomar los flags (indicadores) de la cabecera IP?</p>
+</li>
+<li>
+<p>¿Qué es más largo, una dirección IP o una dirección MAC de Ethernet?</p>
+</li>
+<li>
+<p>¿Es posible enviar exactamente 17 bits de datos de payload en un datagrama IP?</p>
+</li>
+<li>
+<p>¿Cómo podemos saber si un datagrama encapsula datos TCP o UDP?</p>
+</li>
+<li>
+<p>¿Por qué la parte opcional de la cabecera debe ser múltiplo de <span class="arithmatex">\(32\)</span> bits?</p>
+</li>
+</ul>
+</div>
+<h3 id="funcionamiento">Funcionamiento<a class="headerlink" href="#funcionamiento" title="Permanent link">&para;</a></h3>
+<p>Cuando un dispositivo A quiere enviar un datagrama IP a un dispositivo B, las IP de origen y destino de la cabecera son fijas y no cambian para ese datagrama.</p>
+<p>Si los dispositivos A y B pertenecen a la misma LAN, el datagrama se envía directamente (p.ej. encapsulado en un frame (trama) Ethernet). Sin embargo, IP puede llegar mucho más lejos. Considera el siguiente escenario, en el que A quiere comunicarse con E.</p>
+<p><img alt="image" src="../assets/fig/ip_operation_example.svg" style="width:11.48cm" /></p>
+<p>Aquí, los dispositivos de origen y destino pertenecen a LANs distintas. El datagrama se pasa primero al <span class="concept" id="c47" data-key="router">router</span> del origen. Después, cada router intermedio lo pasa al siguiente hasta que el datagrama llega al último router, que está conectado a la LAN de destino. Por último, ese último router entrega el datagrama al destino.</p>
+<p><img alt="image" src="../assets/fig/ip_operation.svg" style="width:23.34cm" /></p>
+<p>Las direcciones IP de origen y destino no cambian a lo largo de todo el trayecto. En cambio, las direcciones MAC cambian en cada <span class="concept" id="c48" data-key="hop">salto</span> de LAN.</p>
+<h2 id="sec-layer3-routing">[8.3] Encaminamiento IP<a class="headerlink" href="#sec-layer3-routing" title="Permanent link">&para;</a></h2>
+<p>Los <span class="concept" id="c49" data-key="router">routers</span> son los dispositivos encargados de reenviar los <span class="concept" id="c50" data-key="datagram">datagramas</span> IP mirando la dirección IP de destino de cada uno, presente en la <span class="concept" id="c51" data-key="header">cabecera</span> IP. Los routers no necesitan <span class="concept" id="c52" data-key="decapsulate">desencapsular</span> las cabeceras de la capa 4 y superiores. Por tanto, sus pilas de red solo necesitan llegar hasta la capa 3 (y por eso a veces se les llama dispositivos de capa 3).</p>
+<p><img alt="image" src="../assets/fig/forward_layers.svg" style="width:20.66cm" /></p>
+<p>Cuando un router detecta un frame de red <span class="arithmatex">\(F\)</span> en una de sus <span class="concept" id="c53" data-key="interface">interfaces</span> (tarjetas de red), intenta reconocer las siguientes partes de un datagrama.</p>
+<p><img alt="image" src="../assets/rendered/eb5ae7b9fe55cbf8.svg" style="width:22.07cm" /></p>
+<p>Si lo reconoce, el router procesa el datagrama de la siguiente manera:</p>
+<ol>
+<li>
+<p>Se descarta el frame <span class="arithmatex">\(F\)</span> completo salvo que la MAC de destino (en la cabecera de capa 2) sea la de la interfaz del router que ha detectado el frame.</p>
+</li>
+<li>
+<p>El router mira la dirección IP de destino (en la cabecera IP de <span class="arithmatex">\(F\)</span>) y su <span class="concept" id="c54" data-key="routing table">tabla de encaminamiento</span> para decidir el siguiente <span class="concept" id="c55" data-key="hop">salto</span> del datagrama, es decir, el dispositivo al que este router le pasará el datagrama, y qué <span class="concept" id="c56" data-key="interface">interfaz</span> usar (véase la Sección <a href="./#sec-layer3-routing">8.3</a> más abajo).</p>
+</li>
+<li>
+<p>El router crea y envía un frame <span class="arithmatex">\(F'\)</span> haciendo los dos cambios siguientes sobre <span class="arithmatex">\(F\)</span>:</p>
+<ol>
+<li>
+<p>La cabecera de capa 2 de <span class="arithmatex">\(F'\)</span> cambia por completo:</p>
+<ul>
+<li>
+<p>La <span class="concept" id="c57" data-key="MAC">MAC</span> de destino es la del siguiente salto, y la MAC de origen es la del router que reenvía el datagrama. La IP del siguiente salto la da la <span class="concept" id="c58" data-key="routing table">tabla de encaminamiento</span> (véase la Sección <a href="./#sec-layer3-routing">8.3</a>), y su MAC se obtiene a partir de esa IP mediante <span class="concept" id="c59" data-key="ARP">ARP</span> (Sección <a href="./#sec-layer3-arp">8.6</a>).</p>
+</li>
+<li>
+<p>La MAC de origen del frame <span class="arithmatex">\(F'\)</span> es distinta de la MAC de destino del frame <span class="arithmatex">\(F\)</span> recibido si el router recibió <span class="arithmatex">\(F\)</span> por una interfaz (p.ej. <code>eth7</code>) y lo reenvía por otra (p.ej. <code>eth9</code>).</p>
+</li>
+</ul>
+<p><img alt="image" src="../assets/fig/router_ports.jpg" style="width:18.36cm" /></p>
+</li>
+<li>
+<p>La cabecera IP de <span class="arithmatex">\(F'\)</span> difiere de la de <span class="arithmatex">\(F\)</span> en lo siguiente:</p>
+<ul>
+<li>
+<p>El campo <span class="concept" id="c60" data-key="TTL">TTL</span> (tiempo de vida) se decrementa en <span class="arithmatex">\(1\)</span>.<br />
+    Si el TTL llega a <span class="arithmatex">\(0\)</span>, el datagrama se descarta en lugar de reenviarse.</p>
+</li>
+<li>
+<p>Cuando el campo <span class="concept" id="c61" data-key="IP Options">Options</span> está presente, a menudo se actualiza.</p>
+</li>
+<li>
+<p>El <span class="concept" id="c62" data-key="checksum">checksum</span> (suma de verificación) de la cabecera se actualiza en consecuencia.</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Fíjate en cómo las direcciones IP y el payload se copian sin modificar cuando se reenvía un datagrama.</p>
+</div>
+<p>Cuando un router recibe un <span class="concept" id="c63" data-key="datagram">datagram</span> IP para reenviarlo y ese router está conectado a la misma LAN que la dirección IP de destino, el router realiza una <span class="concept" id="c64" data-key="direct delivery">entrega directa</span> (DD). En caso contrario, el datagrama se reenvía al siguiente router en una <span class="concept" id="c65" data-key="indirect delivery">entrega indirecta</span> (ID). Un router sabe si debe realizar DD o ID, así como qué dirección IP de destino (y de origen) usar, gracias a su <span class="concept" id="c66" data-key="routing table">tabla de encaminamiento</span>.</p>
+<p>Todas las tablas de encaminamiento tienen al menos las siguientes columnas:</p>
+<ul>
+<li>
+<p><strong>Bloque de direcciones de destino</strong>: una o más direcciones IP que pueden expresarse como una combinación IP + máscara de red. Una fila de la tabla solo puede aplicarse a un datagrama si su IP de destino está dentro del bloque de direcciones de destino de esa fila:</p>
+<ul>
+<li>
+<p>Si solo se aplica una fila de la tabla, esa fila se usa para el encaminamiento.</p>
+</li>
+<li>
+<p>Si se aplica más de una fila a un datagrama, se usa la fila con el bloque de direcciones de destino más pequeño (la más específica).</p>
+</li>
+</ul>
+<p>Un bloque de destino <span class="concept" id="c67" data-key="default routing table"><em>default</em></span> indica el bloque <code>0.0.0.0/0</code>. Como este es el bloque más grande posible, solo se aplica si no se aplica ninguna de las otras filas. La entrada <em>default</em> no es obligatoria.</p>
+</li>
+<li>
+<p><strong>Gateway/via</strong> (pasarela): si la fila corresponde a una <span class="concept" id="c68" data-key="indirect delivery">indirect delivery</span>, esta columna contiene la dirección IP del siguiente router. En caso contrario, esta columna contiene <code>0.0.0.0</code> para indicar una <span class="concept" id="c69" data-key="direct delivery">direct delivery</span>.</p>
+</li>
+<li>
+<p><strong>Interfaz</strong>: nombre interno de la interfaz de red (p.ej. de la tarjeta Ethernet) que se usará para entregar el datagrama. Los sistemas operativos pueden usar la convención que quieran, siempre que puedan identificarse de forma única en la tabla. Los nombres habituales empiezan por <code>eth</code>, <code>wlan</code>, <code>atm</code>, y más recientemente <code>en</code> y <code>wl</code>.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Todos los dispositivos tienen su propia tabla de encaminamiento, no solo los routers.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.11</p>
+<p>A continuación se presenta la <span class="concept" id="c70" data-key="routing table">tabla de encaminamiento</span> de un router pequeño.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>Bloque de direcciones de destino</strong></th>
+<th style="text-align: center;"><strong>gateway/via</strong></th>
+<th style="text-align: center;"><strong>Interfaz</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><em><code>default</code></em></td>
+<td style="text-align: center;"><code>192.168.0.1</code></td>
+<td style="text-align: center;"><code>eth0</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>192.168.0.0/24</code></td>
+<td style="text-align: center;"><code>0.0.0.0</code></td>
+<td style="text-align: center;"><code>eth0</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>172.16.0.4/32</code></td>
+<td style="text-align: center;"><code>0.0.0.0</code></td>
+<td style="text-align: center;"><code>eth1</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>10.49.4.0/28</code></td>
+<td style="text-align: center;"><code>10.49.4.1</code></td>
+<td style="text-align: center;"><code>eth2</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>10.49.4.3/32</code></td>
+<td style="text-align: center;"><code>10.49.4.2</code></td>
+<td style="text-align: center;"><code>eth2</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>Dibuja un mapa de red coherente con la tabla de encaminamiento, que contenga este router. Para las interfaces del router, indica su nombre y unas direcciones IP y de capa 2 válidas.</p>
+</li>
+<li>
+<p>¿Cómo reenviaría este router un datagrama dirigido a una dirección IP <span class="concept" id="c71" data-key="public">pública</span>?</p>
+</li>
+<li>
+<p>Da una dirección IP de destino que se procesaría usando la fila <code>10.49.4.0/28</code>, y otra que se procesaría usando la fila <code>10.49.4.2/32</code>. Piensa en un caso de uso para tener estas dos reglas.</p>
+</li>
+</ul>
+</div>
+<p>Para que Internet funcione, los routers que interconectan LANs a escala global deben estar bien configurados. A veces no es así, lo que puede provocar <span class="concept" id="c72" data-key="routing errors">errores de encaminamiento</span>. Dos problemas importantes que uno puede encontrarse son:</p>
+<ul>
+<li>
+<p>“Network is unreachable”: ninguna de las filas de la tabla de encaminamiento usa un bloque de direcciones que contenga la dirección de destino del datagrama. El router no puede saber cuál debería ser el siguiente salto, así que el datagrama no se reenvía. Esto provoca un error “ICMP Destination Unreachable” (véase la Sección <a href="./#sec-layer3-icmp">8.7</a>).</p>
+</li>
+<li>
+<p>“Time to Live exceeded”: cada vez que se reenvía un datagrama, su <span class="concept" id="c73" data-key="TTL">TTL</span> se decrementa, como se mencionó en la Sección <a href="./#sec-layer3-ip-format">8.2.1</a>. Si varios routers están configurados de forma que el datagrama siga algún tipo de ciclo (bucle), el datagrama se reenviaría infinitamente. Cuando el <span class="concept" id="c74" data-key="TTL">TTL</span> llega a 0, el datagrama se descarta y se produce este error. Esto provoca un error “ICMP Time Exceeded” (véase la Sección <a href="./#sec-layer3-icmp">8.7</a>).</p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.12</p>
+<p>¿Puede producirse el error “Network unreachable” si un router tiene una entrada <em><code>default</code></em>?</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.13</p>
+<p>Propón un ejemplo de LANs interconectadas y especifica las tablas de encaminamiento necesarias para que un datagrama siga un ciclo y produzca el error “TTL exceeded”.</p>
+</div>
+<h2 id="sec-layer3-subnetting">[8.4] Subnetting IP<a class="headerlink" href="#sec-layer3-subnetting" title="Permanent link">&para;</a></h2>
+<p><img alt="image" src="../assets/rendered/cdec7c227431a4bf.svg" style="width:23.02cm" /></p>
+<p>Las <span class="concept" id="c75" data-key="LAN">LANs</span> pueden considerarse bloques de direcciones (p.ej. expresados en formato <span class="concept" id="c76" data-key="CIDR">CIDR</span>) con dos direcciones reservadas. A las redes accesibles directamente a través de Internet se les debe asignar un bloque válido lo bastante grande para conectar todos los dispositivos necesarios. Para asegurarse de que no haya dos dispositivos en Internet con la misma IP <span class="concept" id="c77" data-key="public">pública</span>, no puede haber dos LANs que contengan la misma dirección (a menos que la dirección sea <span class="concept" id="c78" data-key="private IP">privada</span>).</p>
+<p>Las <span class="arithmatex">\(2^{32}\)</span> direcciones disponibles en <span class="concept" id="c79" data-key="IPv4">IPv4</span> se dividen en bloques mediante el <span class="concept" id="c80" data-key="netmask">enmascaramiento de red</span>. Los bloques grandes pueden dividirse por la mitad aumentando en <span class="arithmatex">\(1\)</span> la longitud de la máscara de red, como se ve en la figura anterior. Por ejemplo, el bloque inicial <code>0.0.0.0/0</code> (todas las direcciones) puede dividirse en dos bloques <code>/1</code>, cada uno con la mitad de las direcciones <span class="concept" id="c81" data-key="IPv4">IPv4</span> (<span class="arithmatex">\(2^{31}\)</span> – todavía demasiado grande para cualquier LAN real). Este proceso continúa de forma independiente para cada uno de los bloques resultantes, y se detiene cuando el tamaño de LAN resultante es el deseado.</p>
+<p>Dado un bloque de direcciones <code>/N</code> (p.ej. el de una única LAN existente), puede que queramos dividirlo en subbloques y tener en su lugar varias LANs más pequeñas (<span class="concept" id="c82" data-key="subnet">subredes</span>). En las subredes solo podemos usar direcciones del bloque original, pero se pueden reservar bloques para un uso futuro:</p>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.14</p>
+<p>Eres el administrador de la red <code>192.168.0.0/24</code> de un laboratorio de investigación. Te gustaría dividirla en las tres subredes resaltadas más abajo.</p>
+<ul>
+<li>
+<p>Proporciona un diagrama de las tres redes, incluyendo un router conectado a las tres mediante tres interfaces distintas.</p>
+</li>
+<li>
+<p>Proporciona la tabla de encaminamiento <em>mínima</em> de ese router (estas redes no están conectadas a Internet).</p>
+</li>
+<li>
+<p>¿Cuántos dispositivos pueden conectarse en total a estas tres redes, incluidos los routers?</p>
+</li>
+<li>
+<p>¿Cuántas direcciones de la red original quedan sin asignar?</p>
+</li>
+<li>
+<p>¿Cuál es la LAN más grande que podemos crear con las direcciones sin asignar?</p>
+</li>
+</ul>
+<p><img alt="image" src="../assets/rendered/70f504344b2d4609.svg" style="width:23.44cm" /></p>
+</div>
+<p>El proceso de crear varias LANs más pequeñas a partir de un único bloque de direcciones se denomina <span class="concept" id="c83" data-key="subnet">subnetting</span> (división en subredes). El proceso inverso, combinar varias LANs en una mayor, se denomina <span class="concept" id="c84" data-key="supernet">supernetting</span> (agregación de redes).</p>
+<p>Dos LANs <code>/N</code> pueden combinarse si y solo si sus direcciones de red (su IP sin máscara de red) comparten los primeros <span class="arithmatex">\(N-1\)</span> bits. Este proceso puede continuar hasta llegar a una red <code>/0</code>, siempre que poseamos las direcciones IP de ambas mitades de cada supernet.</p>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.15</p>
+<ul>
+<li>
+<p>¿Qué otra red puedes combinar con <code>192.168.0.0/24</code> para obtener una red <code>/23</code> <span class="arithmatex">\(N_{/23}\)</span>? ¿Cuál es su dirección de red?</p>
+</li>
+<li>
+<p><span class="arithmatex">\(N_{/23}\)</span> forma parte de exactamente una red <code>/22</code>, <span class="arithmatex">\(N_{22}\)</span>. Enumera todas las redes <code>/24</code> que necesitarías poseer para combinarlas en <span class="arithmatex">\(N_{22}\)</span>.</p>
+</li>
+</ul>
+</div>
+<p>El <span class="concept" id="c85" data-key="subnetting">subnetting</span> suele basarse en cuántas direcciones IP deben estar disponibles en cada subred. Ese tamaño determina el número de bits de la máscara de red de la subred, como se vio en la Sección <a href="./#sec-layer3-lans_and_netmasks">8.1.4</a>. Pueden añadirse restricciones adicionales, p.ej. hacer que las direcciones IP de una subred sean las mayores, o menores que las de otras subredes.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Considera por ejemplo la red <code>192.168.0.0/16</code>. Queremos dividir esta red en subredes y crear la red más pequeña que pueda conectar <span class="arithmatex">\(100\)</span> dispositivos simultáneamente.</p>
+<p>Como se vio en la Sección <a href="./#sec-layer3-netmasks">8.1.2</a>, esto determina que, si debe crearse una subred a partir de una para albergar al menos 100 nodos, hay que dedicar al menos <span class="arithmatex">\(7\)</span> bits de dirección (<span class="arithmatex">\(2^6 - 2 = 62,\,2^7=126\)</span>) a los Device ID y los <span class="arithmatex">\(32-7=25\)</span> restantes a identificar la red, es decir, la subred puede ser tan pequeña como una <code>/25</code>.</p>
+<p><img alt="image" src="../assets/rendered/179aa4b0e53473bb.svg" style="width:14.9cm" /></p>
+<p>Los <span class="arithmatex">\(9\)</span> bits restantes (posiciones <span class="arithmatex">\(16\)</span> a <span class="arithmatex">\(24\)</span>) pueden fijarse libremente si no tenemos ninguna restricción adicional. Elegir un valor de estos bits significa elegir una de las <span class="arithmatex">\(2^9\)</span> redes de tamaño <code>/25</code> contenidas en la red original, <code>192.168.0.0/16</code>. Poner esos bits libres a <code>0</code> da el rango de IP más bajo, y ponerlos a <code>1</code>, el más alto.</p>
+<p>Cuando hay que crear varias subredes, es esencial verificar que ninguna subred está contenida en otra. En caso contrario, la misma dirección IP pertenecería a dos LANs, y el encaminamiento sería imposible. Por ejemplo, si hay que crear tres subredes para 100, 500 y 200 dispositivos a partir de <code>192.168.0.0/16</code>, con rangos de direcciones en ese orden, una posible división sería:</p>
+<p><img alt="image" src="../assets/rendered/2778f15e0dfe9edc.svg" style="width:19.39cm" /></p>
+<p>Recuerda que la dirección de red de cada subred resultante tiene todos los bits de Device ID puestos a <code>0</code>, y que lo más habitual es presentar esa dirección en formato <span class="concept" id="c86" data-key="quad decimal">cuádruple decimal</span>.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.16</p>
+<ul>
+<li>
+<p>En el ejemplo anterior, ¿por qué los bits libres de la segunda subred son <code>0000001</code> y no <code>0000000</code>?</p>
+</li>
+<li>
+<p>Repite el ejercicio asignando las direcciones más altas posibles a la tercera, luego las siguientes direcciones más altas posibles a la segunda subred, y las direcciones más bajas posibles a la primera subred.</p>
+</li>
+<li>
+<p>¿Cuál es la IP de <span class="concept" id="c87" data-key="broadcast">broadcast</span> de cada subred?</p>
+</li>
+</ul>
+</div>
+<h2 id="sec-layer3-fragmentation">[8.5] Fragmentación IP<a class="headerlink" href="#sec-layer3-fragmentation" title="Permanent link">&para;</a></h2>
+<p>Antes de que un dispositivo (incluidos los <span class="concept" id="c88" data-key="router">routers</span> y los ordenadores normales) pueda enviar un <span class="concept" id="c89" data-key="datagram">datagrama</span> por una LAN, debe verificar que su longitud en bytes no es mayor que la <span class="concept" id="c90" data-key="MTU">MTU</span> de esa LAN. En caso contrario, el datagrama debe <span class="concept" id="c91" data-key="fragmentation">fragmentarse</span> en dos o más datagramas más pequeños que sí quepan en la MTU de la LAN.</p>
+<p>Los fragmentos más pequeños son datagramas completos con cabecera y payload. Por tanto, más fragmentos implican mayor <span class="concept" id="c92" data-key="overhead">sobrecarga</span>. Cada uno de esos fragmentos se envía y se reenvía individualmente como cualquier otro datagrama, y puede que haya que refragmentarlo si atraviesa otra LAN con una MTU aún menor.</p>
+<p>Cuando un datagrama necesita fragmentarse, la pila de red sigue los siguientes pasos:</p>
+<ol>
+<li>
+<p>Se comprueba el flag <span class="concept" id="c93" data-key="DF">DF</span> (don’t fragment) del datagrama original. Si DF=<code>1</code> pero se necesita fragmentación, el datagrama no se fragmenta y se produce un error.</p>
+</li>
+<li>
+<p>Los datos de <span class="concept" id="c94" data-key="payload">payload</span> se dividen en trozos de tamaño como mucho <span class="arithmatex">\(S\)</span>, de forma que <span class="arithmatex">\(S + H = MTU\)</span> (<span class="arithmatex">\(H\)</span> es la longitud de la cabecera del datagrama, típicamente <span class="arithmatex">\(20\)</span> bytes). Solo el último trozo puede tener un tamaño menor que <span class="arithmatex">\(S\)</span>. Esto garantiza que ningún fragmento supere la MTU, que es precisamente el objetivo de la fragmentación.</p>
+</li>
+<li>
+<p>La <span class="concept" id="c95" data-key="header">cabecera</span> del datagrama original se copia en la de los fragmentos con las siguientes modificaciones:</p>
+<ul>
+<li>
+<p>El campo Datagram ID se fija al mismo valor en todos los fragmentos de un datagrama. El SO se asegura de elegir un ID que su pila de red no haya usado recientemente. El campo Datagram ID se ignora en los datagramas no fragmentados.</p>
+</li>
+<li>
+<p>El campo <span class="concept" id="c96" data-key="Offset">Offset</span> (desplazamiento) de cada fragmento indica la posición (índice de byte) de su primer byte de datos de payload dentro del payload del datagrama antes de la fragmentación. Este campo no se expresa en bytes, sino en palabras de <span class="arithmatex">\(8\)</span> bytes. Dado un offset en bytes, el campo <span class="concept" id="c97" data-key="Offset">Offset</span> se calcula dividiendo entre <span class="arithmatex">\(8\)</span>. Por tanto, los offsets de los fragmentos solo pueden ser múltiplos de <span class="arithmatex">\(8\)</span>.</p>
+</li>
+<li>
+<p>El flag <span class="concept" id="c98" data-key="MF">MF</span> (more fragments) se pone a <code>1</code> (activado) en todos los fragmentos salvo en el último. Esto debe cumplirse incluso si uno o más fragmentos se refragmentan en una LAN posterior. Así, al fragmentar un datagrama <span class="arithmatex">\(D\)</span> con MF=<code>1</code>, ninguno de los fragmentos resultantes</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Los datagramas fragmento se envían igual que se enviaría un datagrama normal. Los fragmentos pueden refragmentarse, pero solo los reensambla el host (equipo conectado a la red) de destino.</p>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.17</p>
+<p>Dados el <span class="concept" id="c99" data-key="Offset">Offset</span> y el flag <span class="concept" id="c100" data-key="MF">MF</span>, ¿cómo podemos diferenciar un datagrama que no ha sido fragmentado de un fragmento de datagrama?</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.18</p>
+<p>¿Por qué sería problemático poner MF=<code>0</code> en el último datagrama producido al fragmentar un datagrama con MF=<code>1</code>?</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.19</p>
+<p>Un dispositivo necesita enviar un datagrama con una cabecera IP de <span class="arithmatex">\(20\)</span> bytes y una longitud de payload de <span class="arithmatex">\(2170\)</span> bytes. El dispositivo está conectado a LAN1, y el datagrama debe atravesar LAN2 y LAN3 hasta llegar a la LAN de destino, LAN4. Las MTU de estas LANs son las siguientes:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;"><strong>LAN</strong></th>
+<th style="text-align: center;">LAN1</th>
+<th style="text-align: center;">LAN2</th>
+<th style="text-align: center;">LAN3</th>
+<th style="text-align: center;">LAN4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>MTU</strong></td>
+<td style="text-align: center;">1500</td>
+<td style="text-align: center;">710</td>
+<td style="text-align: center;">4096</td>
+<td style="text-align: center;">864</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>Indica el offset y la longitud del payload (ambos en bytes), así como los flags MF y DF de los <span class="arithmatex">\(4\)</span> datagramas que llegan a LAN4 como resultado del envío del datagrama (suponiendo que no hay pérdidas ni duplicaciones).</p>
+</li>
+<li>
+<p>¿Puede el dispositivo de origen conocer las MTU de las LANs intermedias y de destino?</p>
+</li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.20</p>
+<p>Los datagramas que contienen fragmentos pueden llegar duplicados y/o desordenados. ¿Cómo debería tratar la pila de red receptora estos datagramas?</p>
+</div>
+<h2 id="sec-layer3-arp">[8.6] ARP – Address Resolution Protocol<a class="headerlink" href="#sec-layer3-arp" title="Permanent link">&para;</a></h2>
+<p>El Address Resolution Protocol (<span class="concept" id="c101" data-key="ARP">ARP</span>) lo usa la capa 3 (<span class="concept" id="c102" data-key="IP">IP</span>) para obtener la dirección <span class="concept" id="c103" data-key="MAC">MAC</span> (física) de destino correspondiente a una dirección IP conocida.</p>
+<p>Los paquetes ARP se envían como payload de frames de capa 2 (p.ej. Ethernet). Los paquetes ARP <em>no</em> son datagramas y <em>no</em> contienen cabeceras IP.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La IP que consulta la capa 3 es la del <span class="concept" id="c104" data-key="router">router</span> en la <span class="concept" id="c105" data-key="indirect delivery">indirect delivery</span> y la del dispositivo de destino en la <span class="concept" id="c106" data-key="indirect delivery">indirect delivery</span>. Recuerda también que la IP de destino del datagrama no cambia durante el reenvío.</p>
+</div>
+<h3 id="formato-del-paquete">Formato del paquete<a class="headerlink" href="#formato-del-paquete" title="Permanent link">&para;</a></h3>
+<p><img alt="image" src="../assets/rendered/3af1f51b28bc5074.svg" style="width:18.86cm" /></p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>El protocolo <span class="concept" id="c107" data-key="ARP">ARP</span> <em>no</em> usa cabeceras IP.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>“Sender” y “receiver” deben interpretarse como “... de este mensaje ARP”.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.21</p>
+<ul>
+<li>
+<p>¿Cuál es el propósito de los <span class="arithmatex">\(4\)</span> primeros campos de un paquete ARP?</p>
+</li>
+<li>
+<p>¿Qué efecto tienen sobre los campos restantes?</p>
+</li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.22</p>
+<p>¿Cuántas direcciones válidas aparecen en un frame Ethernet que transporta una petición ARP? ¿Y en una respuesta ARP?</p>
+</div>
+<h3 id="funcionamiento_1">Funcionamiento<a class="headerlink" href="#funcionamiento_1" title="Permanent link">&para;</a></h3>
+<p>Cuando un nodo <span class="node">A</span> necesita traducir una dirección IP a una dirección MAC, envía un frame de <span class="concept" id="c108" data-key="broadcast">broadcast</span> (MAC de destino <code>ff:ff:ff:ff:ff:ff</code> que contiene un paquete ARP. En ese paquete ARP, la operación se fija a <code>REQUEST</code> (<code>1</code>), la IP de destino es la que se está traduciendo, y la MAC de destino se fija a <code>00:00:00:00:00:00</code>.</p>
+<p>Cuando una pila de red <span class="node">B</span> ve un paquete de petición ARP, envía un paquete de respuesta ARP solo si su IP configurada es la de la dirección IP de destino del ARP. Esa respuesta es idéntica a la petición con estos cambios:</p>
+<ul>
+<li>
+<p>El código OP del paquete ARP se fija a <code>REPLY</code> (<code>2</code>).</p>
+</li>
+<li>
+<p>“Origen” se refiere ahora a <span class="node">B</span> (en la petición se refería a <span class="node">A</span>), y “destino” a <span class="node">A</span>.</p>
+</li>
+<li>
+<p>Las <span class="arithmatex">\(4\)</span> direcciones del paquete están rellenas en una respuesta (no pueden ser <code>00:00:00:00:00:00</code>).</p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.23</p>
+<p>Cuando se ejecuta el comando <code>ip route</code> en un nodo, contiene:</p>
+<div class="highlight"><pre><span></span><code>default via 192.168.0.1 dev wlp5s0 src 192.168.0.2 metric 600 [...]
+</code></pre></div>
+<p>A su vez, el comando <code>ip link</code> contiene las siguientes líneas:</p>
+<div class="highlight"><pre><span></span><code>2: enp42s0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 state DOWN [...]
+    link/ether d8:43:ae:61:ed:a4 brd ff:ff:ff:ff:ff:ff
+3: wlp5s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 state UP [...]
+    link/ether 5c:e4:3a:18:97:1b brd ff:ff:ff:ff:ff:ff
+</code></pre></div>
+<ul>
+<li>
+<p>El nodo necesita realizar la <span class="concept" id="c109" data-key="indirect delivery">indirect delivery</span> de un datagrama, pero no conoce la dirección MAC de su router gateway. Indica el valor de todos los campos (incluyendo la cabecera Ethernet y el mensaje ARP) de la petición ARP que el nodo enviará para obtener la MAC del router.</p>
+</li>
+<li>
+<p>Describe los valores de los campos de la respuesta ARP (puedes usar cualquier dirección válida como MAC del router).</p>
+</li>
+</ul>
+</div>
+<p>No es probable que la dirección MAC asociada a una IP cambie muy a menudo. Cuando se recibe una respuesta ARP válida, el SO actualiza una <span class="concept" id="c110" data-key="cache">caché</span> añadiendo (o actualizando) las traducciones IP <span class="arithmatex">\(\leftrightarrow\)</span> MAC recibidas. Si el SO necesita enviar un datagrama a esa IP antes de que expire esa entrada de la caché, se usa directamente la dirección MAC de la tabla sin necesidad de mensajes ARP adicionales. El comando <code>ip neighbor</code> muestra el contenido de esa tabla, p.ej. </p>
+<div class="highlight"><pre><span></span><code>192.168.0.1 dev wlp5s0 lladdr cc:2d:14:fc:22:60 REACHABLE
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>ARP puede usarse para <span class="concept" id="c111" data-key="scan">escanear</span> qué IP están en uso en una LAN. En particular, un nodo puede usar ARP para verificar que su dirección IP configurada no la está usando nadie más.</p>
+</div>
+<p>ARP se propuso en una época en la que la seguridad de las redes todavía no era un problema. Como resultado, no proporciona ningún mecanismo para verificar que una respuesta ARP dada sea correcta. Esto puede aprovecharse para <span class="concept" id="c112" data-key="poison">envenenar</span> la tabla caché ARP de un dispositivo enviando a la víctima respuestas ARP <span class="concept" id="c113" data-key="gratuitous">gratuitous</span> (no solicitadas) con asociaciones IP <span class="arithmatex">\(\leftrightarrow\)</span> MAC falsas.</p>
+<p>Los SO modernos suelen ignorar las respuestas ARP no solicitadas, y los <span class="concept" id="c114" data-key="switch">switches</span> (conmutadores) modernos filtran los mensajes ARP que no coinciden con las direcciones IP y MAC reales. Aun así, IPv6 prescinde de ARP en favor de un protocolo más complejo, Neighbor Discovery (ND).</p>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.24</p>
+<p>¿Qué impacto podría tener envenenar la caché ARP de una víctima, cambiando la MAC almacenada del router gateway por la MAC del atacante?</p>
+</div>
+<h2 id="sec-layer3-icmp">[8.7] ICMP – Internet Control Message Protocol<a class="headerlink" href="#sec-layer3-icmp" title="Permanent link">&para;</a></h2>
+<p>El Internet Control Message Protocol (<span class="concept" id="c115" data-key="ICMP">ICMP</span>) es un protocolo auxiliar (técnicamente parte de <span class="concept" id="c116" data-key="IP">IP</span>) que se usa para probar y depurar las comunicaciones de (inter)red.</p>
+<h3 id="formato-del-paquete_1">Formato del paquete<a class="headerlink" href="#formato-del-paquete_1" title="Permanent link">&para;</a></h3>
+<p>Los mensajes ICMP se encapsulan como payload de datagramas IP. En la cabecera IP, el campo <span class="concept" id="c117" data-key="payload">Payload protocol</span> se fija a <code>0x01</code> (“ICMP”).</p>
+<p><img alt="image" src="../assets/rendered/e1a14288b1426ebc.svg" style="width:20.52cm" /></p>
+<p>Las combinaciones tipo/subtipo ICMP más comunes que probablemente encuentres hoy en día:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>Tipo ICMP</strong></th>
+<th style="text-align: center;"><strong>Subtipo ICMP</strong></th>
+<th style="text-align: center;"><strong>¿Error?</strong></th>
+<th style="text-align: left;"><strong>Significado</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(8\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(0\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Mensaje ICMP Echo Request (<span class="concept" id="c118" data-key="ping">ping</span>).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(0\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(0\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;">Mensaje ICMP Echo Reply (respuesta <span class="concept" id="c119" data-key="ping">ping</span>).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(3\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(0\)</span>–<span class="arithmatex">\(16\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\checkmark\)</span></td>
+<td style="text-align: left;">Destination Unreachable. El subtipo explica la causa.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="arithmatex">\(11\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(0\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\checkmark\)</span></td>
+<td style="text-align: left;">Time to Live Exceeded: el <span class="concept" id="c120" data-key="TTL">TTL</span> ha llegado a <span class="arithmatex">\(0\)</span>.</td>
+</tr>
+</tbody>
+</table>
+<p>Para estos mensajes ICMP de error, el campo de datos ICMP contiene información sobre el datagrama que provocó ese mensaje ICMP de error:</p>
+<p><img alt="image" src="../assets/rendered/f39db81c8b0f7788.svg" style="width:20.52cm" /></p>
+<p>Para los mensajes echo request y echo reply, el campo de datos ICMP es arbitrario dentro de los límites de los datagramas IP. La fragmentación de datagramas ICMP (p.ej. payloads de ping grandes) es posible, pero muchos routers ignoran los fragmentos ICMP.</p>
+<h3 id="funcionamiento_2">Funcionamiento<a class="headerlink" href="#funcionamiento_2" title="Permanent link">&para;</a></h3>
+<p>Los mensajes de error ICMP los envían los <span class="concept" id="c121" data-key="router">routers</span> y los hosts normales, disparados por otros datagramas:</p>
+<ul>
+<li>
+<p>La familia de mensajes “Destination unreachable” se envía cuando un datagrama no puede entregarse a su destino, p.ej. por una <span class="concept" id="c122" data-key="routing table">tabla de encaminamiento</span> mal configurada, un <span class="concept" id="c123" data-key="port">puerto</span> cerrado (véase la Sección <a href="../layer4/#sec-layer4">9</a>), o simplemente porque el host de destino no está encendido.</p>
+</li>
+<li>
+<p>El mensaje “TTL exceeded” se envía cuando un router recibe un datagrama para <span class="concept" id="c124" data-key="indirect delivery">entrega indirecta</span> con <span class="concept" id="c125" data-key="TTL">TTL</span><span class="arithmatex">\(=1\)</span> (véase la Sección <a href="./#sec-layer3-routing">8.3</a>).</p>
+</li>
+</ul>
+<p>Para evitar cantidades infinitas de tráfico, <em>no</em> se producen errores ICMP cuando los datagramas causantes son:</p>
+<ul>
+<li>
+<p>Datagramas ICMP (de error o no).</p>
+</li>
+<li>
+<p>Fragmentos de datagrama, salvo el primero.</p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 8.25</p>
+<p>¿Cómo podemos diferenciar el primer fragmento de un datagrama de los fragmentos siguientes?</p>
+</div>
+<script>window.XOI_ASSETS = "../assets/";</script>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../layer2/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [7] Capa 2: comunicación en red (LAN)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                [7] Capa 2: comunicación en red (LAN)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../layer4/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: [9] Capa 4: Transporte">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                [9] Capa 4: Transporte
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "search.highlight", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../scripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../scripts/wide-tables.js"></script>
+      
+        <script src="../../scripts/search-highlight.js"></script>
+      
+        <script src="../../scripts/technical-terms.js"></script>
+      
+        <script src="../../scripts/goatcounter.js"></script>
+      
+        <script src="https://gc.zgo.at/count.js" async></script>
+      
+    
+  </body>
+</html>

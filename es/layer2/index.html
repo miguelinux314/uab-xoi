@@ -1,0 +1,1960 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Study guide for the Computer Networks and Internet course (UAB, 104353)">
+      
+      
+      
+        <link rel="canonical" href="https://miguelinux314.github.io/uab-xoi/es/layer2/">
+      
+      
+        <link rel="prev" href="../tcpip/">
+      
+      
+        <link rel="next" href="../layer3/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+          <link rel="alternate" href="../../ca/layer2/" hreflang="ca">
+        
+          <link rel="alternate" href="../../layer2/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>[7] Capa 2: comunicación en red (LAN) - Redes de Ordenadores e Internet: Guía de Estudio</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/xoi.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sec-layer2" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../" title="Redes de Ordenadores e Internet: Guía de Estudio" class="md-header__button md-logo" aria-label="Redes de Ordenadores e Internet: Guía de Estudio" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Redes de Ordenadores e Internet: Guía de Estudio
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              [7] Capa 2: comunicación en red (LAN)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Castellano
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../ca/layer2/" hreflang="ca" class="md-select__link">
+              Català
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../layer2/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Portada
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../networks/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Curso
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../missions/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Misiones
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Redes de Ordenadores e Internet: Guía de Estudio" class="md-nav__button md-logo" aria-label="Redes de Ordenadores e Internet: Guía de Estudio" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    Redes de Ordenadores e Internet: Guía de Estudio
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Portada
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Portada
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licencia y créditos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uso de IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../course/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sobre esta asignatura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Curso
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Curso
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte I: Redes de ordenadores
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte I: Redes de ordenadores
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte I: Redes de ordenadores
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../piercing_the_veil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [2] Atravesando el velo analógico-digital
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../where_are_you/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [3] ¿Dónde estás?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [4] ¿Esto es tuyo?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stack_layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [5] Una pila de capas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte II: Internet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Parte II: Internet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parte II: Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tcpip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [6] Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [7] Capa 2: comunicación en red (LAN)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [7] Capa 2: comunicación en red (LAN)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#capacidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacidades
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocolos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocolos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#direccionamiento-de-capa-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direccionamiento de capa 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer2-ethernet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [7.2] Protocolo Ethernet de capa 2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[7.2] Protocolo Ethernet de capa 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formato-de-paquete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formato de paquete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funcionamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funcionamiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [8] Capa 3: comunicación Internet(work)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [9] Capa 4: Transporte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [10] Capa 7: Aplicación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice de conceptos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../missions/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misiones
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Misiones
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 1: Compartir es vivir
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 2: Scroll infinito
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 3: Pastoreando el caos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 4: Inter planetary net
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 5: El dinero es la raíz
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 6: Molestar a dos planetas enteros
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 7: TCP o no TCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 8: ¿Me hablas a mí?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Misión 9: Pasillo interplanetario
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#capacidades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacidades
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocolos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocolos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#direccionamiento-de-capa-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direccionamiento de capa 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer2-ethernet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [7.2] Protocolo Ethernet de capa 2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[7.2] Protocolo Ethernet de capa 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formato-de-paquete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formato de paquete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funcionamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funcionamiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><img alt="" class="hero" src="../assets/fig/lan_party.jpg" /></p>
+<h1 id="sec-layer2">[7] Capa 2: comunicación en red (LAN)<a class="headerlink" href="#sec-layer2" title="Permanent link">&para;</a></h1>
+<div class="figure-row">
+<p><img alt="image" src="../assets/rendered/cda9c0bb851a1a2a.svg" style="width:7.74cm" /></p>
+<p><img alt="image" src="../assets/fig/network_layer2.svg" style="width:13.77cm" /></p>
+</div>
+<h3 id="capacidades">Capacidades<a class="headerlink" href="#capacidades" title="Permanent link">&para;</a></h3>
+<p>Los protocolos de capa 2 permiten que varios dispositivos intercambien mensajes y se identifiquen entre sí dentro de una red local (<span class="concept" id="c1" data-key="LAN">LAN</span>, red de área local). No se puede contactar <em>directamente</em> con los dispositivos de fuera de la LAN mediante protocolos de capa 2.</p>
+<p>La capa 2 abstrae a las capas superiores (incluidas las aplicaciones de usuario) de los detalles concretos del hardware conectado. Esto hace más fácil (léase: más barato) escribir el código una vez y ejecutarlo en cualquier sitio.</p>
+<p>Los mensajes de capa 2 tienen una longitud limitada. La cantidad máxima de datos de payload (carga útil) que se pueden insertar en un protocolo de capa 2 se denomina <span class="concept" id="c2" data-key="MTU">unidad máxima de transmisión (MTU)</span>, p.ej. <span class="arithmatex">\(1500\)</span> bytes en Ethernet.</p>
+<p>Algunos protocolos de capa 2 también pueden proporcionar <span class="concept" id="c3" data-key="authentication">autenticación</span> de usuario y protección <span class="concept" id="c4" data-key="cryptography">criptográfica</span>; <span class="concept" id="c5" data-key="Wi-Fi">Wi-Fi</span> es un ejemplo destacado, aunque las redes cableadas también pueden emplear, p.ej. IEEE 802.1X.</p>
+<p><img alt="image" src="../assets/fig/protocols_layer2.svg" style="width:20.66cm" /></p>
+<h3 id="protocolos">Protocolos<a class="headerlink" href="#protocolos" title="Permanent link">&para;</a></h3>
+<p>Se han definido y se siguen definiendo muchos <span class="concept" id="c6" data-key="protocol">protocolos</span> dentro de la capa 2. Los más importantes en la actualidad:</p>
+<ul>
+<li>
+<p><span class="concept" id="c7" data-key="Ethernet">Ethernet</span> (IEEE 802.3), que se trata en Section <a href="./#sec-layer2-ethernet">7.2</a>.</p>
+</li>
+<li>
+<p><span class="concept" id="c8" data-key="Wi-Fi">Wi-Fi</span> (p.ej. IEEE 802.11be, alias Wi-Fi 7, de 2024).</p>
+</li>
+</ul>
+<p>Dentro de <span class="concept" id="c9" data-key="TCP/IP">TCP/IP</span>, la capa 2 <span class="concept" id="c10" data-key="encapsulation">encapsula</span> las siguientes <span class="concept" id="c11" data-key="PDU">PDU</span> de protocolo (ambas se tratan en el Capítulo <a href="../layer3/#sec-layer3">8</a>):</p>
+<ul>
+<li>
+<p><span class="concept" id="c12" data-key="datagram">Datagramas</span> <span class="concept" id="c13" data-key="IPv4">IPv4</span> e <span class="concept" id="c14" data-key="IPv6">IPv6</span>.</p>
+</li>
+<li>
+<p>Mensajes <span class="concept" id="c15" data-key="ARP">ARP</span>.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>La orden <code>ip link</code> muestra y permite configurar tus interfaces, incluida la dirección <span class="concept" id="c16" data-key="MAC">MAC</span>.</p>
+<p>Tu sistema operativo suele asignar automáticamente los nombres internos de las interfaces según su tipo, p.ej. <code>eth0</code> o <code>wlan1</code>. Normalmente se pueden renombrar las interfaces, porque los nombres de interfaz no forman parte de TCP/IP; se usan exclusivamente dentro de ese sistema operativo.</p>
+</div>
+<h2 id="direccionamiento-de-capa-2">Direccionamiento de capa 2<a class="headerlink" href="#direccionamiento-de-capa-2" title="Permanent link">&para;</a></h2>
+<p>En la mayoría de las tecnologías de LAN, las direcciones de capa 2 son identificadores numéricos únicos para cada dispositivo dentro de la LAN. El tipo más frecuente son las direcciones MAC de Ethernet (técnicamente EUI-48), que ocupan <span class="arithmatex">\(6\)</span> bytes (es decir, <span class="arithmatex">\(48\)</span> bits). También se usan fuera de Ethernet, p.ej. en Wi-Fi y Bluetooth.</p>
+<p>Las direcciones MAC se presentan a las personas habitualmente en el siguiente formato:<br />
+<code>01:23:45:67:89:ab</code>. Algunas direcciones tienen un significado especial y no son identificadores válidos de dispositivo. Por ejemplo, <code>ff:ff:ff:ff:ff:ff</code> es la dirección de <span class="concept" id="c17" data-key="broadcast">broadcast</span> (difusión), que significa “todos los de la LAN”. Además, <code>00:00:00:00:00:00</code> se usa para representar una dirección MAC desconocida (consulta <a href="https://www.iana.org/assignments/ethernet-numbers/ethernet-numbers.xml"><u>RFC 9542</u></a> para una descripción completa de las direcciones MAC reservadas, incluidas las de <span class="concept" id="c18" data-key="multicast">multicast</span> (envío a un grupo)).</p>
+<p>El hardware de red viene con una dirección MAC integrada, única y predefinida, lista para usar. Las MAC de los dispositivos se pueden configurar a nivel de sistema operativo, pero permanecen constantes mientras están en uso.</p>
+<h2 id="sec-layer2-ethernet">[7.2] Protocolo Ethernet de capa 2<a class="headerlink" href="#sec-layer2-ethernet" title="Permanent link">&para;</a></h2>
+<h3 id="formato-de-paquete">Formato de paquete<a class="headerlink" href="#formato-de-paquete" title="Permanent link">&para;</a></h3>
+<p>La capa 2 de Ethernet define el siguiente formato, usado en todos los mensajes. Los paquetes de este tipo se denominan <span class="concept" id="c19" data-key="frame">frames</span> (tramas):</p>
+<p><img alt="image" src="../assets/rendered/c89f77233e79ca4d.svg" style="width:22.07cm" /></p>
+<ul>
+<li>
+<p><strong>MAC de destino</strong>: la dirección MAC del dispositivo de destino, o <code>ff:ff:ff:ff:ff:ff</code> para <span class="concept" id="c20" data-key="broadcast">broadcast</span>.</p>
+</li>
+<li>
+<p><strong>MAC de origen</strong>: la MAC del dispositivo que envía el frame.</p>
+</li>
+<li>
+<p><strong>Tipo de payload</strong>: identificador del protocolo <span class="concept" id="c21" data-key="encapsulation">encapsulado</span> en el payload,<br />
+    p.ej. <code>0x0800</code> <span class="arithmatex">\(\rightarrow\)</span> <span class="concept" id="c22" data-key="IPv4">IPv4</span>, <code>0x86DD</code> <span class="arithmatex">\(\rightarrow\)</span> <span class="concept" id="c23" data-key="IPv6">IPv6</span>, y <code>0x0806</code> <span class="arithmatex">\(\rightarrow\)</span> <span class="concept" id="c24" data-key="ARP">ARP</span>. A veces se le llama <a href="https://en.wikipedia.org/wiki/EtherType#Values"><u>EtherType</u></a>.</p>
+</li>
+<li>
+<p><strong>Payload</strong>: contenido que se solicita enviar, p.ej. por IPv4 o ARP. La longitud máxima de este campo, la <span class="concept" id="c25" data-key="MTU">MTU</span>, es de <span class="arithmatex">\(1500\)</span> bytes en ethernet.</p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 7.1</p>
+<ul>
+<li>
+<p>¿Cuántas direcciones MAC diferentes hay en Ethernet (incluidos los <span class="concept" id="c26" data-key="address block">bloques</span> reservados)?</p>
+</li>
+<li>
+<p>¿Son suficientes para que cada dispositivo de la Tierra con capacidad de conectarse a internet tenga una MAC única?</p>
+</li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 7.2</p>
+<p>¿Es válido el siguiente frame?</p>
+<p><code>c2 21 90 15 bc b6 42 40 e5 f7 5e 32 42 77 57</code><br />
+<code>03 ca 27 6b 1f 97 e9 02 7f 80 fa 8b 61 59 2a</code><br />
+<code>81 b6 73 b0 b4 e1 75 4f ef 40 dd 9f 3c 48 67</code></p>
+</div>
+<h3 id="funcionamiento">Funcionamiento<a class="headerlink" href="#funcionamiento" title="Permanent link">&para;</a></h3>
+<p>Los mensajes dentro de una LAN Ethernet se envían normalmente en modo <span class="concept" id="c27" data-key="unicast">unicast</span> (envío a un único destinatario), es decir, son mensajes de uno a uno. Esto permite que los <span class="concept" id="c28" data-key="switch">switches</span> (conmutadores) minimicen el consumo de <span class="concept" id="c29" data-key="power">energía</span> y de <span class="concept" id="c30" data-key="bandwidth">ancho de banda</span>. En <span class="concept" id="c31" data-key="unicast">unicast</span>, el dispositivo de origen debe conocer la MAC del destino.</p>
+<p><img alt="image" src="../assets/fig/ethernet_message_unicast.svg" style="width:22.95cm" /></p>
+<p>Ethernet también admite el <span class="concept" id="c32" data-key="broadcast">broadcast</span> a todos los nodos de la LAN. En este caso, la dirección MAC de destino debe ser <code>ff:ff:ff:ff:ff:ff</code>. Cuando un dispositivo recibe un frame, lo descarta salvo que el campo de MAC de destino del frame sea idéntico a su propia dirección MAC, o sea el de <span class="concept" id="c33" data-key="broadcast">broadcast</span>.</p>
+<p>Un nodo también descartará un frame con un campo de tipo de payload (<span class="concept" id="c34" data-key="EtherType">EtherType</span>) no soportado. Si el tipo de payload sí está soportado, se usa para decidir qué parte del sistema operativo recibe el mensaje, p.ej. la pila <span class="concept" id="c35" data-key="IPv4">IPv4</span> o el subsistema <span class="concept" id="c36" data-key="ARP">ARP</span>.</p>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 7.3</p>
+<p>Siguiendo con el ejemplo de la figura anterior, la tarjeta de red del nodo B recibe un <span class="concept" id="c37" data-key="frame">frame</span> que empieza con los siguientes bytes. ¿Debería aceptarlo B?</p>
+<p><code>00 11 22 00 0a ff ff ff ff ff ff DD …</code></p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ejercicio 7.4</p>
+<p>Los siguientes scripts ejemplifican cómo enviar y recibir frames <span class="concept" id="c38" data-key="Ethernet">Ethernet</span> en crudo. El <span class="concept" id="c39" data-key="client">cliente</span> envía <span class="arithmatex">\(5\)</span> frames idénticos de <span class="concept" id="c40" data-key="EtherType">EtherType</span> <code>0x1234</code> y después termina. El <span class="concept" id="c41" data-key="server">servidor</span> espera hasta recibir <span class="arithmatex">\(5\)</span> frames Ethernet de ese tipo (se comprueba en las líneas 12-13) y después termina.</p>
+<ul>
+<li>
+<p>Cambia la dirección MAC y el nombre de interfaz del cliente por los tuyos.</p>
+</li>
+<li>
+<p>Haz que el servidor rechace los frames que no vayan dirigidos a él.</p>
+</li>
+<li>
+<p>Amplía estos scripts para implementar una aplicación sencilla con capacidades de <span class="concept" id="c42" data-key="LAN">LAN</span>.<br />
+    Ejemplos sugeridos:</p>
+<ul>
+<li>
+<p>Un servicio de <span class="concept" id="c43" data-key="echo">eco</span> de capa 2 que distinga entre peticiones y respuestas.</p>
+</li>
+<li>
+<p>Un chat <span class="concept" id="c44" data-key="peer-to-peer">peer-to-peer</span> (par a par) de capa 2 que incluya el apodo del origen en todos los mensajes.</p>
+</li>
+<li>
+<p>Un servicio de calculadora de capa 2 que soporte operaciones aritméticas básicas<br />
+    (<code>+</code>, <code>-</code>,<code>*</code>, división entera <code>//</code>, opcionalmente división <code>/</code>).</p>
+</li>
+</ul>
+</li>
+<li>
+<p>¿Qué falta para que tu aplicación pueda conectarse al resto de <span class="concept" id="c45" data-key="Internet">Internet</span> más allá de tu <span class="concept" id="c46" data-key="LAN">LAN</span>?</p>
+</li>
+</ul>
+<p><a id="ex-layer2-echo"></a></p>
+</div>
+<div class="showcode">
+<p><strong><code>snippets/ethernetclient.py</code></strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Código</label><label for="__tabbed_1_2">Salida</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="linenos" data-linenos=" 2 "></span>
+<span class="linenos" data-linenos=" 3 "></span><span class="n">interface_name</span> <span class="o">=</span> <span class="s2">"wlp5s0"</span>  <span class="c1"># Needs manual configuration</span>
+<span class="linenos" data-linenos=" 4 "></span><span class="n">source_mac</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x11</span><span class="p">,</span> <span class="mh">0x22</span><span class="p">,</span> <span class="mh">0x33</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">])</span>
+<span class="linenos" data-linenos=" 5 "></span><span class="n">destination_mac</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">])</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="n">packet_type</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="mh">0x12</span><span class="p">,</span> <span class="mh">0x34</span><span class="p">])</span>
+<span class="linenos" data-linenos=" 7 "></span><span class="n">payload_data</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="mh">0x78</span><span class="p">,</span> <span class="mh">0x6f</span><span class="p">,</span> <span class="mh">0x69</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x75</span><span class="p">,</span> <span class="mh">0x61</span><span class="p">,</span> <span class="mh">0x62</span><span class="p">])</span>
+<span class="linenos" data-linenos=" 8 "></span>
+<span class="linenos" data-linenos=" 9 "></span><span class="c1"># This socket sends Layer 2 packets directly.</span>
+<span class="linenos" data-linenos="10 "></span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">family</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_PACKET</span><span class="p">,</span> 
+<span class="linenos" data-linenos="11 "></span>                  <span class="nb">type</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">SOCK_RAW</span><span class="p">,</span> 
+<span class="linenos" data-linenos="12 "></span>                  <span class="n">proto</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">ntohs</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">ETH_P_ALL</span><span class="p">))</span>
+<span class="linenos" data-linenos="13 "></span><span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="n">interface_name</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="linenos" data-linenos="14 "></span>
+<span class="linenos" data-linenos="15 "></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+<span class="linenos" data-linenos="16 "></span>    <span class="n">frame</span> <span class="o">=</span> <span class="n">destination_mac</span> <span class="o">+</span> <span class="n">source_mac</span> <span class="o">+</span> <span class="n">packet_type</span> <span class="o">+</span> <span class="n">payload_data</span>
+<span class="linenos" data-linenos="17 "></span>    <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="linenos" data-linenos="18 "></span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Sent frame </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/5: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">payload_data</span><span class="si">=}</span><span class="s2">."</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>Sent frame 1/5: len(frame)=21, payload_data=b'xoi uab'.
+Sent frame 2/5: len(frame)=21, payload_data=b'xoi uab'.
+Sent frame 3/5: len(frame)=21, payload_data=b'xoi uab'.
+Sent frame 4/5: len(frame)=21, payload_data=b'xoi uab'.
+Sent frame 5/5: len(frame)=21, payload_data=b'xoi uab'.
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="showcode">
+<p><strong><code>snippets/ethernetserver.py</code></strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Código</label><label for="__tabbed_2_2">Salida</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="linenos" data-linenos=" 1 "></span><span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="linenos" data-linenos=" 2 "></span>
+<span class="linenos" data-linenos=" 3 "></span><span class="n">interface_name</span> <span class="o">=</span> <span class="s2">"wlp5s0"</span>  <span class="c1"># Needs manual configuration</span>
+<span class="linenos" data-linenos=" 4 "></span>
+<span class="linenos" data-linenos=" 5 "></span><span class="c1"># This socket receives Layer 2 packets directly.</span>
+<span class="linenos" data-linenos=" 6 "></span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">family</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_PACKET</span><span class="p">,</span> 
+<span class="linenos" data-linenos=" 7 "></span>                  <span class="nb">type</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">SOCK_RAW</span><span class="p">,</span> 
+<span class="linenos" data-linenos=" 8 "></span>                  <span class="n">proto</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">ntohs</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">ETH_P_ALL</span><span class="p">))</span>
+<span class="linenos" data-linenos=" 9 "></span><span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="n">interface_name</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="linenos" data-linenos="10 "></span>
+<span class="linenos" data-linenos="11 "></span><span class="n">valid_frames</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos" data-linenos="12 "></span><span class="k">while</span> <span class="n">valid_frames</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+<span class="linenos" data-linenos="13 "></span>    <span class="n">frame</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1514</span><span class="p">)</span>
+<span class="linenos" data-linenos="14 "></span>    <span class="k">if</span> <span class="n">frame</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">14</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">bytes</span><span class="p">([</span><span class="mh">0x12</span><span class="p">,</span> <span class="mh">0x34</span><span class="p">]):</span>
+<span class="linenos" data-linenos="15 "></span>        <span class="k">continue</span>
+<span class="linenos" data-linenos="16 "></span>    <span class="n">valid_frames</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos" data-linenos="17 "></span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Received frame </span><span class="si">{</span><span class="n">valid_frames</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/5, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes. "</span>
+<span class="linenos" data-linenos="18 "></span>          <span class="sa">f</span><span class="s2">"Payload: </span><span class="si">{</span><span class="n">frame</span><span class="p">[</span><span class="mi">14</span><span class="p">:]</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>Received frame 2/5, 21 bytes. Payload: b'xoi uab'
+Received frame 3/5, 21 bytes. Payload: b'xoi uab'
+Received frame 4/5, 21 bytes. Payload: b'xoi uab'
+Received frame 5/5, 21 bytes. Payload: b'xoi uab'
+Received frame 6/5, 21 bytes. Payload: b'xoi uab'
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Tendrás que ejecutar estos scripts con privilegios, p.ej. con <code>sudo</code>. Como alternativa, puedes añadir permanentemente las capacidades <code>CAP_NET_RAW</code> a tu binario de python con</p>
+<p><code>sudo setcap cap_net_raw+ep ./venv/bin/python</code>.</p>
+<p>Después de eso, puedes ejecutar <code>./venv/bin/python script.py</code> directamente sin <code>sudo</code>.</p>
+</div>
+<script>window.XOI_ASSETS = "../assets/";</script>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../tcpip/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [6] Internet">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                [6] Internet
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../layer3/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: [8] Capa 3: comunicación Internet(work)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                [8] Capa 3: comunicación Internet(work)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "search.highlight", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../scripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../scripts/wide-tables.js"></script>
+      
+        <script src="../../scripts/search-highlight.js"></script>
+      
+        <script src="../../scripts/technical-terms.js"></script>
+      
+        <script src="../../scripts/goatcounter.js"></script>
+      
+        <script src="https://gc.zgo.at/count.js" async></script>
+      
+    
+  </body>
+</html>

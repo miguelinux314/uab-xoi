@@ -1,0 +1,2564 @@
+
+<!doctype html>
+<html lang="ca" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Study guide for the Computer Networks and Internet course (UAB, 104353)">
+      
+      
+      
+        <link rel="canonical" href="https://miguelinux314.github.io/uab-xoi/ca/layer4/">
+      
+      
+        <link rel="prev" href="../layer3/">
+      
+      
+        <link rel="next" href="../layer7/">
+      
+      
+        
+          <link rel="alternate" href="../../es/layer4/" hreflang="es">
+        
+          <link rel="alternate" href="./" hreflang="ca">
+        
+          <link rel="alternate" href="../../layer4/" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>[9] Capa 4: Transport - Xarxes d'Ordinadors i Internet: Guia d'Estudi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/xoi.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sec-layer4" class="md-skip">
+          Salta el contingut
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Capçalera">
+    <a href="../" title="Xarxes d&#39;Ordinadors i Internet: Guia d&#39;Estudi" class="md-header__button md-logo" aria-label="Xarxes d'Ordinadors i Internet: Guia d'Estudi" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Xarxes d'Ordinadors i Internet: Guia d'Estudi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              [9] Capa 4: Transport
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Selecciona la llengua">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../es/layer4/" hreflang="es" class="md-select__link">
+              Castellano
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="ca" class="md-select__link">
+              Català
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../layer4/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Cerca" placeholder="Cerca" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Cerca">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Neteja" aria-label="Neteja" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicialitzant cerca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestanyes" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Inici
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../networks/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Curs
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../missions/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Missions
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegació" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Xarxes d&#39;Ordinadors i Internet: Guia d&#39;Estudi" class="md-nav__button md-logo" aria-label="Xarxes d'Ordinadors i Internet: Guia d'Estudi" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    Xarxes d'Ordinadors i Internet: Guia d'Estudi
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inici
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Inici
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Llicència i crèdits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ús d'IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../course/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sobre aquesta assignatura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Curs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Curs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part I: Xarxes d'ordinadors
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part I: Xarxes d'ordinadors
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part I: Xarxes d'ordinadors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../piercing_the_veil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [2] Travessant el vel analògic-digital
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../where_are_you/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [3] On ets?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [4] Això és teu?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stack_layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [5] Una pila de capes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part II: Internet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part II: Internet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part II: Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tcpip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [6] Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [7] Capa 2: Comunicació de xarxa (LAN)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [8] Capa 3: comunicació entre xarxes (Internet)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [9] Capa 4: Transport
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [9] Capa 4: Transport
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Taula de continguts">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Taula de continguts
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#capacitats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacitats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocols
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-addressing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.1] Adreçament de la capa 4
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-udp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.2] UDP – User Datagram Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.2] UDP – User Datagram Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#format-dels-paquets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format dels paquets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funcionament" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funcionament
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-tcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.3] TCP – Transport Control Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.3] TCP – Transport Control Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#format-dels-paquets_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format dels paquets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funcionament_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funcionament
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-tcp_opening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.4] TCP: “Connectant”
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-established" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.5] TCP: “Connexió establerta”
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.5] TCP: “Connexió establerta”">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fluxos-i-numeros-de-sequencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxos i números de seqüència
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fiabilitat-i-retransmissio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fiabilitat i retransmissió
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limits-de-transmissio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Límits de transmissió
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-tcp_closing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.6] TCP: “Tancant la connexió”
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.6] TCP: “Tancant la connexió”">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fin-seq-i-ack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FIN, #seq i #ack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tancament-bilateral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tancament bilateral
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tancament-unilateral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tancament unilateral
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [10] Capa 7: Aplicació
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Índex de conceptes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../missions/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missions
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Missions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 1: Compartir és estimar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 2: Pergamí infinit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 3: Pasturant el caos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 4: Inter planetary net
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 5: Els diners són l’arrel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 6: Empipa dos planetes sencers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 7: TCP o no TCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 8: Que em parles a mi?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missió 9: Vestíbul interplanetari
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Taula de continguts">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Taula de continguts
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#capacitats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacitats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocols
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-addressing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.1] Adreçament de la capa 4
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-udp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.2] UDP – User Datagram Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.2] UDP – User Datagram Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#format-dels-paquets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format dels paquets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funcionament" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funcionament
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-tcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.3] TCP – Transport Control Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.3] TCP – Transport Control Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#format-dels-paquets_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format dels paquets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funcionament_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funcionament
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-tcp_opening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.4] TCP: “Connectant”
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-established" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.5] TCP: “Connexió establerta”
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.5] TCP: “Connexió establerta”">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fluxos-i-numeros-de-sequencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fluxos i números de seqüència
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fiabilitat-i-retransmissio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fiabilitat i retransmissió
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limits-de-transmissio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Límits de transmissió
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer4-tcp_closing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [9.6] TCP: “Tancant la connexió”
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[9.6] TCP: “Tancant la connexió”">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fin-seq-i-ack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FIN, #seq i #ack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tancament-bilateral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tancament bilateral
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tancament-unilateral" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tancament unilateral
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><img alt="" class="hero" src="../assets/fig/tubes.jpg" /></p>
+<h1 id="sec-layer4">[9] Capa 4: Transport<a class="headerlink" href="#sec-layer4" title="Permanent link">&para;</a></h1>
+<div class="figure-row">
+<p><img alt="image" src="../assets/rendered/f900fd4186f98356.svg" style="width:7.74cm" /></p>
+<p><img alt="image" src="../assets/fig/network_layer4.svg" style="width:13.77cm" /></p>
+</div>
+<h3 id="capacitats">Capacitats<a class="headerlink" href="#capacitats" title="Permanent link">&para;</a></h3>
+<p>La capa de <span class="concept" id="c1" data-key="transport">Transport</span> comunica <span class="concept" id="c2" data-key="process">processos</span> (programes) que s’executen en <span class="concept" id="c3" data-key="host">hosts</span> (equips connectats a la xarxa) potencialment diferents. Aquests processos s’identifiquen mitjançant adreces de capa 4 anomenades <span class="concept" id="c4" data-key="port">ports</span>.</p>
+<p>La capa de transport ofereix dues maneres diferents de comunicar-se: sense <span class="concept" id="c5" data-key="connection">connexions</span> (<span class="concept" id="c6" data-key="UDP">UDP</span>) i amb connexions (<span class="concept" id="c7" data-key="TCP">TCP</span>).</p>
+<p><span class="concept" id="c8" data-key="UDP">UDP</span> no estableix cap <span class="concept" id="c9" data-key="connection">connexió</span> amb el host de destinació perquè la prioritat és enviar unes dades de <span class="concept" id="c10" data-key="payload">payload</span> (càrrega útil) tan ràpid com sigui possible. En canvi, UDP envia paquets anomenats <span class="concept" id="c11" data-key="user datagram">datagrames d’usuari</span> directament a la destinació, sense esperar cap mena de confirmació de recepció per part de la capa UDP de la destinació. Les capçaleres UDP són simples i petites, i també mantenen petita la <span class="concept" id="c12" data-key="overhead">sobrecàrrega</span> d’aquest protocol.</p>
+<p><span class="concept" id="c13" data-key="TCP">TCP</span> estableix una <span class="concept" id="c14" data-key="connection">connexió</span> abans d’enviar cap dada de <span class="concept" id="c15" data-key="payload">payload</span> per assegurar-se que tots dos extrems estan preparats. A més, TCP espera la <span class="concept" id="c16" data-key="ACK">confirmació</span> (acusament de recepció) de cada byte de dades de payload. Si no n’hi ha, les dades es <span class="concept" id="c17" data-key="retransmission">retransmeten</span> després d’un període d’espera, cosa que dona <span class="concept" id="c18" data-key="reliability">fiabilitat</span> a TCP. TCP també fa servir una manera molt enginyosa de limitar la velocitat d’intercanvi de dades (<span class="concept" id="c19" data-key="flow control">control de flux</span>) perquè ordinadors ràpids i lents puguin coexistir i comunicar-se amb TCP/IP. Per oferir totes aquestes funcionalitats, TCP és un protocol més complex que UDP, fa servir capçaleres més grans i introdueix una <span class="concept" id="c20" data-key="overhead">sobrecàrrega</span> més gran.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercici 9.1</p>
+<p>Quines de les aplicacions següents creus que fan servir <span class="concept" id="c21" data-key="UDP">UDP</span> i quines <span class="concept" id="c22" data-key="TCP">TCP</span>?</p>
+<ul>
+<li>
+<p>Jocs multijugador</p>
+</li>
+<li>
+<p>La WWW</p>
+</li>
+<li>
+<p>BitTorrent</p>
+</li>
+<li>
+<p>Reproducció de vídeo en temps real (<em>streaming</em>)</p>
+</li>
+</ul>
+</div>
+<h3 id="protocols">Protocols<a class="headerlink" href="#protocols" title="Permanent link">&para;</a></h3>
+<p><img alt="image" src="../assets/fig/protocols_layer4.svg" style="width:21.8cm" /></p>
+<p>La capa de transport és a la part superior de la pila que proporciona el sistema operatiu. Pràcticament totes les aplicacions, i per tant els seus protocols de comunicació, fan servir <span class="concept" id="c23" data-key="TCP">TCP</span>, <span class="concept" id="c24" data-key="UDP">UDP</span> (o fins i tot tots dos) per intercanviar dades per la xarxa. A la figura anterior es mostren alguns protocols importants que fan servir TCP o UDP.</p>
+<p>Tant TCP com UDP encapsulen les seves PDU en <span class="concept" id="c25" data-key="datagram">datagrames</span> <span class="concept" id="c26" data-key="IP">IP</span>. Generalment es fa servir <span class="concept" id="c27" data-key="IPv4">IPv4</span>, però <span class="concept" id="c28" data-key="IPv6">IPv6</span> també és una possibilitat quan està disponible.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Ni TCP ni UDP canvien de cap manera quan es fa servir IPv6 en lloc d’IPv4, és a dir, no hi ha cap protocol TCPv6. En canvi, <code>tcp6</code> i altres expressions que inclouen TCP i 6 es refereixen a TCP (normal) sobre IPv6.</p>
+</div>
+<h2 id="sec-layer4-addressing">[9.1] Adreçament de la capa 4<a class="headerlink" href="#sec-layer4-addressing" title="Permanent link">&para;</a></h2>
+<p>Les “adreces” de TCP i UDP s’anomenen <span class="concept" id="c29" data-key="port">ports</span> i són enters sense signe de <span class="arithmatex">\(16\)</span> bits. Per als humans, els ports s’expressen principalment de dues maneres:</p>
+<ul>
+<li>
+<p>Com a número, p. ex., 22, 80 o 443.</p>
+</li>
+<li>
+<p>Com el nom del servei que habitualment fa servir aquest port, p. ex., <span class="concept" id="c30" data-key="sshd">sshd</span>, <span class="concept" id="c31" data-key="HTTP">http</span>, <span class="concept" id="c32" data-key="HTTPs">https</span>.</p>
+</li>
+</ul>
+<p>Quan es rep una PDU de capa 4, el sistema operatiu fa servir el port de la seva capçalera per saber quin dels processos en execució ha de rebre les dades. Al seu torn, els processos s’han de <span class="concept" id="c33" data-key="bind">vincular</span> a un port TCP o a un port TCP (o a tots dos) per indicar al sistema operatiu de quin port esperen rebre dades.</p>
+<p>Només un procés alhora es pot vincular a un port per enviar dades, però els ports TCP i UDP es tracten de manera independent:</p>
+<ul>
+<li>
+<p>Si un procés està vinculat al port <code>TCP/100</code>, no rebrà el trànsit UDP adreçat al port 100.</p>
+</li>
+<li>
+<p>Si un procés està vinculat al port <code>TCP/100</code>, un altre procés (o fins i tot el mateix) es pot vincular a <code>UDP/100</code>.</p>
+</li>
+</ul>
+<p>El port número <code>0</code> està reservat, de manera que el rang de ports utilitzable és <code>1</code>–<code>65535</code>. Els ports <code>1</code>–<code>1023</code> només es vinculen a processos amb privilegis (p. ex., un <span class="concept" id="c34" data-key="server">servidor</span> http), mentre que les aplicacions client (p. ex., un <span class="concept" id="c35" data-key="client">client</span> http) només es poden vincular als ports <code>1024</code>–<code>65535</code> segons la seva disponibilitat.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercici 9.2</p>
+<p>Quants servidors diferents es poden executar en una màquina per oferir alguna funcionalitat a altres hosts de la xarxa?</p>
+</div>
+<h2 id="sec-layer4-udp">[9.2] UDP – User Datagram Protocol<a class="headerlink" href="#sec-layer4-udp" title="Permanent link">&para;</a></h2>
+<h3 id="format-dels-paquets">Format dels paquets<a class="headerlink" href="#format-dels-paquets" title="Permanent link">&para;</a></h3>
+<p>Tots els <span class="concept" id="c36" data-key="user datagram">datagrames d’usuari</span> que fa servir UDP tenen una capçalera de <span class="arithmatex">\(8\)</span> bytes i l’estructura següent:</p>
+<p><img alt="image" src="../assets/rendered/8c81d1cde97c650f.svg" style="width:14.9cm" /></p>
+<div class="admonition example">
+<p class="admonition-title">Exercici 9.3</p>
+<ul>
+<li>
+<p>Quina és la mida màxima de payload que es pot enviar en un únic <span class="concept" id="c37" data-key="user datagram">datagrama d’usuari</span>?</p>
+</li>
+<li>
+<p>És desitjable la <span class="concept" id="c38" data-key="fragmentation">fragmentació</span> quan es fa servir UDP?</p>
+</li>
+</ul>
+</div>
+<h3 id="funcionament">Funcionament<a class="headerlink" href="#funcionament" title="Permanent link">&para;</a></h3>
+<p><img alt="image" src="../assets/fig/udp_socket.svg" style="width:11.48cm" /></p>
+<p>Els clients UDP primer creen un <span class="concept" id="c39" data-key="socket">socket</span> (punt de connexió) i després envien directament els datagrames d’usuari amb <code>sendto</code>. No cal establir ni tancar cap connexió.</p>
+<p>Els servidors UDP primer s’han de <span class="concept" id="c40" data-key="bind">vincular</span> al port que volen exposar als clients, i després reben cada datagrama en una crida individual a la funció de lectura (<code>recvfrom</code>).</p>
+<p>La funció bind és purament interna al servidor: implica canvis en la seva configuració (la taula que associa números de port i <span class="concept" id="c41" data-key="process">processos</span>), però no genera cap missatge.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercici 9.4</p>
+<ul>
+<li>
+<p>Pot funcionar un servidor UDP sense enviar cap dada per la xarxa?</p>
+</li>
+<li>
+<p>Pot un client rebre trànsit UDP sense vincular-se a un port?</p>
+</li>
+<li>
+<p>Poden dos hosts diferents vincular-se al mateix port i tot i així intercanviar <span class="concept" id="c42" data-key="user datagram">datagrames d’usuari</span>?</p>
+</li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Exercici 9.5</p>
+<p>El fragment de codi següent mostra l’esquelet bàsic d’un servidor UDP:</p>
+<p><div class="showcode" markdown="1">
+<strong><code>snippets/udpserver.py</code></strong></p>
+<p><div class="highlight"><pre><span></span><code><span class="linenos" data-linenos="1 "></span><span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="linenos" data-linenos="2 "></span>
+<span class="linenos" data-linenos="3 "></span><span class="n">port</span> <span class="o">=</span> <span class="mi">4567</span>
+<span class="linenos" data-linenos="4 "></span><span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">family</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+<span class="linenos" data-linenos="5 "></span><span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s1">''</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+<span class="linenos" data-linenos="6 "></span><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="linenos" data-linenos="7 "></span>    <span class="n">user_datagram</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recvfrom</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<span class="linenos" data-linenos="8 "></span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Received UDP on </span><span class="si">{</span><span class="n">port</span><span class="si">=}</span><span class="s2">: </span><span class="si">{</span><span class="n">user_datagram</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+</div></p>
+<ul>
+<li>
+<p>Executa el servidor i, en un altre terminal, executa <code>ncat -u localhost 4567</code> i escriu una mica de text per provar el servidor.</p>
+</li>
+<li>
+<p>Implementa l’extrem client de la comunicació i prova’l amb el servidor.</p>
+</li>
+<li>
+<p>Quina informació important obtens si canvies <code>s.recvfrom</code> per <code>s.recvmsg</code>?</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Aquest codi fa servir <span class="concept" id="c43" data-key="socket">sockets</span> UDP normals, de manera que no necessita permisos d’administrador ni la capacitat <code>CAP_NET_RAW</code>, com passava a l’exercici <a href="../layer2/#ex-layer2-echo">7.4</a>, que en canvi requeria accés a sockets de capa 2 (p. ex., Ethernet).</p>
+</div>
+</div>
+<h2 id="sec-layer4-tcp">[9.3] TCP – Transport Control Protocol<a class="headerlink" href="#sec-layer4-tcp" title="Permanent link">&para;</a></h2>
+<h3 id="format-dels-paquets_1">Format dels paquets<a class="headerlink" href="#format-dels-paquets_1" title="Permanent link">&para;</a></h3>
+<p>Les PDU de <span class="concept" id="c44" data-key="TCP">TCP</span> s’anomenen <span class="concept" id="c45" data-key="segment">segments</span>. La seva <span class="concept" id="c46" data-key="header">capçalera</span> fa com a mínim <span class="arithmatex">\(20\)</span> bytes, però pot ser més llarga quan es fan servir certes opcions:</p>
+<p><img alt="image" src="../assets/rendered/55f1903f9264d66a.svg" style="width:22.86cm" /></p>
+<p>Les capçaleres TCP contenen vuit flags (indicadors) d’<span class="arithmatex">\(1\)</span> bit. D’aquests, quatre es fan servir per a funcionalitats bàsiques de TCP que es tracten a les seccions següents. En l’ordre en què apareixen:</p>
+<ul>
+<li>
+<p>ACK: flag de <span class="concept" id="c47" data-key="ACK">confirmació</span> – “el <em>meu</em> número ack és vàlid”</p>
+</li>
+<li>
+<p>RST: flag de <span class="concept" id="c48" data-key="RST">reinici</span> – “<em>avorta</em> la connexió”</p>
+</li>
+<li>
+<p>SYN: flag de <span class="concept" id="c49" data-key="SYN">sincronització</span> – “obro el <em>meu</em> extrem de la connexió”</p>
+</li>
+<li>
+<p>FIN: flag de <span class="concept" id="c50" data-key="FIN">finalització</span> – “no enviaré més dades de <em>payload</em>”</p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Exercici 9.6</p>
+<p>Com pot saber l’extrem receptor la mida de les opcions i de les dades de payload?</p>
+</div>
+<h3 id="funcionament_1">Funcionament<a class="headerlink" href="#funcionament_1" title="Permanent link">&para;</a></h3>
+<p>TCP és un protocol <span class="concept" id="c51" data-key="stateful">amb estat</span>. Els <span class="concept" id="c52" data-key="socket">sockets</span> TCP passen per diversos estats durant la comunicació. Cada extrem de la comunicació té el seu propi socket amb el seu propi estat. A grans trets, les connexions es poden classificar com a “Connectant”, “Connexió establerta” o “Tancant la connexió”. Les dades de payload només s’han d’intercanviar mentre s’està a “Connexió establerta”.</p>
+<p><img alt="image" src="../assets/fig/tcp_socket.svg" style="width:17.21cm" /></p>
+<p>Els sockets TCP poden estar en un d’<span class="arithmatex">\(11\)</span> estats. Aquests estats, juntament amb dos comptadors de <span class="arithmatex">\(16\)</span> bits (<span class="concept" id="c53" data-key="acknowledgement number">número de confirmació</span> i <span class="concept" id="c54" data-key="sequence number">número de seqüència</span>) permeten la <span class="concept" id="c55" data-key="reliability">fiabilitat</span> de la comunicació que s’espera de TCP. El significat d’aquests estats i de les seves transicions s’explica als capítols següents.</p>
+<h2 id="sec-layer4-tcp_opening">[9.4] TCP: “Connectant”<a class="headerlink" href="#sec-layer4-tcp_opening" title="Permanent link">&para;</a></h2>
+<p><img alt="image" src="../assets/fig/3_way_handshake.svg" style="width:20.01cm" /></p>
+<p>Quan es crea un <span class="concept" id="c56" data-key="socket">socket</span>, comença a l’estat <code>CLOSED</code>. L’extrem que actua com a servidor comença a escoltar al <span class="concept" id="c57" data-key="port">port</span> configurat per al servei i passa a l’estat <code>LISTEN</code>. En aquest estat no s’intercanvia payload.</p>
+<p>Una connexió s’estableix mitjançant un <span class="concept" id="c58" data-key="3-way handshake">3-way handshake</span> (negociació inicial) fent servir els flags de capçalera <code>SYN</code> i <code>ACK</code>. Gràcies a aquest handshake, cada extrem de la comunicació arriba a l’estat <code>ESTABLISHED</code> en un moment diferent. Un cop hi arriben, estan preparats per intercanviar dades de payload.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>A TCP, tots dos extrems es comuniquen com a peers (parells) en igualtat de condicions: no importa qui ha iniciat la comunicació. Dit això, normalment un extrem fa una “obertura activa” (el client) i l’altre una “obertura passiva” (el servidor).</p>
+</div>
+<p>Cada extrem de la comunicació porta el compte dels seus comptadors de <span class="concept" id="c59" data-key="acknowledgement number">número de confirmació</span> (#ack) i de <span class="concept" id="c60" data-key="sequence number">número de seqüència</span> (#seq). El valor de #seq el tria cada extrem per separat (i normalment a l’atzar): <span class="arithmatex">\(A,\,B \in [0, 2^{32} - 1]\)</span>.</p>
+<p>Durant l’obertura de la connexió, cada extrem envia exactament un segment amb el flag <span class="concept" id="c61" data-key="SYN">SYN</span> activat. Aquests segments intercanvien (sincronitzen) els seus números de seqüència inicials <span class="arithmatex">\(A\)</span> i <span class="arithmatex">\(B\)</span>.</p>
+<p>Els segments amb el flag <span class="concept" id="c62" data-key="ACK">ACK</span> activat (tots excepte el primer segment del client) tenen el #ack fixat a “el següent #seq que s’espera de l’altre extrem”. Aquest #ack s’ha de llegir com “he rebut correctament tots els segments corresponents fins a #ack, sense incloure’l”.</p>
+<p>Els números #ack i #seq esperats durant el <span class="concept" id="c63" data-key="3-way handshake">3-way handshake</span> són:</p>
+<p><img alt="image" src="../assets/fig/3_way_handshake_counters.svg" style="width:22.95cm" /></p>
+<div class="admonition example">
+<p class="admonition-title">Exercici 9.7</p>
+<ul>
+<li>
+<p>Com pot saber un extrem que l’altre extrem ha rebut el #seq que ha triat?</p>
+</li>
+<li>
+<p>Per què el tercer segment té el #seq fixat a <span class="arithmatex">\(A+1\)</span> i no a <span class="arithmatex">\(A\)</span>?</p>
+</li>
+<li>
+<p>Quin #seq tindrà el següent segment que enviï el servidor?</p>
+</li>
+</ul>
+</div>
+<h2 id="sec-layer4-established">[9.5] TCP: “Connexió establerta”<a class="headerlink" href="#sec-layer4-established" title="Permanent link">&para;</a></h2>
+<h3 id="fluxos-i-numeros-de-sequencia">Fluxos i números de seqüència<a class="headerlink" href="#fluxos-i-numeros-de-sequencia" title="Permanent link">&para;</a></h3>
+<p>TCP ofereix la il·lusió d’un <span class="concept" id="c64" data-key="stream">flux</span> de dades: dos conductes de dades en les direccions d’entrada i de sortida (una connexió <span class="concept" id="c65" data-key="full duplex">full-duplex</span>). Aquests conductes són <span class="concept" id="c66" data-key="reliability">fiables</span>, és a dir, s’hi apliquen mecanismes per evitar la pèrdua, la duplicació i la reordenació de dades.</p>
+<p><img alt="image" src="../assets/fig/tcp_two_pipes.svg" style="width:17.21cm" /></p>
+<p>A cada byte de dades de payload se li assigna un número de seqüència (#seq) a la capçalera TCP. El primer byte de dades de payload té #seq <span class="arithmatex">\(=A+1\)</span>, on <span class="arithmatex">\(A\)</span> és el número de seqüència inicial establert durant l’obertura de la connexió (vegeu la secció <a href="./#sec-layer4-tcp_opening">9.4</a>). A cada nou byte de dades se li assigna el #seq següent (sense salts).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;"><strong>#seq</strong></th>
+<th style="text-align: center;"><span class="arithmatex">\(A\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+1\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+2\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+3\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+4\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+5\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+6\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+7\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+8\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+9\)</span></th>
+<th style="text-align: left;"><span class="arithmatex">\(\cdots\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>contingut</strong></td>
+<td style="text-align: center;">SYN</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'H'</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'i'</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'!'</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'\n'</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'H'</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'o'</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'w'</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>' '</code></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: right;"><code>'a'</code></td>
+<td style="text-align: center;"><span class="arithmatex">\(\cdots\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Exercici 9.8</p>
+<p>El #seq que ve després de <span class="arithmatex">\(2^{32} - 1\)</span> és <span class="arithmatex">\(0\)</span>. Per què?</p>
+</div>
+<p>A TCP, les dades de payload s’envien sempre juntament amb la <em>primera</em> posició que ocupen dins del <span class="concept" id="c67" data-key="stream">flux</span> i la seva longitud. Per exemple, a partir de les dades que es mostren més amunt, es podrien generar dos segments:</p>
+<ol>
+<li>
+<p>#seq <span class="arithmatex">\(= A+1\)</span>, len <span class="arithmatex">\(= 4\)</span>, dades <span class="arithmatex">\(=\)</span> <code>0x48 69 21 0a</code> (<code>'Hi!\n'</code>)</p>
+</li>
+<li>
+<p>#seq <span class="arithmatex">\(= A+5\)</span>, len <span class="arithmatex">\(= 13\)</span>, dades <span class="arithmatex">\(=\)</span> <code>0x48 6f 77 20 61 72 65 20 79 6f 75 3f 0a</code></p>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Exercici 9.9</p>
+<p>Quin seria el #seq del següent segment amb dades de payload noves?</p>
+</div>
+<p>L’extrem receptor d’un <span class="concept" id="c68" data-key="segment">segment</span> TCP fa servir aquesta informació per recompondre una còpia de les dades en l’ordre correcte, fins i tot si els segments arriben desordenats. Aquestes dades es passen a la <span class="concept" id="c69" data-key="layer">capa</span> superior a través d’un <span class="concept" id="c70" data-key="buffer">buffer</span> (memòria intermèdia), o directament si el flag TCP <span class="concept" id="c71" data-key="PSH">PSH</span> (push) està activat.</p>
+<p><img alt="image" src="../assets/fig/tcp_reassembly.svg" style="width:22.95cm" /></p>
+<h3 id="fiabilitat-i-retransmissio">Fiabilitat i retransmissió<a class="headerlink" href="#fiabilitat-i-retransmissio" title="Permanent link">&para;</a></h3>
+<p>TCP necessita que l’altre extrem <span class="concept" id="c72" data-key="ACK">confirmi</span> totes les dades transmeses. Cada vegada que es reben dades en un segment TCP, l’extrem receptor envia una confirmació encara que en aquell moment no hagi d’enviar cap dada. El número de confirmació (#ack) de la capçalera TCP serveix per indicar a l’altre extrem que s’han rebut totes les dades fins a #ack (sense incloure’l).</p>
+<p><img alt="image" src="../assets/fig/tcp_ack.svg" style="width:22.95cm" /></p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>El camp #seq d’una capçalera TCP fa referència als números de seqüència de l’emissor. El camp #ack fa referència als números de seqüència del receptor.</p>
+</div>
+<p>Les dades de payload s’inclouen a les confirmacions TCP sempre que n’hi hagi de disponibles. Recíprocament, el valor més recent de #ack s’inclou sempre que s’envien dades, és a dir, les confirmacions viatgen <span class="concept" id="c73" data-key="piggyback">a cavall</span> de les dades de payload.</p>
+<p>Per exemple, si l’Alice envia una petició de <span class="arithmatex">\(25\)</span> bytes, en Bob pot enviar la seva resposta de <span class="arithmatex">\(10\)</span> bytes i la confirmació de les dades de l’Alice en el mateix segment TCP. L’Alice ha de confirmar les dades d’en Bob i, si cal, aviat envia un segment sense dades. L’Alice tornarà a enviar dades més endavant quan calgui.</p>
+<p><img alt="image" src="../assets/fig/tcp_ack_piggyback.svg" style="width:22.95cm" /></p>
+<p>Un segment TCP que no es confirma després d’un cert període d’espera es <span class="concept" id="c74" data-key="retransmission">retransmet</span>. Aquest temps el decideix el sistema operatiu de cada extrem a partir del temps mitjà que es triga a enviar un segment i rebre’n una resposta (el temps d’anada i tornada, <span class="concept" id="c75" data-key="RTT">RTT</span>).</p>
+<p>Les confirmacions s’envien encara que siguin idèntiques a una d’anterior. Això és perquè les confirmacions també es poden perdre.</p>
+<p><img alt="image" src="../assets/fig/tcp_ack_retransmission.svg" style="width:22.95cm" /></p>
+<div class="admonition example">
+<p class="admonition-title">Exercici 9.10</p>
+<p>Suposant que tots dos extrems segueixen TCP correctament:</p>
+<ul>
+<li>
+<p>Proporciona un conjunt de valors vàlids per a (a) fins a (i).</p>
+</li>
+<li>
+<p>Com canvia la història si (f) i (h) són idèntics/diferents?</p>
+</li>
+</ul>
+<p><img alt="image" src="../assets/fig/tcp_ack_exercise.svg" style="width:22.95cm" /></p>
+</div>
+<h3 id="limits-de-transmissio">Límits de transmissió<a class="headerlink" href="#limits-de-transmissio" title="Permanent link">&para;</a></h3>
+<p>Les dades per transmetre sovint es produeixen a ràfegues. Voldríem enviar-ne tantes com fos possible tan aviat com fos possible, però TCP hi imposa dos límits.</p>
+<p>El primer límit, la <span class="concept" id="c76" data-key="MSS">mida màxima de segment (MSS, Maximum Segment Size)</span>, és la quantitat màxima de dades de payload per segment permesa en una connexió TCP.</p>
+<p><img alt="image" src="../assets/rendered/5e85a76e524029ec.svg" style="width:16.25cm" /></p>
+<p>La raó d’aquest límit és evitar la fragmentació per motius de rendiment, p. ex., a causa de l’elevat cost en temps i memòria del reassemblatge.</p>
+<p>Per defecte, la MSS és de <span class="arithmatex">\(536\)</span> bytes a <span class="concept" id="c77" data-key="IPv4">IPv4</span>, però es pot negociar amb les opcions de la capçalera TCP durant la fase d’obertura de la connexió. A <span class="concept" id="c78" data-key="IPv6">IPv6</span>, la MSS per defecte és de <span class="arithmatex">\(1220\)</span> bytes.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercici 9.11</p>
+<p>Ethernet té una <span class="concept" id="c79" data-key="MTU">MTU</span> de <span class="arithmatex">\(1500\)</span> bytes. Suposant que els <span class="concept" id="c80" data-key="datagram">datagrames</span> només travessen 2 xarxes Ethernet:</p>
+<ul>
+<li>
+<p>Quina és la <span class="concept" id="c81" data-key="MSS">MSS</span> més gran que no pot causar fragmentació, MSS<span class="arithmatex">\(_\textrm{max}\)</span>?</p>
+</li>
+<li>
+<p>Quina és la <span class="concept" id="c82" data-key="overhead">sobrecàrrega</span> per a MSS<span class="arithmatex">\(_\textrm{max}\)</span> i per a MSS<span class="arithmatex">\(_\textrm{max}\)</span> + 1?</p>
+</li>
+</ul>
+</div>
+<p>El segon límit afecta la quantitat màxima de dades de payload que es poden enviar abans que l’altre extrem respongui amb un nou <span class="concept" id="c83" data-key="acknowledgement number">#ack</span>: l’anomenada mida de la <span class="concept" id="c84" data-key="transmission window">finestra de transmissió</span>. Un host no enviarà dades (per moltes que n’hi hagi de disponibles, o per urgents que siguin) fins que no arribin aquests #ack. Quan l’ordinador més lent respon, ho fa sempre amb el #ack més recent.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercici 9.12</p>
+<p>Quines són les mides de MSS i de finestra de transmissió més probables en aquest exemple?</p>
+<p><img alt="image" src="../assets/fig/tcp_ack_window.svg" style="width:22.95cm" /></p>
+</div>
+<p>El valor de la finestra de transmissió s’anuncia amb tots i cadascun dels segments TCP: aquest valor és un camp obligatori de les capçaleres TCP. A mesura que la connexió avança, cada host pot canviar el valor que anuncia segons la seva pròpia càrrega i necessitats.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Cada host anuncia la seva pròpia mida de finestra.</p>
+</div>
+<p>Aquest límit serveix per evitar que els ordinadors ràpids saturin els més lents (o sobrecarregats): sense el límit, l’ordinador més lent podria necessitar un buffer de mida infinitament creixent per emmagatzemar els segments encara no processats enviats per l’ordinador més ràpid. Amb aquest límit, en el punt de saturació, tots dos extrems envien segments al mateix ritme encara que triguin temps molt diferents a produir-los i processar-los.</p>
+<h2 id="sec-layer4-tcp_closing">[9.6] TCP: “Tancant la connexió”<a class="headerlink" href="#sec-layer4-tcp_closing" title="Permanent link">&para;</a></h2>
+<h3 id="fin-seq-i-ack">FIN, #seq i #ack<a class="headerlink" href="#fin-seq-i-ack" title="Permanent link">&para;</a></h3>
+<p>Un cop la connexió és <code>ESTABLISHED</code>, s’hi manté fins que un dels dos extrems decideix tancar-la.</p>
+<p>Un node anuncia que ha acabat d’enviar dades i que vol tancar la connexió enviant un segment amb el flag <span class="concept" id="c85" data-key="FIN">FIN</span> activat a la capçalera. L’altre extrem pot continuar enviant dades, i en aquest cas espera respostes amb valors de #ack actualitzats. L’altre extrem també pot optar per tancar la connexió tan bon punt veu el primer FIN. En tots dos casos, si s’envien <span class="arithmatex">\(k\)</span> bytes de dades i <span class="arithmatex">\(A\)</span> és el #seq inicial, s’espera un segment amb #ack <span class="arithmatex">\(= A+k+2\)</span>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;"><strong>#seq</strong></th>
+<th style="text-align: center;"><span class="arithmatex">\(A\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+1\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(\cdots\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+k\)</span></th>
+<th style="text-align: center;"><span class="arithmatex">\(A+k+1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>contingut</strong></td>
+<td style="text-align: center;">SYN</td>
+<td style="text-align: center;">Dades <span class="arithmatex">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="arithmatex">\(\cdots\)</span> dades</td>
+<td style="text-align: center;">FIN</td>
+</tr>
+</tbody>
+</table>
+<p>Fixa’t que el flag FIN ocupa ell mateix un número de seqüència i s’ha de confirmar com el SYN (vegeu la secció <a href="./#sec-layer4-tcp_opening">9.4</a>), p. ex.:</p>
+<h3 id="tancament-bilateral">Tancament bilateral<a class="headerlink" href="#tancament-bilateral" title="Permanent link">&para;</a></h3>
+<p>Després que un extrem tanqui el seu costat de la connexió, l’altre pot continuar enviant dades indefinidament. Quan el segon costat acaba d’enviar dades, també envia un segment amb el flag <span class="concept" id="c86" data-key="FIN">FIN</span> activat.</p>
+<p><img alt="image" src="../assets/fig/tcp_close_more_data.svg" style="width:20.66cm" /></p>
+<p>Fixa’t que, si l’altre extrem vol acabar la connexió en rebre un segment FIN, el procés de tancament es condensa en <span class="arithmatex">\(3\)</span> segments en lloc de <span class="arithmatex">\(4\)</span>, p. ex.,</p>
+<p><img alt="image" src="../assets/fig/tcp_close_no_more_data.svg" style="width:22.95cm" /></p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Fixa’t que:</p>
+<ul>
+<li>
+<p>Cada extrem envia només un segment amb el flag FIN, excepte en cas de retransmissió.</p>
+</li>
+<li>
+<p>El segment amb el flag FIN pot contenir dades de payload. En aquest cas:</p>
+<ul>
+<li>
+<p>Les dades de payload ocupen números de seqüència <em>anteriors</em> al del FIN.</p>
+</li>
+<li>
+<p>L’altre extrem ha de fer ACK tant de les dades de payload com del FIN.</p>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 id="tancament-unilateral">Tancament unilateral<a class="headerlink" href="#tancament-unilateral" title="Permanent link">&para;</a></h3>
+<p>De vegades, cal acabar les connexions i no hi ha prou temps o interès per passar pel procés de tancament bilateral de diversos passos. Aquest pot ser el cas, p. ex., quan un <span class="concept" id="c87" data-key="process">procés</span> falla, quan es bloqueja un port TCP o UDP determinat, i en altres situacions d’error.</p>
+<p>En aquest escenari, el host que ha detectat la situació anòmala simplement envia un segment amb el flag <span class="concept" id="c88" data-key="RST">RST</span> (reset) activat. Els extrems receptors no han de confirmar el RST; en canvi, els recursos de la connexió s’alliberen directament, p. ex.,</p>
+<p><img alt="image" src="../assets/fig/tcp_close_reset.svg" style="width:22.95cm" /></p>
+<p>Seguir el procediment de tancament bilateral o unilateral de la connexió ajuda a reduir els recursos de càlcul necessaris per mantenir les piles de xarxa de milers de milions de dispositius arreu del món.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Una connexió <em>no es pot</em> reobrir després de tancar-se. El flag RST s’hauria pogut anomenar amb més precisió “terminació forçada”.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Exercici 9.13</p>
+<p>El diagrama següent mostra els <span class="arithmatex">\(11\)</span> estats de TCP i (gairebé) totes les transicions d’estat possibles.</p>
+<p><img alt="image" src="../assets/fig/tcp_state_transition.svg" style="width:22.95cm" /></p>
+<ul>
+<li>
+<p>Indica el cicle de vida del socket d’un servidor HTTP com un camí al graf.</p>
+</li>
+<li>
+<p>Indica el cicle de vida del socket del client HTTP corresponent com un camí al graf.</p>
+</li>
+<li>
+<p>L’estat <code>CLOSING</code> no es descriu a les seccions anteriors. Quina creus que n’és la finalitat?</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Aquest diagrama està adaptat de “TCP/IP Illustrated, Volume 2: The Implementation,” de Gary R. Wright i W. Richard Stevens.</p>
+</div>
+</div>
+<script>window.XOI_ASSETS = "../assets/";</script>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Torna a l'inici
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Peu de pàgina" >
+        
+          
+          <a href="../layer3/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [8] Capa 3: comunicació entre xarxes (Internet)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                [8] Capa 3: comunicació entre xarxes (Internet)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../layer7/" class="md-footer__link md-footer__link--next" aria-label="Següent: [10] Capa 7: Aplicació">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Següent
+              </span>
+              <div class="md-ellipsis">
+                [10] Capa 7: Aplicació
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "search.highlight", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiat al porta-retalls", "clipboard.copy": "C\u00f2pia al porta-retalls", "search.result.more.one": "1 m\u00e9s en aquesta p\u00e0gina", "search.result.more.other": "# m\u00e9s en aquesta p\u00e0gina", "search.result.none": "Cap document coincideix", "search.result.one": "1 document coincident", "search.result.other": "# documents coincidents", "search.result.placeholder": "Escriu per a comen\u00e7ar a cercar", "search.result.term.missing": "Desaparegut", "select.version": "Selecciona la versi\u00f3"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../scripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../scripts/wide-tables.js"></script>
+      
+        <script src="../../scripts/search-highlight.js"></script>
+      
+        <script src="../../scripts/technical-terms.js"></script>
+      
+        <script src="../../scripts/goatcounter.js"></script>
+      
+        <script src="https://gc.zgo.at/count.js" async></script>
+      
+    
+  </body>
+</html>

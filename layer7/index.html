@@ -1,0 +1,2026 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Study guide for the Computer Networks and Internet course (UAB, 104353)">
+      
+      
+      
+        <link rel="canonical" href="https://miguelinux314.github.io/uab-xoi/layer7/">
+      
+      
+        <link rel="prev" href="../layer4/">
+      
+      
+        <link rel="next" href="../concepts/">
+      
+      
+        
+          <link rel="alternate" href="../es/layer7/" hreflang="es">
+        
+          <link rel="alternate" href="../ca/layer7/" hreflang="ca">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>[10] Layer 7: Application - Computer Networks and Internet: Study Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/xoi.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sec-layer7" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Computer Networks and Internet: Study Guide" class="md-header__button md-logo" aria-label="Computer Networks and Internet: Study Guide" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Computer Networks and Internet: Study Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              [10] Layer 7: Application
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="deep-orange"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../es/layer7/" hreflang="es" class="md-select__link">
+              Castellano
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../ca/layer7/" hreflang="ca" class="md-select__link">
+              Català
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../networks/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Course
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../missions/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Missions
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Computer Networks and Internet: Study Guide" class="md-nav__button md-logo" aria-label="Computer Networks and Internet: Study Guide" data-md-component="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><style>
+.xw-w{fill:none;stroke:#f36619;stroke-width:3.3;stroke-linecap:round;animation:xw-bleep .6s ease-out backwards}
+.xw-d{fill:#f36619}
+.xw-1{animation-delay:.3s}.xw-2{animation-delay:.8s}.xw-3{animation-delay:1.3s}
+@keyframes xw-bleep{0%{opacity:.12}35%{opacity:1}55%{opacity:.55}100%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.xw-w{animation:none}}
+</style><path class="xw-w xw-1" d="M6.86 14.87A8 8 0 0 1 17.14 14.87"/><path class="xw-w xw-2" d="M4.29 11.81A12 12 0 0 1 19.71 11.81"/><path class="xw-w xw-3" d="M1.72 8.74A16 16 0 0 1 22.28 8.74"/><circle class="xw-d" cx="12" cy="20" r="3"/></svg>
+    </a>
+    Computer Networks and Internet: Study Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href=".." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License and credits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai_usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../course/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About this course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Course
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Course
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part I: Computer Networks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part I: Computer Networks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part I: Computer Networks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../piercing_the_veil/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [2] Piercing the analog-digital veil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../where_are_you/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [3] Where are you?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [4] Is this yours?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stack_layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [5] A Stack of Layers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part II: Internet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part II: Internet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part II: Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tcpip/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [6] The Internet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [7] Layer 2: Network (LAN) communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [8] Layer 3: Internet(work) communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layer4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [9] Layer 4: Transport
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [10] Layer 7: Application
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [10] Layer 7: Application
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer7-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [10.1] DNS – Domain Name System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[10.1] DNS – Domain Name System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sec-layer6-dns-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [10.1.1] Hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#records" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Records
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer7-dhcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [10.2] DHCP – Dynamic Host Configuration Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer7-as" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [10.3] Autonomous Systems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[10.3] Autonomous Systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routing-table-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing table configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index of concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../missions/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missions
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Missions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 1: Sharing is caring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 2: Infinite scroll
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 3: Herding chaos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 4: Inter planetary net
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 5: Money is the root
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 6: Annoy two whole planets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 7: To TCP or not to TCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 8: You talking to me?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../missions/mission9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission 9: Interplanetary Hallway
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer7-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [10.1] DNS – Domain Name System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[10.1] DNS – Domain Name System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sec-layer6-dns-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [10.1.1] Hierarchy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#records" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Records
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resolution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer7-dhcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [10.2] DHCP – Dynamic Host Configuration Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sec-layer7-as" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [10.3] Autonomous Systems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[10.3] Autonomous Systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routing-table-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing table configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><img alt="" class="hero" src="../assets/fig/apps.jpg" /></p>
+<h1 id="sec-layer7">[10] Layer 7: Application<a class="headerlink" href="#sec-layer7" title="Permanent link">&para;</a></h1>
+<div class="figure-row">
+<p><img alt="image" src="../assets/rendered/c753c32f0044315e.svg" style="width:7.74cm" /></p>
+<p><img alt="image" src="../assets/fig/network_layer7.svg" style="width:13.77cm" /></p>
+</div>
+<p>The top layer of the TCP/IP network stack includes all applications that use TCP or UDP for transport. It is by far the one that contains the largest number of protocols, and where those protocols are more quickly created and replaced.</p>
+<p>In addition to user apps, there are several auxiliary systems and protocols that help with configuration and operation of all hosts in the Internet. Some of the most critical are addressed in this chapter.</p>
+<h2 id="sec-layer7-dns">[10.1] DNS – Domain Name System<a class="headerlink" href="#sec-layer7-dns" title="Permanent link">&para;</a></h2>
+<p>The <span class="concept" id="c1" data-key="DNS">DNS</span> protocol is responsible for translating <span class="concept" id="c2" data-key="domain name">domain names</span> such as <code>ietf.org</code> or<br />
+<code>cv.uab.cat</code> into <span class="concept" id="c3" data-key="IP">IP</span> addresses that can placed inside <span class="concept" id="c4" data-key="datagram">datagrams</span>.</p>
+<p>DNS services are run on both <span class="concept" id="c5" data-key="TCP">TCP</span> and <span class="concept" id="c6" data-key="UDP">UDP</span>, <em>i.e.</em>, both transport protocols can be enabled. In both cases, port <code>53</code> is used.</p>
+<h3 id="sec-layer6-dns-hierarchy">[10.1.1] Hierarchy<a class="headerlink" href="#sec-layer6-dns-hierarchy" title="Permanent link">&para;</a></h3>
+<p><img alt="image" src="../assets/fig/dns_hierarchy.svg" style="width:14.92cm" /></p>
+<p>Internet domain names are sequences of names separated by dots. These names are presented from the specific to the general in a hierarchical fashion. For instance, in <code>cv.uab.cat</code>, <code>cv</code> belongs to <code>uab.cat</code>, and <code>uab</code> to <code>cat</code>. The rightmost name, <em>e.g.</em>, <code>cat</code> or <code>com</code> must be one of IANA’s <span class="concept" id="c7" data-key="top-level domain">top-level domains</span>.</p>
+<p>DNS servers are organized in the same hierarchical way as those domain names. There are <span class="arithmatex">\(13\)</span> <span class="concept" id="c8" data-key="root DNS">root DNS</span> servers (<code>Root-A</code> to <code>Root-M</code>), which are responsible for all top-level domains. You can ask any of them about <code>com</code>, but also about <code>su</code>, and they will know about them.</p>
+<p>That does not mean that any root server knows about every domain <em>under</em> their top-level domain (<em>e.g.</em>, <code>uab.cat</code>): they just know about those <a href="https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains"><u>top-level domains</u></a>. (<em>e.g.</em>, <code>cat</code>). The job of the root DNS servers is to redirect you to another DNS server in charge of the <span class="concept" id="c9" data-key="top-level domain">top-level domain</span> you requested.</p>
+<p>Similarly, the DNS servers responsible for <code>cat</code> will know about any existing <code>*.cat</code> domain (<em>e.g.</em>, <code>uab.cat</code>), but not about subdomains (<em>e.g.</em>, <code>cv.uab.cat</code>). The job of those top-level domain DNS servers is to redirect you to other DNS servers <span class="concept" id="c10" data-key="authoritative">authoritative</span> for the second-level domain requested (<em>e.g.</em>, <code>uab.cat</code>). Second-level domains can then structure their name <span class="concept" id="c11" data-key="zone">zone</span> as desired, including any subdomain number and depth, as well as the name to IP translation <em>within</em> the zone of authority.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 10.1</p>
+<p>Everyone uses DNS all the time. What would be the risks of having a centralized name translation system instead of DNS’s distributed nature.</p>
+</div>
+<h3 id="records">Records<a class="headerlink" href="#records" title="Permanent link">&para;</a></h3>
+<p>DNS can be seen as a distributed database with different types of entries called <span class="concept" id="c12" data-key="DNS record">records</span>. The main ones are:</p>
+<ul>
+<li>
+<p><strong>A:</strong> An <span class="concept" id="c13" data-key="A">A</span> entry maps a domain name to an IPv4 address.</p>
+</li>
+<li>
+<p><strong>AAAA:</strong> An <span class="concept" id="c14" data-key="AAAA">AAAA</span> entry maps a domain name to an IPv6 address.</p>
+</li>
+<li>
+<p><strong>NS:</strong> An <span class="concept" id="c15" data-key="NS">NS</span> points to a DNS server that can help.</p>
+</li>
+<li>
+<p><strong>MX:</strong> A <span class="concept" id="c16" data-key="MX">MX</span> entry provides the domain name of the email server that handles messages for a domain.</p>
+</li>
+<li>
+<p><strong>CNAME:</strong> A <span class="concept" id="c17" data-key="CNAME">CNAME</span> entry maps a domain name to another domain name.</p>
+</li>
+</ul>
+<p>Applications make <span class="concept" id="c18" data-key="request">requests</span> to DNS servers indicating the type of records they are interested in. Server <span class="concept" id="c19" data-key="reply">replies</span> may be for the requested <span class="concept" id="c20" data-key="A">A</span> or <span class="concept" id="c21" data-key="MX">MX</span> records, but the client may also receive a redirection to another DNS (<span class="concept" id="c22" data-key="NS">NS</span>) or an alias to another domain name (<span class="concept" id="c23" data-key="CNAME">CNAME</span>).</p>
+<h3 id="resolution">Resolution<a class="headerlink" href="#resolution" title="Permanent link">&para;</a></h3>
+<p>The distributed and hierarchical nature if the DNS database makes it sometimes necessary to exchange multiple messages to satisfy a DNS <span class="concept" id="c24" data-key="query">query</span>.</p>
+<p>For instance, Alice may perform a fully <span class="concept" id="c25" data-key="iterative">iterative</span> resolution all on her own. The first two replies contain an <span class="concept" id="c26" data-key="NS">NS</span> entry pointing to the next DNS server and the IP address of that DNS server, but not the IP address of the requested <code>cv.uab.cat</code>.</p>
+<p><img alt="image" src="../assets/fig/dns_iterative.svg" style="width:22.95cm" /></p>
+<p>Alice’s internet provider (<span class="concept" id="c27" data-key="ISP">ISP</span>) or employer will likely offer DNS servers whose job is to receive Alice’s requests and resolve them for her in a <span class="concept" id="c28" data-key="recursive">recursive</span> manner.</p>
+<p><img alt="image" src="../assets/fig/dns_recursive.svg" style="width:24.1cm" /></p>
+<p>The combination of <span class="concept" id="c29" data-key="recursive">recursive</span> resolution and <span class="concept" id="c30" data-key="cache">cache</span> tables makes DNS a pretty efficient system with extremely high availability and low latency.</p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 10.2</p>
+<p>You can use the <code>host</code> and <code>dig</code> tools to make DNS queries and see the results. For instance, my output to <code>dig uab.cat -t ns</code> contains the following lines:</p>
+<div class="highlight"><pre><span></span><code>;; QUESTION SECTION:
+;uab.cat.                       IN      NS
+;; ANSWER SECTION:
+uab.cat.                172800  IN      NS      dns.uab.es.
+;; ADDITIONAL SECTION:
+dns.uab.es.             172112  IN      A       158.109.0.1
+</code></pre></div>
+<ul>
+<li>
+<p>What type of record did I request?</p>
+</li>
+<li>
+<p>What two record types did I receive?</p>
+</li>
+<li>
+<p>Why did I receive two record types?</p>
+</li>
+<li>
+<p>Perform a manual iterative resolution of <code>cv.uab.cat</code>. You may start with something like <code>dig @202.12.27.33 cv.uab.cat</code> to query the M root server.</p>
+</li>
+</ul>
+</div>
+<h2 id="sec-layer7-dhcp">[10.2] DHCP – Dynamic Host Configuration Protocol<a class="headerlink" href="#sec-layer7-dhcp" title="Permanent link">&para;</a></h2>
+<p>In order to fully participate in the Internet, a host needs to have the following aspects correctly configured:</p>
+<ul>
+<li>
+<p><strong>IP address</strong>: The IP address is needed to identify a node in the network, and for that node to know what messages are directed to it.</p>
+</li>
+<li>
+<p><strong>Netmask</strong>: Nodes need to know this to determine when to deliver datagrams directly, and when indirectly.</p>
+</li>
+<li>
+<p><strong>Gateway IP</strong>: The IP address of at least one router is needed to deliver messages indirectly with destination outside the current LAN.</p>
+</li>
+<li>
+<p><strong>DNS server’s IP address</strong>: Although not strictly required to use TCP/IP, the address of a DNS server is extremely useful, and required to resolve domain names into IP addresses.</p>
+</li>
+</ul>
+<p>Traditionally, these parameters had to be manually configured in each computer. Nowadays, most user’s computers are automatically configured with <span class="concept" id="c31" data-key="DHCP">DHCP</span>. Modern OSs contain a DHCP client that periodically queries the LAN until configured.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Network hardware comes with a pre-configured, default MAC address. Furthermore, a node needs to know its MAC address to operate the DHCP protocol. Therefore, MAC addresses are not configured via DHCP.</p>
+</div>
+<p>DHCP works on UDP. DHCP servers listen on port <code>67</code>, and clients listen on port <code>68</code>. The ideal DHCP exchange comprises <span class="arithmatex">\(4\)</span> messages: Discovery, Offer, Request, Acknowledgement.</p>
+<p><img alt="image" src="../assets/fig/dhcp_dora.svg" style="width:22.95cm" /></p>
+<ul>
+<li>
+<p><strong>Discovery</strong><br />
+    The goal of this message is to find DHCP servers willing to provide a configuration.<br />
+    In the first communication, the client doesn’t know the DHCP server’s IP. Instead, it uses:</p>
+<ul>
+<li>
+<p>Its MAC address as the source MAC address.</p>
+</li>
+<li>
+<p>The LAN’s broadcast (<code>ff:ff:ff:ff:ff:ff</code>) as the destination MAC address.</p>
+</li>
+<li>
+<p><code>0.0.0.0</code> as the source IP, meaning “unknown”.</p>
+</li>
+<li>
+<p>The <span class="concept" id="c32" data-key="local broadcast">local broadcast</span> address , <code>255.255.255.255</code>, as the destination IP.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Offer</strong><br />
+    Zero or more servers will reply to the client with configuration offers. These configurations (<em>e.g.</em>, IP addresses) are not property of the client until the server sends a DHCP Acknowledgement.<br />
+    The server keeps track of a <span class="concept" id="c33" data-key="pool">pool</span> of addresses that dynamically assigns to clients. IP addresses are offered for a fixed period of time, after which they expire unless they are <span class="concept" id="c34" data-key="renew">renewed</span> (see below). Addresses that are not renewed are put back in the pool and offered back to clients as they make requests.</p>
+<ul>
+<li>
+<p>The server can use its real IP address and the one offered to the client.</p>
+</li>
+<li>
+<p>The client knows it’s the recipient because the server pays attention to the client’s Discovery source MAC address.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Request</strong><br />
+    The client picks one of the received offers and requests that the assignment is completed.</p>
+<ul>
+<li>
+<p>The client uses the local broadcast address, <code>255.255.255.255</code>, as the destination.</p>
+</li>
+<li>
+<p>The client maintains <code>0.0.0.0</code> as the source because the offered address is still not the client’s.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Acknowledgement (ACK)</strong><br />
+    The server confirms the request. Once the client receives this ACK, it starts using the offered configuration as its own. This ACK should not be confused with TCP’s.</p>
+</li>
+<li>
+<p><strong>Negative Acknowledgement (NACK)</strong><br />
+    It is also possible that the server denies the request, <em>e.g.</em>, if too much time has passed since the offer. In this case, a negative Acknowledgement (NACK) is sent instead. If a NACK is received, the client needs to go back to the Discover phase.</p>
+</li>
+</ul>
+<p>When a DHCP server <span class="concept" id="c35" data-key="lease">leases</span> an address to a client, it does so for a limited period of time <span class="arithmatex">\(T\)</span>. This period is set by the DHCP server, and can be configured. After <span class="arithmatex">\(T/2\)</span> is elapsed, clients may try to renew the leased configuration. To do so, the Request-Acknowledgement cycle is repeated over time until either end fails to complete it in time, or the DHCP server sends a NACK.</p>
+<p><img alt="image" src="../assets/fig/dhcp_renewal.svg" style="width:22.95cm" /></p>
+<div class="admonition example">
+<p class="admonition-title">Exercise 10.3</p>
+<p>The typical domestic router implements both a DHCP client and a DHCP server. Explain how this is possible and why it is useful.</p>
+</div>
+<h2 id="sec-layer7-as">[10.3] Autonomous Systems<a class="headerlink" href="#sec-layer7-as" title="Permanent link">&para;</a></h2>
+<p>Routing is performed one <span class="concept" id="c36" data-key="hop">hop</span> at a time, using <span class="concept" id="c37" data-key="routing table">routing tables</span> as discussed in Section <a href="../layer3/#sec-layer3-routing">8.3</a>. Those tables need to be coordinated at a large scale to guarantee graph connectivity to all hosts in the Internet.</p>
+<p><img alt="image" src="../assets/fig/as.svg" style="width:22.95cm" /></p>
+<h3 id="organization">Organization<a class="headerlink" href="#organization" title="Permanent link">&para;</a></h3>
+<p>To facilitate this coordination, LANs are grouped in <span class="concept" id="c38" data-key="AS">autonomous systems</span> (<span class="concept" id="c39" data-key="AS">AS</span>). These manage non-overlapping blocks of IP addresses (<code>w.x.y.z/N</code>) that are separately owned and managed. Many companies, universities and ISPs have their own ASs that are publicly <a href="https://2ip.io/analytics/asn-list/"><u>listed</u></a>. For instance, UAB’s network belongs to AS13041.</p>
+<p><span class="concept" id="c40" data-key="IXP">Internet Exchange Points</span> (<span class="concept" id="c41" data-key="IXP">IXP</span>) are a special kind of AS whose purpose is to interconnect other ASs, instead of hosting services and/or clients. Of course, running these IXPs is not free, so commercial relations are established with those interconnected ASs. Some IXPs are committed to providing service to anyone meeting their basic requirements, are not controlled by any single operator, and offer transparent and often equitable pricing to their clients. This type of IXP is called <span class="concept" id="c42" data-key="NP">Neutral Point</span> (<span class="concept" id="c43" data-key="NP">NP</span>), as opposed to nonneutral points used, <em>e.g.</em>, only by a single network operator.</p>
+<p>All ASs operate <span class="concept" id="c44" data-key="BR">border routers</span> (<span class="concept" id="c45" data-key="BR">BR</span>) to interconnect ASs. When a border router receives a datagram with destination inside the AS, it forwards the datagram through the AS’ <span class="concept" id="c46" data-key="internal router">internal routers</span> (IR). Similarly, when a host inside an AS needs to contact a host in another AS, datagrams are forwarded through border routers until they reach the destination AS and ultimately the destination LAN.</p>
+<h3 id="routing-table-configuration">Routing table configuration<a class="headerlink" href="#routing-table-configuration" title="Permanent link">&para;</a></h3>
+<p>Manually configuring the <span class="concept" id="c47" data-key="routing table">routing tables</span> of all border routers and internal routers would be too costly and prone to errors. Instead, different algorithms are employed to configure them automatically.</p>
+<ul>
+<li>
+<p>Within the AS, internal routers and border routers use one of the available <span class="concept" id="c48" data-key="interior gateway protocol">interior gateway protocols</span>. Often, <span class="concept" id="c49" data-key="RIP">RIP</span> (Routing Information Protocol) is used due to its relatively simple configuration. That said, ASs may freely choose the algorithm they use internally to their AS.<br />
+    RIP implements a variation of the Bellman-Ford shortest path algorithm to minimize the number of <span class="concept" id="c50" data-key="hop">hops</span> datagrams need to travel within the AS. Periodically (<em>e.g.</em>, every <span class="arithmatex">\(30\)</span> s), each IR and BR:</p>
+<ol>
+<li>
+<p>Advertises its <em>perceived</em> distance to other routers in the AS.</p>
+</li>
+<li>
+<p>Updates its perceived distances based on other router’s advertisements.</p>
+</li>
+<li>
+<p>Updates its <span class="concept" id="c51" data-key="routing table">routing table</span> to all LANs in the AS accordingly.</p>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Exercise 10.4</p>
+<p>RIP uses the number of hops as its cost metric. How could this be problematic? How can this problem be solved?</p>
+</div>
+</li>
+<li>
+<p>Between ASs, only border routers need be configured; interior routers simply need to direct exterior traffic through the border routers.<br />
+    Border routers run an <span class="concept" id="c52" data-key="exterior gateway protocol">exterior gateway protocol</span> in addition to the interior gateway protocol used within the AS. Different ASs must agree on the algorithm they use, so <span class="concept" id="c53" data-key="BGP">BGP</span> (border gateway protocol) is normally used.<br />
+    <span class="concept" id="c54" data-key="BGP">BGP</span> is a more complex protocol than <span class="concept" id="c55" data-key="RIP">RIP</span>. This complexity is needed because BGP coordinates border routers belonging to different ASs, <em>i.e.</em>, with different owners:</p>
+<ul>
+<li>
+<p>RIP uses a single number (the distance, <em>i.e.</em>, the number of <span class="concept" id="c56" data-key="hop">hops</span>) to guide a shortest-path graph algorithm. BGP uses <span class="concept" id="c57" data-key="path">paths</span> instead of distances. This allows BGP to choose routes with more <span class="concept" id="c58" data-key="hop">hops</span>, but more desirable to the AS, <em>e.g.</em>, in terms of time, monetary cost, internal load, etc.</p>
+</li>
+<li>
+<p>BGP was designed with the notion of security and trust in mind, and includes mechanisms to verify the authenticity of the paths announced by a border route.</p>
+</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>BGP can also be used as the AS’ interior gateway protocol. This is typically done only by very large ASs.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Exercise 10.5</p>
+<p>How can BGP translate economic interest into routing configurations?</p>
+</div>
+<script>window.XOI_ASSETS = "../assets/";</script>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../layer4/" class="md-footer__link md-footer__link--prev" aria-label="Previous: [9] Layer 4: Transport">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                [9] Layer 4: Transport
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../concepts/" class="md-footer__link md-footer__link--next" aria-label="Next: Index of concepts">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Index of concepts
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.indexes", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "search.highlight", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../scripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../scripts/wide-tables.js"></script>
+      
+        <script src="../scripts/search-highlight.js"></script>
+      
+        <script src="../scripts/technical-terms.js"></script>
+      
+        <script src="../scripts/goatcounter.js"></script>
+      
+        <script src="https://gc.zgo.at/count.js" async></script>
+      
+    
+  </body>
+</html>
