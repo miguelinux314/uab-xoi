@@ -33,12 +33,12 @@ Esto hace más fácil (léase: más barato) escribir el código una vez y ejecut
 
 Los mensajes de capa~2 tienen una longitud limitada. La cantidad máxima de datos de payload (carga útil)
 que se pueden insertar en un protocolo de capa~2 se denomina \conceptRef{MTU}{unidad máxima de transmisión (MTU)},
-\eg, $1500$~bytes en Ethernet.
+\eg\ $1500$~bytes en Ethernet.
 
 Algunos protocolos de capa~2 también pueden proporcionar \conceptRef{authentication}{autenticación} de usuario y
 protección \conceptRef{cryptography}{criptográfica}; 
 \concept{Wi-Fi} es un ejemplo destacado,
-aunque las redes cableadas también pueden emplear, \eg, IEEE 802.1X.
+aunque las redes cableadas también pueden emplear, \eg\ IEEE 802.1X.
 
 \vspace{-0.3cm}
 \begin{center}
@@ -50,7 +50,7 @@ aunque las redes cableadas también pueden emplear, \eg, IEEE 802.1X.
 Se han definido y se siguen definiendo muchos \conceptRef{protocol}{protocolos} dentro de la capa~2. Los más importantes en la actualidad:\\[-0.65cm]
 \begin{itemize}
 \item \concept{Ethernet} (IEEE 802.3), que se trata en \secref{sec:layer2:ethernet}.
-\item \concept{Wi-Fi} (\eg, IEEE 802.11be, alias Wi-Fi 7, de 2024).
+\item \concept{Wi-Fi} (\eg\ IEEE 802.11be, alias Wi-Fi 7, de 2024).
 \end{itemize}
 
 Dentro de \concept{TCP/IP}, la capa~2 \conceptRef{encapsulation}{encapsula} las siguientes \conceptRef{PDU}{PDU} de protocolo
@@ -67,7 +67,7 @@ La orden \inlineCode{ip link} muestra y permite configurar tus interfaces,
 incluida la dirección \concept{MAC}.
 
 Tu sistema operativo suele asignar automáticamente los nombres internos de las interfaces según su tipo,
-\eg, \inlineCode{eth0} o \inlineCode{wlan1}.
+\eg\ \inlineCode{eth0} o \inlineCode{wlan1}.
 % 
 Normalmente se pueden renombrar las interfaces, porque los nombres de interfaz
 no forman parte de TCP/IP; se usan exclusivamente dentro de ese sistema operativo.
@@ -77,7 +77,7 @@ no forman parte de TCP/IP; se usan exclusivamente dentro de ese sistema operativ
 \section{Direccionamiento de capa~2}
 En la mayoría de las tecnologías de LAN, las direcciones de capa~2 son identificadores numéricos únicos para cada dispositivo dentro de la LAN. 
 El tipo más frecuente son las direcciones MAC de Ethernet (técnicamente EUI-48), que ocupan $6$~bytes (\ie, $48$~bits).
-También se usan fuera de Ethernet, \eg, en Wi-Fi y Bluetooth.
+También se usan fuera de Ethernet, \eg\ en Wi-Fi y Bluetooth.
 
 Las direcciones MAC se presentan a las personas habitualmente en el siguiente formato:\\\otherBase{01:23:45:67:89:ab}.
 Algunas direcciones tienen un significado especial y no son identificadores válidos de dispositivo.
@@ -118,13 +118,13 @@ Los paquetes de este tipo se denominan \conceptRef{frame}{frames} (tramas):\\[-0
   o \otherBase{ff:ff:ff:ff:ff:ff} para \concept{broadcast}.
 \item \textbf{MAC de origen}: la MAC del dispositivo que envía el frame.
 \item \textbf{Tipo de payload}: identificador del protocolo 
-  \conceptRef{encapsulation}{encapsulado} en el payload,\\\eg, 
+  \conceptRef{encapsulation}{encapsulado} en el payload,\\\eg\ 
   \otherBase{0x0800}~$\rightarrow$~\concept{IPv4}, 
   \otherBase{0x86DD}~$\rightarrow$~\concept{IPv6}, y
   \otherBase{0x0806}~$\rightarrow$~\concept{ARP}. 
   A veces se le llama \href{https://en.wikipedia.org/wiki/EtherType#Values}{\underline{EtherType}}.
   
-\item \textbf{Payload}: contenido que se solicita enviar, \eg, por IPv4 o ARP.
+\item \textbf{Payload}: contenido que se solicita enviar, \eg\ por IPv4 o ARP.
   La longitud máxima de este campo, la \concept{MTU}, es de $1500$~bytes en ethernet.
 \end{itemize}
 
@@ -166,7 +166,7 @@ sea idéntico a su propia dirección MAC, o sea el de \concept{broadcast}.
 Un nodo también descartará un frame con un campo de tipo de payload (\concept{EtherType}) no soportado. 
 % 
 Si el tipo de payload sí está soportado, se usa para decidir qué parte del sistema operativo recibe el mensaje,
-\eg, la pila \concept{IPv4} o el subsistema \concept{ARP}.
+\eg\ la pila \concept{IPv4} o el subsistema \concept{ARP}.
 
 \begin{exercise} Siguiendo con el ejemplo de la figura anterior, la tarjeta de red del nodo~B recibe
 un \concept{frame} que empieza con los siguientes bytes. ¿Debería aceptarlo B?
@@ -208,7 +208,7 @@ El \conceptRef{server}{servidor} espera hasta recibir $5$ frames Ethernet de ese
 \end{center}
 
 \begin{remark}
-Tendrás que ejecutar estos scripts con privilegios, \eg, con \inlineCode{sudo}.
+Tendrás que ejecutar estos scripts con privilegios, \eg\ con \inlineCode{sudo}.
 % 
 Como alternativa, puedes añadir permanentemente las capacidades \texttt{CAP\_NET\_RAW}
 a tu binario de python con

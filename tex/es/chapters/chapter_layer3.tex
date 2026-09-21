@@ -52,7 +52,7 @@ ni el origen ni el destino, por lo que pueden perderse, desordenarse y duplicars
 % 
 La capa~3 no proporciona mecanismos para tratar esto; las capas superiores deben implementar
 mecanismos de protección cuando sea necesario 
-(\eg, para implementar los \conceptRef{stream}{flujos de datos} de \concept{TCP}).
+(\eg\ para implementar los \conceptRef{stream}{flujos de datos} de \concept{TCP}).
 
 \begin{center}
 \includegraphics[width=0.9\linewidth]{protocols_layer3.pdf}
@@ -89,14 +89,14 @@ Los comandos \inlineCode{ip address}, \inlineCode{ip route} y \inlineCode{ip nei
 \section{Direccionamiento en la capa~3}\label{sec:layer3:addressing}
 
 Las direcciones \concept{IPv4} tienen $32$~bits de longitud. Lo más habitual es presentarlas a las personas en
-formato \conceptRef{quad decimal}{cuádruple decimal}, \eg,
+formato \conceptRef{quad decimal}{cuádruple decimal}, \eg\ 
 \begin{center}
 \otherBase{142.250.201.67}
 \end{center}
 
 Las direcciones \concept{IPv6} tienen $128$~bits ($12$~bytes) de longitud, \ie, 
 son $4$~veces mayores que una dirección IPv4.
-Se expresan en formato hexadecimal, \eg, como sigue. Fíjate en cómo 
+Se expresan en formato hexadecimal, \eg\ como sigue. Fíjate en cómo 
 dos signos de dos puntos ``\otherBase{::}'' indican ``rellena con ceros'',
 y ``\otherBase{::}'' solo puede aparecer una vez por dirección IPv6.
 \begin{center}
@@ -105,7 +105,7 @@ y ``\otherBase{::}'' solo puede aparecer una vez por dirección IPv6.
 
 \begin{remark}
 Cuando una dirección \concept{IPv6} se usa como parte de una URL, se rodea con corchetes,
-\eg, \otherBase{https://[fe80::f524:a73a:e946:7c02]/}.
+\eg\ \otherBase{https://[fe80::f524:a73a:e946:7c02]/}.
 \end{remark}
 
 
@@ -115,7 +115,7 @@ La mayoría de las direcciones IP son \conceptRef{public IP}{públicas} y única
 \ie, la IP anterior tiene el mismo significado en todo el mundo: identifica un único dispositivo conectado.
 % 
 Muchas direcciones son \conceptRef{reserved IP address}{reservadas/privadas} y solo pueden 
-usarse dentro de un ámbito concreto (\eg, una LAN) o en una situación concreta.
+usarse dentro de un ámbito concreto (\eg\ una LAN) o en una situación concreta.
 Algunas de las más comunes son las siguientes (hay 
 \href{https://en.wikipedia.org/wiki/Reserved_IP_addresses#IPv4}{\underline{algunas más}}, 
 también para IPv6):
@@ -126,9 +126,9 @@ también para IPv6):
 \textbf{Bloque de direcciones IP} & \textbf{Ámbito de la dirección} \\
 \toprule
 \otherBase{127.*.*.*} & Este ordenador (localhost) \\[0.1cm]
-\otherBase{10.*.*.*} & Esta LAN \\
-\otherBase{172.16.*.*} & Esta LAN \\
-\otherBase{192.168.*.*} & Esta LAN \\[0.1cm]
+\otherBase{10.*.*.*} & Interno (privado) \\
+\otherBase{172.16.*.*} & Interno (privado) \\
+\otherBase{192.168.*.*} & Interno (privado) \\[0.1cm]
 \otherBase{0.*.*.*} & Usos especiales \\
 \otherBase{169.254.*.*}& Usos especiales \\
 \otherBase{255.255.255.255} & Usos especiales\\
@@ -445,7 +445,7 @@ Cuando un dispositivo A quiere enviar un datagrama IP a un dispositivo B, las IP
 destino de la cabecera son fijas y no cambian para ese datagrama.
 
 Si los dispositivos A y B pertenecen a la misma LAN, el datagrama se envía directamente
-(\eg, encapsulado en un frame (trama) Ethernet). Sin embargo, IP puede llegar mucho más lejos.
+(\eg\ encapsulado en un frame (trama) Ethernet). Sin embargo, IP puede llegar mucho más lejos.
 Considera el siguiente escenario, en el que A quiere comunicarse con E.
 
 \begin{center}
@@ -505,8 +505,8 @@ Si lo reconoce, el router procesa el datagrama de la siguiente manera:
     %     
     \item La MAC de origen del frame $F'$
     es distinta de la MAC de destino del frame $F$ recibido si el router 
-    recibió $F$ por una interfaz (\eg \inlineCode{eth7}) y lo reenvía por otra 
-    (\eg,  \inlineCode{eth9}).
+    recibió $F$ por una interfaz (\eg\ \inlineCode{eth7}) y lo reenvía por otra 
+    (\eg\  \inlineCode{eth9}).
     \end{itemize}
     
     \begin{center}     
@@ -557,7 +557,7 @@ Todas las tablas de encaminamiento tienen al menos las siguientes columnas:
 \item \textbf{Gateway/via} (pasarela): si la fila corresponde a una \concept{indirect delivery}, esta columna contiene la dirección IP
   del siguiente router. En caso contrario, esta columna contiene \otherBase{0.0.0.0} para indicar una \concept{direct delivery}.\\[-0.3cm]
   
-\item \textbf{Interfaz}: nombre interno de la interfaz de red (\eg, de la tarjeta Ethernet) que se usará para entregar el 
+\item \textbf{Interfaz}: nombre interno de la interfaz de red (\eg\ de la tarjeta Ethernet) que se usará para entregar el 
   datagrama. Los sistemas operativos pueden usar la convención que quieran, siempre que puedan identificarse de forma única en la tabla.
   Los nombres habituales empiezan por \inlineCode{eth}, \inlineCode{wlan}, \inlineCode{atm}, 
   y más recientemente \inlineCode{en} y \inlineCode{wl}.
@@ -659,7 +659,7 @@ siga un ciclo y produzca el error ``TTL exceeded''.
 \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} \\
 \end{bytefield}
 
-Las \conceptRef{LAN}{LANs} pueden considerarse bloques de direcciones (\eg, expresados en formato \concept{CIDR})
+Las \conceptRef{LAN}{LANs} pueden considerarse bloques de direcciones (\eg\ expresados en formato \concept{CIDR})
 con dos direcciones reservadas. A las redes accesibles directamente a través de Internet se les debe asignar 
 un bloque válido lo bastante grande para conectar todos los dispositivos necesarios. Para asegurarse de que no haya dos dispositivos en Internet
 con la misma IP \conceptRef{public}{pública}, no puede haber dos LANs que contengan la misma dirección 
@@ -676,7 +676,7 @@ puede dividirse en dos bloques \otherBase{/1}, cada uno con la mitad de las dire
 Este proceso continúa de forma independiente para cada uno de los bloques resultantes, y se detiene cuando el tamaño 
 de LAN resultante es el deseado. 
 
-Dado un bloque de direcciones \otherBase{/N} (\eg, el de una única LAN existente), puede que queramos dividirlo 
+Dado un bloque de direcciones \otherBase{/N} (\eg\ el de una única LAN existente), puede que queramos dividirlo 
 en subbloques y tener en su lugar varias LANs más pequeñas (\conceptRef{subnet}{subredes}). 
 % 
 En las subredes solo podemos usar direcciones del bloque original, pero se pueden reservar bloques
@@ -744,7 +744,7 @@ para obtener una red \otherBase{/23} $N_{/23}$? ¿Cuál es su dirección de red?
 El \conceptRef{subnetting}{subnetting} suele basarse en cuántas direcciones IP deben estar 
 disponibles en cada subred. 
 Ese tamaño determina el número de bits de la máscara de red de la subred, como se vio en la Sección~\ref{sec:layer3:lans_and_netmasks}.
-Pueden añadirse restricciones adicionales, \eg, hacer que las direcciones IP de una subred sean las mayores,
+Pueden añadirse restricciones adicionales, \eg\ hacer que las direcciones IP de una subred sean las mayores,
 o menores que las de otras subredes. 
 
 \begin{remark}
@@ -909,7 +909,7 @@ Los datagramas que contienen fragmentos pueden llegar duplicados y/o desordenado
 El Address Resolution Protocol (\concept{ARP}) lo usa la capa~3 (\concept{IP})
 para obtener la dirección \concept{MAC} (física) de destino correspondiente a una dirección IP conocida.
 
-Los paquetes ARP se envían como payload de frames de capa~2 (\eg, Ethernet). 
+Los paquetes ARP se envían como payload de frames de capa~2 (\eg\ Ethernet). 
 Los paquetes ARP \textit{no} son datagramas y \textit{no} contienen cabeceras IP.
 
 \begin{remark}
@@ -1016,7 +1016,7 @@ Cuando se recibe una respuesta ARP válida, el SO actualiza una
 Si el SO necesita enviar un datagrama a esa IP antes de que expire esa entrada de la caché,
 se usa directamente la dirección MAC de la tabla sin necesidad de mensajes ARP adicionales.
 % 
-El comando \inlineCode{ip neighbor} muestra el contenido de esa tabla, \eg,
+El comando \inlineCode{ip neighbor} muestra el contenido de esa tabla, \eg\ 
 \begin{verbatim}
 192.168.0.1 dev wlp5s0 lladdr cc:2d:14:fc:22:60 REACHABLE
 \end{verbatim}
@@ -1092,7 +1092,7 @@ datagrama que provocó ese mensaje ICMP de error:\\[-0.2cm]
 \end{center}
 
 Para los mensajes echo request y echo reply, el campo de datos ICMP es arbitrario dentro de los límites
-de los datagramas IP. La fragmentación de datagramas ICMP (\eg, payloads de ping grandes) es posible,
+de los datagramas IP. La fragmentación de datagramas ICMP (\eg\ payloads de ping grandes) es posible,
 pero muchos routers ignoran los fragmentos ICMP.
 
 \subsection{Funcionamiento}
@@ -1101,7 +1101,7 @@ Los mensajes de error ICMP los envían los \conceptRef{router}{routers} y los ho
 disparados por otros datagramas:
 \begin{itemize}
 \item La familia de mensajes ``Destination unreachable'' se envía cuando un datagrama no puede 
-entregarse a su destino, \eg, por una \conceptRef{routing table}{tabla de encaminamiento} mal configurada, 
+entregarse a su destino, \eg\ por una \conceptRef{routing table}{tabla de encaminamiento} mal configurada, 
 un \conceptRef{port}{puerto} cerrado (véase la Sección~\ref{sec:layer4}), o simplemente porque el host
 de destino no está encendido.
 

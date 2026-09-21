@@ -48,7 +48,7 @@ Estos nombres se presentan de lo específico a lo general, de forma jerárquica.
 Por ejemplo, en \otherBase{cv.uab.cat}, \otherBase{cv} pertenece a \otherBase{uab.cat},
 y \otherBase{uab} a \otherBase{cat}.
 % 
-El nombre situado más a la derecha, \eg, \otherBase{cat} o \otherBase{com},
+El nombre situado más a la derecha, \eg\ \otherBase{cat} o \otherBase{com},
 debe ser uno de los \conceptRef{top-level domain}{dominios de primer nivel} de la IANA.
 
 Los servidores DNS se organizan de la misma forma jerárquica que esos nombres de dominio.
@@ -58,20 +58,20 @@ Puedes preguntar a cualquiera de ellos por \otherBase{com},
 pero también por \otherBase{su}, y sabrán de ellos.
 
 Eso no significa que un servidor raíz conozca todos los dominios que hay \textit{por debajo}
-de su dominio de primer nivel (\eg, \otherBase{uab.cat}): solo conocen esos
+de su dominio de primer nivel (\eg\ \otherBase{uab.cat}): solo conocen esos
 \href{https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains}{\underline{dominios de primer nivel}}.
-(\eg, \otherBase{cat}).
+(\eg\ \otherBase{cat}).
 % 
 El trabajo de los servidores DNS raíz es redirigirte a otro servidor DNS encargado
 del \conceptRef{top-level domain}{dominio de primer nivel} que has solicitado.
  
 De forma similar, los servidores DNS responsables de \otherBase{cat} conocerán
-cualquier dominio \otherBase{*.cat} existente (\eg, \otherBase{uab.cat}),
-pero no sus subdominios (\eg, \otherBase{cv.uab.cat}).
+cualquier dominio \otherBase{*.cat} existente (\eg\ \otherBase{uab.cat}),
+pero no sus subdominios (\eg\ \otherBase{cv.uab.cat}).
 % 
 El trabajo de esos servidores DNS de dominio de primer nivel es redirigirte a
 otros servidores DNS \conceptRef{authoritative}{autoritativos} para el dominio de segundo nivel
-solicitado (\eg, \otherBase{uab.cat}).
+solicitado (\eg\ \otherBase{uab.cat}).
 % 
 Los dominios de segundo nivel pueden entonces estructurar su \conceptRef{zone}{zona} de nombres
 como deseen, incluyendo cualquier número y profundidad de subdominios, así como
@@ -206,7 +206,7 @@ no conoce la IP del servidor DHCP. En su lugar, usa:
 \vspace{0.25cm}
 \item \textbf{Offer}\\
 Cero o más servidores responderán al cliente con ofertas de configuración.
-Estas configuraciones (\eg, direcciones IP) no son propiedad del cliente
+Estas configuraciones (\eg\ direcciones IP) no son propiedad del cliente
 hasta que el servidor envía un Acknowledgement DHCP.\\[-0.3cm]
 
 El servidor lleva la cuenta de un \concept{pool} (conjunto) de direcciones que asigna
@@ -242,7 +242,7 @@ Este ACK no debe confundirse con el de TCP.
 
 \vspace{0.25cm}
 \item \textbf{Negative Acknowledgement (NACK)}\\
-También es posible que el servidor deniegue la petición, \eg, si
+También es posible que el servidor deniegue la petición, \eg\ si
 ha pasado demasiado tiempo desde la oferta. En este caso,
 se envía en su lugar un Acknowledgement negativo (NACK). Si se recibe un NACK,
 el cliente debe volver a la fase Discover.
@@ -311,7 +311,7 @@ A menudo se usa \concept{RIP} (Routing Information Protocol) por su configuraci�
 Dicho esto, los AS pueden elegir libremente el algoritmo que usan internamente en su AS.\\[-0.2cm]
 
 RIP implementa una variación del algoritmo de camino más corto de Bellman-Ford para minimizar el número de \conceptRef{hop}{saltos}
-que los datagramas deben recorrer dentro del AS. Periódicamente (\eg, cada $30$~s), cada IR y BR:\\[-0.4cm]
+que los datagramas deben recorrer dentro del AS. Periódicamente (\eg\ cada $30$~s), cada IR y BR:\\[-0.4cm]
 % 
   \begin{enumerate}
   \item Anuncia su distancia \textit{percibida} al resto de routers del AS.
@@ -342,7 +342,7 @@ con distintos propietarios:\\[-0.4cm]
 \item RIP usa un único número (la distancia, \ie, el número de \conceptRef{hop}{saltos})
 para guiar un algoritmo de camino más corto en el grafo. BGP usa \conceptRef{path}{caminos} en lugar de distancias.
 Esto permite a BGP elegir rutas con más \conceptRef{hop}{saltos}, pero más deseables para el AS,
-\eg, en términos de tiempo, coste económico, carga interna, etc.\\[-0.4cm]
+\eg\ en términos de tiempo, coste económico, carga interna, etc.\\[-0.4cm]
 
 \item BGP se diseñó teniendo en mente la seguridad y la confianza, e incluye mecanismos
 para verificar la autenticidad de los caminos anunciados por un router frontera.

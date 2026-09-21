@@ -41,7 +41,7 @@ que a menudo se atribuye a Paul Baran y a Donald Davies.
 Al mismo tiempo, queremos que los paquetes contengan tantos datos como sea posible, porque cada paquete 
 contiene datos de \concept{overhead} (sobrecarga), como las direcciones que se comentan en la Sección~\ref{sec:where}, que hay
 que enviar además de los datos de payload (carga útil) del usuario. Las redes fijan la longitud máxima de paquete
-mediante un parámetro llamado \conceptRef{MTU}{unidad máxima de transmisión} (MTU), \eg, 1500~bytes en Ethernet.
+mediante un parámetro llamado \conceptRef{MTU}{unidad máxima de transmisión} (MTU), \eg\ 1500~bytes en Ethernet.
 
 
 La transmisión de paquetes a través de un \conceptRef{data link}{enlace de datos} debe hacerse con cuidado,
@@ -52,7 +52,7 @@ lo que puede conseguirse mediante al menos tres estrategias:
 \item \textit{Longitud fija}: la longitud de todos los paquetes es la misma. El emisor y el receptor deben haber
 acordado este valor de antemano.
 
-\item \textit{Longitud explícita}: la longitud del paquete se incluye en el propio paquete, \eg, 
+\item \textit{Longitud explícita}: la longitud del paquete se incluye en el propio paquete, \eg\ 
 usando el primer byte del paquete. El emisor y el receptor deben ponerse de acuerdo sobre cómo se incluye
 esta información y cómo interpretarla.
 
@@ -63,7 +63,7 @@ significa ``fin de paquete'': estos bits deben aparecer después de cada paquete
 % 
 Así, el emisor podría empezar a transmitir el contenido de un paquete, seguido de \otherBase{0xf0}.
 Ambas partes deben acordar qué secuencias de escape usar, qué significan y cómo 
-enviar datos iguales a esas secuencias (\eg, debería ser posible enviar \otherBase{0xf0f0f0}
+enviar datos iguales a esas secuencias (\eg\ debería ser posible enviar \otherBase{0xf0f0f0}
 sin provocar un ``fin de paquete'' hasta que se hayan transmitido todos los bytes).
 \end{enumerate}
 
@@ -229,7 +229,7 @@ paquetes distintos pueden entregarse por rutas distintas que pueden tener longit
 desordenados.
 
 Si queremos simular un \conceptRef{stream}{flujo} de datos, los paquetes deben contener suficiente meta-información para que puedan detectarse las pérdidas y 
-restaurarse el orden correcto. Esto introduce un \concept{overhead} que no es adecuado en todos los escenarios --\eg, latencia muy baja--,
+restaurarse el orden correcto. Esto introduce un \concept{overhead} que no es adecuado en todos los escenarios --\eg\ latencia muy baja--,
 así que algunas aplicaciones basan su comunicación en red en \conceptRef{message}{mensajes} en lugar de en flujos.
 
 Cuando se requieren flujos, se usa el concepto de \concept{offset} (desplazamiento) para reensamblar varios mensajes en 

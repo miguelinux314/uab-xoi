@@ -80,8 +80,8 @@ TCP y 6 se refieren a TCP (el de siempre) sobre IPv6.
 Las ``direcciones'' de TCP y UDP se llaman \conceptRef{port}{puertos} y son enteros sin signo de $16$ bits.
 Para las personas, los puertos se expresan principalmente de dos formas:
 \begin{itemize}
-\item Como un número, \eg, 22, 80 o 443.
-\item Como el nombre del servicio que suele usar ese puerto, \eg, \concept{sshd}, \conceptRef{HTTP}{http}, \conceptRef{HTTPs}{https}.
+\item Como un número, \eg\ 22, 80 o 443.
+\item Como el nombre del servicio que suele usar ese puerto, \eg\ \concept{sshd}, \conceptRef{HTTP}{http}, \conceptRef{HTTPs}{https}.
 \end{itemize}
 
 Cuando se recibe una PDU de capa~4, el sistema operativo usa el puerto de su cabecera para saber cuál de los procesos
@@ -99,7 +99,7 @@ se tratan de forma independiente:
 
 El puerto número \otherBase{0} está reservado, así que el rango de puertos utilizable es \otherBase{1}--\otherBase{65535}.
 Los puertos \otherBase{1}--\otherBase{1023} solo se asocian a
-procesos con privilegios (\eg, un \conceptRef{server}{servidor} http), mientras que las aplicaciones cliente (\eg, un \conceptRef{client}{cliente} http)
+procesos con privilegios (\eg\ un \conceptRef{server}{servidor} http), mientras que las aplicaciones cliente (\eg\ un \conceptRef{client}{cliente} http)
 solo pueden hacer bind a los puertos \otherBase{1024}--\otherBase{65535} en función de su disponibilidad.
 
 \begin{exercise}
@@ -171,7 +171,7 @@ El siguiente fragmento de código muestra el esqueleto básico de un servidor UD
 \begin{remark}
 Este código usa \conceptRef{socket}{sockets} UDP normales, así que no necesita permisos de administrador
 ni la capacidad \inlineCode{CAP_NET_RAW}, como sí ocurría en el Ejercicio~\ref{ex:layer2:echo},
-que en cambio requería acceso a sockets de capa~2 (\eg, Ethernet).
+que en cambio requería acceso a sockets de capa~2 (\eg\ Ethernet).
 \end{remark}
 \end{exercise}
 
@@ -459,7 +459,7 @@ por segmento permitida en una conexión TCP.
 \end{center}
 
 La razón de este límite es evitar la fragmentación, por motivos de rendimiento,
-\eg, por el elevado coste en tiempo y memoria del reensamblado.
+\eg\ por el elevado coste en tiempo y memoria del reensamblado.
 
 Por defecto, el MSS es de $536$~bytes en \concept{IPv4},
 pero se puede negociar con las opciones de la cabecera TCP durante la fase de apertura de la conexión.
@@ -545,7 +545,7 @@ Cuando el segundo lado termina de enviar datos, también envía un segmento con 
 \end{center}
 
 Fíjate en que, si el otro extremo quiere terminar la conexión en cuanto recibe un segmento FIN,
-el proceso de cierre se condensa en $3$ segmentos en lugar de $4$, \eg,
+el proceso de cierre se condensa en $3$ segmentos en lugar de $4$, \eg\ 
 
 
 \begin{center}
@@ -572,12 +572,12 @@ Fíjate en que:
 A veces hay que terminar una conexión y no hay tiempo ni interés suficientes
 para pasar por el proceso de cierre bilateral de varios pasos.
 % 
-Puede ser el caso, \eg, cuando un \conceptRef{process}{proceso} se cuelga, un puerto TCP o UDP dado está
+Puede ser el caso, \eg\ cuando un \conceptRef{process}{proceso} se cuelga, un puerto TCP o UDP dado está
 bloqueado y en otras situaciones de error.
 
 En este escenario, el host que ha detectado la situación anómala simplemente envía un segmento
 con su flag \concept{RST} (reset) activado. Los extremos receptores no deben confirmar
-el RST; en su lugar, se liberan directamente los recursos de la conexión, \eg,
+el RST; en su lugar, se liberan directamente los recursos de la conexión, \eg\ 
 
 \begin{center}
 \includegraphics[width=\linewidth]{tcp_close_reset.eps} 
