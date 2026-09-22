@@ -12,8 +12,8 @@ Això es pot imaginar com una seqüència de passos:
 \end{center}
 
 Els ordinadors treballen amb \conceptRef{data}{dades} digitals i les transmeten, \ie, seqüències binàries
-de \zero\ i \one\ com a símbols. 
-Tanmateix, la transmissió de dades té lloc en el món real, on \zero\ i \one\ són idees i no objectes tangibles.
+de \mbox{\zero\ i \one} com a símbols. 
+Tanmateix, la transmissió de dades té lloc en el món real, on \mbox{\zero\ i \one} són idees i no objectes tangibles.
 
 Aquest capítol estudia com aquests símbols digitals \textit{travessen el vel}  
 del món digital al món analògic (físic) en la transmissió, i de tornada de l'analògic al digital en la recepció.
@@ -47,31 +47,31 @@ hem de parar molta atenció, com a mínim, als aspectes següents sempre que lle
 \item enter o amb decimals? 
 \item \conceptRef{bitdepth}{profunditat de bits}? (\eg, 8 bits per nombre)
 \item \conceptRef{sign}{amb signe} o \conceptRef{sign}{sense signe}?
-\item Per a nombres de diversos bytes: \concept{big endian} o \concept{little endian}?
-\item Per a nombres amb decimals: \conceptRef{floating-point}{coma flotant} o \conceptRef{fixed-point}{coma fixa}?
+\item Per a nombres de diversos bytes: \conceptRef{big endian/little endian}{big endian} o \conceptRef{big endian/little endian}{little endian}?
+\item Per a nombres amb decimals: \conceptRef{fixed-point/floating-point}{coma flotant} o \conceptRef{fixed-point/floating-point}{coma fixa}?
 \end{itemize}
 % 
 \begin{exercise}
-Explica \textbf{com completar la segona fila a partir de la primera} (i viceversa),
+Explica com completar la segona fila a partir de la primera (i viceversa),
 i quines suposicions has de fer en cada cas.
 % 
 \begin{center}
 \begin{tabular}{lcccccc}
 \toprule
-\textbf{Nombre} 
-& $7$ 
+\textbf{Decimal}
+& $7$
 & $2$
 & $-3$
 & $0.75$
 & $260$
 \\
 \midrule
-\textbf{Binari} 
-& \zero\zero\one\one\one
-& \zero\zero\zero\zero\zero\zero\one\zero
-& \one\one\zero\one
-& \one\one\zero\zero
-& \zero\zero\zero\zero\ \zero\one\zero\zero\ \zero\zero\zero\zero\ \zero\zero\zero\one\
+\textbf{Binari}
+& \mbox{\zero\zero\one\one\one}
+& \mbox{\zero\zero\zero\zero\zero\zero\one\zero}
+& \mbox{\one\one\zero\one}
+& \mbox{\one\one\zero\zero}
+& \mbox{\zero\zero\zero\zero\ \zero\one\zero\zero\ \zero\zero\zero\zero\ \zero\zero\zero\one}
 \\
 \bottomrule
 \end{tabular}
@@ -113,7 +113,7 @@ Considera el missatge següent, format per una concatenació
 d'enters sense signe de 3 bits: \otherBase{a4 3f 20}.
 \begin{itemize}
 \item Quants bits i quants bytes fa?
-\item\textbf{Quins són els cinc primers enters} continguts en el missatge?
+\item Quins són els cinc primers enters continguts en el missatge?
 \end{itemize}
 \end{exercise}
 
@@ -124,12 +124,12 @@ operacions \conceptRef{bitwise}{a nivell de bits} i de \conceptRef{boolean logic
 \begin{tabular}{rcccccc}
 \toprule
 \textbf{Operació} & 
-\conceptRef{bitwise}{AND (bits)} &
-\conceptRef{boolean logic}{AND lògica} &
-\conceptRef{bitwise}{OR (bits)} &
-\conceptRef{boolean logic}{OR lògica} &
-\conceptRef{bitwise}{Despl. esq.} &  
-\conceptRef{bitwise}{Despl. dre.}
+AND (bits) &
+AND lògica &
+OR (bits) &
+OR lògica &
+Despl. esq. &
+Despl. dre.
 \\
 \textbf{Python}    &
 \inlineCode{&}       & 
@@ -165,9 +165,9 @@ Què tenen en comú? (Pista: potser et convé modificar el codi perquè en mostr
 Un cop decidim quins bits volem transmetre, hem de trobar una manera de fer que aquests bits arribin a una altra màquina a distància.
 Primer, hem de decidir quin \conceptRef{medium}{mitjà} fem servir i quines propietats físiques podem controlar i monitorar.
 Entre les opcions més habituals hi ha fer servir el voltatge en cables de coure, enviar llum per fibra òptica i manipular el 
-\conceptRef{field}{camp} electromagnètic mitjançant antenes.
+camp electromagnètic mitjançant antenes.
 
-\begin{exercise} \textbf{Reflexiona}:\\[-0.5cm]
+\begin{exercise} Reflexiona:\\[-0.5cm]
 \begin{itemize}
 \item Podem fer un cable de coure tan llarg com vulguem?
 \item Quin mitjà fan servir les connexions Wi-Fi? 
@@ -176,8 +176,8 @@ Entre les opcions més habituals hi ha fer servir el voltatge en cables de coure
 \end{exercise}
 
 
-Si optem per cables de coure, en podem posar diversos en \conceptRef{parallel}{paral·lel} i enviar més dades a la mateixa velocitat de rellotge.
-Això, però, té el preu d'una complexitat i un cost més grans que els dissenys en \conceptRef{serial}{sèrie}. 
+Si optem per cables de coure, en podem posar diversos en \conceptRef{parallel/serial}{paral·lel} i enviar més dades a la mateixa velocitat de rellotge.
+Això, però, té el preu d'una complexitat i un cost més grans que els dissenys en \conceptRef{parallel/serial}{sèrie}. 
 Es poden produir interferències de voltatge a les línies de dades per diversos motius, 
 incloent-hi fenòmens físics com la inducció electromagnètica al cable. 
 Tot i així, els cables que compleixen els estàndards moderns de transmissió de dades (\eg, IEEE 802.3)
@@ -185,7 +185,7 @@ sovint fan servir parells trenats de cables i apantallament,
 entre altres estratègies, per garantir errors de bit per sota d'$1$~de~cada~$10^{12}$ bits.
 
 \begin{exercise}\label{ex:piercing:copper_connectors}
-\textbf{Observa i identifica} els connectors de cable següents:\\[-0.5cm]
+Observa i identifica els connectors de cable següents:\\[-0.5cm]
 \begin{center}
 \includegraphics[height=3cm]{hdmi_connector.jpg}
 \includegraphics[height=3cm]{coaxial_connector.jpg}
@@ -219,7 +219,7 @@ diversos senyals, cosa que augmenta molt la taxa de transmissió efectiva.
 Quan un feix de llum entra en una fibra òptica, ho fa amb un cert angle d'incidència.
 Aquest angle afecta el temps que triga a arribar a l'altre extrem. Si projectem un con de llum,
 la llum entra a la fibra amb diversos angles d'incidència. 
-Què passa a l'altre extrem si \textbf{encenem i apaguem aquest con de llum} molt ràpidament?
+Què passa a l'altre extrem si encenem i apaguem aquest con de llum molt ràpidament?
 És rellevant si fem servir feixos monomode o multimode?
 % 
 \begin{center}
@@ -266,11 +266,11 @@ la seva freqüència (FSK), o fins i tot l'amplitud i la fase alhora (QAM).
 
 \begin{exercise}
 La figura anterior mostra un exemple de modulació d'amplitud i un de modulació de freqüència. 
-Quin és quin? Per a cada cas: \textbf{aquesta modulació transmet un senyal analògic o digital}?
+Quin és quin? Per a cada cas: aquesta modulació transmet un senyal analògic o digital?
 \end{exercise}
 
 
 \begin{exercise}
-Quina és la \textbf{diferència entre amplada de banda i velocitat de transmissió}? 
+Quina és la diferència entre amplada de banda i velocitat de transmissió? 
 Per què creus que s'utilitzen indistintament en contextos no tècnics?
 \end{exercise}

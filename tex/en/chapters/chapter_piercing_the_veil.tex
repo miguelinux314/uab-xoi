@@ -12,8 +12,8 @@ This can be imagined as a sequence of steps:
 \end{center}
 
 Computers work with and transmit digital \concept{data}, \ie, sequences of binary
-\zero\ and \one\ symbols. 
-However, data transmission happens in the real world, where \zero\ and \one\ are ideas and not tangible objects.
+\mbox{\zero\ and \one} symbols. 
+However, data transmission happens in the real world, where \mbox{\zero\ and \one} are ideas and not tangible objects.
 
 This chapter studies how those digital symbols \textit{pierce the veil}  
 from the digital to the analog (physical) world on transmission, and back from analog to digital on reception.
@@ -47,31 +47,31 @@ we need to pay close attention to at least the following aspects whenever readin
 \item integer or with decimals? 
 \item \concept{bitdepth}? (\eg, 8 bits per number)
 \item \conceptRef{sign}{signed} or \conceptRef{sign}{unsigned}?
-\item For multibyte numbers: \concept{big endian} or \concept{little endian}?
-\item For numbers with decimals: \concept{floating-point} or \concept{fixed-point}?
+\item For multibyte numbers: \conceptRef{big endian/little endian}{big endian} or \conceptRef{big endian/little endian}{little endian}?
+\item For numbers with decimals: \conceptRef{fixed-point/floating-point}{floating-point} or \conceptRef{fixed-point/floating-point}{fixed-point}?
 \end{itemize}
 % 
 \begin{exercise}
-Explain \textbf{how to complete the second row given the first} (and vice-versa),
+Explain how to complete the second row given the first (and vice-versa),
 and what assumptions you need to make in each case.
 % 
 \begin{center}
 \begin{tabular}{lcccccc}
 \toprule
-\textbf{Number} 
-& $7$ 
+\textbf{Decimal}
+& $7$
 & $2$
 & $-3$
 & $0.75$
 & $260$
 \\
 \midrule
-\textbf{Binary} 
-& \zero\zero\one\one\one
-& \zero\zero\zero\zero\zero\zero\one\zero
-& \one\one\zero\one
-& \one\one\zero\zero
-& \zero\zero\zero\zero\ \zero\one\zero\zero\ \zero\zero\zero\zero\ \zero\zero\zero\one\
+\textbf{Binary}
+& \mbox{\zero\zero\one\one\one}
+& \mbox{\zero\zero\zero\zero\zero\zero\one\zero}
+& \mbox{\one\one\zero\one}
+& \mbox{\one\one\zero\zero}
+& \mbox{\zero\zero\zero\zero\ \zero\one\zero\zero\ \zero\zero\zero\zero\ \zero\zero\zero\one}
 \\
 \bottomrule
 \end{tabular}
@@ -113,7 +113,7 @@ Consider the following message, which is composed of a concatenation
 of 3-bit unsigned integers: \otherBase{a4 3f 20}.
 \begin{itemize}
 \item How many bits and bytes long is it?
-\item\textbf{What are the first five integers} contained in the message?
+\item What are the first five integers contained in the message?
 \end{itemize}
 \end{exercise}
 
@@ -124,12 +124,12 @@ Most often, we will let our code handle data manipulation. To do that, we need
 \begin{tabular}{rcccccc}
 \toprule
 \textbf{Operation} & 
-\conceptRef{bitwise}{bitwise AND} &
-\conceptRef{boolean logic}{logic AND} &
-\conceptRef{bitwise}{bitwise OR} &
-\conceptRef{boolean logic}{logic OR} &
-\conceptRef{bitwise}{left shift} &  
-\conceptRef{bitwise}{right shift}
+bitwise AND &
+logic AND &
+bitwise OR &
+logic OR &
+left shift &
+right shift
 \\
 \textbf{Python}    &
 \inlineCode{&}       & 
@@ -165,9 +165,9 @@ What do they have in common? (Hint: You may want to modify the code to show thei
 Once we decide what bits to transmit, we need to find a way of making those bits available to another machine at a distance.
 First, we need to decide what \concept{medium} to use and what physical properties we can control and monitor.
 Popular choices include using voltage on copper wires, sending light over optical fiber and manipulating the 
-electromagnetic \concept{field} using antennas.
+electromagnetic field using antennas.
 
-\begin{exercise} \textbf{Ponder}:\\[-0.5cm]
+\begin{exercise} Ponder:\\[-0.5cm]
 \begin{itemize}
 \item Can we make a copper cable as long as we desire?
 \item What medium do Wi-Fi connection use? 
@@ -176,8 +176,8 @@ electromagnetic \concept{field} using antennas.
 \end{exercise}
 
 
-If we opt for copper wires, we can put several in \concept{parallel} and send more data at the same clock speed.
-This, however, comes at the price of additional complexity and cost than \concept{serial} designs. 
+If we opt for copper wires, we can put several in \conceptRef{parallel/serial}{parallel} and send more data at the same clock speed.
+This, however, comes at the price of additional complexity and cost than \conceptRef{parallel/serial}{serial} designs. 
 Voltage interferences in the data lines may happen for a number of reasons, 
 including physical phenomena such as electromagnetic induction in the wire. 
 Notwithstanding, cables compliant with modern data transmission standards (\eg, IEEE 802.3)
@@ -185,7 +185,7 @@ often employ twisted pairs of cables and shielding
 among other strategies to guarantee bit errors below $1$~in~$10^{12}$ bits.
 
 \begin{exercise}\label{ex:piercing:copper_connectors}
-\textbf{Consider and identify} the following wire connectors:\\[-0.5cm]
+Consider and identify the following wire connectors:\\[-0.5cm]
 \begin{center}
 \includegraphics[height=3cm]{hdmi_connector.jpg}
 \includegraphics[height=3cm]{coaxial_connector.jpg}
@@ -219,7 +219,7 @@ several signals, greatly increasing the effective transmission rate.
 When a beam of light enters an optical fiber, it does so with a certain angle of attack.
 This angle affects the time it takes to reach the other end. If we project a cone of light,
 light enters the fiber at multiple angles of attack. 
-What happens at the other end if we \textbf{turn this cone of light on and off} very quickly?
+What happens at the other end if we turn this cone of light on and off very quickly?
 Is it relevant whether we use monomodal or multimodal beams?
 % 
 \begin{center}
@@ -266,11 +266,11 @@ its frequency (FSK), or even the amplitude and the phase at the same time (QAM).
 
 \begin{exercise}
 The figure above displays an example of amplitude modulation and of frequency modulation. 
-Which is which? For each case: is that \textbf{modulation transmitting an analog or a digital signal}?
+Which is which? For each case: is that modulation transmitting an analog or a digital signal?
 \end{exercise}
 
 
 \begin{exercise}
-What's the \textbf{difference between bandwidth and transmission speed}? 
+What's the difference between bandwidth and transmission speed? 
 Why do you think they are interchangeably used in non-technical contexts?
 \end{exercise}

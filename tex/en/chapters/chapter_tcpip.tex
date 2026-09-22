@@ -2,23 +2,23 @@
 
 \chapter{The Internet}\label{sec:internet}
 
-Modern communications are based on layered network \conceptRef{stack}{stacks}. 
+Modern communications are based on layered network stacks. 
 Maybe you just downloaded this guide from the Internet.
 % 
 What layers are used exactly? What protocols are employed, and with what purpose?
 % 
 This chapter provides a primer to answer these questions.\\[-1cm]
 
-\section{The TCP/IP stack}
+\section{The TCP/IP stack}\label{sec:internet:the_tcp_ip_stack}
 
 
 The \concept{Internet} is a practical solution to the problem of global computer communication,
 whose development started in the late 1960's -- early 1970's, and is still ongoing.
 
-\conceptRef{packet}{Packet} switching was conceived during the early 1960s, and the first 
-wide-area implementation, \concept{ARPANET}, began in 1969. 
+Packet switching was conceived during the early 1960s, and the first 
+wide-area implementation, ARPANET, began in 1969. 
 % 
-A key challenge at the time was to interconnect existing \conceptRef{network}{networks}, 
+A key challenge at the time was to interconnect existing networks, 
 owned by different organizations, and based on different technologies and \conceptRef{protocol}{protocols}.
 % 
 To make things viable, all the following requirements had to be met:
@@ -33,7 +33,7 @@ To make things viable, all the following requirements had to be met:
 The solution adopted by ARPANET --and later by the whole world-- 
 is the \concept{TCP/IP} protocol suite, first described in 1974. 
 It is a layered approach, designed to be ``plugged-in'' on top of 
-existing \conceptRef{LAN}{LANs}, with the goal of offering networking 
+existing LANs, with the goal of offering networking 
 capabilities to all user applications.
 
 \begin{center}
@@ -57,17 +57,17 @@ In a nutshell, the main services offered by these layers are as follows:
 \item[\textbf{Layer 1}] \textbf{(Physical)}: 
   Send \concept{digital} data through \concept{analog} media.
 \item[\textbf{Layer 2}] \textbf{(Network)}:
-  Identify and communicate devices within the same \concept{LAN}.\\
+  Identify and communicate devices within the same LAN.\\
   The term ``Data Link'' layer (from the OSI model) is sometimes used.
 \item[\textbf{Layer 3}] \textbf{(Internet)}:
-  Identify and communicate devices across all \conceptRef{LAN}{LANs}.\\
+  Identify and communicate devices across all LANs.\\
   The term ``Network'' layer (also from OSI) is sometimes used.
 \item[\textbf{Layer 4}] \textbf{(Transport)}:
   Identify and communicate programs (services).\\
   Also (choose \textit{only} one):
   \begin{enumerate}[label=\alph*)]
    \item Make sure a \concept{stream} of data successfully reaches the other end, 
-   and in order \\-- \textit{but} an \concept{overhead} is introduced 
+   and in order \\-- \textit{but} an overhead is introduced 
    and \conceptRef{connection}{connections} must be established (\concept{TCP}).
      
    \item Use simple, relatively efficient messages, and have a small overhead\\
@@ -79,10 +79,10 @@ In a nutshell, the main services offered by these layers are as follows:
   or about efficiency (\eg, compression): Layers 4 and below don't provide that.
 \end{enumerate}
 
-\section{TCP/IP protocol overview}
+\section{TCP/IP protocol overview}\label{sec:internet:tcp_ip_protocol_overview}
 
 Multiple \conceptRef{protocol}{protocols} are defined to implement the functionality
-of each \concept{layer}. These definitions include the required \concept{packet format},
+of each layer. These definitions include the required packet format,
 the rules to exchange those packets and their semantics.
 % 
 These protocols must be understood as a system, in which each part has very specific tasks.
@@ -106,20 +106,20 @@ We want to send the sentence ``Sorry, I'll be 5 minutes late'' by email.
 Our email client will send those data using the SMTP protocol, which in turn
 uses TCP (part of Layer 4).
 % 
-Assuming SMTP uses headers in its \concept{PDU}, how many headers will 
-the corresponding Layer-2 \concept{PDU} contain?
+Assuming SMTP uses headers in its PDU, how many headers will 
+the corresponding Layer-2 PDU contain?
 \end{exercise}
 
 \begin{exercise}
 Why do you think Layer~3 has only one protocol (two if you count IPv4 and IPv6 separately)? 
 \end{exercise}
 
-\section{Who is the Internet boss?}
+\section{Who is the Internet boss?}\label{sec:internet:who_is_the_internet_boss}
 
-The \conceptRef{IETF}{Internet Engineering Task Force (IETF)} was created in 1986
+The Internet Engineering Task Force (\conceptRef{IETF}{IETF}) was created in 1986
 to develop and publish standards to be used in the Internet. 
 % 
-Their main output are  \conceptRef{RFC}{``Request for Comment'' (RFC)} documents,
+Their main output are  ``Request for Comment'' (\conceptRef{RFC}{RFC}) documents,
 which contain complete technical descriptions of those standards.
 
 
@@ -146,7 +146,7 @@ use of these standards. Instead, manufacturers have the incentive to be complian
 so that their products are compatible with others. 
 % 
 The value of RFCs (and any other standard) is dependent on whether
-they are adopted by users. RFCs can be updated and \conceptRef{retire (standard)}{retired} for this reason.
+they are adopted by users. RFCs can be updated and retired for this reason.
 
 TCP/IP protocols prevail because they are flexible and work reasonably well in most situations, 
 even though they are not optimal in virtually any of them. 
@@ -171,7 +171,7 @@ to define the appropriate \conceptRef{RFC}{RFCs}.
 
 \begin{remark}
 Since 2016, IANA is managed by a nonprofit multistakeholder organization 
-(\conceptRef{ICANN}{ICANN - Internet Corporation for Assigned Names and Numbers}).
+(\conceptRef{ICANN}{ICANN} - Internet Corporation for Assigned Names and Numbers).
 % 
 Since 2004, the responsibility for regional domains 
 (\eg, \url{.cat}, \url{.fr}, \url{.es}) is transferred to continent-level 

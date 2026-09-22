@@ -2,23 +2,23 @@
 
 \chapter{Internet}\label{sec:internet}
 
-Las comunicaciones modernas se basan en \conceptRef{stack}{pilas} de red organizadas por capas. 
+Las comunicaciones modernas se basan en pilas de red organizadas por capas. 
 Quizá acabas de descargar esta guía de Internet.
 % 
 ¿Qué capas se usan exactamente? ¿Qué protocolos se emplean, y con qué finalidad?
 % 
 Este capítulo ofrece una primera aproximación para responder a estas preguntas.\\[-1cm]
 
-\section{La pila TCP/IP}
+\section{La pila TCP/IP}\label{sec:internet:the_tcp_ip_stack}
 
 
 \concept{Internet} es una solución práctica al problema de la comunicación global entre ordenadores,
 cuyo desarrollo comenzó a finales de los años 60 -- principios de los 70, y todavía continúa.
 
-La conmutación de \conceptRef{packet}{paquetes} se concibió a principios de los años 60, y la primera 
-implementación de área extensa, \concept{ARPANET}, comenzó en 1969. 
+La conmutación de paquetes se concibió a principios de los años 60, y la primera 
+implementación de área extensa, ARPANET, comenzó en 1969. 
 % 
-Un reto clave en aquel momento era interconectar las \conceptRef{network}{redes} existentes, 
+Un reto clave en aquel momento era interconectar las redes existentes, 
 propiedad de organizaciones distintas y basadas en tecnologías y \conceptRef{protocol}{protocolos} diferentes.
 % 
 Para que aquello fuese viable, había que cumplir todos los requisitos siguientes:
@@ -33,7 +33,7 @@ Para que aquello fuese viable, había que cumplir todos los requisitos siguiente
 La solución adoptada por ARPANET --y más tarde por el mundo entero-- 
 es el conjunto de protocolos \concept{TCP/IP}, descrito por primera vez en 1974. 
 Es un enfoque por capas, diseñado para ``enchufarse'' encima de 
-las \conceptRef{LAN}{LANs} (redes de área local) existentes, con el objetivo de ofrecer 
+las LANs (redes de área local) existentes, con el objetivo de ofrecer 
 capacidades de red a todas las aplicaciones de usuario.
 
 \begin{center}
@@ -57,17 +57,17 @@ En resumen, los principales servicios que ofrecen estas capas son los siguientes
 \item[\textbf{Capa 1}] \textbf{(Física)}: 
   Enviar datos \conceptRef{digital}{digitales} a través de medios \conceptRef{analog}{analógicos}.
 \item[\textbf{Capa 2}] \textbf{(Red)}:
-  Identificar y comunicar dispositivos dentro de una misma \concept{LAN}.\\
+  Identificar y comunicar dispositivos dentro de una misma LAN.\\
   A veces se usa el término capa de ``Enlace de datos'' (del modelo OSI).
 \item[\textbf{Capa 3}] \textbf{(Internet)}:
-  Identificar y comunicar dispositivos entre todas las \conceptRef{LAN}{LANs}.\\
+  Identificar y comunicar dispositivos entre todas las LANs.\\
   A veces se usa el término capa de ``Red'' (también de OSI).
 \item[\textbf{Capa 4}] \textbf{(Transporte)}:
   Identificar y comunicar programas (servicios).\\
   Además (elige \textit{solo} una):
   \begin{enumerate}[label=\alph*)]
    \item Asegurar que un \conceptRef{stream}{flujo} de datos llega correctamente al otro extremo, 
-   y en orden \\-- \textit{pero} se introduce un \concept{overhead} (sobrecarga) 
+   y en orden \\-- \textit{pero} se introduce un overhead (sobrecarga) 
    y hay que establecer \conceptRef{connection}{conexiones} (\concept{TCP}).
      
    \item Usar mensajes sencillos y relativamente eficientes, con poco overhead\\
@@ -79,10 +79,10 @@ En resumen, los principales servicios que ofrecen estas capas son los siguientes
   ni la eficiencia (\eg\ compresión): la capa 4 y las inferiores no proporcionan eso.
 \end{enumerate}
 
-\section{Visión general de los protocolos TCP/IP}
+\section{Visión general de los protocolos TCP/IP}\label{sec:internet:tcp_ip_protocol_overview}
 
 Se definen múltiples \conceptRef{protocol}{protocolos} para implementar la funcionalidad
-de cada \conceptRef{layer}{capa}. Estas definiciones incluyen el \conceptRef{packet format}{formato de paquete} necesario,
+de cada capa. Estas definiciones incluyen el formato de paquete necesario,
 las reglas para intercambiar esos paquetes y su semántica.
 % 
 Estos protocolos deben entenderse como un sistema en el que cada parte tiene tareas muy concretas.
@@ -106,20 +106,20 @@ Queremos enviar por correo electrónico la frase ``Perdona, llegaré 5 minutos t
 Nuestro cliente de correo enviará esos datos usando el protocolo SMTP, que a su vez
 usa TCP (parte de la capa 4).
 % 
-Suponiendo que SMTP usa cabeceras en su \concept{PDU}, ¿cuántas cabeceras contendrá 
-la \concept{PDU} correspondiente de la capa 2?
+Suponiendo que SMTP usa cabeceras en su PDU, ¿cuántas cabeceras contendrá 
+la PDU correspondiente de la capa 2?
 \end{exercise}
 
 \begin{exercise}
 ¿Por qué crees que la capa~3 tiene un solo protocolo (dos si cuentas IPv4 e IPv6 por separado)? 
 \end{exercise}
 
-\section{¿Quién manda en Internet?}
+\section{¿Quién manda en Internet?}\label{sec:internet:who_is_the_internet_boss}
 
-El \conceptRef{IETF}{Internet Engineering Task Force (IETF)} se creó en 1986
+El Internet Engineering Task Force (\conceptRef{IETF}{IETF}) se creó en 1986
 para desarrollar y publicar estándares destinados a usarse en Internet. 
 % 
-Su producto principal son los documentos \conceptRef{RFC}{``Request for Comment'' (RFC)},
+Su producto principal son los documentos ``Request for Comment'' (\conceptRef{RFC}{RFC}),
 que contienen descripciones técnicas completas de esos estándares.
 
 
@@ -146,7 +146,7 @@ correcto de estos estándares. En cambio, los fabricantes tienen el incentivo de
 para que sus productos sean compatibles con los demás. 
 % 
 El valor de los RFC (y de cualquier otro estándar) depende de que
-los usuarios los adopten. Por este motivo, los RFC pueden actualizarse y \conceptRef{retire (standard)}{retirarse}.
+los usuarios los adopten. Por este motivo, los RFC pueden actualizarse y retirarse.
 
 Los protocolos TCP/IP prevalecen porque son flexibles y funcionan razonablemente bien en la mayoría de las situaciones, 
 aunque no sean óptimos en prácticamente ninguna de ellas. 
@@ -171,7 +171,7 @@ para definir los \conceptRef{RFC}{RFCs} adecuados.
 
 \begin{remark}
 Desde 2016, la IANA está gestionada por una organización multisectorial sin ánimo de lucro 
-(\conceptRef{ICANN}{ICANN - Internet Corporation for Assigned Names and Numbers}).
+(\conceptRef{ICANN}{ICANN} - Internet Corporation for Assigned Names and Numbers).
 % 
 Desde 2004, la responsabilidad de los dominios regionales 
 (\eg\ \url{.cat}, \url{.fr}, \url{.es}) se transfiere a 

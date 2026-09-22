@@ -82,7 +82,7 @@ Everyone uses DNS all the time. What would be the risks of having
 a centralized name translation system instead of DNS's distributed nature.
 \end{exercise}
 
-\subsection{Records}
+\subsection{Records}\label{sec:layer7:dns:records}
 
 DNS can be seen as a distributed database with different types of entries
 called \conceptRef{DNS record}{records}. The main ones are:
@@ -102,7 +102,7 @@ the requested \concept{A} or \concept{MX} records,
 but the client may also receive a redirection to another DNS (\concept{NS}) 
 or an alias to another domain name (\concept{CNAME}).
 
-\subsection{Resolution}
+\subsection{Resolution}\label{sec:layer7:dns:resolution}
 
 The distributed and hierarchical nature if the DNS database makes it 
 sometimes necessary to exchange multiple messages to satisfy a DNS \concept{query}.
@@ -278,7 +278,7 @@ scale to guarantee graph connectivity to all hosts in the Internet.
 \end{center}
 
 
-\subsection{Organization}
+\subsection{Organization}\label{sec:layer7:as:organization}
 
 To facilitate this coordination, LANs are grouped in \conceptRef{AS}{autonomous systems} (\concept{AS}).
 These manage non-overlapping blocks of IP addresses (\otherBase{w.x.y.z/N}) that are separately owned and managed.
@@ -301,7 +301,7 @@ with destination inside the AS, it forwards the datagram through the AS' \concep
 Similarly, when a host inside an AS needs to contact a host in another AS, datagrams are forwarded through border routers
 until they reach the destination AS and ultimately the destination LAN.
 
-\subsection{Routing table configuration}
+\subsection{Routing table configuration}\label{sec:layer7:as:routing_table_configurati}
 
 Manually configuring the \conceptRef{routing table}{routing tables} of all border routers and internal routers
 would be too costly and prone to errors. Instead, different algorithms are employed to configure them automatically.

@@ -28,7 +28,7 @@ amb només $2$ \conceptRef{network card}{targetes de xarxa} i $1$ cable, les con
 
 
 Si volem connectar $N > 2$ dispositius, una opció ingènua és connectar cada dispositiu amb tots els altres
-en un \conceptRef{complete graph}{\textit{graf complet}}. Ara cada dispositiu ha de gestionar $N - 1$ cables cap als altres dispositius, 
+en un \textit{graf complet}. Ara cada dispositiu ha de gestionar $N - 1$ cables cap als altres dispositius, 
 però comunicar-se amb qualsevol altre dispositiu és tan fàcil com triar el cable correcte i establir una connexió punt a punt.
 
 El problema principal d'aquest enfocament és que el nombre total de connexions és $N \cdot (N-1) / 2 = O(N^2)$
@@ -37,8 +37,8 @@ necessitaries per exemple $40$ cables \textit{i} $90$ \conceptRef{network card}{
 hi hauria mig milió de connexions punt a punt, cosa que ja és força ingestionable.
 
 \begin{remark}
-$O(N^2)$ és la notació d'una fita de complexitat \conceptRef{quadratic}{quadràtica}. 
-\textit{No} és el mateix que \conceptRef{exponential}{exponencial} i no s'han de confondre mai.
+$O(N^2)$ és la notació d'una fita de complexitat quadràtica. 
+\textit{No} és el mateix que exponencial i no s'han de confondre mai.
 % 
 \readMore{https://en.wikipedia.org/wiki/Big_O_notation}
 \end{remark}
@@ -47,7 +47,7 @@ $O(N^2)$ és la notació d'una fita de complexitat \conceptRef{quadratic}{quadr�
 \includegraphics[height=4cm]{bus_graph.pdf}
 \end{wrapfigure}
 
-Tenim un truc amagat a la màniga: els \conceptRef{bus}{busos de dades}, en què una o més línies de dades
+Tenim un truc amagat a la màniga: els busos de dades, en què una o més línies de dades
 estan connectades simultàniament a diversos dispositius. 
 Això conserva la simplicitat de les connexions punt a punt, perquè cada dispositiu només ha de gestionar
 $1$ cable i el pot fer servir per comunicar-se amb tots els altres dispositius. També es conserva 
@@ -56,11 +56,11 @@ la rendibilitat, ja que només calen $N$ targetes de xarxa per a $N$ dispositius
 El principal avantatge dels busos de dades és també la seva principal debilitat: 
 tots els dispositius envien i reben dades per la mateixa línia de dades, 
 però no ho poden fer alhora perquè només hi ha una línia. Si dos o més ho fan, es produeix
-una \conceptRef{collision}{col·lisió} que fa impossible la transmissió de dades mentre dura.\\[-0.5cm]
+una col·lisió que fa impossible la transmissió de dades mentre dura.\\[-0.5cm]
 
 \begin{remark}
 A mesura que es desenvolupaven les xarxes d'ordinadors, es van provar moltes alternatives a la 
-\conceptRef{topology}{topologia} de bus. Un exemple curiós és \concept{Token Ring}, en què els dispositius
+\conceptRef{topology}{topologia} de bus. Un exemple curiós és Token Ring, en què els dispositius
 estan connectats al voltant d'un cercle i els missatges hi circulen en un sol sentit.
 \end{remark}
 
@@ -70,16 +70,16 @@ on es puguin afegir nous dispositius amb el temps.
 Històricament, de vegades es feia perforant físicament el cable principal del bus
 i afegint un cable nou cap a l'ordinador que s'hi connectava. 
 Més endavant, això es va simplificar amb uns dispositius anomenats \conceptRef{hub}{hubs} (concentradors). 
-Funcionaven de manera semblant, però oferien \conceptRef{port}{ports} ja integrats 
+Funcionaven de manera semblant, però oferien \conceptRef{physical port}{ports físics} ja integrats 
 i connectors extraïbles.
 % 
 Avui dia, els hubs han estat substituïts pels \conceptRef{switch}{switches} (commutadors). 
 Els switches ofereixen la funcionalitat d'un bus, connectant cada dispositiu amb tots els altres,
 i a més eviten les col·lisions. Per raons òbvies, estructurar les connexions 
-al voltant d'un switch s'anomena \conceptRef{star topology}{topologia en estrella}.
+al voltant d'un switch s'anomena topologia en estrella.
 
 \begin{exercise}
-Què \textbf{cal en un switch} que no calgui en un hub?
+Què cal en un switch que no calgui en un hub?
 
 \begin{center}
 \includegraphics[width=0.75\linewidth]{switch.jpg}
@@ -102,7 +102,7 @@ més barates i factibles. Considerats en conjunt, aquests dispositius formarien 
 
 \section{Necessito trobar-te}\label{sec:where:addresses}
 
-Un cop més, el principal avantatge dels \conceptRef{bus}{busos} de dades és també la seva principal debilitat: 
+Un cop més, el principal avantatge dels busos de dades és també la seva principal debilitat: 
 tots els dispositius envien i reben dades per la mateixa línia de dades. 
 Encara que no hi hagi col·lisions, cada missatge enviat al bus el 
 reben tots els dispositius.
@@ -111,26 +111,26 @@ i només al seu destí. Anomenem-ho el \textit{problema de trobar el meu disposi
 
 El problema de trobar el meu dispositiu no és exclusiu dels busos o de les \conceptRef{LAN}{LANs}. Al contrari, esdevé 
 molt important quan considerem les \conceptRef{WAN}{WANs}, on no tots els dispositius estan interconnectats directament.
-En aquest cas, hem d'assegurar-nos que podem \conceptRef{routing}{encaminar} els nostres missatges
+En aquest cas, hem d'assegurar-nos que podem encaminar els nostres missatges
 entre diferents LANs i que arriben al seu destí.
 
 Sorprenentment, ni tan sols les connexions punt a punt estan a resguard del problema de trobar el meu dispositiu.
 Suposant que els dispositius A i B estan connectats d'aquesta manera, dos programes diferents poden voler 
 intercanviar informació al mateix temps, \eg, un programari de control d'alarmes i 
 una aplicació de reproducció de música en temps real. 
-En aquest escenari, vols que el \concept{client} i el \conceptRef{server}{servidor} del \conceptRef{service}{servei} 
+En aquest escenari, vols que el \conceptRef{client/server}{client} i el \conceptRef{client/server}{servidor} del \conceptRef{service}{servei} 
 de monitoratge de l'alarma es comuniquin entre ells, però no amb el servei de música en temps real, 
 i viceversa.
 
 La solució més habitual a aquest problema és fer servir identificadors que ens permetin
 diferenciar entre dispositius o fins i tot entre \conceptRef{process}{processos} en execució
-dins d'un \conceptRef{OS}{sistema operatiu (SO)}. Alguns d'aquests identificadors
-s'anomenen \conceptRef{address}{adreces}, precisament perquè s'utilitzen 
+dins d'un sistema operatiu (SO). Alguns d'aquests identificadors
+s'anomenen adreces, precisament perquè s'utilitzen 
 per trobar i arribar a un dispositiu remot. 
 
 
-Les \conceptRef{address}{adreces} solen ser identificadors \textit{numèrics}, és a dir, només un nombre.
-Com a tals, es poden expressar en bases diferents, incloent-hi la decimal i l'\concept{hexadecimal}.
+Les adreces solen ser identificadors \textit{numèrics}, és a dir, només un nombre.
+Com a tals, es poden expressar en bases diferents, incloent-hi la decimal i l'hexadecimal.
 Aquests nombres s'extreuen d'un conjunt predefinit, i l'elecció d'aquest conjunt
 determina el nombre màxim d'elements que podem identificar de manera única.
 
@@ -142,12 +142,12 @@ com \otherBase{237785200061937} i \otherBase{3232235777}, respectivament
 \end{remark}
 
 \begin{exercise}
-\textbf{Quants elements es poden identificar de manera única} (com a màxim) amb una adreça que expressem 
+Quants elements es poden identificar de manera única (com a màxim) amb una adreça que expressem 
 amb 5 bits? I amb 10? I amb 20? Expressa la solució general matemàticament.
 \end{exercise}
 
 \begin{exercise}
-Suposem que hi ha $1000$~màquines en una LAN. \textbf{Quants bits d'adreça calen}?
+Suposem que hi ha $1000$~màquines en una LAN. Quants bits d'adreça calen?
 I per a $800$~màquines? I per a $1100$? Expressa la solució general matemàticament.
 \end{exercise} 
 
@@ -186,7 +186,7 @@ No és gaire diferent de quan algú et ve a visitar en persona:
 \end{minipage}
 
 Sigui quin sigui el sistema d'adreçament que fem servir, ha de contenir prou informació per localitzar i arribar 
-al destí, \ie, per \conceptRef{routing}{encaminar} els nostres missatges a través del graf de 
+al destí, \ie, per encaminar els nostres missatges a través del graf de 
 connexions. El procés d'encaminament implica diversos passos o ``salts'' entre xarxes
 fins que s'arriba a la LAN de destí.
 
@@ -216,7 +216,7 @@ d'aquestes connexions. Tot i així, \node{3} vol enviar un missatge a \node{7}.\
 % 
 \begin{itemize}
  \item Pots identificar algun dispositiu que probablement actuï com a \concept{switch}? I com a \concept{router}?
- \item Quin és el \textbf{nombre mínim de missatges} enviats perquè \node{3} pugui contactar amb \node{7},
+ \item Quin és el nombre mínim de missatges enviats perquè \node{3} pugui contactar amb \node{7},
  i \node{7} pugui respondre a \node{3}? Enumera'ls en l'ordre en què es produeixen.
  \item Quina informació s'ha d'incloure en aquests missatges perquè la comunicació 
  \node{3} $\leftrightarrow$ \node{7} pugui tenir lloc?
@@ -233,7 +233,7 @@ el temps, cosa que és molt valuosa per identificar relacions de causa-efecte.
 \end{center}
 
 \begin{exercise}
-A partir de la teva resposta a l'Ex.\ref{ex:how_many_packets}, \textbf{elabora un diagrama de carrils}
+A partir de la teva resposta a l'Ex.\ref{ex:how_many_packets}, elabora un diagrama de carrils
 que representi els intercanvis de missatges. Per a cada missatge (\eg, damunt de les fletxes), 
 inclou-hi la informació d'adreçament que conté.
 \end{exercise}

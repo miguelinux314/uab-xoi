@@ -7,7 +7,7 @@ Modern computer communication is achieved using a
 \concept{stack} of network \conceptRef{layer}{layers}.
 Each stack focuses on some problems and is responsible for 
 providing certain features, \eg, 
-\conceptRef{address}{addressing} and correct \concept{sequencing} (introduced in the previous chapters).
+addressing and correct \concept{sequencing} (introduced in the previous chapters).
 
 Each \concept{layer} defines a \inlineCode{send}/\inlineCode{receive} function \textit{pair},
 which is responsible for some of these features.
@@ -16,7 +16,7 @@ Each layer uses the \inlineCode{send} and \inlineCode{receive} of the layer belo
 \ie, the features of one layer rely on the features of all layers below it.
 
 To coordinate layers and enable \concept{virtual} communication between them, 
-each layer defines a different \concept{packet format}, which \conceptRef{encapsulation}{encapsulates} 
+each layer defines a different packet format, which \conceptRef{encapsulation}{encapsulates} 
 a packet of the layer above it.
 
 
@@ -25,7 +25,7 @@ a packet of the layer above it.
 To implement these 
 capabilities, each layer transmits not only the \inlineCode{data} provided by the layer above, 
 but also a header with all the meta-information required for that capability. Thus, each layer needs to define
-the \concept{packet format}, adding some \concept{overhead} (typically a \concept{header}) to the \concept{payload}, \eg:
+the packet format, adding some overhead (typically a header) to the payload, \eg:
 
 \begin{center}
     \begin{bytefield}{36}
@@ -48,7 +48,7 @@ The packets produced by each layer are generically referred to as \concept{PDU}s
 The PDUs of each layer have specific names such as \concept{frame}, \concept{datagram} or \concept{segment}.
 These names must be used with precision in technical contexts.
 
-Each layer includes the \concept{PDU} of the layer above inside its PDU's \concept{packet format} definition.
+Each layer includes the \concept{PDU} of the layer above inside its PDU's packet format definition.
 This process is referred to as \concept{encapsulation}.
 
 \begin{exercise}
@@ -56,17 +56,17 @@ This process is referred to as \concept{encapsulation}.
 The user program wants to send $420$~bytes of data using the \concept{stack} of the previous figure.
 Assume a header size for layers 2, 3 and 4 of $14$~bytes, $20$~bytes and $20$~bytes, respectively.
 \begin{itemize}
-    \item What is the \concept{payload} size and the \concept{overhead} size for each \concept{layer}'s \concept{PDU}?
-    \item What is the \concept{payload} size and the \concept{overhead} size of the whole \concept{stack}?
+    \item What is the payload size and the overhead size for each \concept{layer}'s \concept{PDU}?
+    \item What is the payload size and the overhead size of the whole \concept{stack}?
 \end{itemize}
 \end{exercise}
 
 \section{Receiving data}\label{sec:stack_layers:receive}
 
-When a \concept{packet} reaches the network \concept{stack} of the recipient, it is processed in reverse order,
-\ie, layers are traversed from bottom to top. Each layer inspects \textit{only} the \concept{header} corresponding to that layer.
-If everything is correct, the layer removes the header and passes the remainder of the packet to the layer above.
-In turn, the layer on top passes the remaining data (the \concept{payload}) to the recipient.
+When a packet reaches the network \concept{stack} of the recipient, it is processed in reverse order,
+\ie, layers are traversed from bottom to top. Each layer inspects \textit{only} the header corresponding to that layer.
+If everything is correct, the layer \conceptRef{decapsulate}{removes the header} and passes the remainder of the packet to the layer above.
+In turn, the layer on top passes the remaining data (the payload) to the recipient.
 Continuing the example of the 4-layer stack:
 
 \begin{center}
@@ -112,15 +112,15 @@ The \concept{PDU} of layer L3 is as follows:
 \end{bytefield}
 \end{center}
 
-Layer L1 receives a \concept{packet} of data and its \inlineCode{receive} function returns the following data
-(assume \concept{unsigned} integers and \concept{big endian} order when needed:
+Layer L1 receives a packet of data and its \inlineCode{receive} function returns the following data
+(assume \concept{unsigned} integers and \conceptRef{big endian/little endian}{big endian} order when needed:
 \begin{center}
 \otherBase{01 23 00 0a 01 00 00 06 00 aa 00 bb 43 20}
 \end{center}
 \begin{itemize}
-\item What data \concept{payload} was sent to the recipient program in this \concept{packet}?\\[-0.25cm]
+\item What data payload was sent to the recipient program in this packet?\\[-0.25cm]
 
-\item If this is the last \concept{packet} of the communication, how much (\concept{payload}) data was sent
+\item If this is the last packet of the communication, how much (payload) data was sent
   to the recipient user program?\\[-0.25cm]
   
 \item At most, how many different computers can connect using this \concept{stack}?\\[-0.25cm]
@@ -165,5 +165,5 @@ Implement the receiving end of the stack as follows:
 \end{exercise}
 
 \begin{remark}
-Python's \inlineCode{struct} library is useful, but not mandatory, to format \concept{packet} bytes.
+Python's \inlineCode{struct} library is useful, but not mandatory, to format packet bytes.
 \end{remark}

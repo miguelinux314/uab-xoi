@@ -7,7 +7,7 @@ La comunicació moderna entre ordinadors s'aconsegueix fent servir una
 \conceptRef{stack}{pila} de \conceptRef{layer}{capes} de xarxa.
 Cada pila se centra en alguns problemes i és responsable de 
 proporcionar certes funcionalitats, \eg, 
-l'\conceptRef{address}{adreçament} i la \conceptRef{sequencing}{seqüenciació} correcta (presentats en els capítols anteriors).
+l'adreçament i la \conceptRef{sequencing}{seqüenciació} correcta (presentats en els capítols anteriors).
 
 Cada \conceptRef{layer}{capa} defineix una \textit{parella} de funcions \inlineCode{send}/\inlineCode{receive},
 que és responsable d'algunes d'aquestes funcionalitats.
@@ -16,7 +16,7 @@ Cada capa fa servir el \inlineCode{send} i el \inlineCode{receive} de la capa in
 \ie, les funcionalitats d'una capa es basen en les funcionalitats de totes les capes que té per sota.
 
 Per coordinar les capes i permetre una comunicació \concept{virtual} entre elles, 
-cada capa defineix un \conceptRef{packet format}{format de paquet} diferent, que \conceptRef{encapsulation}{encapsula} 
+cada capa defineix un format de paquet diferent, que \conceptRef{encapsulation}{encapsula} 
 un paquet de la capa superior.
 
 
@@ -25,7 +25,7 @@ un paquet de la capa superior.
 Per implementar aquestes 
 capacitats, cada capa transmet no només les dades (\inlineCode{data}) proporcionades per la capa superior, 
 sinó també una capçalera amb tota la metainformació necessària per a aquella capacitat. Així, cada capa ha de definir
-el \conceptRef{packet format}{format de paquet}, afegint una certa \conceptRef{overhead}{sobrecàrrega} (típicament una \conceptRef{header}{capçalera}) al \concept{payload} (càrrega útil), \eg:
+el format de paquet, afegint una certa sobrecàrrega (típicament una capçalera) al payload (càrrega útil), \eg:
 
 \begin{center}
     \begin{bytefield}{36}
@@ -48,7 +48,7 @@ Els paquets que produeix cada capa s'anomenen genèricament \concept{PDU}s (Prot
 Les PDUs de cada capa tenen noms específics com ara \concept{frame} (trama), \conceptRef{datagram}{datagrama} o \concept{segment}.
 Aquests noms s'han de fer servir amb precisió en contextos tècnics.
 
-Cada capa inclou la \concept{PDU} de la capa superior dins la definició del \conceptRef{packet format}{format de paquet} de la seva PDU.
+Cada capa inclou la \concept{PDU} de la capa superior dins la definició del format de paquet de la seva PDU.
 Aquest procés s'anomena \conceptRef{encapsulation}{encapsulació}.
 
 \begin{exercise}
@@ -56,17 +56,17 @@ Aquest procés s'anomena \conceptRef{encapsulation}{encapsulació}.
 El programa d'usuari vol enviar $420$~bytes de dades fent servir la \conceptRef{stack}{pila} de la figura anterior.
 Suposa una mida de capçalera per a les capes 2, 3 i 4 de $14$~bytes, $20$~bytes i $20$~bytes, respectivament.
 \begin{itemize}
-    \item Quina és la mida del \concept{payload} i la mida de la \conceptRef{overhead}{sobrecàrrega} de la \concept{PDU} de cada \conceptRef{layer}{capa}?
-    \item Quina és la mida del \concept{payload} i la mida de la \conceptRef{overhead}{sobrecàrrega} de tota la \conceptRef{stack}{pila}?
+    \item Quina és la mida del payload i la mida de la sobrecàrrega de la \concept{PDU} de cada \conceptRef{layer}{capa}?
+    \item Quina és la mida del payload i la mida de la sobrecàrrega de tota la \conceptRef{stack}{pila}?
 \end{itemize}
 \end{exercise}
 
 \section{Recepció de dades}\label{sec:stack_layers:receive}
 
-Quan un \conceptRef{packet}{paquet} arriba a la \conceptRef{stack}{pila} de xarxa del destinatari, es processa en ordre invers,
-\ie, les capes es recorren de baix a dalt. Cada capa inspecciona \textit{només} la \conceptRef{header}{capçalera} corresponent a aquella capa.
-Si tot és correcte, la capa elimina la capçalera i passa la resta del paquet a la capa superior.
-Al seu torn, la capa de més amunt passa les dades restants (el \concept{payload}) al destinatari.
+Quan un paquet arriba a la \conceptRef{stack}{pila} de xarxa del destinatari, es processa en ordre invers,
+\ie, les capes es recorren de baix a dalt. Cada capa inspecciona \textit{només} la capçalera corresponent a aquella capa.
+Si tot és correcte, la capa \conceptRef{decapsulate}{elimina la capçalera} i passa la resta del paquet a la capa superior.
+Al seu torn, la capa de més amunt passa les dades restants (el payload) al destinatari.
 Continuant amb l'exemple de la pila de 4 capes:
 
 \begin{center}
@@ -112,15 +112,15 @@ La \concept{PDU} de la capa L3 és la següent:
 \end{bytefield}
 \end{center}
 
-La capa L1 rep un \conceptRef{packet}{paquet} de dades i la seva funció \inlineCode{receive} retorna les dades següents
-(suposa enters \conceptRef{unsigned}{sense signe} i ordre \concept{big endian} (primer el byte més significatiu) quan calgui:
+La capa L1 rep un paquet de dades i la seva funció \inlineCode{receive} retorna les dades següents
+(suposa enters \conceptRef{unsigned}{sense signe} i ordre \conceptRef{big endian/little endian}{big endian} (primer el byte més significatiu) quan calgui:
 \begin{center}
 \otherBase{01 23 00 0a 01 00 00 06 00 aa 00 bb 43 20}
 \end{center}
 \begin{itemize}
-\item Quin \concept{payload} de dades s'ha enviat al programa destinatari en aquest \conceptRef{packet}{paquet}?\\[-0.25cm]
+\item Quin payload de dades s'ha enviat al programa destinatari en aquest paquet?\\[-0.25cm]
 
-\item Si aquest és l'últim \conceptRef{packet}{paquet} de la comunicació, quantes dades (\concept{payload}) s'han enviat
+\item Si aquest és l'últim paquet de la comunicació, quantes dades (payload) s'han enviat
   al programa d'usuari destinatari?\\[-0.25cm]
   
 \item Com a màxim, quants ordinadors diferents es poden connectar fent servir aquesta \conceptRef{stack}{pila}?\\[-0.25cm]
@@ -165,6 +165,6 @@ Implementa l'extrem receptor de la pila de la manera següent:
 \end{exercise}
 
 \begin{remark}
-La biblioteca \inlineCode{struct} de Python és útil, però no obligatòria, per donar format als bytes dels \conceptRef{packet}{paquets}.
+La biblioteca \inlineCode{struct} de Python és útil, però no obligatòria, per donar format als bytes dels paquets.
 \end{remark}
 

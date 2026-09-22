@@ -23,29 +23,29 @@
 
 \subsection*{Capabilities}
 
-The \conceptRef{transport}{Transport} layer communicates \conceptRef{process}{processes} (programs)
+The \conceptRef{transport}{Transport} layer communicates processes (programs)
 running in potentially different \conceptRef{host}{hosts}. These processes are identified 
 using Layer~4 addresses called \conceptRef{port}{ports}.
 
-The transport layer offers two different ways of communication: without \conceptRef{connection}{connections} (\concept{UDP}) 
-and with connections (\concept{TCP}).
+The transport layer offers two different ways of communication: without connections (UDP) 
+and with connections (TCP).
 
-\concept{UDP} doesn't establish a \concept{connection} with the destination host because the priority is 
-to send some data \concept{payload} as fast as possible. 
+UDP doesn't establish a connection with the destination host because the priority is 
+to send some data payload as fast as possible. 
 Instead, UDP sends packets called \conceptRef{user datagram}{user datagrams} directly to the destination, 
 without expecting any sort of confirmation of reception from the destination's UDP layer.
-UDP headers are simple and small as well keep the \concept{overhead} of this protocol small.
+UDP headers are simple and small as well keep the overhead of this protocol small.
 
-\concept{TCP} establishes a \concept{connection} before sending any \concept{payload} data
+TCP establishes a connection before sending any payload data
 to make sure both ends are ready. In addition, TCP expects \conceptRef{ACK}{acknowledgement} (confirmation)
 of reception of every byte of payload data. Otherwise, data are \conceptRef{retransmission}{retransmitted} 
 after a wait period, giving TCP \concept{reliability}. TCP also uses a very clever way 
 to limit the data exchange speed (\concept{flow control}) so that fast and slow computers can coexist
 and communicate using TCP/IP. To provide all these features, TCP is a more complex protocol than UDP,
-uses larger headers and introduces a greater \concept{overhead}.
+uses larger headers and introduces a greater overhead.
 
 \begin{exercise}
-Which of the following applications do you think use \concept{UDP} and \concept{TCP}?
+Which of the following applications do you think use UDP and TCP?
 \begin{itemize}
 \item Multiplayer gaming
 \item The WWW
@@ -62,11 +62,11 @@ Which of the following applications do you think use \concept{UDP} and \concept{
 
 The transport layer is at the top of the stack provided by the OS. 
 Virtually all applications, and therefore their communication protocols,
-employ \concept{TCP}, \concept{UDP} (or even both) to exchange data over the net.
+employ TCP, UDP (or even both) to exchange data over the net.
 Some important protocols that use TCP or UDP are shown in the previous figure.
 
-Both TCP and UDP encapsulate their PDUs in \concept{IP} \conceptRef{datagram}{datagrams}. 
-Generally, \concept{IPv4} is used, but \concept{IPv6} is also a possibility when available.
+Both TCP and UDP encapsulate their PDUs in IP datagrams. 
+Generally, IPv4 is used, but IPv6 is also a possibility when available.
 
 \begin{remark}
 Neither TCP nor UDP change in any way when IPv6 is used instead of IPv4, \ie,
@@ -99,7 +99,7 @@ are treated independently:
 
 Port number \otherBase{0} is reserved, so the usable range or ports is \otherBase{1}--\otherBase{65535}. 
 Ports \otherBase{1}--\otherBase{1023} are only bound to 
-processes with privileges (\eg, an http \concept{server}), whereas client applications (\eg, an http \concept{client}) 
+processes with privileges (\eg, an http server), whereas client applications (\eg, an http client) 
 can only bind to ports \otherBase{1024}--\otherBase{65535} based on their availability.
 
 \begin{exercise}
@@ -108,7 +108,7 @@ How many different servers can be run in a machine to provide some feature to ot
 
 
 \section{UDP -- User Datagram Protocol}\label{sec:layer4:udp}
-\subsection{Packet format}
+\subsection{Packet format}\label{sec:layer4:udp:packet_format}
 
 The \conceptRef{user datagram}{user datagrams} used by UDP all have an $8$-byte header and
 have the following structure:
@@ -126,11 +126,11 @@ have the following structure:
 \begin{exercise}\ \\[-0.5cm]
 \begin{itemize}
 \item What is the maximum payload size that can be sent in a single \concept{user datagram}?
-\item Is \concept{fragmentation} desirable when using UDP?
+\item Is fragmentation desirable when using UDP?
 \end{itemize}
 \end{exercise}
 
-\subsection{Operation}
+\subsection{Operation}\label{sec:layer4:udp:operation}
 
 \begin{center}
 \includegraphics[width=0.5\linewidth]{udp_socket.pdf}
@@ -143,7 +143,7 @@ UDP servers must first \concept{bind} to the port to be exposed to clients, and 
 receive each datagram in an individual call to the read function (\inlineCode{recvfrom}).
 
 The bind function is purely internal to the server: it entails changes in its configuration
-(the table mapping port numbers and \conceptRef{process}{processes}), but it does not generate any message. 
+(the table mapping port numbers and processes), but it does not generate any message. 
 
 \begin{exercise}\ \\[-0.5cm]
 \begin{itemize}
@@ -176,10 +176,10 @@ which required access to Layer~2 (\eg, Ethernet) sockets instead.
 \end{exercise}
 
 \section{TCP -- Transport Control Protocol}\label{sec:layer4:tcp}
-\subsection{Packet format}
+\subsection{Packet format}\label{sec:layer4:tcp:packet_format}
 
-\concept{TCP} PDUs are called \conceptRef{segment}{segments}. 
-Their \concept{header} is at least $20$ bytes long, but can grow longer when certain options are used:
+TCP PDUs are called segments. 
+Their header is at least $20$ bytes long, but can grow longer when certain options are used:
 
 \begin{center}
 \begin{bytefield}[bitheight=3em,bitwidth=1.1em]{32}
@@ -226,7 +226,7 @@ sections. In the order they appear:
 How can the receiving end know the size of the options and of the payload data?
 \end{exercise}
 
-\subsection{Operation}
+\subsection{Operation}\label{sec:layer4:tcp:operation}
 
 TCP is a \concept{stateful} protocol. TCP \conceptRef{socket}{sockets} transition between 
 multiple states during communication. Each end of the communication has its own 
@@ -300,9 +300,9 @@ The expected \nack\ and \nseq\ numbers during the \concept{3-way handshake} are:
 
 \section{TCP: ``Connection established''}\label{sec:layer4:established}
 
-\subsection{Streams and sequence numbers}
+\subsection{Streams and sequence numbers}\label{sec:layer4:established:streams_and_sequence_numb}
 
-TCP offers the illusion of a data \concept{stream}: two pipes of data in the In and Out directions 
+TCP offers the illusion of a data stream: two pipes of data in the In and Out directions 
 (a \conceptRef{full duplex}{full-duplex} connection). These pipes are \conceptRef{reliability}{reliable},
 \ie, mechanisms are put in place to prevent data loss, duplication and reordering.
 
@@ -356,7 +356,7 @@ The \nseq\ that comes after $2^{32} - 1$ is $0$. Why?
 \end{exercise}
 
 Payload data in TCP is always sent together with the \textit{first} position they occupy in the 
-\concept{stream} and their length.
+stream and their length.
 For instance, inferring from the data shown above, two segments could be produced:
 
 \begin{enumerate}
@@ -368,10 +368,10 @@ For instance, inferring from the data shown above, two segments could be produce
 What would be the \nseq\ of the next segment with new payload data?
 \end{exercise}
 
-The receiving end of a TCP \concept{segment} uses this information to stitch together 
+The receiving end of a TCP segment uses this information to stitch together 
 a copy the data in the right order, even if the segments themselves arrive out of order. 
 %
-These data are passed on to the upper \concept{layer} in a 
+These data are passed on to the upper layer in a 
 \conceptRef{buffer}{buffered} fashion, or directly if the \concept{PSH} (push) TCP flag is enabled.
 
 \begin{center}
@@ -379,7 +379,7 @@ These data are passed on to the upper \concept{layer} in a
 \end{center}
 
 
-\subsection{Reliability and retransmission}
+\subsection{Reliability and retransmission}\label{sec:layer4:established:reliability_and_retransmi}
 TCP needs all transmitted data be \conceptRef{ACK}{acknowledged} by the other end.
 Whenever some data is received in a TCP segment, the receiving end sends back a confirmation 
 even if no data need to be sent at that point.
@@ -433,7 +433,7 @@ Assuming both ends are correctly following TCP:
 \end{center}
 \end{exercise}
 
-\subsection{Transmission limits}
+\subsection{Transmission limits}\label{sec:layer4:established:transmission_limits}
 
 Data for transmission is often produced in bursts. We would like to send as much 
 as possible as soon as possible, but there are two limits put in place in TCP.
@@ -461,17 +461,17 @@ per segment allowed in a TCP connection.
 The reason for this limit is to prevent fragmentation, for performance reasons,
 \eg, due to the elevated cost in time and memory of reassembly.
 
-The MSS is $536$~bytes in \concept{IPv4} by default,
+The MSS is $536$~bytes in IPv4 by default,
 but can be negotiated with the TCP header Options during the connection opening phase.
-In \concept{IPv6}, the default MSS is $1220$~bytes.
+In IPv6, the default MSS is $1220$~bytes.
 
 \begin{exercise}
-Ethernet has an \concept{MTU} of $1500$~bytes. Assuming \conceptRef{datagram}{datagrams} travel 
+Ethernet has an MTU of $1500$~bytes. Assuming datagrams travel 
 through 2 Ethernet networks only: 
 % 
 \begin{itemize}
 \item What is the largest \concept{MSS} that cannot cause fragmentation, MSS$_\textrm{max}$?
-\item What is the \concept{overhead} for MSS$_\textrm{max}$ and for MSS$_\textrm{max}$ + 1?
+\item What is the overhead for MSS$_\textrm{max}$ and for MSS$_\textrm{max}$ + 1?
 \end{itemize}
 \end{exercise}
 
@@ -510,7 +510,7 @@ different times to produce and process them.
 
 \section{TCP: ``Closing connection''}\label{sec:layer4:tcp_closing}
 
-\subsection{FIN, \nseq\ and \nack}
+\subsection{FIN, \nseq\ and \nack}\label{sec:layer4:tcp_closing:fin_nseq_and_nack}
 
 Once the connection is \texttt{ESTABLISHED}, it remains so until either end decides to close 
 it. 
@@ -534,7 +534,7 @@ is the initial \nseq, then one segment with \nack\ $= A+k+2$ is expected.
 Note how FIN flag occupies a sequence number itself and must be acknowledged like the SYN 
 (see Section~\ref{sec:layer4:tcp_opening}), \eg:
 
-\subsection{Two-sided close}
+\subsection{Two-sided close}\label{sec:layer4:tcp_closing:two_sided_close}
 
 After one end closes its side of the connection, the other may continue sending data indefinitely. 
 When the second side is done sending data, it also sends a segment with the \concept{FIN} flag enabled.
@@ -567,12 +567,12 @@ Note that:
 \end{remark}
 
 
-\subsection{One-sided close}
+\subsection{One-sided close}\label{sec:layer4:tcp_closing:one_sided_close}
 
 Sometimes, connections must be terminated and there is not enough time or interest 
 to go through the multi-step, two-sided connection closing process.
 % 
-This may be the case, \eg, when a \concept{process} crashes, a given TCP o UDP port is 
+This may be the case, \eg, when a process crashes, a given TCP o UDP port is 
 blocked, and other situations of error.
 
 In this scenario, the host that detected the abnormal situation simply sends a segment 

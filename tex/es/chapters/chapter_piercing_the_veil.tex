@@ -45,12 +45,12 @@ debemos prestar mucha atención como mínimo a los siguientes aspectos siempre q
 \item ¿entero o con decimales? 
 \item ¿\conceptRef{bitdepth}{profundidad de bits}? (\eg\ 8 bits por número)
 \item ¿\conceptRef{sign}{con signo} o \conceptRef{sign}{sin signo}?
-\item Para números de varios bytes: ¿\concept{big endian} o \concept{little endian}?
-\item Para números con decimales: ¿\conceptRef{floating-point}{coma flotante} o \conceptRef{fixed-point}{coma fija}?
+\item Para números de varios bytes: ¿\conceptRef{big endian/little endian}{big endian} o \conceptRef{big endian/little endian}{little endian}?
+\item Para números con decimales: ¿\conceptRef{fixed-point/floating-point}{coma flotante} o \conceptRef{fixed-point/floating-point}{coma fija}?
 \end{itemize}
 % 
 \begin{exercise}
-Explica \textbf{cómo completar la segunda fila a partir de la primera} (y viceversa),
+Explica cómo completar la segunda fila a partir de la primera (y viceversa),
 y qué suposiciones necesitas hacer en cada caso.
 % 
 \begin{center}
@@ -64,12 +64,12 @@ y qué suposiciones necesitas hacer en cada caso.
 & $260$
 \\
 \midrule
-\textbf{Binario} 
-& \zero\zero\one\one\one
-& \zero\zero\zero\zero\zero\zero\one\zero
-& \one\one\zero\one
-& \one\one\zero\zero
-& \zero\zero\zero\zero\ \zero\one\zero\zero\ \zero\zero\zero\zero\ \zero\zero\zero\one\
+\textbf{Binario}
+& \mbox{\zero\zero\one\one\one}
+& \mbox{\zero\zero\zero\zero\zero\zero\one\zero}
+& \mbox{\one\one\zero\one}
+& \mbox{\one\one\zero\zero}
+& \mbox{\zero\zero\zero\zero\ \zero\one\zero\zero\ \zero\zero\zero\zero\ \zero\zero\zero\one}
 \\
 \bottomrule
 \end{tabular}
@@ -111,7 +111,7 @@ Considera el siguiente mensaje, compuesto por una concatenación
 de enteros sin signo de 3 bits: \otherBase{a4 3f 20}.
 \begin{itemize}
 \item ¿Cuántos bits y bytes de longitud tiene?
-\item\textbf{¿Cuáles son los cinco primeros enteros} contenidos en el mensaje?
+\item ¿Cuáles son los cinco primeros enteros contenidos en el mensaje?
 \end{itemize}
 \end{exercise}
 
@@ -122,12 +122,12 @@ operaciones \conceptRef{bitwise}{a nivel de bits} y de \conceptRef{boolean logic
 \begin{tabular}{rcccccc}
 \toprule
 \textbf{Operación} & 
-\conceptRef{bitwise}{AND (bits)} &
-\conceptRef{boolean logic}{AND lógico} &
-\conceptRef{bitwise}{OR (bits)} &
-\conceptRef{boolean logic}{OR lógico} &
-\conceptRef{bitwise}{Despl. izq.} &  
-\conceptRef{bitwise}{Despl. der.}
+AND (bits) &
+AND lógico &
+OR (bits) &
+OR lógico &
+Despl. izq. &
+Despl. der.
 \\
 \textbf{Python}    &
 \inlineCode{&}       & 
@@ -163,9 +163,9 @@ Considera el código que se muestra a continuación. Los números que imprime al
 Una vez decidimos qué bits transmitir, necesitamos encontrar una forma de hacer que esos bits lleguen a otra máquina a distancia.
 Primero, tenemos que decidir qué \conceptRef{medium}{medio} usar y qué propiedades físicas podemos controlar y monitorizar.
 Entre las opciones más populares están usar el voltaje en cables de cobre, enviar luz por fibra óptica y manipular el 
-\conceptRef{field}{campo} electromagnético mediante antenas.
+campo electromagnético mediante antenas.
 
-\begin{exercise} \textbf{Reflexiona}:\\[-0.5cm]
+\begin{exercise} Reflexiona:\\[-0.5cm]
 \begin{itemize}
 \item ¿Podemos hacer un cable de cobre tan largo como queramos?
 \item ¿Qué medio usan las conexiones Wi-Fi? 
@@ -174,8 +174,8 @@ Entre las opciones más populares están usar el voltaje en cables de cobre, env
 \end{exercise}
 
 
-Si optamos por cables de cobre, podemos poner varios en \conceptRef{parallel}{paralelo} y enviar más datos a la misma velocidad de reloj.
-Esto, sin embargo, tiene el precio de una complejidad y un coste mayores que los diseños en \conceptRef{serial}{serie}. 
+Si optamos por cables de cobre, podemos poner varios en \conceptRef{parallel/serial}{paralelo} y enviar más datos a la misma velocidad de reloj.
+Esto, sin embargo, tiene el precio de una complejidad y un coste mayores que los diseños en \conceptRef{parallel/serial}{serie}. 
 Pueden producirse interferencias de voltaje en las líneas de datos por diversos motivos, 
 incluidos fenómenos físicos como la inducción electromagnética en el cable. 
 No obstante, los cables que cumplen los estándares modernos de transmisión de datos (\eg\ IEEE 802.3)
@@ -183,7 +183,7 @@ suelen emplear pares trenzados de cables y apantallamiento,
 entre otras estrategias, para garantizar errores de bit por debajo de $1$~de~cada~$10^{12}$ bits.
 
 \begin{exercise}\label{ex:piercing:copper_connectors}
-\textbf{Observa e identifica} los siguientes conectores de cable:\\[-0.5cm]
+Observa e identifica los siguientes conectores de cable:\\[-0.5cm]
 \begin{center}
 \includegraphics[height=3cm]{hdmi_connector.jpg}
 \includegraphics[height=3cm]{coaxial_connector.jpg}
@@ -217,7 +217,7 @@ varias señales, lo que aumenta enormemente la velocidad efectiva de transmisió
 Cuando un haz de luz entra en una fibra óptica, lo hace con un cierto ángulo de ataque.
 Este ángulo afecta al tiempo que tarda en llegar al otro extremo. Si proyectamos un cono de luz,
 la luz entra en la fibra con múltiples ángulos de ataque. 
-¿Qué ocurre en el otro extremo si \textbf{encendemos y apagamos este cono de luz} muy rápidamente?
+¿Qué ocurre en el otro extremo si encendemos y apagamos este cono de luz muy rápidamente?
 ¿Importa si usamos haces monomodo o multimodo?
 % 
 \begin{center}
@@ -264,11 +264,11 @@ su frecuencia (FSK), o incluso la amplitud y la fase al mismo tiempo (QAM).
 
 \begin{exercise}
 La figura anterior muestra un ejemplo de modulación en amplitud y otro de modulación en frecuencia. 
-¿Cuál es cuál? Para cada caso: ¿esa \textbf{modulación transmite una señal analógica o digital}?
+¿Cuál es cuál? Para cada caso: ¿esa modulación transmite una señal analógica o digital?
 \end{exercise}
 
 
 \begin{exercise}
-¿Cuál es la \textbf{diferencia entre ancho de banda y velocidad de transmisión}? 
+¿Cuál es la diferencia entre ancho de banda y velocidad de transmisión? 
 ¿Por qué crees que se usan indistintamente en contextos no técnicos?
 \end{exercise}

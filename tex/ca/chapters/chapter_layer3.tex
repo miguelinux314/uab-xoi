@@ -25,34 +25,34 @@
 % \section{Layer~3 overview}
 \subsection*{Funcionalitats}
 
-El \conceptRef{IP}{protocol d'Internet (IP)} permet intercanviar \conceptRef{datagram}{datagrames} 
-(\conceptRef{PDU}{PDU} de la capa~3) entre dispositius de diferents \conceptRef{LAN}{LANs} (xarxa d'àrea local).
+El \conceptRef{IP}{protocol d'Internet (IP)} permet intercanviar datagrames 
+(PDU de la capa~3) entre dispositius de diferents LANs (xarxa d'àrea local).
 % 
 El seu sistema d'adreçament identifica els dispositius globalment i fa possible 
-\conceptRef{routing}{encaminar} els datagrames allà on calgui. 
+encaminar els datagrames allà on calgui. 
 
 Els dispositius que es comuniquen via IP poden pertànyer a LANs
-basades en tecnologies diferents i amb tipus d'adreça \concept{MAC} diferents.
+basades en tecnologies diferents i amb tipus d'adreça MAC diferents.
 Això té dues implicacions:
 \begin{itemize}
-  \item Un datagrama que ``cap'' en la \concept{MTU} de la LAN d'origen
+  \item Un datagrama que ``cap'' en la MTU de la LAN d'origen
     pot ser massa gran per a la MTU de la LAN de destinació (o de qualsevol LAN intermèdia). 
     IP defineix un sistema de \conceptRef{fragmentation}{fragmentació} per dividir els datagrames,
     que només es reconstrueixen a la destinació final.\\[-0.25cm]
     
   \item Quan enviem un datagrama, coneixem l'\conceptRef{IP}{adreça IP} del dispositiu destinatari,
-  però no necessàriament la seva adreça \concept{MAC}. Només necessitarem aquesta MAC si formem part de la LAN
-  de destinació. IP fa servir \concept{ARP} per traduir adreces IP conegudes
+  però no necessàriament la seva adreça MAC. Només necessitarem aquesta MAC si formem part de la LAN
+  de destinació. IP fa servir ARP per traduir adreces IP conegudes
   a adreces MAC del tipus de la LAN de destinació.
 \end{itemize}
 
 
-Els \conceptRef{datagram}{datagrames} poden viatjar per xarxes que no controlen 
+Els datagrames poden viatjar per xarxes que no controlen 
 ni l'origen ni la destinació, de manera que els datagrames es poden perdre, desordenar i duplicar.
 % 
 La capa~3 no proporciona mecanismes per gestionar-ho; les capes superiors han d'implementar
 mecanismes de protecció quan calgui 
-(\eg, per implementar els \conceptRef{stream}{fluxos de dades} de \concept{TCP}).
+(\eg, per implementar els fluxos de dades de TCP).
 
 \begin{center}
 \includegraphics[width=0.9\linewidth]{protocols_layer3.pdf}
@@ -65,17 +65,17 @@ mecanismes de protecció quan calgui
 La versió~4 d'\concept{IP} és \textit{el} protocol que s'utilitza a la capa~3, \ie,
 és comú a pràcticament totes les comunicacions de la Internet tal com la coneixem avui.
 % 
-Fa molts anys que Internet lluita per fer la transició cap a \concept{IPv6}, 
-però el procés no s'ha completat i només \concept{IPv4} ofereix cobertura global.
+Fa molts anys que Internet lluita per fer la transició cap a IPv6, 
+però el procés no s'ha completat i només IPv4 ofereix cobertura global.
 
-\concept{IPv4} delega en el protocol \concept{ARP} la traducció d'adreces IP conegudes 
+IPv4 delega en el protocol ARP la traducció d'adreces IP conegudes 
 a adreces MAC dins de cada LAN. ARP \textit{no} fa servir datagrames IP.
 
-Els protocols següents encapsulen les seves \conceptRef{PDU}{PDU} en el payload (càrrega útil) dels 
-\conceptRef{datagram}{datagrames} IP:\\[-0.6cm]
+Els protocols següents encapsulen les seves PDU en el payload (càrrega útil) dels 
+datagrames IP:\\[-0.6cm]
 \begin{itemize}
-\item Transport Control Protocol (\concept{TCP}) 
-\item User Datagram Protocol (\concept{UDP})
+\item Transport Control Protocol (TCP) 
+\item User Datagram Protocol (UDP)
 \item Internet Control Message Protocol (\concept{ICMP})
 \end{itemize}
 
@@ -88,13 +88,13 @@ Les ordres \inlineCode{ip address}, \inlineCode{ip route} i \inlineCode{ip neigh
 
 \section{Adreçament de la capa~3}\label{sec:layer3:addressing}
 
-Les adreces \concept{IPv4} tenen $32$~bits. Normalment es presenten a les persones en
+Les adreces IPv4 tenen $32$~bits. Normalment es presenten a les persones en
 el format \concept{quad decimal}, \eg,
 \begin{center}
 \otherBase{142.250.201.67}
 \end{center}
 
-Les adreces \concept{IPv6} tenen $128$~bits ($12$~bytes), \ie, 
+Les adreces IPv6 tenen $128$~bits ($12$~bytes), \ie, 
 són $4$~vegades més grans que una adreça IPv4.
 S'expressen en format hexadecimal, \eg, com es mostra a continuació. Fixa't que 
 dos signes de dos punts ``\otherBase{::}'' indiquen ``omple amb zeros'',
@@ -104,17 +104,17 @@ i que ``\otherBase{::}'' només pot aparèixer una vegada per adreça IPv6.
 \end{center}
 
 \begin{remark}
-Quan una adreça \concept{IPv6} forma part d'un URL, s'envolta de claudàtors,
-\eg, \otherBase{https://[fe80::f524:a73a:e946:7c02]/}.
+Quan una adreça IPv6 forma part d'un URL, s'envolta de claudàtors,
+\eg, \url{https://[fe80::f524:a73a:e946:7c02]/}.
 \end{remark}
 
 
-\subsection{Adreces públiques i reservades}
+\subsection{Adreces públiques i reservades}\label{sec:layer3:public_reserved}
 
-La majoria d'adreces IP són \conceptRef{public IP}{públiques} i úniques a tot Internet, 
+La majoria d'adreces IP són \conceptRef{public/private IP}{públiques} i úniques a tot Internet, 
 \ie, l'adreça IP anterior té el mateix significat a tot el món: identifica un únic dispositiu connectat.
 % 
-Moltes adreces són \conceptRef{reserved IP address}{reservades/privades} i només es poden 
+Moltes adreces són \conceptRef{public/private IP}{reservades/privades} i només es poden 
 fer servir dins d'un àmbit concret (\eg, una LAN) o en una situació concreta.
 Algunes de les més habituals són les següents (n'hi ha 
 \href{https://en.wikipedia.org/wiki/Reserved_IP_addresses#IPv4}{\underline{algunes més}}, 
@@ -138,11 +138,11 @@ també per a IPv6):
 
 \begin{exercise}\ \\[-0.5cm]
 \begin{itemize}
-\item Quantes adreces \concept{IPv4} diferents hi ha (incloent-hi les reservades i privades)? 
+\item Quantes adreces IPv4 diferents hi ha (incloent-hi les reservades i privades)? 
 \item Són suficients ara i en el futur?
 \item És problemàtic que una adreça com \otherBase{192.168.0.1} 
   l'estiguin fent servir simultàniament milers (probablement milions) d'ordinadors a Internet ara mateix?
-\item Quina d'aquestes correspon a adreces \concept{link local}?
+\item Quina d'aquestes correspon a adreces link local?
 \end{itemize}
 \end{exercise}
 
@@ -196,7 +196,7 @@ La màscara de xarxa de l'exemple anterior es pot expressar en binari
 Les màscares de xarxa també es fan servir a IPv6, però amb un valor màxim de $N$ de $128$ en lloc de $32$.
 \end{remark}
 
-\subsection{Blocs d'adreces IP}
+\subsection{Blocs d'adreces IP}\label{sec:layer3:ip_blocks}
 
 Les màscares de xarxa es combinen amb adreces IP per definir 
 \conceptRef{IP address block}{blocs d'adreces IP} 
@@ -302,11 +302,11 @@ el dispositiu \otherBase{123.45.67.89/14}:
 \end{itemize}
 \end{exercise}
 
-Una \conceptRef{network}{xarxa IP} (una LAN) és un bloc d'adreces, però no totes aquestes adreces 
+Una xarxa IP (una LAN) és un bloc d'adreces, però no totes aquestes adreces 
 es poden assignar a dispositius. Sempre hi ha dues adreces reservades:
 \begin{itemize}
 \item L'adreça amb tots els bits de node a \otherBase{0}: identifica la mateixa LAN.
-\item L'adreça amb tots els bits de node a \otherBase{1}: identifica el \concept{broadcast} (difusió) dins de la LAN.
+\item L'adreça amb tots els bits de node a \otherBase{1}: identifica el broadcast (difusió) dins de la LAN.
 \end{itemize}
 
 \begin{exercise}\ \\[-0.5cm]
@@ -341,7 +341,7 @@ $\vdots$ & $\vdots$ & $\vdots$ \\
 \end{center}
 
 \begin{remark}
-Tots els \conceptRef{router}{routers} (encaminador) necessiten una adreça IP vàlida per cada LAN a la qual estan connectats.
+Tots els routers (encaminador) necessiten una adreça IP vàlida per cada LAN a la qual estan connectats.
 Per tant, els routers \textit{sí} que compten per al nombre màxim de dispositius connectats a una LAN.
 \end{remark}
 
@@ -386,7 +386,7 @@ Amplia (o substitueix) el codi perquè puguis:
 
 \subsection{Format del paquet}\label{sec:layer3:ip:format}
 
-\concept{IP} defineix un format de \conceptRef{packet}{paquet} amb una \conceptRef{header}{capçalera} 
+\concept{IP} defineix un format de paquet amb una capçalera 
 que té \textit{com a mínim} $20$~bytes. S'hi poden incloure parts opcionals,
 sempre que la mida total de la capçalera sigui múltiple de $32$~bits ($4$~bytes).
 El payload pot ser buit, de manera que la mida mínima d'un datagrama és de $20$~bytes.\\
@@ -439,7 +439,7 @@ El payload pot ser buit, de manera que la mida mínima d'un datagrama és de $20
 \end{itemize}
 \end{exercise}
 
-\subsection{Funcionament}
+\subsection{Funcionament}\label{sec:layer3:ip:operation}
 
 Quan un dispositiu A vol enviar un datagrama IP a un dispositiu B, les IP d'origen i 
 de destinació de la capçalera queden fixades i no canvien per a aquest datagrama.
@@ -454,7 +454,7 @@ Considera l'escenari següent, en què A vol comunicar-se amb E.
 
 
 Aquí, els dispositius d'origen i de destinació pertanyen a LANs diferents.
-Primer, el datagrama es passa al \concept{router} de l'origen.
+Primer, el datagrama es passa al router de l'origen.
 Després, cada router intermedi el passa al següent fins que el datagrama arriba 
 a l'últim router, que està connectat a la LAN de destinació. Finalment, aquest últim router 
 passa el datagrama a la destinació. 
@@ -468,9 +468,9 @@ En canvi, l'adreça MAC canvia a cada \conceptRef{hop}{salt} entre LANs.
 
 \section{Encaminament IP}\label{sec:layer3:routing}
 
-Els \conceptRef{router}{routers} són els dispositius encarregats de reenviar els \conceptRef{datagram}{datagrames} IP
-mirant l'adreça IP de destinació de cadascun, present a la \conceptRef{header}{capçalera} IP. Els routers no necessiten 
-\conceptRef{decapsulate}{desencapsular} les capçaleres de les capes 4 i superiors. Per tant, les seves piles de xarxa només necessiten arribar fins a la capa~3
+Els routers són els dispositius encarregats de reenviar els datagrames IP
+mirant l'adreça IP de destinació de cadascun, present a la capçalera IP. Els routers no necessiten 
+desencapsular les capçaleres de les capes 4 i superiors. Per tant, les seves piles de xarxa només necessiten arribar fins a la capa~3
 (i per això de vegades se'ls anomena dispositius de capa~3).
 
 \begin{center}
@@ -498,10 +498,10 @@ Si les reconeix, el router processa el datagrama de la manera següent:
   \begin{enumerate}[label=\alph*)]
   \item La capçalera de capa~2 de $F'$ canvia completament:
     \begin{itemize} 
-    \item La \concept{MAC} de destinació és la del següent salt,
+    \item La MAC de destinació és la del següent salt,
     i la MAC d'origen és la del router que reenvia el datagrama.
     La IP del següent salt la dona la \conceptRef{routing table}{taula d'encaminament} (vegeu la secció~\ref{sec:layer3:routing}), 
-    i la seva MAC s'obté a partir d'aquesta IP amb \concept{ARP} (secció~\ref{sec:layer3:arp}).\\[-0.4cm]
+    i la seva MAC s'obté a partir d'aquesta IP amb ARP (secció~\ref{sec:layer3:arp}).\\[-0.4cm]
     %     
     \item La MAC d'origen del frame $F'$
     és diferent de la MAC de destinació del frame rebut $F$ si el router 
@@ -519,7 +519,7 @@ Si les reconeix, el router processa el datagrama de la manera següent:
     \begin{itemize}
     \item El camp \concept{TTL} (temps de vida) es decrementa en $1$.\\
     Si el TTL arriba a $0$, el datagrama es descarta en lloc de reenviar-se.
-    \item Quan el camp \conceptRef{IP Options}{Options} és present, sovint s'actualitza.
+    \item Quan el camp Options és present, sovint s'actualitza.
     \item El \concept{checksum} (suma de verificació) de la capçalera s'actualitza en conseqüència.\\
     \end{itemize}
   \end{enumerate}
@@ -533,10 +533,10 @@ Si les reconeix, el router processa el datagrama de la manera següent:
 
 
 
-Quan un router rep un \conceptRef{datagram}{datagrama} IP per reenviar i aquest router 
-està connectat a la mateixa LAN que l'adreça IP de destinació, el router fa un \conceptRef{direct delivery}{lliurament directe} (DD).
+Quan un router rep un datagrama IP per reenviar i aquest router 
+està connectat a la mateixa LAN que l'adreça IP de destinació, el router fa un \conceptRef{direct/indirect delivery}{lliurament directe} (DD).
 % 
-En cas contrari, el datagrama es reenvia al següent router en un \conceptRef{indirect delivery}{lliurament indirecte} (ID).
+En cas contrari, el datagrama es reenvia al següent router en un \conceptRef{direct/indirect delivery}{lliurament indirecte} (ID).
 % 
 Un router sap si ha de fer DD o ID, així com l'adreça IP de destinació (i d'origen) que ha de fer servir,
 gràcies a la seva \conceptRef{routing table}{taula d'encaminament}.
@@ -554,8 +554,8 @@ Totes les taules d'encaminament tenen com a mínim les columnes següents:
   Com que és el bloc més gran possible, només s'aplica si no s'aplica cap de les altres files. 
   L'entrada \textit{default} no és obligatòria.\\[-0.3cm]
   
-\item \textbf{Gateway/via} (passarel·la): si la fila correspon a un \conceptRef{indirect delivery}{lliurament indirecte}, aquesta columna conté l'adreça IP
-  del següent router. En cas contrari, aquesta columna conté \otherBase{0.0.0.0} per indicar un \conceptRef{direct delivery}{lliurament directe}.\\[-0.3cm]
+\item \textbf{Gateway/via} (passarel·la): si la fila correspon a un \conceptRef{direct/indirect delivery}{lliurament indirecte}, aquesta columna conté l'adreça IP
+  del següent router. En cas contrari, aquesta columna conté \otherBase{0.0.0.0} per indicar un \conceptRef{direct/indirect delivery}{lliurament directe}.\\[-0.3cm]
   
 \item \textbf{Interfície}: nom intern de la interfície de xarxa (\eg, de la targeta Ethernet) que s'ha de fer servir per lliurar el 
   datagrama. Els sistemes operatius poden fer servir la convenció que vulguin, sempre que les interfícies es puguin identificar de manera única a la taula.
@@ -599,7 +599,7 @@ Pensa un cas d'ús en què tingui sentit tenir aquestes dues regles.
 \end{exercise}
 
 Perquè Internet funcioni, els routers que interconnecten LANs a escala global han d'estar ben configurats. 
-De vegades no és així, i això pot provocar \conceptRef{routing errors}{errors d'encaminament}. Dos problemes importants 
+De vegades no és així, i això pot provocar errors d'encaminament. Dos problemes importants 
 que et pots trobar són:
 \begin{itemize}
 \item ``Network is unreachable'': cap de les files de la taula d'encaminament fa servir un bloc d'adreces que contingui 
@@ -659,18 +659,18 @@ segueixi un cicle i provoqui l'error ``TTL exceeded''.
 \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} \\
 \end{bytefield}
 
-Les \conceptRef{LAN}{LANs} es poden considerar blocs d'adreces (\eg, expressats en format \concept{CIDR})
+Les LANs es poden considerar blocs d'adreces (\eg, expressats en format \concept{CIDR})
 amb dues adreces reservades. A les xarxes accessibles directament des d'Internet se'ls ha d'assignar 
 un bloc vàlid prou gran per connectar-hi tots els dispositius necessaris. Per garantir que no hi hagi dos dispositius a Internet
 amb la mateixa IP \conceptRef{public}{pública}, no pot haver-hi dues LANs que continguin la mateixa adreça 
 (tret que l'adreça sigui \conceptRef{private IP}{privada}).
 
-Les $2^{32}$~adreces disponibles a \concept{IPv4} es divideixen en blocs mitjançant 
+Les $2^{32}$~adreces disponibles a IPv4 es divideixen en blocs mitjançant 
 \conceptRef{netmask}{màscares de xarxa}. Els blocs més grans es poden dividir per la meitat augmentant 
 en $1$ la longitud de la màscara de xarxa, com es veu a la figura anterior.
 % 
 Per exemple, el bloc inicial \otherBase{0.0.0.0/0} (totes les adreces) 
-es pot dividir en dos blocs \otherBase{/1}, cadascun amb la meitat de les adreces \concept{IPv4} 
+es pot dividir en dos blocs \otherBase{/1}, cadascun amb la meitat de les adreces IPv4 
 ($2^{31}$ -- encara massa gran per a qualsevol LAN real).
 % 
 Aquest procés continua de manera independent per a cada bloc resultant, i s'atura quan la mida de LAN 
@@ -805,22 +805,22 @@ i no \otherBase{0000000}?\\[-0.4cm]
   després les següents adreces més altes possibles a la segona, 
   i les adreces més baixes possibles a la primera.\\[-0.4cm]
   
-\item Quina és la IP de \concept{broadcast} de cada subxarxa?
+\item Quina és la IP de broadcast de cada subxarxa?
 \end{itemize}
 \end{exercise}
 
 
 % 
-\section{Fragmentació IP}
+\section{Fragmentació IP}\label{sec:layer3:ip_fragmentation}
 \label{sec:layer3:fragmentation}
 
-Abans que un dispositiu (incloent-hi els \conceptRef{router}{routers} i els ordinadors normals)
-pugui enviar un \conceptRef{datagram}{datagrama} per una LAN, ha de verificar que la seva longitud en bytes 
-no sigui més gran que la \concept{MTU} d'aquesta LAN. Si ho és, el datagrama s'ha de 
+Abans que un dispositiu (incloent-hi els routers i els ordinadors normals)
+pugui enviar un datagrama per una LAN, ha de verificar que la seva longitud en bytes 
+no sigui més gran que la MTU d'aquesta LAN. Si ho és, el datagrama s'ha de 
 \conceptRef{fragmentation}{fragmentar} en dos o més datagrames més petits que sí que càpiguen en la MTU de la LAN.
 
 Els fragments més petits són datagrames complets amb capçalera i payload. Per tant, 
-més fragments impliquen una \conceptRef{overhead}{sobrecàrrega} més gran. Cadascun d'aquests fragments s'envia 
+més fragments impliquen una sobrecàrrega més gran. Cadascun d'aquests fragments s'envia 
 i es reenvia individualment com qualsevol altre datagrama, i pot ser que s'hagi de tornar a fragmentar 
 si passa per una altra LAN amb una MTU encara més petita.
 
@@ -832,12 +832,12 @@ els passos següents:
     Si DF=\otherBase{1} però cal fragmentar, el datagrama no es fragmenta 
     i es produeix un error.\\[-0.2cm]
 
-\item Les dades del \conceptRef{payload}{payload} es divideixen en blocs de mida com a màxim $S$, de manera que $S + H = MTU$ 
+\item Les dades del payload es divideixen en blocs de mida com a màxim $S$, de manera que $S + H = MTU$ 
   ($H$ és la longitud de la capçalera del datagrama, normalment $20$~bytes). Només l'últim bloc
   pot tenir una mida inferior a $S$. Això garanteix que cap fragment no superi la MTU,
   que és precisament l'objectiu de la fragmentació.\\[-0.2cm]
   
-\item La \conceptRef{header}{capçalera} del datagrama original es copia a la dels fragments amb les modificacions següents:
+\item La capçalera del datagrama original es copia a la dels fragments amb les modificacions següents:
   \begin{itemize}
   \item El camp Datagram ID pren el mateix valor en tots els fragments d'un datagrama. 
     El sistema operatiu s'assegura de triar un ID que la seva pila de xarxa no hagi fet servir recentment.
@@ -906,18 +906,18 @@ Com hauria de gestionar aquests datagrames la pila de xarxa receptora?
 
 \section{ARP -- Address Resolution Protocol}\label{sec:layer3:arp}
 
-L'Address Resolution Protocol (\concept{ARP}) el fa servir la capa~3 (\concept{IP})
-per obtenir l'adreça \concept{MAC} (física) de destinació corresponent a una adreça IP coneguda.
+L'Address Resolution Protocol (ARP) el fa servir la capa~3 (\concept{IP})
+per obtenir l'adreça MAC (física) de destinació corresponent a una adreça IP coneguda.
 
 Els paquets ARP s'envien com a payload de frames de capa~2 (\eg, Ethernet). 
 Els paquets ARP \textit{no} són datagrames i \textit{no} contenen capçaleres IP.
 
 \begin{remark}
-La IP que consulta la capa~3 és la del \concept{router} per al \conceptRef{indirect delivery}{lliurament indirecte} i la del dispositiu de destinació
-per al \conceptRef{indirect delivery}{lliurament indirecte}. Recorda també que la IP de destinació del datagrama no canvia durant el reenviament.
+La IP que consulta la capa~3 és la del router per al \conceptRef{direct/indirect delivery}{lliurament indirecte} i la del dispositiu de destinació
+per al \conceptRef{direct/indirect delivery}{lliurament indirecte}. Recorda també que la IP de destinació del datagrama no canvia durant el reenviament.
 \end{remark}
 
-\subsection{Format del paquet}
+\subsection{Format del paquet}\label{sec:layer3:arp:packet_format}
 
 \vspace{0.2cm}
 \begin{center}
@@ -942,7 +942,7 @@ per al \conceptRef{indirect delivery}{lliurament indirecte}. Recorda també que 
 \end{center}
 
 \begin{remark}
-El protocol \concept{ARP} \textit{no} fa servir capçaleres IP.
+El protocol ARP \textit{no} fa servir capçaleres IP.
 \end{remark}
 \begin{remark}
 ``Sender'' i ``receiver'' s'han d'interpretar com ``... d'aquest missatge ARP''.
@@ -962,9 +962,9 @@ I en una resposta ARP?
 \end{exercise}
 
 
-\subsection{Funcionament}
+\subsection{Funcionament}\label{sec:layer3:arp:operation}
 
-Quan un node \node{A} necessita traduir una adreça IP a una adreça MAC, envia un frame de \concept{broadcast}
+Quan un node \node{A} necessita traduir una adreça IP a una adreça MAC, envia un frame de broadcast
 (MAC de destinació \otherBase{ff:ff:ff:ff:ff:ff} que conté un paquet ARP. 
 En aquest paquet ARP, l'operació es posa a \inlineCode{REQUEST} (\otherBase{1}),
 la IP de destinació és la que es vol traduir, i
@@ -999,7 +999,7 @@ Al seu torn, l'ordre \inlineCode{ip link} conté les línies següents:
 \end{verbatim}
 
 \begin{itemize}
-\item El node ha de fer el \conceptRef{indirect delivery}{lliurament indirecte} d'un datagrama,
+\item El node ha de fer el \conceptRef{direct/indirect delivery}{lliurament indirecte} d'un datagrama,
 però no coneix l'adreça MAC del seu router gateway. Indica el valor de 
 tots els camps (incloent-hi la capçalera Ethernet i el missatge ARP) de la petició ARP 
 que enviarà el node per obtenir la MAC del router.
@@ -1034,7 +1034,7 @@ respostes ARP \conceptRef{gratuitous}{gratuïtes} (no sol·licitades) a la víct
 associacions IP $\leftrightarrow$ MAC falses.
 
 Els sistemes operatius moderns normalment ignoren les respostes ARP no sol·licitades, 
-i els \conceptRef{switch}{switches} (commutador) moderns filtren els missatges ARP que no coincideixen amb les
+i els switches (commutador) moderns filtren els missatges ARP que no coincideixen amb les
 adreces IP i MAC reals. Tot i així, IPv6 abandona ARP en favor del 
 protocol Neighbor Discovery (ND), més complex.
 
@@ -1050,10 +1050,10 @@ auxiliar (tècnicament part d'\concept{IP}) que es fa servir per provar i depura
 les comunicacions de xarxa (i entre xarxes). 
 
 
-\subsection{Format del paquet}
+\subsection{Format del paquet}\label{sec:layer3:icmp:packet_format}
 
 Els missatges ICMP s'encapsulen com a payload de datagrames IP.
-A la capçalera IP, el \conceptRef{payload}{protocol del payload} es posa a \otherBase{0x01} (``ICMP'').\\[-0.2cm]
+A la capçalera IP, el protocol del payload es posa a \otherBase{0x01} (``ICMP'').\\[-0.2cm]
 
 \begin{center}
 \begin{bytefield}[bitwidth=1.2em]{32}
@@ -1095,18 +1095,18 @@ En els missatges echo request i echo reply, el camp de dades ICMP és arbitrari 
 dels datagrames IP. La fragmentació de datagrames ICMP (\eg, payloads de ping grans) és possible,
 però molts routers ignoren els fragments ICMP.
 
-\subsection{Funcionament}
+\subsection{Funcionament}\label{sec:layer3:icmp:operation}
 
-Els missatges d'error ICMP els envien els \conceptRef{router}{routers} i els hosts normals,
+Els missatges d'error ICMP els envien els routers i els hosts normals,
 desencadenats per altres datagrames:
 \begin{itemize}
 \item La família de missatges ``Destination unreachable'' s'envia quan un datagrama no es pot 
 lliurar a la seva destinació, \eg, per una \conceptRef{routing table}{taula d'encaminament} mal configurada, 
-un \concept{port} tancat (vegeu la secció~\ref{sec:layer4}), o simplement perquè el host
+un port tancat (vegeu la secció~\ref{sec:layer4}), o simplement perquè el host
 de destinació no està engegat.
 
 \item El missatge ``TTL exceeded'' s'envia quan un router rep un datagrama per a 
-\conceptRef{indirect delivery}{lliurament indirecte} amb \concept{TTL}$=1$ (vegeu la secció~\ref{sec:layer3:routing}).
+\conceptRef{direct/indirect delivery}{lliurament indirecte} amb \concept{TTL}$=1$ (vegeu la secció~\ref{sec:layer3:routing}).
 \end{itemize}
 
 Per evitar quantitats infinites de trànsit, \textit{no} es generen errors ICMP

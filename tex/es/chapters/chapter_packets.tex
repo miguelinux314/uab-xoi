@@ -41,11 +41,11 @@ que a menudo se atribuye a Paul Baran y a Donald Davies.
 Al mismo tiempo, queremos que los paquetes contengan tantos datos como sea posible, porque cada paquete 
 contiene datos de \concept{overhead} (sobrecarga), como las direcciones que se comentan en la Sección~\ref{sec:where}, que hay
 que enviar además de los datos de payload (carga útil) del usuario. Las redes fijan la longitud máxima de paquete
-mediante un parámetro llamado \conceptRef{MTU}{unidad máxima de transmisión} (MTU), \eg\ 1500~bytes en Ethernet.
+mediante un parámetro llamado unidad máxima de transmisión (\conceptRef{MTU}{MTU}), \eg\ 1500~bytes en Ethernet.
 
 
-La transmisión de paquetes a través de un \conceptRef{data link}{enlace de datos} debe hacerse con cuidado,
-en particular cuando ese enlace es un \concept{bus} compartido por varios dispositivos.
+La transmisión de paquetes a través de un enlace de datos debe hacerse con cuidado,
+en particular cuando ese enlace es un bus compartido por varios dispositivos.
 Cada paquete debe poder distinguirse individualmente del resto, 
 lo que puede conseguirse mediante al menos tres estrategias:
 \begin{enumerate}
@@ -56,7 +56,7 @@ acordado este valor de antemano.
 usando el primer byte del paquete. El emisor y el receptor deben ponerse de acuerdo sobre cómo se incluye
 esta información y cómo interpretarla.
 
-\item \textit{Secuencias de escape}: ciertas \conceptRef{escape sequence}{secuencias de escape} binarias 
+\item \textit{Secuencias de escape}: ciertas secuencias de escape binarias 
 dentro de los datos tienen un significado especial. 
 Por ejemplo, podría definirse que el byte \otherBase{11110000} (\otherBase{0xf0}) 
 significa ``fin de paquete'': estos bits deben aparecer después de cada paquete, y solo entonces.
@@ -68,7 +68,7 @@ sin provocar un ``fin de paquete'' hasta que se hayan transmitido todos los byte
 \end{enumerate}
 
 \begin{remark}
-También es posible señalar el \textit{principio} de un paquete. En ese caso se utiliza una secuencia previa llamada \conceptRef{preamble}{preámbulo}.
+También es posible señalar el \textit{principio} de un paquete. En ese caso se utiliza una secuencia previa llamada preámbulo.
 \end{remark}
 
 
@@ -79,14 +79,14 @@ características, los costes y los compromisos de cada una.
 Discute cuál de estas estrategias sería la más apropiada para cada uno de estos escenarios:
 \begin{itemize}
 \item Un único fabricante diseña el hardware y el software que comunica dos extremos.
-Una única \conceptRef{data line}{línea de datos} debe \conceptRef{multiplex}{multiplexarse} para varios comandos de control
+Una única línea de datos debe multiplexarse para varios comandos de control
 y también para varios flujos de datos. La prioridad es un uso eficiente de la energía y del buffer (memoria intermedia).
 
-\item Varios dispositivos comparten un \concept{bus}. De vez en cuando envían mensajes de distintas longitudes,
+\item Varios dispositivos comparten un bus. De vez en cuando envían mensajes de distintas longitudes,
 pero no un volumen enorme de datos. La prioridad es el coste.
 
-\item Varios dispositivos comparten un \concept{bus}. Envían continuamente mensajes de distintas longitudes,
-intentando maximizar la tasa efectiva de transmisión por el \conceptRef{channel}{canal}. 
+\item Varios dispositivos comparten un bus. Envían continuamente mensajes de distintas longitudes,
+intentando maximizar la tasa efectiva de transmisión por el canal. 
 La prioridad es el \concept{throughput} (caudal efectivo).
 \end{itemize}
 \end{exercise}
@@ -103,11 +103,11 @@ otros que ayudan a identificar su tipo y su función.
 % 
 La ubicación del payload y de los metadatos, así como los campos de metadatos exactos que se incluyen, su longitud y su significado
 deben ser conocidos por ambos extremos de la comunicación. Todas estas decisiones constituyen el \conceptRef{packet format}{formato de paquete}
-o \conceptRef{packet structure}{estructura de paquete}.
+o estructura de paquete.
 
 Una de las formas más habituales de disponer el payload y los metadatos es con un formato \conceptRef{header}{cabecera}-\conceptRef{body}{cuerpo}.
 En este caso, toda la meta-información se incluye primero, seguida de los datos. 
-Otros formatos pueden incluir un \concept{trailer} (cola), también conocido como \concept{tail}, que se usa sobre todo para la \conceptRef{error detection}{detección de errores}
+Otros formatos pueden incluir un trailer (cola), también conocido como tail, que se usa sobre todo para la detección de errores
 y su corrección, en combinación con la cabecera o en su lugar.
 Todas las configuraciones siguientes son posibles.
 
@@ -133,7 +133,7 @@ Todas las configuraciones siguientes son posibles.
 
 
 El formato del payload de un paquete normalmente lo define el usuario. El formato de la cabecera, en cambio,
-está estrictamente definido para que pueda producirse y \conceptRef{parsing}{analizarse} con facilidad.
+está estrictamente definido para que pueda producirse y analizarse con facilidad.
 Este formato suele presentarse mediante un diagrama que ayuda a identificar las posiciones individuales de bit y de byte,
 como en el siguiente ejemplo (ficticio):\\
 
@@ -154,8 +154,8 @@ como en el siguiente ejemplo (ficticio):\\
 
 \begin{remark}
 Los campos también pueden tener longitudes fijas o variables, que no encajan necesariamente con las 
-\conceptRef{byte boundary}{fronteras de byte}. Los campos también pueden tener una longitud igual a $1$~bit,
-en cuyo caso normalmente se le llama \concept{flag} (indicador) o bit de flag.
+fronteras de byte. Los campos también pueden tener una longitud igual a $1$~bit,
+en cuyo caso normalmente se le llama \conceptRef{flag}{\texttt{flag}} (indicador) o bit de flag.
 \end{remark}
 
 
@@ -166,8 +166,8 @@ presentado a lo largo de la misma línea (fila).
 \end{remark}
 
 \begin{exercise}
-El siguiente contenido de un paquete fue \conceptRef{sniff}{capturado} de una \conceptRef{network}{red},
-expresado en \concept{hexadecimal}. Suponiendo que el paquete tiene el formato del ejemplo anterior:
+El siguiente contenido de un paquete fue capturado de una red,
+expresado en hexadecimal. Suponiendo que el paquete tiene el formato del ejemplo anterior:
 % 
 \begin{itemize}
 \item Indica el valor de cada campo (longitud, importancia, tipo, modo, dirección de destino y payload.
@@ -196,7 +196,7 @@ se escriben en el fichero de salida.
 \item Extiende el formato de paquete para que 
  \begin{itemize}
    \item los paquetes puedan ser más largos de 255 bytes
-   \item pueda codificarse la \conceptRef{address}{dirección} del dispositivo de destino
+   \item pueda codificarse la dirección del dispositivo de destino
   \end{itemize}
   
 \item Proporciona un diagrama de bytes del nuevo formato, 
@@ -208,29 +208,29 @@ así como una explicación del sistema de direccionamiento que estés usando.
 
 \begin{remark}
 Lenguajes como Python pueden distinguir entre ficheros que contienen texto y ficheros que contienen datos binarios.
-En el código anterior, los ficheros se abren en \conceptRef{binary mode}{modo binario} usando los modos \inlineCode{'rb'} y \inlineCode{'wb'}.
+En el código anterior, los ficheros se abren en modo binario usando los modos \inlineCode{'rb'} y \inlineCode{'wb'}.
 
 Cuando se abre en modo binario, los bytes del fichero se representan directamente mediante un objeto \inlineCode{bytes}, un array de 
-enteros entre $0$ y $255$. En \conceptRef{text mode}{modo texto}, esos bytes son procesados (\conceptRef{decode}{decodificados}) además por el método \inlineCode{open},
+enteros entre $0$ y $255$. En modo texto, esos bytes son procesados (decodificados) además por el método \inlineCode{open},
 que devuelve una cadena que puede contener caracteres especiales como acentos o glifos no latinos. \readMore{https://docs.python.org/3.12/library/functions.html\#open}
 \end{remark}
 
 \section{No paran de llegar}\label{sec:packets:stream}
 
 Al desarrollar aplicaciones que usan capacidades de red, a menudo resulta útil 
-imaginar la comunicación como un \conceptRef{stream}{flujo}, \ie, como una tubería conceptual donde ponemos 
+imaginar la comunicación como un \conceptRef{message/stream}{flujo}, \ie, como una tubería conceptual donde ponemos 
 nuestros datos (cualquier cantidad de datos) por un extremo y salen por el otro. Si tenemos
 esta capacidad, resulta mucho más fácil enviar ficheros de cualquier tamaño y transmitir una cantidad interminable
 de audio o de vídeo. Por desgracia, lo único que tenemos para simular esos flujos son paquetes.
 
-\conceptRef{packet}{Los paquetes} a menudo tienen que reenviarse a través de varias redes. Los \conceptRef{router}{routers} (encaminadores) no son perfectos
+\conceptRef{packet}{Los paquetes} a menudo tienen que reenviarse a través de varias redes. Los routers (encaminadores) no son perfectos
 y a veces están fuera de servicio o mal configurados, así que no todos los paquetes llegan a su destino. Además,
 paquetes distintos pueden entregarse por rutas distintas que pueden tener longitudes distintas, de modo que los paquetes pueden llegar
 desordenados.
 
-Si queremos simular un \conceptRef{stream}{flujo} de datos, los paquetes deben contener suficiente meta-información para que puedan detectarse las pérdidas y 
+Si queremos simular un \conceptRef{message/stream}{flujo} de datos, los paquetes deben contener suficiente meta-información para que puedan detectarse las pérdidas y 
 restaurarse el orden correcto. Esto introduce un \concept{overhead} que no es adecuado en todos los escenarios --\eg\ latencia muy baja--,
-así que algunas aplicaciones basan su comunicación en red en \conceptRef{message}{mensajes} en lugar de en flujos.
+así que algunas aplicaciones basan su comunicación en red en \conceptRef{message/stream}{mensajes} en lugar de en flujos.
 
 Cuando se requieren flujos, se usa el concepto de \concept{offset} (desplazamiento) para reensamblar varios mensajes en 
 un único flujo. Cada paquete contiene algunos bytes del flujo de datos, y el offset indica la posición exacta dentro de ese flujo.

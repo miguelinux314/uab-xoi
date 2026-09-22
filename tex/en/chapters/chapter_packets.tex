@@ -41,11 +41,11 @@ which is often attributed to Paul Baran and Donald Davies.
 At the same time, we want packets to contain as much data as possible, because each packets 
 contain \concept{overhead} data (such as the addresses discussed in Section~\ref{sec:where}) that need
 to be sent in addition to the user's payload data. Networks set the maximum packet length
-using a parameter called \conceptRef{MTU}{Maximum Transmission Unit} (MTU), \eg, 1500~bytes in Ethernet.
+using a parameter called Maximum Transmission Unit (\conceptRef{MTU}{MTU}), \eg, 1500~bytes in Ethernet.
 
 
-Packet transmission across a \concept{data link} must be done carefully,
-particularly when that link is a \concept{bus} shared by multiple devices.
+Packet transmission across a data link must be done carefully,
+particularly when that link is a bus shared by multiple devices.
 Each packet must be individually distinguishable from the rest, 
 which can be done via at least three strategies:
 \begin{enumerate}
@@ -56,7 +56,7 @@ agreed to this value in advance.
 using the first byte of the packet. The sender and the receiver must agree on how this information
 is included and how to interpret it.
 
-\item \textit{Escape sequences}: Certain binary \conceptRef{escape sequence}{escape sequences} 
+\item \textit{Escape sequences}: Certain binary escape sequences 
 within the data have a special meaning. 
 For instance, one could define the byte \otherBase{11110000} (\otherBase{0xf0}) 
 to mean ``end of packet'': these bits must appear after each packet, and only then.
@@ -68,7 +68,7 @@ without triggering an ``end of packet'' until all bytes are transmitted).
 \end{enumerate}
 
 \begin{remark}
-It is also possible to signal the \textit{beginning} of a packet. In that case, a preceding sequence called \concept{preamble} is used.
+It is also possible to signal the \textit{beginning} of a packet. In that case, a preceding sequence called preamble is used.
 \end{remark}
 
 
@@ -79,14 +79,14 @@ features, costs and trade-offs of each one.
 Discuss which of these strategies would be most appropriate for each of these scenarios:
 \begin{itemize}
 \item A single manufacturer designs the hardware and software that communicates two endpoints.
-A single \concept{data line} must be \conceptRef{multiplex}{multiplexed} for multiple control commands
+A single data line must be multiplexed for multiple control commands
 as well as multiple data streams. The priority is efficient power and buffer usage.
 
-\item Multiple devices share a \concept{bus}. They occasionally send messages of different lengths,
+\item Multiple devices share a bus. They occasionally send messages of different lengths,
 but not a huge volume of data. The priority is cost.
 
-\item Multiple devices share a \concept{bus}. They continuously send messages of different lengths,
-trying to maximize the effective transmission rate through the \concept{channel}. 
+\item Multiple devices share a bus. They continuously send messages of different lengths,
+trying to maximize the effective transmission rate through the channel. 
 The priority is \concept{throughput}.
 \end{itemize}
 \end{exercise}
@@ -103,11 +103,11 @@ others that help identify their type and function.
 % 
 The location of payload and metadata, as well as the exact metadata fields included, their length and their meaning
 must be known by both ends of the communication. All these decisions constitute the \concept{packet format}
-or \concept{packet structure}.
+or packet structure.
 
 One of the most common ways of arranging payload and metadata is with a \concept{header}-\concept{body} format.
 In this case, all meta-information is included first, followed by the data. 
-Other formats may include a \concept{trailer} (also known as \concept{tail}, most often used for \concept{error detection}
+Other formats may include a trailer (also known as tail, most often used for error detection
 and correction), in combination with the header, or replacing it.
 All of the following configurations are possible.
 
@@ -154,8 +154,8 @@ like in the following (not-real) example:\\
 
 \begin{remark}
 Fields may also have fixed or variable lengths, which do not necessarily align with 
-\conceptRef{byte boundary}{byte boundaries}. Fields may also have length equal to $1$~bit,
-in which case its is normally called a \concept{flag} or flag bit.
+byte boundaries. Fields may also have length equal to $1$~bit,
+in which case its is normally called a \conceptRef{flag}{\texttt{flag}} or flag bit.
 \end{remark}
 
 
@@ -166,8 +166,8 @@ presented along the same line (row).
 \end{remark}
 
 \begin{exercise}
-The following packet contents were \conceptRef{sniff}{sniffed} out of a \concept{network},
-expressed in \concept{hexadecimal}. Assuming the packet has the format of the example above:
+The following packet contents were sniffed out of a network,
+expressed in hexadecimal. Assuming the packet has the format of the example above:
 % 
 \begin{itemize}
 \item Indicate the value of each field (length, importance, type, mode, destination address, and payload.
@@ -196,7 +196,7 @@ are output to the output file.
 \item Extend the packet format so that 
  \begin{itemize}
    \item Packets can be longer than 255 bytes
-   \item The \concept{address} of the destination device can be encoded
+   \item The address of the destination device can be encoded
   \end{itemize}
   
 \item Provide a byte diagram of the new format, 
@@ -208,29 +208,29 @@ as well as an explanation of the addressing system you are using.
 
 \begin{remark}
 Languages like Python can make a distinction between files containing text and files containing binary data.
-In the code above, files are open in \concept{binary mode} using modes \inlineCode{'rb'} and \inlineCode{'wb'}.
+In the code above, files are open in binary mode using modes \inlineCode{'rb'} and \inlineCode{'wb'}.
 
 When open in binary mode, file bytes are directly represented by a \inlineCode{bytes} object, an array of 
-integers between $0$ and $255$. In \concept{text mode}, those bytes are processed (\conceptRef{decode}{decoded}) further by the \inlineCode{open} method,
+integers between $0$ and $255$. In text mode, those bytes are processed (decoded) further by the \inlineCode{open} method,
 and returns a string that might contain special characters like accents or non-latin glyphs. \readMore{https://docs.python.org/3.12/library/functions.html\#open}
 \end{remark}
 
 \section{They keep coming}\label{sec:packets:stream}
 
 When developing applications that use networking capabilities, it is often useful 
-to imagine communication as a \concept{stream}, \ie, as a conceptual pipe where we put 
+to imagine communication as a \conceptRef{message/stream}{stream}, \ie, as a conceptual pipe where we put 
 our data (any amount of data) in one end, and it comes out at the other end. If we have
 this capability, then it becomes much easier to send files of any size, and to transmit a never-ending
 amount of audio or video. Unfortunately, all we have to simulate those streams are packets.
 
-\conceptRef{packet}{Packets} often need to be forwarded through multiple networks. \conceptRef{router}{Routers} are not perfect
+\conceptRef{packet}{Packets} often need to be forwarded through multiple networks. Routers are not perfect
 and are sometimes inoperative or improperly configured, so not all packets arrive to their destination. Moreover,
 different packets may be delivered through different routes that may be of different length, so packets may arrive
 out of order.
 
-If we want to simulate a \concept{stream} of data, packets must contain enough meta-information in them so that losses can be detected and 
+If we want to simulate a \conceptRef{message/stream}{stream} of data, packets must contain enough meta-information in them so that losses can be detected and 
 the correct order can be restored. This introduces an \concept{overhead} that is not suitable in all scenarios --\eg, very low latency--,
-so some applications base their network communication in \conceptRef{message}{messages} instead of streams.
+so some applications base their network communication in \conceptRef{message/stream}{messages} instead of streams.
 
 When streams are required, the concept of \concept{offset} is used to reassemble multiple messages into 
 a single stream. Each packet contains some bytes of the data stream, and the offset indicates the exact location in that stream.

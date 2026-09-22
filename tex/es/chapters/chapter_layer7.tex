@@ -82,7 +82,7 @@ Todo el mundo usa DNS constantemente. ¿Cuáles serían los riesgos de tener
 un sistema centralizado de traducción de nombres en lugar de la naturaleza distribuida del DNS?
 \end{exercise}
 
-\subsection{Registros}
+\subsection{Registros}\label{sec:layer7:dns:records}
 
 El DNS puede verse como una base de datos distribuida con distintos tipos de entradas
 llamadas \conceptRef{DNS record}{registros}. Los principales son:
@@ -102,7 +102,7 @@ los registros \concept{A} o \concept{MX} solicitados,
 pero el cliente también puede recibir una redirección a otro DNS (\concept{NS})
 o un alias a otro nombre de dominio (\concept{CNAME}).
 
-\subsection{Resolución}
+\subsection{Resolución}\label{sec:layer7:dns:resolution}
 
 La naturaleza distribuida y jerárquica de la base de datos DNS hace que
 a veces sea necesario intercambiar varios mensajes para satisfacer una \conceptRef{query}{consulta} DNS.
@@ -277,7 +277,7 @@ escala para garantizar la conectividad del grafo hasta todos los hosts de Intern
 \end{center}
 
 
-\subsection{Organización}
+\subsection{Organización}\label{sec:layer7:as:organization}
 
 Para facilitar esta coordinación, las LAN se agrupan en \conceptRef{AS}{sistemas autónomos} (\concept{AS}).
 Estos gestionan bloques de direcciones IP no solapados (\otherBase{w.x.y.z/N}) cuya propiedad y gestión son independientes.
@@ -300,7 +300,7 @@ con destino dentro del AS, lo reenvía a través de los \conceptRef{internal rou
 De forma similar, cuando un host dentro de un AS necesita contactar con un host de otro AS, los datagramas se reenvían por routers frontera
 hasta que llegan al AS de destino y, finalmente, a la LAN de destino.
 
-\subsection{Configuración de la tabla de encaminamiento}
+\subsection{Configuración de la tabla de encaminamiento}\label{sec:layer7:as:routing_table_configurati}
 
 Configurar manualmente las \conceptRef{routing table}{tablas de encaminamiento} de todos los routers frontera y routers internos
 sería demasiado costoso y propenso a errores. En su lugar, se emplean distintos algoritmos para configurarlas automáticamente.

@@ -25,34 +25,34 @@
 % \section{Layer~3 overview}
 \subsection*{Capabilities}
 
-The \conceptRef{IP}{Internet Protocol (IP)} allows exchanging \conceptRef{datagram}{datagrams} 
-(Layer~3 \conceptRef{PDU}{PDUs}) between devices from different \conceptRef{LAN}{LANs}.
+The \conceptRef{IP}{Internet Protocol (IP)} allows exchanging datagrams 
+(Layer~3 PDUs) between devices from different LANs.
 % 
 Its addressing system identifies devices globally and makes it possible to 
-\conceptRef{routing}{route} datagrams anywhere we need. 
+route datagrams anywhere we need. 
 
 Devices communicating via IP may belong to LANs
-based on different technologies and with different types of \concept{MAC} address.
+based on different technologies and with different types of MAC address.
 This has two implications:
 \begin{itemize}
-  \item A datagram that ``fits'' in the \concept{MTU} of the source LAN
+  \item A datagram that ``fits'' in the MTU of the source LAN
     may be too large for the destination's (or any intermediate's) LAN MTU. 
     IP defines a \concept{fragmentation} system to split datagrams,
     which are reconstructed only at the final destination.\\[-0.25cm]
     
   \item When we send a datagram, we know the target device's \conceptRef{IP}{IP address},
-  but not necessarily its \concept{MAC} address. Only if we are part of the destination
-  LAN we will need that MAC. IP uses \concept{ARP} to translate known IP addresses
+  but not necessarily its MAC address. Only if we are part of the destination
+  LAN we will need that MAC. IP uses ARP to translate known IP addresses
   to MAC addresses of the destination LAN's type.
 \end{itemize}
 
 
-\conceptRef{datagram}{Datagrams} may travel through networks not controlled 
+Datagrams may travel through networks not controlled 
 by neither the source nor the destination, so datagrams may be lost, reordered and duplicated.
 % 
 Layer~3 does not provide mechanisms to deal with this; upper layers must implement
 protection mechanisms when required 
-(\eg, to implement \concept{TCP}'s \conceptRef{stream}{data streams}).
+(\eg, to implement TCP's data streams).
 
 \begin{center}
 \includegraphics[width=0.9\linewidth]{protocols_layer3.pdf}
@@ -65,17 +65,17 @@ protection mechanisms when required
 Version~4 of \concept{IP} is \textit{the} protocol used in Layer~3, \ie,
 it is common to virtually all communications in the Internet as we know it today.
 % 
-For many years, the Internet has been struggling to transition towards \concept{IPv6}, 
-but the process is not complete and only \concept{IPv4} provides global coverage.
+For many years, the Internet has been struggling to transition towards IPv6, 
+but the process is not complete and only IPv4 provides global coverage.
 
-\concept{IPv4} delegates in the \concept{ARP} protocol the translation of known IP addresses 
+IPv4 delegates in the ARP protocol the translation of known IP addresses 
 into MAC addresses within each LAN. ARP does \textit{not} use IP datagrams.
 
-The following protocols encapsulate their \conceptRef{PDU}{PDUs} in the payload of IP 
-\conceptRef{datagram}{datagrams}:\\[-0.6cm]
+The following protocols encapsulate their PDUs in the payload of IP 
+datagrams:\\[-0.6cm]
 \begin{itemize}
-\item Transport Control Protocol (\concept{TCP}) 
-\item User Datagram Protocol (\concept{UDP})
+\item Transport Control Protocol (TCP) 
+\item User Datagram Protocol (UDP)
 \item Internet Control Message Protocol (\concept{ICMP})
 \end{itemize}
 
@@ -88,13 +88,13 @@ The \inlineCode{ip address}, \inlineCode{ip route} and \inlineCode{ip neighbor} 
 
 \section{Layer~3 addressing}\label{sec:layer3:addressing}
 
-\concept{IPv4} addresses are $32$~bits long. They are most often presented to humans in
+IPv4 addresses are $32$~bits long. They are most often presented to humans in
 the \concept{quad decimal} format, \eg,
 \begin{center}
 \otherBase{142.250.201.67}
 \end{center}
 
-\concept{IPv6} addresses are $128$~bits ($12$~bytes) long, \ie, 
+IPv6 addresses are $128$~bits ($12$~bytes) long, \ie, 
 they are $4$~times larger than an IPv4 address.
 They are expressed in hexadecimal format, \eg, as follows. Note how 
 two colon signs ``\otherBase{::}'' indicate ``fill with zeros'',
@@ -104,17 +104,17 @@ and ``\otherBase{::}'' may only appear once per IPv6 address.
 \end{center}
 
 \begin{remark}
-When an \concept{IPv6} address is used as part of an URL, it is surrounded with brackets,
-\eg, \otherBase{https://[fe80::f524:a73a:e946:7c02]/}.
+When an IPv6 address is used as part of an URL, it is surrounded with brackets,
+\eg, \url{https://[fe80::f524:a73a:e946:7c02]/}.
 \end{remark}
 
 
-\subsection{Public and reserved addresses}
+\subsection{Public and reserved addresses}\label{sec:layer3:public_reserved}
 
-Most IP addresses are \conceptRef{public IP}{public} and unique across the Internet, 
+Most IP addresses are \conceptRef{public/private IP}{public} and unique across the Internet, 
 \ie, the previous IP has the same meaning worldwide: it identifies a single connected device.
 % 
-Many addresses are \conceptRef{reserved IP address}{reserved/private} and can only be 
+Many addresses are \conceptRef{public/private IP}{reserved/private} and can only be 
 used within a particular scope (\eg, a LAN) or situation.
 Some of the most common are the following (there are 
 \href{https://en.wikipedia.org/wiki/Reserved_IP_addresses#IPv4}{\underline{some more}}, 
@@ -138,11 +138,11 @@ also for IPv6):
 
 \begin{exercise}\ \\[-0.5cm]
 \begin{itemize}
-\item How many different \concept{IPv4} addresses are there (including reserved and private)? 
+\item How many different IPv4 addresses are there (including reserved and private)? 
 \item Are they sufficient now and in the future?
 \item Is it problematic that an address like \otherBase{192.168.0.1} 
   is simultaneously used by thousands (likely millions) of computers in the Internet right now?
-\item Which of these corresponds to \concept{link local} addresses?
+\item Which of these corresponds to link local addresses?
 \end{itemize}
 \end{exercise}
 
@@ -196,7 +196,7 @@ The netmask of the previous example can be expressed in binary
 Netmasks are used in IPv6 as well, but with a maximum value of $N$ of $128$ instead of $32$.
 \end{remark}
 
-\subsection{Blocks of IP addresses}
+\subsection{Blocks of IP addresses}\label{sec:layer3:ip_blocks}
 
 Netmasks are used in combination with IP addresses to define 
 \conceptRef{IP address block}{blocks of IP addresses} 
@@ -302,11 +302,11 @@ the following device \otherBase{123.45.67.89/14}:
 \end{itemize}
 \end{exercise}
 
-An \conceptRef{network}{IP network} (a LAN) is a block of addresses, but not all those addresses 
+An IP network (a LAN) is a block of addresses, but not all those addresses 
 can be assigned to devices. Two addresses are always reserved:
 \begin{itemize}
 \item The address with all node bits set to \otherBase{0}: it identifies the LAN itself.
-\item The address with all node bits set to \otherBase{1}: it identifies \concept{broadcast} within the LAN.
+\item The address with all node bits set to \otherBase{1}: it identifies broadcast within the LAN.
 \end{itemize}
 
 \begin{exercise}\ \\[-0.5cm]
@@ -341,7 +341,7 @@ $\vdots$ & $\vdots$ & $\vdots$ \\
 \end{center}
 
 \begin{remark}
-All \conceptRef{router}{routers} need a valid IP address per LAN to which they are connected.
+All routers need a valid IP address per LAN to which they are connected.
 Therefore, routers \textit{do} count towards the maximum number of devices connected in a LAN.
 \end{remark}
 
@@ -386,7 +386,7 @@ Extend (or replace) the code so that you can:
 
 \subsection{Packet format}\label{sec:layer3:ip:format}
 
-\concept{IP} defines a \concept{packet} format with a \concept{header} 
+\concept{IP} defines a packet format with a header 
 that is \textit{at least} $20$~bytes long. Optional parts may be included,
 as long as the total header size is a multiple of $32$~bits ($4$~bytes).
 The payload can be empty, so the minimum datagram size is $20$~bytes.\\
@@ -439,7 +439,7 @@ The payload can be empty, so the minimum datagram size is $20$~bytes.\\
 \end{itemize}
 \end{exercise}
 
-\subsection{Operation}
+\subsection{Operation}\label{sec:layer3:ip:operation}
 
 When a device A wants to send an IP datagram to a device B, the source and 
 destination IPs in the header are fixed and don't change for this datagram.
@@ -454,7 +454,7 @@ Consider the following scenario, where A wants to communicate with E.
 
 
 Here, the source and destination devices belong to different LANs.
-The datagram is passed first to the source's \concept{router}.
+The datagram is passed first to the source's router.
 Then, each intermediate router passes it to the next one until the datagram reaches 
 the last router, which is connected to the destination LAN. Finally, that last router 
 passes the datagram to the destination. 
@@ -468,9 +468,9 @@ In contrast, MAC address change in each LAN \concept{hop}.
 
 \section{IP routing}\label{sec:layer3:routing}
 
-\conceptRef{router}{Routers} are the devices in charge of forwarding IP \conceptRef{datagram}{datagrams}
-by looking at the destination IP address of each one, present in the IP \concept{header}. Routers don't need 
-to \concept{decapsulate} headers of layers 4 and above. Therefore, they network stacks need contain only up to Layer~3
+Routers are the devices in charge of forwarding IP datagrams
+by looking at the destination IP address of each one, present in the IP header. Routers don't need 
+to decapsulate headers of layers 4 and above. Therefore, they network stacks need contain only up to Layer~3
 (and so are sometimes referred to as Layer-3 devices).
 
 \begin{center}
@@ -498,10 +498,10 @@ If recognized, the router processes the datagram as follows:
   \begin{enumerate}[label=\alph*)]
   \item The Layer~2 header in $F'$ changes entirely:
     \begin{itemize} 
-    \item The destination \concept{MAC} is that of the next hop,
+    \item The destination MAC is that of the next hop,
     and the source MAC is that of the router forwarding the datagram.
     The next hop's IP is given by the \concept{routing table} (see Section~\ref{sec:layer3:routing}), 
-    and its MAC is obtained from that IP using \concept{ARP} (Section~\ref{sec:layer3:arp}).\\[-0.4cm]
+    and its MAC is obtained from that IP using ARP (Section~\ref{sec:layer3:arp}).\\[-0.4cm]
     %     
     \item The source MAC of $F'$
     frame is different from the destination MAC of the received frame $F$ if the router 
@@ -519,7 +519,7 @@ If recognized, the router processes the datagram as follows:
     \begin{itemize}
     \item The \concept{TTL} (time to live) field is decreased by $1$.\\
     If the TTL reaches $0$, the datagram is discarded instead of being forwarded.
-    \item When the \conceptRef{IP Options}{Options} field is present, it is often updated.
+    \item When the Options field is present, it is often updated.
     \item The header \concept{checksum} is updated accordingly.\\
     \end{itemize}
   \end{enumerate}
@@ -533,10 +533,10 @@ If recognized, the router processes the datagram as follows:
 
 
 
-When a router receives an IP \concept{datagram} to forward and that router 
-is connected to the same LAN as the destination IP address, the router performs a \concept{direct delivery} (DD).
+When a router receives an IP datagram to forward and that router 
+is connected to the same LAN as the destination IP address, the router performs a \conceptRef{direct/indirect delivery}{direct delivery} (DD).
 % 
-Otherwise, the datagram is forwarded to the next router in an \concept{indirect delivery} (ID).
+Otherwise, the datagram is forwarded to the next router in an \conceptRef{direct/indirect delivery}{indirect delivery} (ID).
 % 
 A router knows whether to perform DD or ID, as well as the destination (and source) IP address to use,
 thanks to its \concept{routing table}.
@@ -554,8 +554,8 @@ All route tables have at least the following columns:
   Since this is the largest block possible, it is only applied if none of the other rows apply. 
   The \textit{default} entry is not mandatory.\\[-0.3cm]
   
-\item \textbf{Gateway/via}: if the row corresponds to an \concept{indirect delivery}, this column contains the IP address
-  of the next router. Otherwise, this column contains \otherBase{0.0.0.0} to indicate a \concept{direct delivery}.\\[-0.3cm]
+\item \textbf{Gateway/via}: if the row corresponds to an \conceptRef{direct/indirect delivery}{indirect delivery}, this column contains the IP address
+  of the next router. Otherwise, this column contains \otherBase{0.0.0.0} to indicate a \conceptRef{direct/indirect delivery}{direct delivery}.\\[-0.3cm]
   
 \item \textbf{Interface}: internal name of the network interface (\eg, of the Ethernet card) to use to deliver the 
   datagram. Operating Systems may use any convention they wish, as long as they can be uniquely identified in the table.
@@ -599,7 +599,7 @@ Think of a use case for having these two rules.
 \end{exercise}
 
 For the Internet to work, routers interconnecting LANs globally must be well configured. 
-This is sometimes not the case, which can cause \concept{routing errors}. Two important problems 
+This is sometimes not the case, which can cause routing errors. Two important problems 
 one can encounter are:
 \begin{itemize}
 \item ``Network is unreachable'': none of the rows in the routing table uses an address block that contains the 
@@ -659,18 +659,18 @@ would follow a cycle and yield the ``TTL exceeded'' error.
 \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} \\
 \end{bytefield}
 
-\conceptRef{LAN}{LANs} can be regarded as address blocks (\eg, expressed in \concept{CIDR} format)
+LANs can be regarded as address blocks (\eg, expressed in \concept{CIDR} format)
 with two reserved addresses. Networks directly accessible through the Internet must be assigned 
 a valid block large enough to connect all required devices. To make sure no two devices in the Internet
 have the same \concept{public} IP, no two LANs can contain the same address 
 (unless the address is \conceptRef{private IP}{private}).
 
-The $2^{32}$~addresses available in \concept{IPv4} are divided in blocks by means of 
+The $2^{32}$~addresses available in IPv4 are divided in blocks by means of 
 \conceptRef{netmask}{netmasking}. Larger blocks can be divided in half, by increasing 
 the netmask length by $1$, as seen in the figure above.
 % 
 For instance, the initial block \otherBase{0.0.0.0/0} (all addresses) 
-can be split into two \otherBase{/1} blocks, each with half the \concept{IPv4} addresses 
+can be split into two \otherBase{/1} blocks, each with half the IPv4 addresses 
 ($2^{31}$ -- still too large for any real LAN).
 % 
 This process continues independently for each resulting blocks, and stop when the resulting 
@@ -805,22 +805,22 @@ and not \otherBase{0000000}?\\[-0.4cm]
   then the next highest possible address to the second subnet, 
   and the lowest possible address to the first subnet.\\[-0.4cm]
   
-\item What is the \concept{broadcast} IP in each subnet?
+\item What is the broadcast IP in each subnet?
 \end{itemize}
 \end{exercise}
 
 
 % 
-\section{IP fragmentation}
+\section{IP fragmentation}\label{sec:layer3:ip_fragmentation}
 \label{sec:layer3:fragmentation}
 
-Before a device (including \conceptRef{router}{routers} and regular computers)
-can send a \concept{datagram} through a LAN, it needs to verify that its length in bytes 
-is not larger than that LAN's \concept{MTU}. Otherwise, the datagram needs to be 
+Before a device (including routers and regular computers)
+can send a datagram through a LAN, it needs to verify that its length in bytes 
+is not larger than that LAN's MTU. Otherwise, the datagram needs to be 
 \conceptRef{fragmentation}{fragmented} into two or more smaller datagrams that do fit in the LAN's MTU.
 
 The smaller fragments are complete datagrams with header and payload. Therefore, 
-more fragments imply a larger \concept{overhead}. Each of these fragments is sent 
+more fragments imply a larger overhead. Each of these fragments is sent 
 and forwarded individually like any other datagram and may need to be refragmented 
 if it passes through another LAN with even smaller MTU.
 
@@ -832,12 +832,12 @@ by the network stack:
     If DF=\otherBase{1} but fragmentation is needed, the datagram is not fragmented 
     and an error is produced.\\[-0.2cm]
 
-\item \conceptRef{payload}{Payload} data are divided in chunks of size at most $S$, so that $S + H = MTU$ 
+\item Payload data are divided in chunks of size at most $S$, so that $S + H = MTU$ 
   ($H$ is the datagram header length, typically $20$~bytes). Only the last chunk
   may have size less than $S$. This guarantees that no fragment exceeds the MTU,
   which is the very purpose of fragmentation.\\[-0.2cm]
   
-\item The original datagram's \concept{header} is copied into the fragments' with the following modifications:
+\item The original datagram's header is copied into the fragments' with the following modifications:
   \begin{itemize}
   \item The Datagram ID field is set to the same value in all fragments of a datagram. 
     The OS makes sure to pick an ID that has not been recently used by its network stack.
@@ -906,18 +906,18 @@ How should the receiving network stack deal with these datagrams?
 
 \section{ARP -- Address Resolution Protocol}\label{sec:layer3:arp}
 
-The Address Resolution Protocol (\concept{ARP}) is used by Layer~3 (\concept{IP})
-to obtain the destination \concept{MAC} (physical) address corresponding to a known IP address.
+The Address Resolution Protocol (ARP) is used by Layer~3 (\concept{IP})
+to obtain the destination MAC (physical) address corresponding to a known IP address.
 
 ARP packets are sent as the payload of Layer~2 (\eg, Ethernet) frames. 
 ARP packets are \textit{not} datagrams and do \textit{not} contain IP headers.
 
 \begin{remark}
-The IP queried by the Layer~3 is that of the \concept{router} for \concept{indirect delivery} and of the destination device
-for \concept{indirect delivery}. Also remember that the datagram's destination IP does not change during forwarding.
+The IP queried by the Layer~3 is that of the router for \conceptRef{direct/indirect delivery}{indirect delivery} and of the destination device
+for \conceptRef{direct/indirect delivery}{indirect delivery}. Also remember that the datagram's destination IP does not change during forwarding.
 \end{remark}
 
-\subsection{Packet format}
+\subsection{Packet format}\label{sec:layer3:arp:packet_format}
 
 \vspace{0.2cm}
 \begin{center}
@@ -942,7 +942,7 @@ for \concept{indirect delivery}. Also remember that the datagram's destination I
 \end{center}
 
 \begin{remark}
-The \concept{ARP} protocol does \textit{not} use IP headers.
+The ARP protocol does \textit{not} use IP headers.
 \end{remark}
 \begin{remark}
 ``Sender'' and ``receiver'' should be interpreted as ``... of this ARP message''.
@@ -962,9 +962,9 @@ And in an ARP reply?
 \end{exercise}
 
 
-\subsection{Operation}
+\subsection{Operation}\label{sec:layer3:arp:operation}
 
-When a node \node{A} needs to translate an IP address into a MAC address, it sends a \concept{broadcast} frame
+When a node \node{A} needs to translate an IP address into a MAC address, it sends a broadcast frame
 (destination MAC \otherBase{ff:ff:ff:ff:ff:ff} containing an ARP packet. 
 In that ARP packet, the operation is set to \inlineCode{REQUEST} (\otherBase{1}),
 the destination IP is the one being translated, and
@@ -999,7 +999,7 @@ In turn, the \inlineCode{ip link} command contains the following lines:
 \end{verbatim}
 
 \begin{itemize}
-\item The node needs to perform the \concept{indirect delivery} of a datagram,
+\item The node needs to perform the \conceptRef{direct/indirect delivery}{indirect delivery} of a datagram,
 but does not know the MAC address of its gateway router. Indicate the value of 
 all fields (including Ethernet header and ARP message) of the ARP request 
 that the node will send to get the router's MAC.
@@ -1034,7 +1034,7 @@ This can be exploited to \concept{poison} a device's ARP cache table by sending
 phony IP $\leftrightarrow$ MAC associations.
 
 Modern OSs will typically ignore unsolicited ARP replies, 
-and modern \conceptRef{switch}{switches} will filter ARP messages not matching the
+and modern switches will filter ARP messages not matching the
 actual IP and MAC addresses. Notwithstanding, IPv6 ditches ARP in favor of 
 the more complex Neighbor Discovery (ND) protocol.
 
@@ -1050,10 +1050,10 @@ protocol (technically part of \concept{IP}) that is used to test and debug
 (inter)network communications. 
 
 
-\subsection{Packet format}
+\subsection{Packet format}\label{sec:layer3:icmp:packet_format}
 
 ICMP messages are encapsulated as the payload of IP datagrams.
-In the IP header, the \conceptRef{payload}{Payload protocol} is set to \otherBase{0x01} (``ICMP'').\\[-0.2cm]
+In the IP header, the Payload protocol is set to \otherBase{0x01} (``ICMP'').\\[-0.2cm]
 
 \begin{center}
 \begin{bytefield}[bitwidth=1.2em]{32}
@@ -1095,18 +1095,18 @@ For echo request and reply messages, the ICMP data field is arbitrary within the
 of IP datagrams. Fragmentation of ICMP datagrams (\eg, large ping payloads) is possible,
 but many routers will ignored ICMP fragments.
 
-\subsection{Operation}
+\subsection{Operation}\label{sec:layer3:icmp:operation}
 
-ICMP error messages are sent by \conceptRef{router}{routers} and regular hosts,
+ICMP error messages are sent by routers and regular hosts,
 triggered by other datagrams:
 \begin{itemize}
 \item The ``Destination unreachable'' family of messages is sent when a datagram cannot 
 be delivered to its destination, \eg, due to a missconfigured \concept{routing table}, 
-a closed \concept{port} (see Section~\ref{sec:layer4}), or simply the destination
+a closed port (see Section~\ref{sec:layer4}), or simply the destination
 host not being turned on.
 
 \item The ``TTL exceeded'' message is sent when a router receives a datagram for 
-\concept{indirect delivery} with \concept{TTL}$=1$ (see Section~\ref{sec:layer3:routing}).
+\conceptRef{direct/indirect delivery}{indirect delivery} with \concept{TTL}$=1$ (see Section~\ref{sec:layer3:routing}).
 \end{itemize}
 
 To prevent infinite amounts of traffic, ICMP errors are \textit{not} produced

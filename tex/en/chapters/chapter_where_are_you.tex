@@ -28,7 +28,7 @@ with just $2$ \conceptRef{network card}{network cards} and $1$ cable, point-to-p
 
 
 If we want to connect $N > 2$ devices, a naïve option is to connect every device with each other
-in a \conceptRef{complete graph}{\textit{complete graph}}. Now every device needs to handle $N - 1$ cables to the other devices, 
+in a \textit{complete graph}. Now every device needs to handle $N - 1$ cables to the other devices, 
 but communicating with any other device is as easy as choosing the correct cable and establishing a point-to-point connection.
 
 The main issue with this approach is that the total number of connections is $N \cdot (N-1) / 2 = O(N^2)$
@@ -37,8 +37,8 @@ you would need for instance $40$ cables \textit{and} $90$ \conceptRef{network ca
 there would be half a million point-to-point connections, which is already quite unmanageable.
 
 \begin{remark}
-$O(N^2)$ is notation for a \concept{quadratic} complexity bound. 
-This is \textit{not} the same as \concept{exponential} and should never be confused.
+$O(N^2)$ is notation for a quadratic complexity bound. 
+This is \textit{not} the same as exponential and should never be confused.
 % 
 \readMore{https://en.wikipedia.org/wiki/Big_O_notation}
 \end{remark}
@@ -47,7 +47,7 @@ This is \textit{not} the same as \concept{exponential} and should never be confu
 \includegraphics[height=4cm]{bus_graph.pdf}
 \end{wrapfigure}
 
-There is one trick up our sleeves: \conceptRef{bus}{data buses}, where one or more data lines
+There is one trick up our sleeves: data buses, where one or more data lines
 that are simultaneously connected to multiple devices. 
 This retains the simplicity of point-to-point connections, because each device needs to handle
 only $1$ cable and can use it to communicate with all other devices. The cost-effectiveness is 
@@ -56,11 +56,11 @@ also retained, since only $N$ network cards for $N$ devices ($O(N)$).
 The main advantage of data buses is also their main weakness: 
 all devices send and receive data using the same data line, 
 but they cannot do it at the same time because there is only one line. If two or more do, there is
-a \concept{collision} that makes data transmission impossible while it lasts.\\[-0.5cm]
+a collision that makes data transmission impossible while it lasts.\\[-0.5cm]
 
 \begin{remark}
 As computer networking was developed, people experimented with many alternatives to the 
-bus \concept{topology}. One curious example is \concept{Token Ring}, where devices
+bus \concept{topology}. One curious example is Token Ring, where devices
 are connected around a circle, and messages are passed around in a single direction.
 \end{remark}
 
@@ -70,16 +70,16 @@ where new devices can be added over time.
 Historically, this was sometimes done by physically piercing the main bus cable,
 and adding a new cable towards the new computer being connected. 
 Later on, this was simplified with devices called \conceptRef{hub}{hubs}. 
-They worked similarly, but they offered pre-built \conceptRef{port}{ports} 
+They worked similarly, but they offered pre-built \conceptRef{physical port}{physical ports} 
 and removable connectors.
 % 
 Nowadays, hubs have been replaced by \conceptRef{switch}{switches}. 
 Switches offer the functionality of a bus, connecting every device with each other,
 and also prevent collisions. For obvious reasons, structuring connections 
-around a switch is called a \concept{star topology}.
+around a switch is called a star topology.
 
 \begin{exercise}
-What is \textbf{needed in a switch} that is not needed in a hub?
+What is needed in a switch that is not needed in a hub?
 
 \begin{center}
 \includegraphics[width=0.75\linewidth]{switch.jpg}
@@ -102,7 +102,7 @@ connections. Considered together, these devices would then form a
 
 \section{I need to find you}\label{sec:where:addresses}
 
-Once again, the main advantage of data \conceptRef{bus}{buses} is also their main weakness: 
+Once again, the main advantage of data buses is also their main weakness: 
 all devices send and receive data using the same data line. 
 Even if collisions don't happen, every message sent into the bus is 
 received by all devices.
@@ -111,26 +111,26 @@ and only its destination. Let's call this the \textit{find-my-device problem}.
 
 The find-my-device problem is not unique of buses or \conceptRef{LAN}{LANs}. On the contrary, it becomes 
 very important when we consider \conceptRef{WAN}{WANs}, where not all devices are directly interconnected.
-In this case, we need to make sure we can \conceptRef{routing}{route} our messages
+In this case, we need to make sure we can route our messages
 between different LANs, and that they reach their destination.
 
 Surprisingly, not even point-to-point connections are safe from the find-my-device problem.
 Assuming devices A and B are connected that way, two different programs may want to 
 exchange information at the same time, \eg, some alarm control software and 
 a music streaming app. 
-In this scenario, you want the \concept{client} and \concept{server} of the alarm monitoring 
+In this scenario, you want the \conceptRef{client/server}{client} and \conceptRef{client/server}{server} of the alarm monitoring 
 \concept{service} to communicate with each other but not with the music streaming service, 
 and vice-versa.
 
 The most common solution to this problem is to use identifiers that let
 us differentiate between devices or even between running \conceptRef{process}{processes}
-inside an \conceptRef{OS}{operating system (OS)}. Some of these identifiers are
-referred to as \conceptRef{address}{addresses}, precisely because they are used 
+inside an operating system (OS). Some of these identifiers are
+referred to as addresses, precisely because they are used 
 to find and reach a remote device. 
 
 
-\conceptRef{address}{Addresses} are typically \textit{numerical} identifiers, that is, just a number.
-As such, they can be expressed in different bases, including decimal and \concept{hexadecimal}.
+Addresses are typically \textit{numerical} identifiers, that is, just a number.
+As such, they can be expressed in different bases, including decimal and hexadecimal.
 These numbers are drawn from a predefined set, and the choice of that set
 determines the maximum number of elements we can uniquely identify.
 
@@ -142,12 +142,12 @@ as \otherBase{237785200061937} and \otherBase{3232235777}, respectively
 \end{remark}
 
 \begin{exercise}
-\textbf{How many elements can be uniquely identified} (at most) with an address we express 
+How many elements can be uniquely identified (at most) with an address we express 
 using 5 bits? How about 10? How about 20? Express the general solution mathematically.
 \end{exercise}
 
 \begin{exercise}
-Suppose there are $1000$~machines in a LAN. \textbf{How many address bits are needed}?
+Suppose there are $1000$~machines in a LAN. How many address bits are needed?
 How about $800$~machines? And $1100$? Express the general solution mathematically.
 \end{exercise} 
 
@@ -186,7 +186,7 @@ This is not unlike someone paying you a visit in person:
 \end{minipage}
 
 Whatever addressing system we use, it must contain enough information to locate and reach 
-the destination, \ie, to \conceptRef{routing}{route} our messages through the graph of 
+the destination, \ie, to route our messages through the graph of 
 connections. The process of routing involves multiple steps or ``jumps'' across networks
 until the destination LAN is reached.
 
@@ -216,7 +216,7 @@ those connections. Notwithstanding, \node{3} wants to send a message to \node{7}
 % 
 \begin{itemize}
  \item Can you identify any devices likely to be acting as a \concept{switch}? And as a \concept{router}?
- \item What's the \textbf{minimum number of messages} sent so that \node{3} can contact \node{7},
+ \item What's the minimum number of messages sent so that \node{3} can contact \node{7},
  and \node{7} can reply to \node{3}? List them in the order they are produced.
  \item What information needs to be included in those messages so that the communication 
  \node{3} $\leftrightarrow$ \node{7} may take place?
@@ -233,7 +233,7 @@ time, which is invaluable to identify cause-effect relations.
 \end{center}
 
 \begin{exercise}
-Based on your answer to Ex.\ref{ex:how_many_packets}, \textbf{produce a swimlane diagram}
+Based on your answer to Ex.\ref{ex:how_many_packets}, produce a swimlane diagram
 that represents the message exchanges. For each message (\eg, above the arrows), 
 include the addressing information present in it.
 \end{exercise}

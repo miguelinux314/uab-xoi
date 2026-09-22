@@ -2,10 +2,15 @@
 
 \chapterimage{classroom_background.jpg}
 
+\makeatletter
+\let\oldaddcontentsline\addcontentsline
+\let\addcontentsline\@gobblethree
 \chapter{Intro: Xarxes d'Ordinadors i Internet (XOI)}\label{sec:course}
+\let\addcontentsline\oldaddcontentsline
+\makeatother
 
 \section*{Què hem pagat}
-\vspace{-0.5cm}
+\vspace{-0.9cm}
 \CellHeight{.4in}
 \CellWidth{1in}
 \TimeRange{8:30-15:00}
@@ -34,27 +39,26 @@
 \begin{center}
 \begin{minipage}{0.5\linewidth}
 \begin{itemize}
-\item[13$\times$] {\color{color1}Sessions de \textbf{teoria} de 2h}
-\item[12$\times$] {\color{color1}Sessions de \textbf{problemes} d'1h}
-\item[12$\times$] {\color{color2}Sessions de \textbf{laboratori} d'1h}
-\item[Il·limitades] Sessions de \textbf{\color{darkgray}tutoria} (\textit{tutories}),\\individuals o en grup: envia un correu
-\item[90h] {\textbf{\color{gray}Treball autònom} (el teu)}
+\item[13$\times$] \colored{color1}{Sessions de \textbf{teoria} de 2h}
+\item[12$\times$] \colored{color1}{Sessions de \textbf{problemes} d'1h}
+\item[12$\times$] \colored{color2}{Sessions de \textbf{laboratori} d'1h}
+\item[Il·limitades] Sessions de \textbf{\colored{darkgray}{tutoria}} (\textit{tutories}),\\individuals o en grup: envia un correu
+\item[90h] \textbf{\colored{gray}{Treball autònom}} (el teu)
 \vspace{0.2cm}
-\item [3$\times$] {\color{color1}Proves de \textbf{control}}
-\item [1$\times$] {\color{color1}Examen \textbf{final}} + revisió
-\item [1$\times$] {\color{color1}\textbf{Recuperació} de l'examen final} + revisió
+\item [3$\times$] \colored{color1}{Proves de \textbf{control}}
+\item [1$\times$] \colored{color1}{Examen \textbf{final}} + revisió
+\item [1$\times$] \colored{color1}{\textbf{Recuperació} de l'examen final} + revisió
 \vspace{0.2cm}
-\item [3$\times$] {\color{color2}\textbf{Lliuraments} de laboratori} amb retroacció
-\item [1$\times$] {\color{color2}\textbf{Examen} de laboratori} + revisió
+\item [3$\times$] \colored{color2}{\textbf{Lliuraments} de laboratori} amb retroacció
+\item [1$\times$] \colored{color2}{\textbf{Examen} de laboratori} + revisió
 \end{itemize}
 \end{minipage}
 \end{center}
 
 \section*{Avaluació}
 Per determinar la teva nota s'utilitzarà la millor de les dues opcions següents:\\
-\begin{center}
-\begin{minipage}{0.48\linewidth}
-\centering
+\noindent\begin{minipage}{0.48\linewidth}
+\raggedright
 \textbf{Opció A}\\[0.15cm]
 \begin{tikzpicture}
 \pie[rotate=0,text=legend,scale=0.7,color={color2!75!white,color1!75!white,color1!40!white}]{
@@ -66,7 +70,7 @@ Per determinar la teva nota s'utilitzarà la millor de les dues opcions següent
 \end{minipage}%
 \hfill
 \begin{minipage}{0.36\linewidth} % narrower, right-aligned: moves this pie right, clear of A's wide legend
-\centering
+\raggedleft
 \textbf{Opció B}\\[0.15cm]
 \begin{tikzpicture}
 \pie[rotate=0,text=inside,scale=0.7,color={color2!75!white,color1!75!white,color1!40!white}]{
@@ -76,5 +80,6 @@ Per determinar la teva nota s'utilitzarà la millor de les dues opcions següent
 \end{tikzpicture}
 \end{minipage}
 \\[0.1cm]
-{\small $^{*}$: Cal una nota mínima en aquesta part per aprovar l'assignatura. Tots els detalls a la \href{https://apps.uab.cat/guies/public/html/2026/assignatura/104353/ca}{\underline{guia docent de l'assignatura}}.}\\[0.1cm]
+\begin{center}
+{\footnotesize $^{*}$: Cal una nota mínima en aquesta part per aprovar l'assignatura. Tots els detalls a la\pdfbreak \href{https://apps.uab.cat/guies/public/html/2026/assignatura/104353/ca}{\underline{guia docent de l'assignatura}}.}\\[0.1cm]
 \end{center}

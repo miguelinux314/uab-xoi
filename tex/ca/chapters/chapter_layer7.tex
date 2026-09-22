@@ -82,7 +82,7 @@ Tothom fa servir el DNS constantment. Quins serien els riscos de tenir
 un sistema de traducció de noms centralitzat en lloc de la naturalesa distribuïda del DNS?
 \end{exercise}
 
-\subsection{Registres}
+\subsection{Registres}\label{sec:layer7:dns:records}
 
 El DNS es pot veure com una base de dades distribuïda amb diferents tipus d'entrades
 anomenades \conceptRef{DNS record}{registres}. Els principals són:
@@ -102,7 +102,7 @@ els registres \concept{A} o \concept{MX} demanats,
 però el client també pot rebre una redirecció a un altre DNS (\concept{NS})
 o un àlies a un altre nom de domini (\concept{CNAME}).
 
-\subsection{Resolució}
+\subsection{Resolució}\label{sec:layer7:dns:resolution}
 
 La naturalesa distribuïda i jeràrquica de la base de dades del DNS fa que
 de vegades calgui intercanviar múltiples missatges per satisfer una \conceptRef{query}{consulta} DNS.
@@ -278,7 +278,7 @@ escala per garantir la connectivitat del graf amb tots els hosts d'Internet.
 \end{center}
 
 
-\subsection{Organització}
+\subsection{Organització}\label{sec:layer7:as:organization}
 
 Per facilitar aquesta coordinació, les LAN s'agrupen en \conceptRef{AS}{sistemes autònoms} (\concept{AS}).
 Aquests gestionen blocs d'adreces IP que no se solapen (\otherBase{w.x.y.z/N}), amb propietat i gestió separades.
@@ -301,7 +301,7 @@ amb destinació dins de l'AS, el reenvia a través dels \conceptRef{internal rou
 De manera semblant, quan un host dins d'un AS necessita contactar amb un host d'un altre AS, els datagrames es reenvien a través de routers frontera
 fins que arriben a l'AS de destinació i, finalment, a la LAN de destinació.
 
-\subsection{Configuració de la taula d'encaminament}
+\subsection{Configuració de la taula d'encaminament}\label{sec:layer7:as:routing_table_configurati}
 
 Configurar manualment les \conceptRef{routing table}{taules d'encaminament} de tots els routers frontera i routers interns
 seria massa costós i propens a errors. En lloc d'això, s'utilitzen diferents algorismes per configurar-les automàticament.

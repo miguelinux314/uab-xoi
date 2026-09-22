@@ -25,34 +25,34 @@
 % \section{Layer~3 overview}
 \subsection*{Capacidades}
 
-El \conceptRef{IP}{Internet Protocol (IP)} permite intercambiar \conceptRef{datagram}{datagramas} 
-(\conceptRef{PDU}{PDUs} de la capa~3) entre dispositivos de distintas \conceptRef{LAN}{LANs} (redes de área local).
+El \conceptRef{IP}{Internet Protocol (IP)} permite intercambiar datagramas 
+(PDUs de la capa~3) entre dispositivos de distintas LANs (redes de área local).
 % 
 Su sistema de direccionamiento identifica los dispositivos de forma global y hace posible 
-\conceptRef{routing}{encaminar} datagramas allí donde lo necesitemos. 
+encaminar datagramas allí donde lo necesitemos. 
 
 Los dispositivos que se comunican mediante IP pueden pertenecer a LANs
-basadas en tecnologías diferentes y con distintos tipos de dirección \concept{MAC}.
+basadas en tecnologías diferentes y con distintos tipos de dirección MAC.
 Esto tiene dos implicaciones:
 \begin{itemize}
-  \item Un datagrama que ``cabe'' en la \concept{MTU} de la LAN de origen
+  \item Un datagrama que ``cabe'' en la MTU de la LAN de origen
     puede ser demasiado grande para la MTU de la LAN de destino (o de cualquier LAN intermedia). 
-    IP define un sistema de \conceptRef{fragmentation}{fragmentación} para dividir datagramas,
+    IP define un sistema de fragmentación para dividir datagramas,
     que solo se reconstruyen en el destino final.\\[-0.25cm]
     
   \item Cuando enviamos un datagrama, conocemos la \conceptRef{IP}{dirección IP} del dispositivo de destino,
-  pero no necesariamente su dirección \concept{MAC}. Solo necesitaremos esa MAC si formamos parte de la LAN
-  de destino. IP usa \concept{ARP} para traducir direcciones IP conocidas
+  pero no necesariamente su dirección MAC. Solo necesitaremos esa MAC si formamos parte de la LAN
+  de destino. IP usa ARP para traducir direcciones IP conocidas
   a direcciones MAC del tipo de la LAN de destino.
 \end{itemize}
 
 
-Los \conceptRef{datagram}{datagramas} pueden viajar por redes que no controlan 
+Los datagramas pueden viajar por redes que no controlan 
 ni el origen ni el destino, por lo que pueden perderse, desordenarse y duplicarse.
 % 
 La capa~3 no proporciona mecanismos para tratar esto; las capas superiores deben implementar
 mecanismos de protección cuando sea necesario 
-(\eg\ para implementar los \conceptRef{stream}{flujos de datos} de \concept{TCP}).
+(\eg\ para implementar los flujos de datos de TCP).
 
 \begin{center}
 \includegraphics[width=0.9\linewidth]{protocols_layer3.pdf}
@@ -65,18 +65,18 @@ mecanismos de protección cuando sea necesario
 La versión~4 de \concept{IP} es \textit{el} protocolo usado en la capa~3, \ie,
 es común a prácticamente todas las comunicaciones de Internet tal y como la conocemos hoy.
 % 
-Desde hace muchos años, Internet intenta hacer la transición hacia \concept{IPv6}, 
-pero el proceso no está completo y solo \concept{IPv4} proporciona cobertura global.
+Desde hace muchos años, Internet intenta hacer la transición hacia IPv6, 
+pero el proceso no está completo y solo IPv4 proporciona cobertura global.
 
-\concept{IPv4} delega en el protocolo \concept{ARP} la traducción de direcciones IP conocidas 
+IPv4 delega en el protocolo ARP la traducción de direcciones IP conocidas 
 a direcciones MAC dentro de cada LAN. ARP \textit{no} usa datagramas IP.
 
-Los siguientes protocolos encapsulan sus \conceptRef{PDU}{PDUs} en el payload (carga útil) de los 
-\conceptRef{datagram}{datagramas} IP:\\[-0.6cm]
+Los siguientes protocolos encapsulan sus PDUs en el payload (carga útil) de los 
+datagramas IP:\\[-0.6cm]
 \begin{itemize}
-\item Transport Control Protocol (\concept{TCP}) 
-\item User Datagram Protocol (\concept{UDP})
-\item Internet Control Message Protocol (\concept{ICMP})
+\item Transport Control Protocol (TCP) 
+\item User Datagram Protocol (UDP)
+\item Internet Control Message Protocol (ICMP)
 \end{itemize}
 
 \begin{remark}
@@ -88,13 +88,13 @@ Los comandos \inlineCode{ip address}, \inlineCode{ip route} y \inlineCode{ip nei
 
 \section{Direccionamiento en la capa~3}\label{sec:layer3:addressing}
 
-Las direcciones \concept{IPv4} tienen $32$~bits de longitud. Lo más habitual es presentarlas a las personas en
-formato \conceptRef{quad decimal}{cuádruple decimal}, \eg\ 
+Las \conceptRef{IP address}{direcciones} IPv4 tienen $32$~bits de longitud. Lo más habitual es presentarlas a las personas en
+formato \conceptRef{quad decimal}{quad decimal}, \eg\ 
 \begin{center}
 \otherBase{142.250.201.67}
 \end{center}
 
-Las direcciones \concept{IPv6} tienen $128$~bits ($12$~bytes) de longitud, \ie, 
+Las direcciones IPv6 tienen $128$~bits ($12$~bytes) de longitud, \ie, 
 son $4$~veces mayores que una dirección IPv4.
 Se expresan en formato hexadecimal, \eg\ como sigue. Fíjate en cómo 
 dos signos de dos puntos ``\otherBase{::}'' indican ``rellena con ceros'',
@@ -104,17 +104,17 @@ y ``\otherBase{::}'' solo puede aparecer una vez por dirección IPv6.
 \end{center}
 
 \begin{remark}
-Cuando una dirección \concept{IPv6} se usa como parte de una URL, se rodea con corchetes,
-\eg\ \otherBase{https://[fe80::f524:a73a:e946:7c02]/}.
+Cuando una dirección IPv6 se usa como parte de una URL, se rodea con corchetes,
+\eg\ \url{https://[fe80::f524:a73a:e946:7c02]/}.
 \end{remark}
 
 
-\subsection{Direcciones públicas y reservadas}
+\subsection{Direcciones públicas y reservadas}\label{sec:layer3:public_reserved}
 
-La mayoría de las direcciones IP son \conceptRef{public IP}{públicas} y únicas en todo Internet, 
+La mayoría de las direcciones IP son \conceptRef{public/private IP}{públicas} y únicas en todo Internet,
 \ie, la IP anterior tiene el mismo significado en todo el mundo: identifica un único dispositivo conectado.
 % 
-Muchas direcciones son \conceptRef{reserved IP address}{reservadas/privadas} y solo pueden 
+Muchas direcciones son \conceptRef{public/private IP}{reservadas/privadas} y solo pueden 
 usarse dentro de un ámbito concreto (\eg\ una LAN) o en una situación concreta.
 Algunas de las más comunes son las siguientes (hay 
 \href{https://en.wikipedia.org/wiki/Reserved_IP_addresses#IPv4}{\underline{algunas más}}, 
@@ -138,11 +138,11 @@ también para IPv6):
 
 \begin{exercise}\ \\[-0.5cm]
 \begin{itemize}
-\item ¿Cuántas direcciones \concept{IPv4} distintas hay (incluyendo las reservadas y privadas)? 
+\item ¿Cuántas direcciones IPv4 distintas hay (incluyendo las reservadas y privadas)? 
 \item ¿Son suficientes ahora y en el futuro?
 \item ¿Es problemático que una dirección como \otherBase{192.168.0.1} 
   la estén usando simultáneamente miles (probablemente millones) de ordenadores en Internet ahora mismo?
-\item ¿Cuáles de estas corresponden a direcciones \concept{link local}?
+\item ¿Cuáles de estas corresponden a direcciones link local?
 \end{itemize}
 \end{exercise}
 
@@ -170,7 +170,7 @@ Las máscaras de red se presentan a las personas de dos formas principales:\\[-0
   \item \otherBase{/N}, donde $N$ es el número de bits asignados al Network ID. 
     Se usa en el formato \concept{CIDR}.
   
-  \item El formato \conceptRef{quad decimal}{cuádruple decimal} (\otherBase{A.B.C.D}) de 
+  \item El formato \conceptRef{quad decimal}{quad decimal} (\otherBase{A.B.C.D}) de 
     $N$ bits puestos a \otherBase{1}, seguidos de $(32-N)$ bits puestos a \otherBase{0}.
 \end{itemize}
 
@@ -196,7 +196,7 @@ La máscara de red del ejemplo anterior puede expresarse en binario
 Las máscaras de red también se usan en IPv6, pero con un valor máximo de $N$ de $128$ en lugar de $32$.
 \end{remark}
 
-\subsection{Bloques de direcciones IP}
+\subsection{Bloques de direcciones IP}\label{sec:layer3:ip_blocks}
 
 Las máscaras de red se usan combinadas con direcciones IP para definir 
 \conceptRef{IP address block}{bloques de direcciones IP} 
@@ -223,7 +223,7 @@ Da ejemplos en los que un bloque IP se refiera a:
 
 \begin{exercise}\ \\[-0.65cm]
 \begin{itemize}
-\item ¿Puede expresarse toda \conceptRef{netmask}{máscara de red} como una \conceptRef{IP address}{dirección IP}?
+\item ¿Puede expresarse toda \conceptRef{netmask}{máscara de red} como una dirección IP?
 \item Enumera todas las máscaras de red posibles.\\[-0.5cm]
 \end{itemize}
 \end{exercise}
@@ -281,7 +281,7 @@ Las máscaras de red \textit{no} tienen por qué ser múltiplos de $8$. Consider
 \item En el ejemplo anterior, en realidad solo necesitábamos transformar un valor decimal a binario,
 y un valor decimal a binario. ¿Cuál?
 \item ¿Es esto siempre cierto al convertir combinaciones IP+máscara de red en direcciones de red?
-\item Expresa la máscara de red en formato \conceptRef{quad decimal}{cuádruple decimal}.
+\item Expresa la máscara de red en formato \conceptRef{quad decimal}{quad decimal}.
 \end{itemize}
 \end{exercise}
 
@@ -302,11 +302,11 @@ el siguiente dispositivo \otherBase{123.45.67.89/14}:
 \end{itemize}
 \end{exercise}
 
-Una \conceptRef{network}{red IP} (una LAN) es un bloque de direcciones, pero no todas esas direcciones 
+Una red IP (una LAN) es un bloque de direcciones, pero no todas esas direcciones 
 pueden asignarse a dispositivos. Siempre hay dos direcciones reservadas:
 \begin{itemize}
 \item La dirección con todos los bits de nodo puestos a \otherBase{0}: identifica la propia LAN.
-\item La dirección con todos los bits de nodo puestos a \otherBase{1}: identifica el \concept{broadcast} (difusión) dentro de la LAN.
+\item La dirección con todos los bits de nodo puestos a \otherBase{1}: identifica el broadcast (difusión) dentro de la LAN.
 \end{itemize}
 
 \begin{exercise}\ \\[-0.5cm]
@@ -341,7 +341,7 @@ $\vdots$ & $\vdots$ & $\vdots$ \\
 \end{center}
 
 \begin{remark}
-Todos los \conceptRef{router}{routers} (encaminadores) necesitan una dirección IP válida por cada LAN a la que están conectados.
+Todos los routers (encaminadores) necesitan una dirección IP válida por cada LAN a la que están conectados.
 Por tanto, los routers \textit{sí} cuentan para el número máximo de dispositivos conectados en una LAN.
 \end{remark}
 
@@ -386,7 +386,7 @@ Amplía (o sustituye) el código para que puedas:
 
 \subsection{Formato del paquete}\label{sec:layer3:ip:format}
 
-\concept{IP} define un formato de \conceptRef{packet}{paquete} con una \conceptRef{header}{cabecera} 
+\concept{IP} define un formato de paquete con una cabecera 
 de \textit{al menos} $20$~bytes. Pueden incluirse partes opcionales,
 siempre que el tamaño total de la cabecera sea múltiplo de $32$~bits ($4$~bytes).
 El payload puede estar vacío, así que el tamaño mínimo de un datagrama es de $20$~bytes.\\
@@ -439,7 +439,7 @@ El payload puede estar vacío, así que el tamaño mínimo de un datagrama es de
 \end{itemize}
 \end{exercise}
 
-\subsection{Funcionamiento}
+\subsection{Funcionamiento}\label{sec:layer3:ip:operation}
 
 Cuando un dispositivo A quiere enviar un datagrama IP a un dispositivo B, las IP de origen y 
 destino de la cabecera son fijas y no cambian para ese datagrama.
@@ -454,7 +454,7 @@ Considera el siguiente escenario, en el que A quiere comunicarse con E.
 
 
 Aquí, los dispositivos de origen y destino pertenecen a LANs distintas.
-El datagrama se pasa primero al \concept{router} del origen.
+El datagrama se pasa primero al router del origen.
 Después, cada router intermedio lo pasa al siguiente hasta que el datagrama llega 
 al último router, que está conectado a la LAN de destino. Por último, ese último router 
 entrega el datagrama al destino. 
@@ -468,9 +468,9 @@ En cambio, las direcciones MAC cambian en cada \conceptRef{hop}{salto} de LAN.
 
 \section{Encaminamiento IP}\label{sec:layer3:routing}
 
-Los \conceptRef{router}{routers} son los dispositivos encargados de reenviar los \conceptRef{datagram}{datagramas} IP
-mirando la dirección IP de destino de cada uno, presente en la \conceptRef{header}{cabecera} IP. Los routers no necesitan 
-\conceptRef{decapsulate}{desencapsular} las cabeceras de la capa 4 y superiores. Por tanto, sus pilas de red solo necesitan llegar hasta la capa~3
+Los routers son los dispositivos encargados de reenviar los datagramas IP
+mirando la dirección IP de destino de cada uno, presente en la cabecera IP. Los routers no necesitan 
+desencapsular las cabeceras de la capa 4 y superiores. Por tanto, sus pilas de red solo necesitan llegar hasta la capa~3
 (y por eso a veces se les llama dispositivos de capa~3).
 
 \begin{center}
@@ -498,10 +498,10 @@ Si lo reconoce, el router procesa el datagrama de la siguiente manera:
   \begin{enumerate}[label=\alph*)]
   \item La cabecera de capa~2 de $F'$ cambia por completo:
     \begin{itemize} 
-    \item La \concept{MAC} de destino es la del siguiente salto,
+    \item La MAC de destino es la del siguiente salto,
     y la MAC de origen es la del router que reenvía el datagrama.
     La IP del siguiente salto la da la \conceptRef{routing table}{tabla de encaminamiento} (véase la Sección~\ref{sec:layer3:routing}), 
-    y su MAC se obtiene a partir de esa IP mediante \concept{ARP} (Sección~\ref{sec:layer3:arp}).\\[-0.4cm]
+    y su MAC se obtiene a partir de esa IP mediante ARP (Sección~\ref{sec:layer3:arp}).\\[-0.4cm]
     %     
     \item La MAC de origen del frame $F'$
     es distinta de la MAC de destino del frame $F$ recibido si el router 
@@ -519,7 +519,7 @@ Si lo reconoce, el router procesa el datagrama de la siguiente manera:
     \begin{itemize}
     \item El campo \concept{TTL} (tiempo de vida) se decrementa en $1$.\\
     Si el TTL llega a $0$, el datagrama se descarta en lugar de reenviarse.
-    \item Cuando el campo \conceptRef{IP Options}{Options} está presente, a menudo se actualiza.
+    \item Cuando el campo Options está presente, a menudo se actualiza.
     \item El \concept{checksum} (suma de verificación) de la cabecera se actualiza en consecuencia.\\
     \end{itemize}
   \end{enumerate}
@@ -533,10 +533,10 @@ Si lo reconoce, el router procesa el datagrama de la siguiente manera:
 
 
 
-Cuando un router recibe un \concept{datagram} IP para reenviarlo y ese router 
-está conectado a la misma LAN que la dirección IP de destino, el router realiza una \conceptRef{direct delivery}{entrega directa} (DD).
+Cuando un router recibe un datagram IP para reenviarlo y ese router 
+está conectado a la misma LAN que la dirección IP de destino, el router realiza una \conceptRef{direct/indirect delivery}{entrega directa} (DD).
 % 
-En caso contrario, el datagrama se reenvía al siguiente router en una \conceptRef{indirect delivery}{entrega indirecta} (ID).
+En caso contrario, el datagrama se reenvía al siguiente router en una \conceptRef{direct/indirect delivery}{entrega indirecta} (ID).
 % 
 Un router sabe si debe realizar DD o ID, así como qué dirección IP de destino (y de origen) usar,
 gracias a su \conceptRef{routing table}{tabla de encaminamiento}.
@@ -554,8 +554,8 @@ Todas las tablas de encaminamiento tienen al menos las siguientes columnas:
   Como este es el bloque más grande posible, solo se aplica si no se aplica ninguna de las otras filas. 
   La entrada \textit{default} no es obligatoria.\\[-0.3cm]
   
-\item \textbf{Gateway/via} (pasarela): si la fila corresponde a una \concept{indirect delivery}, esta columna contiene la dirección IP
-  del siguiente router. En caso contrario, esta columna contiene \otherBase{0.0.0.0} para indicar una \concept{direct delivery}.\\[-0.3cm]
+\item \textbf{Gateway/via} (pasarela): si la fila corresponde a una \conceptRef{direct/indirect delivery}{indirect delivery}, esta columna contiene la dirección IP
+  del siguiente router. En caso contrario, esta columna contiene \otherBase{0.0.0.0} para indicar una \conceptRef{direct/indirect delivery}{direct delivery}.\\[-0.3cm]
   
 \item \textbf{Interfaz}: nombre interno de la interfaz de red (\eg\ de la tarjeta Ethernet) que se usará para entregar el 
   datagrama. Los sistemas operativos pueden usar la convención que quieran, siempre que puedan identificarse de forma única en la tabla.
@@ -599,7 +599,7 @@ Piensa en un caso de uso para tener estas dos reglas.
 \end{exercise}
 
 Para que Internet funcione, los routers que interconectan LANs a escala global deben estar bien configurados. 
-A veces no es así, lo que puede provocar \conceptRef{routing errors}{errores de encaminamiento}. Dos problemas importantes 
+A veces no es así, lo que puede provocar errores de encaminamiento. Dos problemas importantes 
 que uno puede encontrarse son:
 \begin{itemize}
 \item ``Network is unreachable'': ninguna de las filas de la tabla de encaminamiento usa un bloque de direcciones que contenga la 
@@ -659,18 +659,18 @@ siga un ciclo y produzca el error ``TTL exceeded''.
 \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} & \bitbox{1}{\raisebox{0.25em}{$\vdots$}} \\
 \end{bytefield}
 
-Las \conceptRef{LAN}{LANs} pueden considerarse bloques de direcciones (\eg\ expresados en formato \concept{CIDR})
+Las LANs pueden considerarse bloques de direcciones (\eg\ expresados en formato \concept{CIDR})
 con dos direcciones reservadas. A las redes accesibles directamente a través de Internet se les debe asignar 
 un bloque válido lo bastante grande para conectar todos los dispositivos necesarios. Para asegurarse de que no haya dos dispositivos en Internet
 con la misma IP \conceptRef{public}{pública}, no puede haber dos LANs que contengan la misma dirección 
 (a menos que la dirección sea \conceptRef{private IP}{privada}).
 
-Las $2^{32}$~direcciones disponibles en \concept{IPv4} se dividen en bloques mediante el 
+Las $2^{32}$~direcciones disponibles en IPv4 se dividen en bloques mediante el 
 \conceptRef{netmask}{enmascaramiento de red}. Los bloques grandes pueden dividirse por la mitad aumentando 
 en $1$ la longitud de la máscara de red, como se ve en la figura anterior.
 % 
 Por ejemplo, el bloque inicial \otherBase{0.0.0.0/0} (todas las direcciones) 
-puede dividirse en dos bloques \otherBase{/1}, cada uno con la mitad de las direcciones \concept{IPv4} 
+puede dividirse en dos bloques \otherBase{/1}, cada uno con la mitad de las direcciones IPv4 
 ($2^{31}$ -- todavía demasiado grande para cualquier LAN real).
 % 
 Este proceso continúa de forma independiente para cada uno de los bloques resultantes, y se detiene cuando el tamaño 
@@ -793,7 +793,7 @@ con rangos de direcciones en ese orden, una posible división sería:
 \end{center}
 
 Recuerda que la dirección de red de cada subred resultante tiene todos los bits de Device ID puestos a \otherBase{0},
-y que lo más habitual es presentar esa dirección en formato \conceptRef{quad decimal}{cuádruple decimal}.
+y que lo más habitual es presentar esa dirección en formato \conceptRef{quad decimal}{quad decimal}.
 \end{remark}
 
 \begin{exercise}\ \\[-0.5cm]
@@ -805,22 +805,22 @@ y no \otherBase{0000000}?\\[-0.4cm]
   luego las siguientes direcciones más altas posibles a la segunda subred, 
   y las direcciones más bajas posibles a la primera subred.\\[-0.4cm]
   
-\item ¿Cuál es la IP de \concept{broadcast} de cada subred?
+\item ¿Cuál es la IP de broadcast de cada subred?
 \end{itemize}
 \end{exercise}
 
 
 % 
-\section{Fragmentación IP}
+\section{Fragmentación IP}\label{sec:layer3:ip_fragmentation}
 \label{sec:layer3:fragmentation}
 
-Antes de que un dispositivo (incluidos los \conceptRef{router}{routers} y los ordenadores normales)
-pueda enviar un \conceptRef{datagram}{datagrama} por una LAN, debe verificar que su longitud en bytes 
-no es mayor que la \concept{MTU} de esa LAN. En caso contrario, el datagrama debe 
+Antes de que un dispositivo (incluidos los routers y los ordenadores normales)
+pueda enviar un datagrama por una LAN, debe verificar que su longitud en bytes 
+no es mayor que la MTU de esa LAN. En caso contrario, el datagrama debe 
 \conceptRef{fragmentation}{fragmentarse} en dos o más datagramas más pequeños que sí quepan en la MTU de la LAN.
 
 Los fragmentos más pequeños son datagramas completos con cabecera y payload. Por tanto, 
-más fragmentos implican mayor \conceptRef{overhead}{sobrecarga}. Cada uno de esos fragmentos se envía 
+más fragmentos implican mayor sobrecarga. Cada uno de esos fragmentos se envía 
 y se reenvía individualmente como cualquier otro datagrama, y puede que haya que refragmentarlo 
 si atraviesa otra LAN con una MTU aún menor.
 
@@ -832,12 +832,12 @@ los siguientes pasos:
     Si DF=\otherBase{1} pero se necesita fragmentación, el datagrama no se fragmenta 
     y se produce un error.\\[-0.2cm]
 
-\item Los datos de \conceptRef{payload}{payload} se dividen en trozos de tamaño como mucho $S$, de forma que $S + H = MTU$ 
+\item Los datos de payload se dividen en trozos de tamaño como mucho $S$, de forma que $S + H = MTU$ 
   ($H$ es la longitud de la cabecera del datagrama, típicamente $20$~bytes). Solo el último trozo
   puede tener un tamaño menor que $S$. Esto garantiza que ningún fragmento supere la MTU,
   que es precisamente el objetivo de la fragmentación.\\[-0.2cm]
   
-\item La \conceptRef{header}{cabecera} del datagrama original se copia en la de los fragmentos con las siguientes modificaciones:
+\item La cabecera del datagrama original se copia en la de los fragmentos con las siguientes modificaciones:
   \begin{itemize}
   \item El campo Datagram ID se fija al mismo valor en todos los fragmentos de un datagrama. 
     El SO se asegura de elegir un ID que su pila de red no haya usado recientemente.
@@ -906,18 +906,18 @@ Los datagramas que contienen fragmentos pueden llegar duplicados y/o desordenado
 
 \section{ARP -- Address Resolution Protocol}\label{sec:layer3:arp}
 
-El Address Resolution Protocol (\concept{ARP}) lo usa la capa~3 (\concept{IP})
-para obtener la dirección \concept{MAC} (física) de destino correspondiente a una dirección IP conocida.
+El Address Resolution Protocol (ARP) lo usa la capa~3 (\concept{IP})
+para obtener la dirección MAC (física) de destino correspondiente a una dirección IP conocida.
 
 Los paquetes ARP se envían como payload de frames de capa~2 (\eg\ Ethernet). 
 Los paquetes ARP \textit{no} son datagramas y \textit{no} contienen cabeceras IP.
 
 \begin{remark}
-La IP que consulta la capa~3 es la del \concept{router} en la \concept{indirect delivery} y la del dispositivo de destino
-en la \concept{indirect delivery}. Recuerda también que la IP de destino del datagrama no cambia durante el reenvío.
+La IP que consulta la capa~3 es la del router en la \conceptRef{direct/indirect delivery}{indirect delivery} y la del dispositivo de destino
+en la \conceptRef{direct/indirect delivery}{indirect delivery}. Recuerda también que la IP de destino del datagrama no cambia durante el reenvío.
 \end{remark}
 
-\subsection{Formato del paquete}
+\subsection{Formato del paquete}\label{sec:layer3:arp:packet_format}
 
 \vspace{0.2cm}
 \begin{center}
@@ -942,7 +942,7 @@ en la \concept{indirect delivery}. Recuerda también que la IP de destino del da
 \end{center}
 
 \begin{remark}
-El protocolo \concept{ARP} \textit{no} usa cabeceras IP.
+El protocolo ARP \textit{no} usa cabeceras IP.
 \end{remark}
 \begin{remark}
 ``Sender'' y ``receiver'' deben interpretarse como ``... de este mensaje ARP''.
@@ -962,9 +962,9 @@ El protocolo \concept{ARP} \textit{no} usa cabeceras IP.
 \end{exercise}
 
 
-\subsection{Funcionamiento}
+\subsection{Funcionamiento}\label{sec:layer3:arp:operation}
 
-Cuando un nodo \node{A} necesita traducir una dirección IP a una dirección MAC, envía un frame de \concept{broadcast}
+Cuando un nodo \node{A} necesita traducir una dirección IP a una dirección MAC, envía un frame de broadcast
 (MAC de destino \otherBase{ff:ff:ff:ff:ff:ff} que contiene un paquete ARP. 
 En ese paquete ARP, la operación se fija a \inlineCode{REQUEST} (\otherBase{1}),
 la IP de destino es la que se está traduciendo, y
@@ -999,7 +999,7 @@ A su vez, el comando \inlineCode{ip link} contiene las siguientes líneas:
 \end{verbatim}
 
 \begin{itemize}
-\item El nodo necesita realizar la \concept{indirect delivery} de un datagrama,
+\item El nodo necesita realizar la \conceptRef{direct/indirect delivery}{indirect delivery} de un datagrama,
 pero no conoce la dirección MAC de su router gateway. Indica el valor de 
 todos los campos (incluyendo la cabecera Ethernet y el mensaje ARP) de la petición ARP 
 que el nodo enviará para obtener la MAC del router.
@@ -1034,7 +1034,7 @@ a la víctima respuestas ARP \concept{gratuitous} (no solicitadas) con
 asociaciones IP $\leftrightarrow$ MAC falsas.
 
 Los SO modernos suelen ignorar las respuestas ARP no solicitadas, 
-y los \conceptRef{switch}{switches} (conmutadores) modernos filtran los mensajes ARP que no coinciden con las
+y los switches (conmutadores) modernos filtran los mensajes ARP que no coinciden con las
 direcciones IP y MAC reales. Aun así, IPv6 prescinde de ARP en favor de 
 un protocolo más complejo, Neighbor Discovery (ND).
 
@@ -1050,10 +1050,10 @@ El Internet Control Message Protocol (\concept{ICMP}) es un protocolo auxiliar
 las comunicaciones de (inter)red. 
 
 
-\subsection{Formato del paquete}
+\subsection{Formato del paquete}\label{sec:layer3:icmp:packet_format}
 
 Los mensajes ICMP se encapsulan como payload de datagramas IP.
-En la cabecera IP, el campo \conceptRef{payload}{Payload protocol} se fija a \otherBase{0x01} (``ICMP'').\\[-0.2cm]
+En la cabecera IP, el campo Payload protocol se fija a \otherBase{0x01} (``ICMP'').\\[-0.2cm]
 
 \begin{center}
 \begin{bytefield}[bitwidth=1.2em]{32}
@@ -1095,18 +1095,18 @@ Para los mensajes echo request y echo reply, el campo de datos ICMP es arbitrari
 de los datagramas IP. La fragmentación de datagramas ICMP (\eg\ payloads de ping grandes) es posible,
 pero muchos routers ignoran los fragmentos ICMP.
 
-\subsection{Funcionamiento}
+\subsection{Funcionamiento}\label{sec:layer3:icmp:operation}
 
-Los mensajes de error ICMP los envían los \conceptRef{router}{routers} y los hosts normales,
+Los mensajes de error ICMP los envían los routers y los hosts normales,
 disparados por otros datagramas:
 \begin{itemize}
 \item La familia de mensajes ``Destination unreachable'' se envía cuando un datagrama no puede 
 entregarse a su destino, \eg\ por una \conceptRef{routing table}{tabla de encaminamiento} mal configurada, 
-un \conceptRef{port}{puerto} cerrado (véase la Sección~\ref{sec:layer4}), o simplemente porque el host
+un puerto cerrado (véase la Sección~\ref{sec:layer4}), o simplemente porque el host
 de destino no está encendido.
 
 \item El mensaje ``TTL exceeded'' se envía cuando un router recibe un datagrama para 
-\conceptRef{indirect delivery}{entrega indirecta} con \concept{TTL}$=1$ (véase la Sección~\ref{sec:layer3:routing}).
+\conceptRef{direct/indirect delivery}{entrega indirecta} con \concept{TTL}$=1$ (véase la Sección~\ref{sec:layer3:routing}).
 \end{itemize}
 
 Para evitar cantidades infinitas de tráfico, \textit{no} se producen errores ICMP
