@@ -47,6 +47,28 @@
   scroll-margin-top: 4rem;
 }
 
+/* Clicking a term in the "Technical terms" sidebar (web/js/technical-terms.js) jumps here: a
+   brief background flash draws the eye, then the term stays in the orange accent color (text and
+   dashes) so it's still easy to find after the flash fades. */
+.md-typeset .concept.xoi-term-target {
+  color: var(--xoi-color1);
+  background-image: linear-gradient(to right, var(--xoi-color1) 65%, transparent 0%);
+}
+
+@keyframes xoi-term-flash {
+  0%, 25% {
+    background-color: rgba(243, 102, 25, 0.35);
+    border-radius: 0.2rem;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.md-typeset .concept.xoi-term-flash {
+  animation: xoi-term-flash 1.2s ease-out;
+}
+
 .md-typeset .node {
   display: inline-block;
   min-width: 1.4em;
@@ -94,19 +116,38 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  flex-wrap: wrap;
+  /* nowrap forces the shrink (via flex-shrink + the p/img rules below) that
+     keeps images on one line, like the PDF's side-by-side minipages - with
+     "wrap" the browser wraps to a new line *instead of* shrinking whenever
+     the images' combined natural size exceeds the row, which is almost
+     always. Only give up on one line below the phone breakpoint. */
+  flex-wrap: nowrap;
   gap: 0.5rem;
   margin: 1rem 0;
 }
 
+@media screen and (max-width: 44.9375em) {
+  .md-typeset .figure-row {
+    flex-wrap: wrap;
+  }
+}
+
 .md-typeset .figure-row p {
   margin: 0;
+  /* Flex items default to min-width: auto, which floors their shrink at the
+     img's own specified width - so two images wider together than the row
+     never actually shrink and wrap instead. This lets them shrink below that.
+     No grow: each image should keep its own cm-based size (matching the PDF's
+     proportions) rather than stretch to fill leftover row width. */
+  min-width: 0;
+  flex: 0 1 auto;
 }
 
 .md-typeset .figure-row img {
   display: inline-block;
   max-width: 100%;
   width: auto;
+  height: auto;
 }
 
 .md-typeset p {
@@ -139,6 +180,15 @@
   padding: 0.3em 0.6em;
 }
 
+/* Material bolds every <th> by default; pandoc turns a booktabs table's row
+   before \midrule into <th> cells even when the LaTeX source never asked for
+   bold (see tex/en/chapters/chapter_piercing_the_veil.tex's bitwise/logic
+   table) - so a cell is bold here only when the source actually wrapped it in
+   \textbf (-> <strong>), matching the PDF. */
+.md-typeset table:not([class]) th {
+  font-weight: normal;
+}
+
 .md-typeset .admonition.example > .admonition-title {
   font-weight: 700;
 }
@@ -149,6 +199,17 @@
 .md-typeset .admonition,
 .md-typeset details {
   font-size: 0.8rem;
+}
+
+/* Match the PDF's eBox/rBox: a thick left rule only (no top/right/bottom
+   border, no shadow), pale-tinted per box type - see the per-type
+   border-left-color rules below. */
+.md-typeset .admonition,
+.md-typeset details {
+  border-width: 0;
+  border-left-width: 0.2rem;
+  border-style: solid;
+  box-shadow: none;
 }
 
 /* Frontpage (src/uab_xoi/tex2md.py's write_frontpage()): centered, cover-page
@@ -212,11 +273,14 @@
 .md-typeset .example > .admonition-title,
 .md-typeset .example > summary {
   background-color: rgba(243, 102, 25, 0.1);
+  color: var(--xoi-color1);
+  /* No icon (removed below) - drop its reserved left gutter. */
+  padding-left: 0.75rem;
 }
 
 .md-typeset .example > .admonition-title::before,
 .md-typeset .example > summary::before {
-  background-color: var(--xoi-color1);
+  display: none;
 }
 
 .md-typeset .example > .admonition-title::after,
@@ -226,12 +290,46 @@
 
 .md-typeset .admonition.example,
 .md-typeset details.example {
-  border-color: var(--xoi-color1);
+  border-left-color: rgba(243, 102, 25, 0.35);
 }
 
-.md-typeset .admonition.example:focus-within,
-.md-typeset details.example:focus-within {
-  box-shadow: 0 0 0 0.2rem rgba(243, 102, 25, 0.1);
+/* Remark/note boxes (\begin{remark}, see tex/common/style/style.tex's rBox):
+   pale blue (xoi-color2), the same left-only rule as exercise boxes above. */
+.md-typeset .admonition.note,
+.md-typeset details.note {
+  border-left-color: rgba(0, 100, 140, 0.35);
+}
+
+/* Material's default paragraph margins (16px top, 12px bottom) read as a lot
+   of top/bottom padding inside a box that's already set off by the left
+   border and a tinted title - tighten the gap under the title, between
+   paragraphs/lists, and before the box's bottom edge. */
+.md-typeset .example > p,
+.md-typeset .example > ul,
+.md-typeset .example > ol,
+.md-typeset .note > p,
+.md-typeset .note > ul,
+.md-typeset .note > ol {
+  margin: 0.5em 0;
+}
+
+.md-typeset .example > .admonition-title,
+.md-typeset .example > summary,
+.md-typeset .note > .admonition-title,
+.md-typeset .note > summary {
+  margin-bottom: 0;
+}
+
+.md-typeset .example > .admonition-title + *,
+.md-typeset .example > summary + *,
+.md-typeset .note > .admonition-title + *,
+.md-typeset .note > summary + * {
+  margin-top: 0;
+}
+
+.md-typeset .example > :last-child,
+.md-typeset .note > :last-child {
+  margin-bottom: 0;
 }
 
 /* The missions coverage matrix (src/uab_xoi/tex2md.py's wrap_wide_table): breaks
@@ -366,10 +464,102 @@ body[data-md-color-scheme] {
   padding-left: 0.6rem;
 }
 
-/* "Technical terms" nav entries (web/js/technical-terms.js): tooltip only, not clickable - same as
-   the in-text occurrences, so they shouldn't look or act like a link. */
+/* "Technical terms" nav entries (web/js/technical-terms.js): a real link to the term's first
+   in-page occurrence, but styled muted like the in-text occurrences rather than as a normal link
+   (it's still a definition list, not primary navigation). */
 .xoi-term-label {
   display: block;
-  cursor: default;
   color: var(--md-default-fg-color--light);
+}
+
+/* Title + sort-order toggle button, side by side above the term list. */
+.xoi-terms-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.xoi-terms-title-row .md-nav__title {
+  margin: 0;
+  padding: 0;
+}
+
+.xoi-terms-sort {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.4rem;
+  height: 1.4rem;
+  padding: 0;
+  border: none;
+  border-radius: 0.2rem;
+  background: none;
+  color: var(--md-default-fg-color--light);
+  cursor: pointer;
+}
+
+.xoi-terms-sort:hover,
+.xoi-terms-sort[aria-pressed="true"] {
+  color: var(--xoi-color1);
+  background-color: rgba(243, 102, 25, 0.1);
+}
+
+/* "Table of contents" (right sidebar, web/js/toc-fold.js): a [X.Y] section's own subsubsections
+   (and deeper) start folded under it, with a chevron toggle - rather than always listing every
+   sub-heading, only the numbered section level shows by default.
+   The toggle is flush right regardless of whether the heading wraps to one or two lines: absolute
+   positioning (not flex - a flex row whose combined hypothetical/unshrunk width exceeds the item
+   wraps the *toggle* onto its own line instead of shrinking the link to make room, the same
+   failure mode as the figure-row fix in this file) pins it to the item's own top-right corner, and
+   the link gets right padding so wrapped text never runs under it. Sized to match the left nav's
+   own section-toggle icon (18px, see .md-sidebar--primary .md-nav__icon). */
+.md-nav--secondary .md-nav__item:has(> .xoi-toc-toggle) {
+  position: relative;
+}
+
+.md-nav--secondary .md-nav__item:has(> .xoi-toc-toggle) > .md-nav__link {
+  padding-right: 1.4rem;
+}
+
+.md-nav--secondary .md-nav__item > nav.md-nav {
+  display: none;
+  width: 100%;
+}
+
+.md-nav--secondary .md-nav__item.xoi-toc-expanded > nav.md-nav {
+  display: block;
+}
+
+.xoi-toc-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 0.2rem;
+  background: none;
+  color: var(--md-default-fg-color--light);
+  cursor: pointer;
+}
+
+.xoi-toc-toggle:hover {
+  color: var(--xoi-color1);
+  background-color: rgba(243, 102, 25, 0.1);
+}
+
+.xoi-toc-toggle svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.15s ease;
+}
+
+.md-nav__item.xoi-toc-expanded > .xoi-toc-toggle svg {
+  transform: rotate(90deg);
 }

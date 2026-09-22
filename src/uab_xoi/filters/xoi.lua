@@ -60,10 +60,11 @@ local function indent(text)
   return (text:gsub("([^\n]+)", "    %1"))
 end
 
-local function admonition(kind, title, blocks, anchor)
+local function admonition(kind, title, blocks, anchor, foldable)
   local head = anchor and ('<a id="' .. anchor .. '"></a>\n') or ""
+  local marker = foldable and '???+ ' or '!!! '
   return pandoc.RawBlock("markdown",
-    head .. '!!! ' .. kind .. ' "' .. title .. '"\n' .. indent(write_md(blocks)) .. "\n")
+    head .. marker .. kind .. ' "' .. title .. '"\n' .. indent(write_md(blocks)) .. "\n")
 end
 
 local function read_file(path)
@@ -160,6 +161,17 @@ local function pass1(doc)
       out:insert(pandoc.RawInline("html", "</span>"))
       return out
     end
+    local colorname = target:match("^#color:(.*)$")
+    if colorname then
+      -- color1/2/3 track the site's palette (web/css/xoi.css); any other
+      -- xcolor name (e.g. darkgray, gray) is also a valid CSS color, used as-is.
+      local css = ({color1 = "var(--xoi-color1)", color2 = "var(--xoi-color2)",
+                    color3 = "var(--xoi-color3)"})[colorname] or colorname
+      local out = pandoc.List({pandoc.RawInline("html", '<span style="color:' .. css .. '">')})
+      out:extend(el.content)
+      out:insert(pandoc.RawInline("html", "</span>"))
+      return out
+    end
     if target:match("^#codefile:") then return el end
     local label = target:match("^#(.*)$")
     if label then
@@ -239,12 +251,12 @@ local pass2 = {}
 function pass2.Div(el)
   local cls = el.classes[1]
   if cls == "remark" then
-    return admonition("note", t.remark, el.content)
+    return admonition("note", t.remark, el.content, nil, true)
   elseif cls == "exercise" then
     local num = el.attributes["num"] or ""
     local label = first_label_span(el.content)
     return admonition("example", t.exercise .. (num ~= "" and (" " .. num) or ""),
-                      el.content, label and slug(label))
+                      el.content, label and slug(label), true)
   elseif cls == "showcode" then
     return showcode(el, true)
   elseif cls == "showcodenooutput" then

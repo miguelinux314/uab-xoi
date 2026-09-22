@@ -114,7 +114,7 @@ color textcolor rowcolor cellcolor multicolumn multirow hline cline toprule
 midrule bottomrule caption verb S P copyright LaTeX TeX ldots dots quad qquad
 hfill vfill today checkmark textbackslash textasciitilde textbar textless
 textgreater textquotedbl textendash textemdash mbox par newline linebreak
-concept conceptRef node otherBase zero one compact secref readMore availableIn nseq nack
+concept conceptRef node colored otherBase zero one compact pdfbreak secref readMore availableIn nseq nack
 ie eg etc inlineCode textgreek input hyperlink hypertarget
 subjectName subjectNumber subjectDegree subjectYear strStudyGuide strYearSuffix
 strBy strIndexTitle strPartNetworks strPartInternet strPartMissions
@@ -589,8 +589,11 @@ class Converter:
         text = re.sub(r"\\begin\{multicols\}\{\d+\}|\\end\{multicols\}", "", text)  # two-column lists are PDF-only
         text = re.sub(r"\\(?:todo|thispagestyle|pagestyle)\{[^}]*\}", "", text)
         text = re.sub(r"\\(?:vspace|hspace)\*?\{[^}]*\}", "", text)
-        text = re.sub(r"\\(?:newpage|clearpage|noindent|centering|hfill|vfill|smallskip|"
-                      r"medskip|bigskip|phantomsection|compact)(?![A-Za-z])", "", text)
+        text = re.sub(r"\\(?:newpage|clearpage|noindent|centering|raggedright|raggedleft|hfill|vfill|smallskip|"
+                      r"medskip|bigskip|phantomsection|compact|pdfbreak|makeatletter|makeatother)(?![A-Za-z])", "", text)
+        # \chapter{...} wrapped in a \makeatletter/\let/\makeatother block that
+        # suppresses its table-of-contents entry (PDF-only; the site's nav is separate).
+        text = re.sub(r"\\let\\[A-Za-z@]+\\[A-Za-z@]+\s*", "", text)
         text = re.sub(r"\\warning(?![A-Za-z])", "⚠", text)
         text = re.sub(r"\\url\{([^}/:]+)\}", r"\\texttt{\1}", text)
 
@@ -856,7 +859,11 @@ class Converter:
         self.canonical_terms = {key: glossary.get(key.lower(), entries[0]["text"])
                                 for key, entries in by_key.items()}
         title = self.strings["strIndexTitle"]
-        lines = ["---", "title: " + json.dumps(title), "---", "", f"# {title}", "",
+        # Excluded from search (search: exclude: true, read by Material's search plugin): it's just
+        # a index of every term also findable on its own page, so it would otherwise flood results
+        # with one hit per term for whatever the user typed.
+        lines = ["---", "title: " + json.dumps(title), "search:", "  exclude: true", "---", "",
+                 f"# {title}", "",
                  TEXTS[self.lang]["concepts_intro"], ""]
         for key in sorted(by_key, key=lambda k: self.canonical_terms[k].lower()):
             seen, links = set(), []
@@ -912,7 +919,7 @@ class Converter:
                     numeral, chapter_labels = PART_INFO[page]
                     title_line = f"# {self.strings['strPart']} {numeral}: {self.strings[key]}\n\n"
                     outline = "\n".join(
-                        f"- [{self.labels[label]['num']} {self.labels[label]['title']}]"
+                        f"- [\\[{self.labels[label]['num']}\\] {self.labels[label]['title']}]"
                         f"({self.labels[label]['page']})"
                         for label in chapter_labels if label in self.labels)
                     md = title_line + md + "\n\n" + outline + "\n"

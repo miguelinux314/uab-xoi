@@ -10,6 +10,14 @@
 // own comment on document$ firing once).
 const TITLES = {en: "Technical terms", es: "Términos técnicos", ca: "Termes tècnics"};
 const LANG_LABELS = {en: "EN", es: "ES", ca: "CA"};
+// Toggle button title/label per current *and next* order, since it always describes the order a
+// click would switch *to* (aria-pressed reflects the current one for screen readers).
+const ORDER_LABELS = {
+  en: {appearance: "Sorted by order of appearance", alphabetical: "Sorted alphabetically"},
+  es: {appearance: "Ordenado por orden de aparición", alphabetical: "Ordenado alfabéticamente"},
+  ca: {appearance: "Ordenat per ordre d'aparició", alphabetical: "Ordenat alfabèticament"},
+};
+const SORT_KEY = "xoi-terms-sort"; // localStorage: "appearance" (default) or "alphabetical"
 
 async function loadTerms() {
   try {
@@ -29,6 +37,21 @@ function tooltipText(byLang) {
     .filter((l) => byLang[l])
     .map((l) => `${LANG_LABELS[l]}: ${byLang[l]}`)
     .join("\n");
+}
+
+// Clicking a term in the sidebar jumps to its first in-page occurrence (plain #id navigation);
+// this makes that occurrence briefly flash, then stay in the orange accent color so it's easy to
+// spot after the jump. Only one target is ever highlighted at a time.
+let xoiHighlighted = null;
+function highlightTarget(id) {
+  const target = document.getElementById(id);
+  if (!target) return;
+  if (xoiHighlighted && xoiHighlighted !== target) xoiHighlighted.classList.remove("xoi-term-target");
+  target.classList.remove("xoi-term-flash");
+  // Force a reflow so re-adding the class restarts the flash animation on repeated clicks.
+  void target.offsetWidth;
+  target.classList.add("xoi-term-target", "xoi-term-flash");
+  xoiHighlighted = target;
 }
 
 document$.subscribe(async () => {
@@ -52,7 +75,8 @@ document$.subscribe(async () => {
 
   // First occurrence only for the nav list: a term is listed once whether it repeats as the same
   // key or as the same displayed text (different keys can read the same, one key can be shown in
-  // several forms).
+  // several forms). conceptSpans is already in document order, so `terms` starts out in order of
+  // first appearance on the page - that's the default sort; alphabetical is the other toggle state.
   const clean = (s) => s.trim().replace(/\s+/g, " ");
   const seenKeys = new Set();
   const seenTexts = new Set();
@@ -70,28 +94,61 @@ document$.subscribe(async () => {
     terms.push({id: span.id, text: (byLang && byLang[lang]) || inlineText, title: tooltipText(byLang)});
   });
   if (!terms.length) return;
-  terms.sort((a, b) => a.text.localeCompare(b.text, lang, {sensitivity: "base"}));
+  const alphabetical = terms.slice().sort((a, b) => a.text.localeCompare(b.text, lang, {sensitivity: "base"}));
+
+  const labels = ORDER_LABELS[lang] || ORDER_LABELS.en;
+  let order = "appearance";
+  try {
+    const saved = localStorage.getItem(SORT_KEY);
+    if (saved === "alphabetical" || saved === "appearance") order = saved;
+  } catch (error) { /* private mode / blocked storage: default order */ }
 
   const nav = document.createElement("nav");
   nav.className = "md-nav xoi-terms";
   nav.setAttribute("aria-label", TITLES[lang] || TITLES.en);
+  const titleRow = document.createElement("div");
+  titleRow.className = "xoi-terms-title-row";
   const title = document.createElement("label");
   title.className = "md-nav__title";
   title.textContent = TITLES[lang] || TITLES.en;
+  const sortButton = document.createElement("button");
+  sortButton.type = "button";
+  sortButton.className = "xoi-terms-sort";
+  sortButton.setAttribute("aria-label", labels.alphabetical);
+  sortButton.innerHTML =
+    '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">' +
+    '<path fill="currentColor" d="M7 4l4 4H8v8H6V8H3l4-4zm10 16l-4-4h3V8h2v8h3l-4 4z"/></svg>';
   const list = document.createElement("ul");
   list.className = "md-nav__list";
-  for (const term of terms) {
-    const item = document.createElement("li");
-    item.className = "md-nav__item";
-    // Not a link (this is the term itself, not a "jump to" reference): a plain span with the same
-    // look, tooltip only - same as the in-text occurrences, no navigation.
-    const label = document.createElement("span");
-    label.className = "md-nav__link xoi-term-label";
-    label.textContent = term.text;
-    if (term.title) label.title = term.title;
-    item.appendChild(label);
-    list.appendChild(item);
+
+  function render() {
+    const sorted = order === "alphabetical" ? alphabetical : terms;
+    sortButton.setAttribute("aria-pressed", String(order === "alphabetical"));
+    sortButton.title = order === "alphabetical" ? labels.alphabetical : labels.appearance;
+    list.textContent = "";
+    for (const term of sorted) {
+      const item = document.createElement("li");
+      item.className = "md-nav__item";
+      // A real link: clicking jumps to the term's first in-page occurrence, same look as the
+      // in-text occurrences plus the native tooltip.
+      const link = document.createElement("a");
+      link.className = "md-nav__link xoi-term-label";
+      link.href = "#" + term.id;
+      link.textContent = term.text;
+      if (term.title) link.title = term.title;
+      link.addEventListener("click", () => highlightTarget(term.id));
+      item.appendChild(link);
+      list.appendChild(item);
+    }
   }
-  nav.append(title, list);
+  sortButton.addEventListener("click", () => {
+    order = order === "alphabetical" ? "appearance" : "alphabetical";
+    try { localStorage.setItem(SORT_KEY, order); } catch (error) { /* ignore */ }
+    render();
+  });
+  render();
+
+  titleRow.append(title, sortButton);
+  nav.append(titleRow, list);
   sidebar.appendChild(nav);
 });

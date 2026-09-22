@@ -7,6 +7,12 @@
 
 %% Formatting
 \newcommand {\compact}{\vspace{-0.5cm}}
+% \pdfbreak: a line break needed only to fit the PDF's narrow column (e.g. a footnote inside a
+% minipage) - a no-op on the site (src/uab_xoi/tex2md.py strips it), which has room to reflow.
+\newcommand {\pdfbreak}{\\}
+% \colored{color name}{text}: src/uab_xoi/pandoc_prelude.tex redefines this to a \hyperlink
+% marker so the site (src/uab_xoi/filters/xoi.lua) can carry the same color over.
+\newcommand {\colored}[2]{\textcolor{#1}{#2}}
 
 %% Index of concepts
 % Gray, dashed underline, matching the site's .concept styling (web/css/xoi.css: text and dashes
