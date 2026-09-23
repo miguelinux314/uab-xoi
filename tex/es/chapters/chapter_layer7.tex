@@ -105,7 +105,7 @@ o un alias a otro nombre de dominio (CNAME).
 \subsection{Resolución}\label{sec:layer7:dns:resolution}
 
 La naturaleza distribuida y jerárquica de la base de datos DNS hace que
-a veces sea necesario intercambiar varios mensajes para satisfacer una \conceptRef{query}{consulta} DNS.
+a veces sea necesario intercambiar varios mensajes para satisfacer una \conceptRef{query}{consulta DNS}.
  
 Por ejemplo, Alice puede realizar una \conceptRef{dns resolution}{resolución iterativa} completamente por su cuenta.
 Las dos primeras respuestas contienen un registro NS que apunta al siguiente
@@ -213,7 +213,7 @@ El servidor lleva la cuenta de un \concept{pool} de direcciones que asigna
 dinámicamente a los clientes.
 % 
 Las direcciones IP se ofrecen durante un periodo de tiempo fijo, tras el cual expiran
-a menos que se \conceptRef{renew}{renueven} (véase más abajo). Las direcciones que no se renuevan vuelven
+a menos que se renueven (véase más abajo). Las direcciones que no se renuevan vuelven
 al pool y se ofrecen de nuevo a los clientes cuando hacen peticiones.
 \\[-0.3cm]
 
@@ -250,7 +250,7 @@ el cliente debe volver a la fase Discover.
 
 Cuando un servidor DHCP \conceptRef{lease}{cede} una dirección a un cliente, lo hace
 durante un periodo de tiempo limitado $T$. Este periodo lo fija el servidor DHCP y se puede configurar.
-Una vez transcurrido $T/2$, los clientes pueden intentar renovar la configuración cedida. Para ello,
+Una vez transcurrido $T/2$, los clientes pueden intentar \conceptRef{renew}{renovar} la configuración cedida. Para ello,
 el ciclo Request-Acknowledgement se repite a lo largo del tiempo hasta que alguno de los dos extremos no logra completarlo a tiempo,
 o el servidor DHCP envía un NACK.
 

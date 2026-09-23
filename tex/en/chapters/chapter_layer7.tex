@@ -105,7 +105,7 @@ or an alias to another domain name (CNAME).
 \subsection{Resolution}\label{sec:layer7:dns:resolution}
 
 The distributed and hierarchical nature if the DNS database makes it 
-sometimes necessary to exchange multiple messages to satisfy a DNS \concept{query}.
+sometimes necessary to exchange multiple messages to satisfy a \concept{DNS query}.
  
 For instance, Alice may perform a fully \conceptRef{dns resolution}{iterative resolution} all on her own.
 The first two replies contain an NS record pointing to the next
@@ -214,7 +214,7 @@ The server keeps track of a \concept{pool} of addresses that dynamically
 assigns to clients.
 % 
 IP addresses are offered for a fixed period of time, after which they expire
-unless they are \conceptRef{renew}{renewed} (see below). Addresses that are not renewed are put 
+unless they are renewed (see below). Addresses that are not renewed are put
 back in the pool and offered back to clients as they make requests.
 \\[-0.3cm]
 
@@ -251,7 +251,7 @@ the client needs to go back to the Discover phase.
 
 When a DHCP server \conceptRef{lease}{leases} an address to a client, it does 
 so for a limited period of time $T$. This period is set by the DHCP server, and can be configured.
-After $T/2$ is elapsed, clients may try to renew the leased configuration. To do so,
+After $T/2$ is elapsed, clients may try to \conceptRef{renew}{renew} the leased configuration. To do so,
 the Request-Acknowledgement cycle is repeated over time until either end fails to complete it in time,
 or the DHCP server sends a NACK.
 

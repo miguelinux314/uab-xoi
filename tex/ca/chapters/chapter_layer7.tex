@@ -105,7 +105,7 @@ o un àlies a un altre nom de domini (CNAME).
 \subsection{Resolució}\label{sec:layer7:dns:resolution}
 
 La naturalesa distribuïda i jeràrquica de la base de dades del DNS fa que
-de vegades calgui intercanviar múltiples missatges per satisfer una \conceptRef{query}{consulta} DNS.
+de vegades calgui intercanviar múltiples missatges per satisfer una \conceptRef{query}{consulta DNS}.
  
 Per exemple, l'Alice pot fer una \conceptRef{dns resolution}{resolució iterativa} completament tota sola.
 Les dues primeres respostes contenen un registre NS que apunta al següent
@@ -214,7 +214,7 @@ El servidor porta el control d'un \conceptRef{pool}{pool} d'adreces que
 assigna dinàmicament als clients.
 % 
 Les adreces IP s'ofereixen durant un període de temps fix, després del qual caduquen
-tret que es \conceptRef{renew}{renovin} (vegeu més avall). Les adreces que no es renoven tornen
+tret que es renovin (vegeu més avall). Les adreces que no es renoven tornen
 al conjunt i s'ofereixen de nou als clients a mesura que fan peticions.
 \\[-0.3cm]
 
@@ -251,7 +251,7 @@ el client ha de tornar a la fase de Discover.
 
 Quan un servidor DHCP \conceptRef{lease}{cedeix} una adreça a un client, ho fa
 durant un període de temps limitat $T$. Aquest període el fixa el servidor DHCP, i es pot configurar.
-Un cop transcorregut $T/2$, els clients poden intentar renovar la configuració cedida. Per fer-ho,
+Un cop transcorregut $T/2$, els clients poden intentar \conceptRef{renew}{renovar} la configuració cedida. Per fer-ho,
 es repeteix el cicle Request-Acknowledgement al llarg del temps fins que un dels dos extrems no el completa a temps,
 o bé el servidor DHCP envia un NACK.
 
