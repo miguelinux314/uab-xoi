@@ -281,7 +281,7 @@
   
     
   
-  Curso
+  Resumen
 
         </a>
       </li>
@@ -493,7 +493,7 @@
   <span class="md-ellipsis">
     
   
-    Sobre esta asignatura
+    [1] Sobre esta asignatura
   
 
     
@@ -555,7 +555,7 @@
   <span class="md-ellipsis">
     
   
-    Curso
+    Resumen
   
 
     
@@ -571,7 +571,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Curso
+    Resumen
   
 
           </label>
@@ -683,7 +683,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Atravesando el velo analógico-digital
+    [2] El velo analógico-digital
   
 
     
@@ -711,7 +711,7 @@
   <span class="md-ellipsis">
     
   
-    [3] ¿Dónde estás?
+    [3] Direccionamiento
   
 
     
@@ -739,7 +739,7 @@
   <span class="md-ellipsis">
     
   
-    [4] ¿Esto es tuyo?
+    [4] Paquetes
   
 
     
@@ -1114,7 +1114,7 @@
   <span class="md-ellipsis">
     
   
-    Índice de conceptos
+    Términos técnicos
   
 
     
@@ -1546,58 +1546,58 @@
 
 <p><img alt="" class="hero" src="../assets/fig/onions.jpg" /></p>
 <h1 id="sec-stack_layers">[5] Una pila de capas<a class="headerlink" href="#sec-stack_layers" title="Permanent link">&para;</a></h1>
-<p>La comunicación entre ordenadores moderna se consigue mediante una <span class="concept" id="c1" data-key="stack">stack</span> de <span class="concept" id="c2" data-key="layer">capas</span> de red. Cada pila se centra en algunos problemas y es responsable de proporcionar ciertas funcionalidades, p.ej. <span class="concept" id="c3" data-key="address">direccionamiento</span> y <span class="concept" id="c4" data-key="sequencing">sequencing</span> (secuenciación) correcta (introducidos en los capítulos anteriores).</p>
-<p>Cada <span class="concept" id="c5" data-key="layer">layer</span> define un <em>par</em> de funciones <code>send</code>/<code>receive</code>, que es responsable de algunas de estas funcionalidades. Cada capa utiliza el <code>send</code> y el <code>receive</code> de la capa inferior, es decir, las funcionalidades de una capa se apoyan en las funcionalidades de todas las capas que tiene por debajo.</p>
-<p>Para coordinar las capas y hacer posible la comunicación <span class="concept" id="c6" data-key="virtual">virtual</span> entre ellas, cada capa define un <span class="concept" id="c7" data-key="packet format">packet format</span> (formato de paquete) distinto, que <span class="concept" id="c8" data-key="encapsulation">encapsula</span> un paquete de la capa que tiene por encima.</p>
+<p>La comunicación entre ordenadores moderna se consigue mediante una <span class="concept" id="c1" data-key="stack">pila</span> de <span class="concept" id="c2" data-key="layer">capas</span> de red. Cada pila se centra en algunos problemas y es responsable de proporcionar ciertas funcionalidades, p. ej. direccionamiento y <span class="concept" id="c3" data-key="sequencing"><code>secuenciación</code></span> correcta (introducidos en los capítulos anteriores).</p>
+<p>Cada <span class="concept" id="c4" data-key="layer">capa</span> define un <em>par</em> de funciones <code>send</code>/<code>receive</code>, que es responsable de algunas de estas funcionalidades. Cada capa utiliza el <code>send</code> y el <code>receive</code> de la capa inferior, es decir, las funcionalidades de una capa se apoyan en las funcionalidades de todas las capas que tiene por debajo.</p>
+<p>Para coordinar las capas y hacer posible la comunicación virtual entre ellas, cada capa define un formato de paquete distinto, que <span class="concept" id="c5" data-key="encapsulation">encapsula</span> un paquete de la capa que tiene por encima.</p>
 <h2 id="sec-stack_layers-send">[5.1] Envío de datos<a class="headerlink" href="#sec-stack_layers-send" title="Permanent link">&para;</a></h2>
-<p>Para implementar estas capacidades, cada capa transmite no solo los <code>data</code> proporcionados por la capa superior, sino también una cabecera con toda la metainformación necesaria para esa capacidad. Así, cada capa necesita definir el <span class="concept" id="c9" data-key="packet format">packet format</span>, añadiendo cierto <span class="concept" id="c10" data-key="overhead">overhead</span> (sobrecarga) (típicamente una <span class="concept" id="c11" data-key="header">cabecera</span>) al <span class="concept" id="c12" data-key="payload">payload</span> (carga útil), p.ej.:</p>
+<p>Para implementar estas capacidades, cada capa transmite no solo los datos proporcionados por la capa superior, sino también una cabecera con toda la metainformación necesaria para esa capacidad. Así, cada capa necesita definir el formato de paquete, añadiendo cierto overhead (sobrecarga) (típicamente una cabecera) al payload (carga útil), p. ej.:</p>
 <p><img alt="image" src="../assets/rendered/8746c4fadf58334d.svg" style="width:16.7cm" /></p>
-<p>Cuando un programa de usuario quiere enviar algunos datos, utiliza el método <code>send</code> de la capa <em>superior</em> de la pila, lo que acaba provocando que la capa física transmita ciertos datos, p.ej. a través de un cable o una antena. La siguiente figura representa la estructura de una <span class="concept" id="c13" data-key="stack">stack</span> de 4 capas:</p>
+<p>Cuando un programa de usuario quiere enviar algunos datos, utiliza el método <code>send</code> de la capa <em>superior</em> de la pila, lo que acaba provocando que la capa física transmita ciertos datos, p. ej. a través de un cable o una antena. La siguiente figura representa la estructura de una <span class="concept" id="c6" data-key="stack">pila de red</span> de 4 capas:</p>
 <p><img alt="image" src="../assets/fig/encapsulation_send.svg" style="width:22.95cm" /></p>
-<p>Los paquetes producidos por cada capa se denominan genéricamente <span class="concept" id="c14" data-key="PDU">PDU</span>s (Protocol Data Unit). Las PDU de cada capa tienen nombres específicos como <span class="concept" id="c15" data-key="frame">frame</span> (trama), <span class="concept" id="c16" data-key="datagram">datagrama</span> o <span class="concept" id="c17" data-key="segment">segmento</span>. Estos nombres deben usarse con precisión en contextos técnicos.</p>
-<p>Cada capa incluye la <span class="concept" id="c18" data-key="PDU">PDU</span> de la capa superior dentro de la definición del <span class="concept" id="c19" data-key="packet format">packet format</span> de su propia PDU. Este proceso se denomina <span class="concept" id="c20" data-key="encapsulation">encapsulación</span>.</p>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 5.1</p>
-<p>El programa de usuario quiere enviar <span class="arithmatex">\(420\)</span> bytes de datos utilizando la <span class="concept" id="c21" data-key="stack">stack</span> de la figura anterior. Supón un tamaño de cabecera para las capas 2, 3 y 4 de <span class="arithmatex">\(14\)</span> bytes, <span class="arithmatex">\(20\)</span> bytes y <span class="arithmatex">\(20\)</span> bytes, respectivamente.</p>
+<p>Los paquetes producidos por cada capa se denominan genéricamente <span class="concept" id="c7" data-key="PDU">PDU</span>s (Protocol Data Unit). Las PDU de cada capa tienen nombres específicos como <span class="concept" id="c8" data-key="frame">frame</span> (trama), <span class="concept" id="c9" data-key="datagram">datagrama</span> o segmento. Estos nombres deben usarse con precisión en contextos técnicos.</p>
+<p>Cada capa incluye la <span class="concept" id="c10" data-key="PDU">PDU</span> de la capa superior dentro de la definición del packet format de su propia PDU. Este proceso se denomina <span class="concept" id="c11" data-key="encapsulation">encapsulación</span>.</p>
+<details class="example" open="open">
+<summary>Ejercicio 5.1</summary>
+<p>El programa de usuario quiere enviar <span class="arithmatex">\(420\)</span> bytes de datos utilizando la <span class="concept" id="c12" data-key="stack">pila de red</span> de la figura anterior. Supón un tamaño de cabecera para las capas 2, 3 y 4 de <span class="arithmatex">\(14\)</span> bytes, <span class="arithmatex">\(20\)</span> bytes y <span class="arithmatex">\(20\)</span> bytes, respectivamente.</p>
 <ul>
 <li>
-<p>¿Cuál es el tamaño del <span class="concept" id="c22" data-key="payload">payload</span> y el tamaño del <span class="concept" id="c23" data-key="overhead">overhead</span> de la <span class="concept" id="c24" data-key="PDU">PDU</span> de cada <span class="concept" id="c25" data-key="layer">capa</span>?</p>
+<p>¿Cuál es el tamaño del payload y el tamaño del overhead de la <span class="concept" id="c13" data-key="PDU">PDU</span> de cada <span class="concept" id="c14" data-key="layer">capa</span>?</p>
 </li>
 <li>
-<p>¿Cuál es el tamaño del <span class="concept" id="c26" data-key="payload">payload</span> y el tamaño del <span class="concept" id="c27" data-key="overhead">overhead</span> de toda la <span class="concept" id="c28" data-key="stack">stack</span>?</p>
+<p>¿Cuál es el tamaño del payload y el tamaño del overhead de toda la <span class="concept" id="c15" data-key="stack">pila de red</span>?</p>
 </li>
 </ul>
-</div>
+</details>
 <h2 id="sec-stack_layers-receive">[5.2] Recepción de datos<a class="headerlink" href="#sec-stack_layers-receive" title="Permanent link">&para;</a></h2>
-<p>Cuando un <span class="concept" id="c29" data-key="packet">paquete</span> llega a la <span class="concept" id="c30" data-key="stack">stack</span> de red del destinatario, se procesa en orden inverso, es decir, las capas se recorren de abajo arriba. Cada capa inspecciona <em>solo</em> la <span class="concept" id="c31" data-key="header">cabecera</span> correspondiente a esa capa. Si todo es correcto, la capa elimina la cabecera y pasa el resto del paquete a la capa superior. A su vez, la capa de arriba pasa los datos restantes (el <span class="concept" id="c32" data-key="payload">payload</span>) al destinatario. Continuando con el ejemplo de la pila de 4 capas:</p>
+<p>Cuando un paquete llega a la <span class="concept" id="c16" data-key="stack">pila de red</span> del destinatario, se procesa en orden inverso, es decir, las capas se recorren de abajo arriba. Cada capa inspecciona <em>solo</em> la cabecera correspondiente a esa capa. Si todo es correcto, la capa <span class="concept" id="c17" data-key="decapsulate">elimina la cabecera</span> y pasa el resto del paquete a la capa superior. A su vez, la capa de arriba pasa los datos restantes (el payload) al destinatario. Continuando con el ejemplo de la pila de 4 capas:</p>
 <p><img alt="image" src="../assets/fig/encapsulation_receive.svg" style="width:22.95cm" /></p>
-<p>En una <span class="concept" id="c33" data-key="stack">pila de red</span>, solo la capa inferior interactúa directamente con el exterior, p.ej. solo la tarjeta de red física de un ordenador está conectada a un cable que lleva datos a otros ordenadores. Al mismo tiempo, los datos enviados por la capa inferior incluyen las <span class="concept" id="c34" data-key="PDU">PDU</span> de todas las capas mediante la <span class="concept" id="c35" data-key="encapsulation">encapsulation</span>. Gracias a esto, existe una comunicación <span class="concept" id="c36" data-key="virtual">virtual</span> entre cada capa de un extremo y su homóloga en el otro extremo de la comunicación. La siguiente figura representa la comunicación real (línea continua) y la virtual (línea discontinua) en nuestro ejemplo:</p>
+<p>En una <span class="concept" id="c18" data-key="stack">pila de red</span>, solo la capa inferior interactúa directamente con el exterior, p. ej. solo la tarjeta de red física de un ordenador está conectada a un cable que lleva datos a otros ordenadores. Al mismo tiempo, los datos enviados por la capa inferior incluyen las <span class="concept" id="c19" data-key="PDU">PDU</span> de todas las capas mediante la <span class="concept" id="c20" data-key="encapsulation">encapsulation</span>. Gracias a esto, existe una comunicación virtual entre cada capa de un extremo y su homóloga en el otro extremo de la comunicación. La siguiente figura representa la comunicación real (línea continua) y la virtual (línea discontinua) en nuestro ejemplo:</p>
 <p><img alt="image" src="../assets/fig/horizontal_layer_communication.svg" style="width:11.48cm" /></p>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 5.2</p>
-<p>Otro ejemplo de <span class="concept" id="c37" data-key="stack">stack</span> de red tiene 3 capas: L1, L2 y L3 de abajo arriba.</p>
-<p>La <span class="concept" id="c38" data-key="PDU">PDU</span> de la capa L2 es la siguiente:</p>
+<details class="example" open="open">
+<summary>Ejercicio 5.2</summary>
+<p>Otro ejemplo de <span class="concept" id="c21" data-key="stack">pila de red</span> tiene 3 capas: L1, L2 y L3 de abajo arriba.</p>
+<p>La <span class="concept" id="c22" data-key="PDU">PDU</span> de la capa L2 es la siguiente:</p>
 <p><img alt="image" src="../assets/rendered/fd127232d6867630.svg" style="width:14.9cm" /></p>
-<p>La <span class="concept" id="c39" data-key="PDU">PDU</span> de la capa L3 es la siguiente:</p>
+<p>La <span class="concept" id="c23" data-key="PDU">PDU</span> de la capa L3 es la siguiente:</p>
 <p><img alt="image" src="../assets/rendered/9c1eee379410e64f.svg" style="width:14.9cm" /></p>
-<p>La capa L1 recibe un <span class="concept" id="c40" data-key="packet">paquete</span> de datos y su función <code>receive</code> devuelve los siguientes datos (supón enteros <span class="concept" id="c41" data-key="unsigned">unsigned</span> (sin signo) y orden <span class="concept" id="c42" data-key="big endian">big endian</span> cuando sea necesario:</p>
+<p>La capa L1 recibe un paquete de datos y su función <code>receive</code> devuelve los siguientes datos (supón enteros unsigned (sin signo) y orden big endian cuando sea necesario:</p>
 <p><code>01 23 00 0a 01 00 00 06 00 aa 00 bb 43 20</code></p>
 <ul>
 <li>
-<p>¿Qué <span class="concept" id="c43" data-key="payload">payload</span> de datos se envió al programa destinatario en este <span class="concept" id="c44" data-key="packet">paquete</span>?</p>
+<p>¿Qué payload de datos se envió al programa destinatario en este paquete?</p>
 </li>
 <li>
-<p>Si este es el último <span class="concept" id="c45" data-key="packet">paquete</span> de la comunicación, ¿cuántos datos (de <span class="concept" id="c46" data-key="payload">payload</span>) se enviaron al programa de usuario destinatario?</p>
+<p>Si este es el último paquete de la comunicación, ¿cuántos datos (de payload) se enviaron al programa de usuario destinatario?</p>
 </li>
 <li>
-<p>Como máximo, ¿cuántos ordenadores distintos pueden conectarse usando esta <span class="concept" id="c47" data-key="stack">stack</span>?</p>
+<p>Como máximo, ¿cuántos ordenadores distintos pueden conectarse usando esta <span class="concept" id="c24" data-key="stack">pila de red</span>?</p>
 </li>
 <li>
 <p>Enviamos un fichero como payload de esta pila. ¿Cuál es su tamaño máximo posible?</p>
 </li>
 </ul>
 <p><a id="ex-how_it_is_done-three_layer_network"></a></p>
-</div>
+</details>
 <div class="showcode">
 <p><strong><code>snippets/encapsulation.py</code></strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Código</label><label for="__tabbed_1_2">Salida</label></div>
@@ -1669,9 +1669,9 @@ if __name__ == '__main__':
 </div>
 </div>
 </div>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 5.3</p>
-<p>El código anterior toma unos datos y escribe los bytes que se enviarían a la capa 1 (la <span class="concept" id="c48" data-key="physical layer">capa física</span>) de la <span class="concept" id="c49" data-key="network stack">pila de red</span> del ejercicio <a href="./#ex-how_it_is_done-three_layer_network">5.2</a>. Implementa el extremo receptor de la pila de la siguiente manera:</p>
+<details class="example" open="open">
+<summary>Ejercicio 5.3</summary>
+<p>El código anterior toma unos datos y escribe los bytes que se enviarían a la capa 1 (la <span class="concept" id="c25" data-key="physical layer">capa física</span>) de la <span class="concept" id="c26" data-key="stack">pila de red</span> del ejercicio <a href="./#ex-how_it_is_done-three_layer_network">5.2</a>. Implementa el extremo receptor de la pila de la siguiente manera:</p>
 <ul>
 <li>
 <p>Implementa una función <code>layer2_decapsulate(data: bytes) -&gt; (int, bytes)</code> que tome una PDU de la capa 2 y devuelva la tupla <code>(address, payload)</code>, donde <code>address</code> es la dirección de destino y <code>payload</code> es la PDU de la capa 3 encapsulada.</p>
@@ -1691,11 +1691,11 @@ if __name__ == '__main__':
 </li>
 </ul>
 <p><a id="ex-how_it_is_done-implementation_three_layer_network"></a></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>La biblioteca <code>struct</code> de Python es útil, aunque no obligatoria, para dar formato a los bytes de un <span class="concept" id="c50" data-key="packet">paquete</span>.</p>
-</div>
+</details>
+<details class="note" open="open">
+<summary>Nota</summary>
+<p>La biblioteca <code>struct</code> de Python es útil, aunque no obligatoria, para dar formato a los bytes de un paquete.</p>
+</details>
 <script>window.XOI_ASSETS = "../assets/";</script>
 
 
@@ -1735,7 +1735,7 @@ if __name__ == '__main__':
       <nav class="md-footer__inner md-grid" aria-label="Pie" >
         
           
-          <a href="../packets/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [4] ¿Esto es tuyo?">
+          <a href="../packets/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [4] Paquetes">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1745,7 +1745,7 @@ if __name__ == '__main__':
                 Anterior
               </span>
               <div class="md-ellipsis">
-                [4] ¿Esto es tuyo?
+                [4] Paquetes
               </div>
             </div>
           </a>
@@ -1799,11 +1799,17 @@ if __name__ == '__main__':
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
+        <script src="../../scripts/header-title.js"></script>
+      
         <script src="../../scripts/wide-tables.js"></script>
       
         <script src="../../scripts/search-highlight.js"></script>
       
+        <script src="../../scripts/search-lang-filter.js"></script>
+      
         <script src="../../scripts/technical-terms.js"></script>
+      
+        <script src="../../scripts/toc-fold.js"></script>
       
         <script src="../../scripts/goatcounter.js"></script>
       

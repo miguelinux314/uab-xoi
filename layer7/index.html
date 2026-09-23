@@ -493,7 +493,7 @@
   <span class="md-ellipsis">
     
   
-    About this course
+    [1] About this course
   
 
     
@@ -683,7 +683,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Piercing the analog-digital veil
+    [2] The analog-digital veil
   
 
     
@@ -711,7 +711,7 @@
   <span class="md-ellipsis">
     
   
-    [3] Where are you?
+    [3] Addressing
   
 
     
@@ -739,7 +739,7 @@
   <span class="md-ellipsis">
     
   
-    [4] Is this yours?
+    [4] Packets
   
 
     
@@ -1085,10 +1085,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#records" class="md-nav__link">
+  <a href="#sec-layer7-dns-records" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Records
+        [10.1.2] Records
       
     </span>
   </a>
@@ -1096,10 +1096,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#resolution" class="md-nav__link">
+  <a href="#sec-layer7-dns-resolution" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Resolution
+        [10.1.3] Resolution
       
     </span>
   </a>
@@ -1135,10 +1135,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#organization" class="md-nav__link">
+  <a href="#sec-layer7-as-organization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Organization
+        [10.3.1] Organization
       
     </span>
   </a>
@@ -1146,10 +1146,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#routing-table-configuration" class="md-nav__link">
+  <a href="#sec-layer7-as-routing_table_configurati" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Routing table configuration
+        [10.3.2] Routing table configuration
       
     </span>
   </a>
@@ -1192,7 +1192,7 @@
   <span class="md-ellipsis">
     
   
-    Index of concepts
+    Technical terms
   
 
     
@@ -1607,10 +1607,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#records" class="md-nav__link">
+  <a href="#sec-layer7-dns-records" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Records
+        [10.1.2] Records
       
     </span>
   </a>
@@ -1618,10 +1618,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#resolution" class="md-nav__link">
+  <a href="#sec-layer7-dns-resolution" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Resolution
+        [10.1.3] Resolution
       
     </span>
   </a>
@@ -1657,10 +1657,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#organization" class="md-nav__link">
+  <a href="#sec-layer7-as-organization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Organization
+        [10.3.1] Organization
       
     </span>
   </a>
@@ -1668,10 +1668,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#routing-table-configuration" class="md-nav__link">
+  <a href="#sec-layer7-as-routing_table_configurati" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Routing table configuration
+        [10.3.2] Routing table configuration
       
     </span>
   </a>
@@ -1710,47 +1710,47 @@
 <p>In addition to user apps, there are several auxiliary systems and protocols that help with configuration and operation of all hosts in the Internet. Some of the most critical are addressed in this chapter.</p>
 <h2 id="sec-layer7-dns">[10.1] DNS – Domain Name System<a class="headerlink" href="#sec-layer7-dns" title="Permanent link">&para;</a></h2>
 <p>The <span class="concept" id="c1" data-key="DNS">DNS</span> protocol is responsible for translating <span class="concept" id="c2" data-key="domain name">domain names</span> such as <code>ietf.org</code> or<br />
-<code>cv.uab.cat</code> into <span class="concept" id="c3" data-key="IP">IP</span> addresses that can placed inside <span class="concept" id="c4" data-key="datagram">datagrams</span>.</p>
-<p>DNS services are run on both <span class="concept" id="c5" data-key="TCP">TCP</span> and <span class="concept" id="c6" data-key="UDP">UDP</span>, <em>i.e.</em>, both transport protocols can be enabled. In both cases, port <code>53</code> is used.</p>
+<code>cv.uab.cat</code> into IP addresses that can placed inside datagrams.</p>
+<p>DNS services are run on both TCP and UDP, <em>i.e.</em>, both transport protocols can be enabled. In both cases, port <code>53</code> is used.</p>
 <h3 id="sec-layer6-dns-hierarchy">[10.1.1] Hierarchy<a class="headerlink" href="#sec-layer6-dns-hierarchy" title="Permanent link">&para;</a></h3>
 <p><img alt="image" src="../assets/fig/dns_hierarchy.svg" style="width:14.92cm" /></p>
-<p>Internet domain names are sequences of names separated by dots. These names are presented from the specific to the general in a hierarchical fashion. For instance, in <code>cv.uab.cat</code>, <code>cv</code> belongs to <code>uab.cat</code>, and <code>uab</code> to <code>cat</code>. The rightmost name, <em>e.g.</em>, <code>cat</code> or <code>com</code> must be one of IANA’s <span class="concept" id="c7" data-key="top-level domain">top-level domains</span>.</p>
-<p>DNS servers are organized in the same hierarchical way as those domain names. There are <span class="arithmatex">\(13\)</span> <span class="concept" id="c8" data-key="root DNS">root DNS</span> servers (<code>Root-A</code> to <code>Root-M</code>), which are responsible for all top-level domains. You can ask any of them about <code>com</code>, but also about <code>su</code>, and they will know about them.</p>
-<p>That does not mean that any root server knows about every domain <em>under</em> their top-level domain (<em>e.g.</em>, <code>uab.cat</code>): they just know about those <a href="https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains"><u>top-level domains</u></a>. (<em>e.g.</em>, <code>cat</code>). The job of the root DNS servers is to redirect you to another DNS server in charge of the <span class="concept" id="c9" data-key="top-level domain">top-level domain</span> you requested.</p>
-<p>Similarly, the DNS servers responsible for <code>cat</code> will know about any existing <code>*.cat</code> domain (<em>e.g.</em>, <code>uab.cat</code>), but not about subdomains (<em>e.g.</em>, <code>cv.uab.cat</code>). The job of those top-level domain DNS servers is to redirect you to other DNS servers <span class="concept" id="c10" data-key="authoritative">authoritative</span> for the second-level domain requested (<em>e.g.</em>, <code>uab.cat</code>). Second-level domains can then structure their name <span class="concept" id="c11" data-key="zone">zone</span> as desired, including any subdomain number and depth, as well as the name to IP translation <em>within</em> the zone of authority.</p>
-<div class="admonition example">
-<p class="admonition-title">Exercise 10.1</p>
+<p>Internet domain names are sequences of names separated by dots. These names are presented from the specific to the general in a hierarchical fashion. For instance, in <code>cv.uab.cat</code>, <code>cv</code> belongs to <code>uab.cat</code>, and <code>uab</code> to <code>cat</code>. The rightmost name, <em>e.g.</em>, <code>cat</code> or <code>com</code> must be one of IANA’s <span class="concept" id="c3" data-key="top-level domain">top-level domains</span>.</p>
+<p>DNS servers are organized in the same hierarchical way as those domain names. There are <span class="arithmatex">\(13\)</span> <span class="concept" id="c4" data-key="root DNS">root DNS</span> servers (<code>Root-A</code> to <code>Root-M</code>), which are responsible for all top-level domains. You can ask any of them about <code>com</code>, but also about <code>su</code>, and they will know about them.</p>
+<p>That does not mean that any root server knows about every domain <em>under</em> their top-level domain (<em>e.g.</em>, <code>uab.cat</code>): they just know about those <a href="https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains"><u>top-level domains</u></a>. (<em>e.g.</em>, <code>cat</code>). The job of the root DNS servers is to redirect you to another DNS server in charge of the <span class="concept" id="c5" data-key="top-level domain">top-level domain</span> you requested.</p>
+<p>Similarly, the DNS servers responsible for <code>cat</code> will know about any existing <code>*.cat</code> domain (<em>e.g.</em>, <code>uab.cat</code>), but not about subdomains (<em>e.g.</em>, <code>cv.uab.cat</code>). The job of those top-level domain DNS servers is to redirect you to other DNS servers <span class="concept" id="c6" data-key="authoritative">authoritative</span> for the second-level domain requested (<em>e.g.</em>, <code>uab.cat</code>). Second-level domains can then structure their <span class="concept" id="c7" data-key="name zone">name zone</span> as desired, including any subdomain number and depth, as well as the name to IP translation <em>within</em> the zone of authority.</p>
+<details class="example" open="open">
+<summary>Exercise 10.1</summary>
 <p>Everyone uses DNS all the time. What would be the risks of having a centralized name translation system instead of DNS’s distributed nature.</p>
-</div>
-<h3 id="records">Records<a class="headerlink" href="#records" title="Permanent link">&para;</a></h3>
-<p>DNS can be seen as a distributed database with different types of entries called <span class="concept" id="c12" data-key="DNS record">records</span>. The main ones are:</p>
+</details>
+<h3 id="sec-layer7-dns-records">[10.1.2] Records<a class="headerlink" href="#sec-layer7-dns-records" title="Permanent link">&para;</a></h3>
+<p>DNS can be seen as a distributed database with different types of entries called <span class="concept" id="c8" data-key="DNS record">DNS records</span>. The main ones are:</p>
 <ul>
 <li>
-<p><strong>A:</strong> An <span class="concept" id="c13" data-key="A">A</span> entry maps a domain name to an IPv4 address.</p>
+<p><strong>A:</strong> An <span class="concept" id="c9" data-key="A">A record</span> maps a domain name to an IPv4 address.</p>
 </li>
 <li>
-<p><strong>AAAA:</strong> An <span class="concept" id="c14" data-key="AAAA">AAAA</span> entry maps a domain name to an IPv6 address.</p>
+<p><strong>AAAA:</strong> An <span class="concept" id="c10" data-key="AAAA">AAAA record</span> maps a domain name to an IPv6 address.</p>
 </li>
 <li>
-<p><strong>NS:</strong> An <span class="concept" id="c15" data-key="NS">NS</span> points to a DNS server that can help.</p>
+<p><strong>NS:</strong> An <span class="concept" id="c11" data-key="NS">NS record</span> points to a DNS server that can help.</p>
 </li>
 <li>
-<p><strong>MX:</strong> A <span class="concept" id="c16" data-key="MX">MX</span> entry provides the domain name of the email server that handles messages for a domain.</p>
+<p><strong>MX:</strong> A <span class="concept" id="c12" data-key="MX">MX record</span> provides the domain name of the email server that handles messages for a domain.</p>
 </li>
 <li>
-<p><strong>CNAME:</strong> A <span class="concept" id="c17" data-key="CNAME">CNAME</span> entry maps a domain name to another domain name.</p>
+<p><strong>CNAME:</strong> A <span class="concept" id="c13" data-key="CNAME">CNAME record</span> maps a domain name to another domain name.</p>
 </li>
 </ul>
-<p>Applications make <span class="concept" id="c18" data-key="request">requests</span> to DNS servers indicating the type of records they are interested in. Server <span class="concept" id="c19" data-key="reply">replies</span> may be for the requested <span class="concept" id="c20" data-key="A">A</span> or <span class="concept" id="c21" data-key="MX">MX</span> records, but the client may also receive a redirection to another DNS (<span class="concept" id="c22" data-key="NS">NS</span>) or an alias to another domain name (<span class="concept" id="c23" data-key="CNAME">CNAME</span>).</p>
-<h3 id="resolution">Resolution<a class="headerlink" href="#resolution" title="Permanent link">&para;</a></h3>
-<p>The distributed and hierarchical nature if the DNS database makes it sometimes necessary to exchange multiple messages to satisfy a DNS <span class="concept" id="c24" data-key="query">query</span>.</p>
-<p>For instance, Alice may perform a fully <span class="concept" id="c25" data-key="iterative">iterative</span> resolution all on her own. The first two replies contain an <span class="concept" id="c26" data-key="NS">NS</span> entry pointing to the next DNS server and the IP address of that DNS server, but not the IP address of the requested <code>cv.uab.cat</code>.</p>
+<p>Applications make <span class="concept" id="c14" data-key="request">requests</span> to DNS servers indicating the type of records they are interested in. Server <span class="concept" id="c15" data-key="reply">replies</span> may be for the requested A or MX records, but the client may also receive a redirection to another DNS (NS) or an alias to another domain name (CNAME).</p>
+<h3 id="sec-layer7-dns-resolution">[10.1.3] Resolution<a class="headerlink" href="#sec-layer7-dns-resolution" title="Permanent link">&para;</a></h3>
+<p>The distributed and hierarchical nature if the DNS database makes it sometimes necessary to exchange multiple messages to satisfy a <span class="concept" id="c16" data-key="DNS query">DNS query</span>.</p>
+<p>For instance, Alice may perform a fully <span class="concept" id="c17" data-key="dns resolution">iterative resolution</span> all on her own. The first two replies contain an NS record pointing to the next DNS server and the IP address of that DNS server, but not the IP address of the requested <code>cv.uab.cat</code>.</p>
 <p><img alt="image" src="../assets/fig/dns_iterative.svg" style="width:22.95cm" /></p>
-<p>Alice’s internet provider (<span class="concept" id="c27" data-key="ISP">ISP</span>) or employer will likely offer DNS servers whose job is to receive Alice’s requests and resolve them for her in a <span class="concept" id="c28" data-key="recursive">recursive</span> manner.</p>
+<p>Alice’s internet provider (<span class="concept" id="c18" data-key="ISP">ISP</span>) or employer will likely offer DNS servers whose job is to receive Alice’s requests and resolve them for her in a recursive manner.</p>
 <p><img alt="image" src="../assets/fig/dns_recursive.svg" style="width:24.1cm" /></p>
-<p>The combination of <span class="concept" id="c29" data-key="recursive">recursive</span> resolution and <span class="concept" id="c30" data-key="cache">cache</span> tables makes DNS a pretty efficient system with extremely high availability and low latency.</p>
-<div class="admonition example">
-<p class="admonition-title">Exercise 10.2</p>
+<p>The combination of <span class="concept" id="c19" data-key="dns resolution">recursive resolution</span> and <span class="concept" id="c20" data-key="dns cache">cache</span> tables makes DNS a pretty efficient system with extremely high availability and low latency.</p>
+<details class="example" open="open">
+<summary>Exercise 10.2</summary>
 <p>You can use the <code>host</code> and <code>dig</code> tools to make DNS queries and see the results. For instance, my output to <code>dig uab.cat -t ns</code> contains the following lines:</p>
 <div class="highlight"><pre><span></span><code>;; QUESTION SECTION:
 ;uab.cat.                       IN      NS
@@ -1773,7 +1773,7 @@ dns.uab.es.             172112  IN      A       158.109.0.1
 <p>Perform a manual iterative resolution of <code>cv.uab.cat</code>. You may start with something like <code>dig @202.12.27.33 cv.uab.cat</code> to query the M root server.</p>
 </li>
 </ul>
-</div>
+</details>
 <h2 id="sec-layer7-dhcp">[10.2] DHCP – Dynamic Host Configuration Protocol<a class="headerlink" href="#sec-layer7-dhcp" title="Permanent link">&para;</a></h2>
 <p>In order to fully participate in the Internet, a host needs to have the following aspects correctly configured:</p>
 <ul>
@@ -1790,11 +1790,11 @@ dns.uab.es.             172112  IN      A       158.109.0.1
 <p><strong>DNS server’s IP address</strong>: Although not strictly required to use TCP/IP, the address of a DNS server is extremely useful, and required to resolve domain names into IP addresses.</p>
 </li>
 </ul>
-<p>Traditionally, these parameters had to be manually configured in each computer. Nowadays, most user’s computers are automatically configured with <span class="concept" id="c31" data-key="DHCP">DHCP</span>. Modern OSs contain a DHCP client that periodically queries the LAN until configured.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<p>Traditionally, these parameters had to be manually configured in each computer. Nowadays, most user’s computers are automatically configured with <span class="concept" id="c21" data-key="DHCP">DHCP</span>. Modern OSs contain a DHCP client that periodically queries the LAN until configured.</p>
+<details class="note" open="open">
+<summary>Note</summary>
 <p>Network hardware comes with a pre-configured, default MAC address. Furthermore, a node needs to know its MAC address to operate the DHCP protocol. Therefore, MAC addresses are not configured via DHCP.</p>
-</div>
+</details>
 <p>DHCP works on UDP. DHCP servers listen on port <code>67</code>, and clients listen on port <code>68</code>. The ideal DHCP exchange comprises <span class="arithmatex">\(4\)</span> messages: Discovery, Offer, Request, Acknowledgement.</p>
 <p><img alt="image" src="../assets/fig/dhcp_dora.svg" style="width:22.95cm" /></p>
 <ul>
@@ -1813,14 +1813,14 @@ dns.uab.es.             172112  IN      A       158.109.0.1
 <p><code>0.0.0.0</code> as the source IP, meaning “unknown”.</p>
 </li>
 <li>
-<p>The <span class="concept" id="c32" data-key="local broadcast">local broadcast</span> address , <code>255.255.255.255</code>, as the destination IP.</p>
+<p>The <span class="concept" id="c22" data-key="local broadcast">local broadcast</span> address , <code>255.255.255.255</code>, as the destination IP.</p>
 </li>
 </ul>
 </li>
 <li>
 <p><strong>Offer</strong><br />
     Zero or more servers will reply to the client with configuration offers. These configurations (<em>e.g.</em>, IP addresses) are not property of the client until the server sends a DHCP Acknowledgement.<br />
-    The server keeps track of a <span class="concept" id="c33" data-key="pool">pool</span> of addresses that dynamically assigns to clients. IP addresses are offered for a fixed period of time, after which they expire unless they are <span class="concept" id="c34" data-key="renew">renewed</span> (see below). Addresses that are not renewed are put back in the pool and offered back to clients as they make requests.</p>
+    The server keeps track of a <span class="concept" id="c23" data-key="pool">pool</span> of addresses that dynamically assigns to clients. IP addresses are offered for a fixed period of time, after which they expire unless they are renewed (see below). Addresses that are not renewed are put back in the pool and offered back to clients as they make requests.</p>
 <ul>
 <li>
 <p>The server can use its real IP address and the one offered to the client.</p>
@@ -1851,25 +1851,25 @@ dns.uab.es.             172112  IN      A       158.109.0.1
     It is also possible that the server denies the request, <em>e.g.</em>, if too much time has passed since the offer. In this case, a negative Acknowledgement (NACK) is sent instead. If a NACK is received, the client needs to go back to the Discover phase.</p>
 </li>
 </ul>
-<p>When a DHCP server <span class="concept" id="c35" data-key="lease">leases</span> an address to a client, it does so for a limited period of time <span class="arithmatex">\(T\)</span>. This period is set by the DHCP server, and can be configured. After <span class="arithmatex">\(T/2\)</span> is elapsed, clients may try to renew the leased configuration. To do so, the Request-Acknowledgement cycle is repeated over time until either end fails to complete it in time, or the DHCP server sends a NACK.</p>
+<p>When a DHCP server <span class="concept" id="c24" data-key="lease">leases</span> an address to a client, it does so for a limited period of time <span class="arithmatex">\(T\)</span>. This period is set by the DHCP server, and can be configured. After <span class="arithmatex">\(T/2\)</span> is elapsed, clients may try to <span class="concept" id="c25" data-key="renew">renew</span> the leased configuration. To do so, the Request-Acknowledgement cycle is repeated over time until either end fails to complete it in time, or the DHCP server sends a NACK.</p>
 <p><img alt="image" src="../assets/fig/dhcp_renewal.svg" style="width:22.95cm" /></p>
-<div class="admonition example">
-<p class="admonition-title">Exercise 10.3</p>
+<details class="example" open="open">
+<summary>Exercise 10.3</summary>
 <p>The typical domestic router implements both a DHCP client and a DHCP server. Explain how this is possible and why it is useful.</p>
-</div>
+</details>
 <h2 id="sec-layer7-as">[10.3] Autonomous Systems<a class="headerlink" href="#sec-layer7-as" title="Permanent link">&para;</a></h2>
-<p>Routing is performed one <span class="concept" id="c36" data-key="hop">hop</span> at a time, using <span class="concept" id="c37" data-key="routing table">routing tables</span> as discussed in Section <a href="../layer3/#sec-layer3-routing">8.3</a>. Those tables need to be coordinated at a large scale to guarantee graph connectivity to all hosts in the Internet.</p>
+<p>Routing is performed one hop at a time, using <span class="concept" id="c26" data-key="routing table">routing tables</span> as discussed in Section <a href="../layer3/#sec-layer3-routing">8.3</a>. Those tables need to be coordinated at a large scale to guarantee graph connectivity to all hosts in the Internet.</p>
 <p><img alt="image" src="../assets/fig/as.svg" style="width:22.95cm" /></p>
-<h3 id="organization">Organization<a class="headerlink" href="#organization" title="Permanent link">&para;</a></h3>
-<p>To facilitate this coordination, LANs are grouped in <span class="concept" id="c38" data-key="AS">autonomous systems</span> (<span class="concept" id="c39" data-key="AS">AS</span>). These manage non-overlapping blocks of IP addresses (<code>w.x.y.z/N</code>) that are separately owned and managed. Many companies, universities and ISPs have their own ASs that are publicly <a href="https://2ip.io/analytics/asn-list/"><u>listed</u></a>. For instance, UAB’s network belongs to AS13041.</p>
-<p><span class="concept" id="c40" data-key="IXP">Internet Exchange Points</span> (<span class="concept" id="c41" data-key="IXP">IXP</span>) are a special kind of AS whose purpose is to interconnect other ASs, instead of hosting services and/or clients. Of course, running these IXPs is not free, so commercial relations are established with those interconnected ASs. Some IXPs are committed to providing service to anyone meeting their basic requirements, are not controlled by any single operator, and offer transparent and often equitable pricing to their clients. This type of IXP is called <span class="concept" id="c42" data-key="NP">Neutral Point</span> (<span class="concept" id="c43" data-key="NP">NP</span>), as opposed to nonneutral points used, <em>e.g.</em>, only by a single network operator.</p>
-<p>All ASs operate <span class="concept" id="c44" data-key="BR">border routers</span> (<span class="concept" id="c45" data-key="BR">BR</span>) to interconnect ASs. When a border router receives a datagram with destination inside the AS, it forwards the datagram through the AS’ <span class="concept" id="c46" data-key="internal router">internal routers</span> (IR). Similarly, when a host inside an AS needs to contact a host in another AS, datagrams are forwarded through border routers until they reach the destination AS and ultimately the destination LAN.</p>
-<h3 id="routing-table-configuration">Routing table configuration<a class="headerlink" href="#routing-table-configuration" title="Permanent link">&para;</a></h3>
-<p>Manually configuring the <span class="concept" id="c47" data-key="routing table">routing tables</span> of all border routers and internal routers would be too costly and prone to errors. Instead, different algorithms are employed to configure them automatically.</p>
+<h3 id="sec-layer7-as-organization">[10.3.1] Organization<a class="headerlink" href="#sec-layer7-as-organization" title="Permanent link">&para;</a></h3>
+<p>To facilitate this coordination, LANs are grouped in <span class="concept" id="c27" data-key="AS">autonomous systems</span> (<span class="concept" id="c28" data-key="AS">AS</span>). These manage non-overlapping blocks of IP addresses (<code>w.x.y.z/N</code>) that are separately owned and managed. Many companies, universities and ISPs have their own ASs that are publicly <a href="https://2ip.io/analytics/asn-list/"><u>listed</u></a>. For instance, UAB’s network belongs to AS13041.</p>
+<p><span class="concept" id="c29" data-key="IXP">Internet Exchange Points</span> (<span class="concept" id="c30" data-key="IXP">IXP</span>) are a special kind of AS whose purpose is to interconnect other ASs, instead of hosting services and/or clients. Of course, running these IXPs is not free, so commercial relations are established with those interconnected ASs. Some IXPs are committed to providing service to anyone meeting their basic requirements, are not controlled by any single operator, and offer transparent and often equitable pricing to their clients. This type of IXP is called <span class="concept" id="c31" data-key="NP">Neutral Point</span> (<span class="concept" id="c32" data-key="NP">NP</span>), as opposed to nonneutral points used, <em>e.g.</em>, only by a single network operator.</p>
+<p>All ASs operate <span class="concept" id="c33" data-key="BR">border routers</span> (<span class="concept" id="c34" data-key="BR">BR</span>) to interconnect ASs. When a border router receives a datagram with destination inside the AS, it forwards the datagram through the AS’ <span class="concept" id="c35" data-key="internal router">internal routers</span> (IR). Similarly, when a host inside an AS needs to contact a host in another AS, datagrams are forwarded through border routers until they reach the destination AS and ultimately the destination LAN.</p>
+<h3 id="sec-layer7-as-routing_table_configurati">[10.3.2] Routing table configuration<a class="headerlink" href="#sec-layer7-as-routing_table_configurati" title="Permanent link">&para;</a></h3>
+<p>Manually configuring the <span class="concept" id="c36" data-key="routing table">routing tables</span> of all border routers and internal routers would be too costly and prone to errors. Instead, different algorithms are employed to configure them automatically.</p>
 <ul>
 <li>
-<p>Within the AS, internal routers and border routers use one of the available <span class="concept" id="c48" data-key="interior gateway protocol">interior gateway protocols</span>. Often, <span class="concept" id="c49" data-key="RIP">RIP</span> (Routing Information Protocol) is used due to its relatively simple configuration. That said, ASs may freely choose the algorithm they use internally to their AS.<br />
-    RIP implements a variation of the Bellman-Ford shortest path algorithm to minimize the number of <span class="concept" id="c50" data-key="hop">hops</span> datagrams need to travel within the AS. Periodically (<em>e.g.</em>, every <span class="arithmatex">\(30\)</span> s), each IR and BR:</p>
+<p>Within the AS, internal routers and border routers use one of the available <span class="concept" id="c37" data-key="interior gateway protocol">interior gateway protocols</span>. Often, <span class="concept" id="c38" data-key="RIP">RIP</span> (Routing Information Protocol) is used due to its relatively simple configuration. That said, ASs may freely choose the algorithm they use internally to their AS.<br />
+    RIP implements a variation of the Bellman-Ford shortest path algorithm to minimize the number of hops datagrams need to travel within the AS. Periodically (<em>e.g.</em>, every <span class="arithmatex">\(30\)</span> s), each IR and BR:</p>
 <ol>
 <li>
 <p>Advertises its <em>perceived</em> distance to other routers in the AS.</p>
@@ -1878,21 +1878,21 @@ dns.uab.es.             172112  IN      A       158.109.0.1
 <p>Updates its perceived distances based on other router’s advertisements.</p>
 </li>
 <li>
-<p>Updates its <span class="concept" id="c51" data-key="routing table">routing table</span> to all LANs in the AS accordingly.</p>
+<p>Updates its <span class="concept" id="c39" data-key="routing table">routing table</span> to all LANs in the AS accordingly.</p>
 </li>
 </ol>
-<div class="admonition example">
-<p class="admonition-title">Exercise 10.4</p>
+<details class="example" open="open">
+<summary>Exercise 10.4</summary>
 <p>RIP uses the number of hops as its cost metric. How could this be problematic? How can this problem be solved?</p>
-</div>
+</details>
 </li>
 <li>
 <p>Between ASs, only border routers need be configured; interior routers simply need to direct exterior traffic through the border routers.<br />
-    Border routers run an <span class="concept" id="c52" data-key="exterior gateway protocol">exterior gateway protocol</span> in addition to the interior gateway protocol used within the AS. Different ASs must agree on the algorithm they use, so <span class="concept" id="c53" data-key="BGP">BGP</span> (border gateway protocol) is normally used.<br />
-    <span class="concept" id="c54" data-key="BGP">BGP</span> is a more complex protocol than <span class="concept" id="c55" data-key="RIP">RIP</span>. This complexity is needed because BGP coordinates border routers belonging to different ASs, <em>i.e.</em>, with different owners:</p>
+    Border routers run an <span class="concept" id="c40" data-key="exterior gateway protocol">exterior gateway protocol</span> in addition to the interior gateway protocol used within the AS. Different ASs must agree on the algorithm they use, so <span class="concept" id="c41" data-key="BGP">BGP</span> (border gateway protocol) is normally used.<br />
+    <span class="concept" id="c42" data-key="BGP">BGP</span> is a more complex protocol than <span class="concept" id="c43" data-key="RIP">RIP</span>. This complexity is needed because BGP coordinates border routers belonging to different ASs, <em>i.e.</em>, with different owners:</p>
 <ul>
 <li>
-<p>RIP uses a single number (the distance, <em>i.e.</em>, the number of <span class="concept" id="c56" data-key="hop">hops</span>) to guide a shortest-path graph algorithm. BGP uses <span class="concept" id="c57" data-key="path">paths</span> instead of distances. This allows BGP to choose routes with more <span class="concept" id="c58" data-key="hop">hops</span>, but more desirable to the AS, <em>e.g.</em>, in terms of time, monetary cost, internal load, etc.</p>
+<p>RIP uses a single number (the distance, <em>i.e.</em>, the number of hops) to guide a shortest-path graph algorithm. BGP uses <span class="concept" id="c44" data-key="path">paths</span> instead of distances. This allows BGP to choose routes with more hops, but more desirable to the AS, <em>e.g.</em>, in terms of time, monetary cost, internal load, etc.</p>
 </li>
 <li>
 <p>BGP was designed with the notion of security and trust in mind, and includes mechanisms to verify the authenticity of the paths announced by a border route.</p>
@@ -1900,14 +1900,14 @@ dns.uab.es.             172112  IN      A       158.109.0.1
 </ul>
 </li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<details class="note" open="open">
+<summary>Note</summary>
 <p>BGP can also be used as the AS’ interior gateway protocol. This is typically done only by very large ASs.</p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Exercise 10.5</p>
+</details>
+<details class="example" open="open">
+<summary>Exercise 10.5</summary>
 <p>How can BGP translate economic interest into routing configurations?</p>
-</div>
+</details>
 <script>window.XOI_ASSETS = "../assets/";</script>
 
 
@@ -1964,13 +1964,13 @@ dns.uab.es.             172112  IN      A       158.109.0.1
         
         
           
-          <a href="../concepts/" class="md-footer__link md-footer__link--next" aria-label="Next: Index of concepts">
+          <a href="../concepts/" class="md-footer__link md-footer__link--next" aria-label="Next: Technical terms">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Index of concepts
+                Technical terms
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -2011,11 +2011,17 @@ dns.uab.es.             172112  IN      A       158.109.0.1
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
+        <script src="../scripts/header-title.js"></script>
+      
         <script src="../scripts/wide-tables.js"></script>
       
         <script src="../scripts/search-highlight.js"></script>
       
+        <script src="../scripts/search-lang-filter.js"></script>
+      
         <script src="../scripts/technical-terms.js"></script>
+      
+        <script src="../scripts/toc-fold.js"></script>
       
         <script src="../scripts/goatcounter.js"></script>
       

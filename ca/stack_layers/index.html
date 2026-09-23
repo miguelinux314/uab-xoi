@@ -493,7 +493,7 @@
   <span class="md-ellipsis">
     
   
-    Sobre aquesta assignatura
+    [1] Sobre aquesta assignatura
   
 
     
@@ -683,7 +683,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Travessant el vel analògic-digital
+    [2] El vel analògic-digital
   
 
     
@@ -711,7 +711,7 @@
   <span class="md-ellipsis">
     
   
-    [3] On ets?
+    [3] Adreçament
   
 
     
@@ -739,7 +739,7 @@
   <span class="md-ellipsis">
     
   
-    [4] Això és teu?
+    [4] Paquets
   
 
     
@@ -1114,7 +1114,7 @@
   <span class="md-ellipsis">
     
   
-    Índex de conceptes
+    Termes tècnics
   
 
     
@@ -1546,58 +1546,58 @@
 
 <p><img alt="" class="hero" src="../assets/fig/onions.jpg" /></p>
 <h1 id="sec-stack_layers">[5] Una pila de capes<a class="headerlink" href="#sec-stack_layers" title="Permanent link">&para;</a></h1>
-<p>La comunicació moderna entre ordinadors s’aconsegueix fent servir una <span class="concept" id="c1" data-key="stack">pila</span> de <span class="concept" id="c2" data-key="layer">capes</span> de xarxa. Cada pila se centra en alguns problemes i és responsable de proporcionar certes funcionalitats, p. ex., l’<span class="concept" id="c3" data-key="address">adreçament</span> i la <span class="concept" id="c4" data-key="sequencing">seqüenciació</span> correcta (presentats en els capítols anteriors).</p>
-<p>Cada <span class="concept" id="c5" data-key="layer">capa</span> defineix una <em>parella</em> de funcions <code>send</code>/<code>receive</code>, que és responsable d’algunes d’aquestes funcionalitats. Cada capa fa servir el <code>send</code> i el <code>receive</code> de la capa inferior, és a dir, les funcionalitats d’una capa es basen en les funcionalitats de totes les capes que té per sota.</p>
-<p>Per coordinar les capes i permetre una comunicació <span class="concept" id="c6" data-key="virtual">virtual</span> entre elles, cada capa defineix un <span class="concept" id="c7" data-key="packet format">format de paquet</span> diferent, que <span class="concept" id="c8" data-key="encapsulation">encapsula</span> un paquet de la capa superior.</p>
+<p>La comunicació moderna entre ordinadors s’aconsegueix fent servir una <span class="concept" id="c1" data-key="stack">pila</span> de <span class="concept" id="c2" data-key="layer">capes</span> de xarxa. Cada pila se centra en alguns problemes i és responsable de proporcionar certes funcionalitats, p. ex., l’adreçament i la <span class="concept" id="c3" data-key="sequencing">seqüenciació</span> correcta (presentats en els capítols anteriors).</p>
+<p>Cada <span class="concept" id="c4" data-key="layer">capa</span> defineix una <em>parella</em> de funcions <code>send</code>/<code>receive</code>, que és responsable d’algunes d’aquestes funcionalitats. Cada capa fa servir el <code>send</code> i el <code>receive</code> de la capa inferior, és a dir, les funcionalitats d’una capa es basen en les funcionalitats de totes les capes que té per sota.</p>
+<p>Per coordinar les capes i permetre una comunicació virtual entre elles, cada capa defineix un format de paquet diferent, que <span class="concept" id="c5" data-key="encapsulation">encapsula</span> un paquet de la capa superior.</p>
 <h2 id="sec-stack_layers-send">[5.1] Enviament de dades<a class="headerlink" href="#sec-stack_layers-send" title="Permanent link">&para;</a></h2>
-<p>Per implementar aquestes capacitats, cada capa transmet no només les dades (<code>data</code>) proporcionades per la capa superior, sinó també una capçalera amb tota la metainformació necessària per a aquella capacitat. Així, cada capa ha de definir el <span class="concept" id="c9" data-key="packet format">format de paquet</span>, afegint una certa <span class="concept" id="c10" data-key="overhead">sobrecàrrega</span> (típicament una <span class="concept" id="c11" data-key="header">capçalera</span>) al <span class="concept" id="c12" data-key="payload">payload</span> (càrrega útil), p. ex.:</p>
+<p>Per implementar aquestes capacitats, cada capa transmet no només les dades (<code>data</code>) proporcionades per la capa superior, sinó també una capçalera amb tota la metainformació necessària per a aquella capacitat. Així, cada capa ha de definir el format de paquet, afegint una certa sobrecàrrega (típicament una capçalera) al payload (càrrega útil), p. ex.:</p>
 <p><img alt="image" src="../assets/rendered/392a91cbc1405d28.svg" style="width:16.7cm" /></p>
-<p>Quan un programa d’usuari vol enviar dades, fa servir el mètode <code>send</code> de la capa <em>superior</em> de la pila, cosa que acaba fent que la capa física transmeti dades, p. ex., a través d’un cable o d’una antena. La figura següent mostra l’estructura d’una <span class="concept" id="c13" data-key="stack">pila</span> de 4 capes:</p>
+<p>Quan un programa d’usuari vol enviar dades, fa servir el mètode <code>send</code> de la capa <em>superior</em> de la pila, cosa que acaba fent que la capa física transmeti dades, p. ex., a través d’un cable o d’una antena. La figura següent mostra l’estructura d’una <span class="concept" id="c6" data-key="stack">pila</span> de 4 capes:</p>
 <p><img alt="image" src="../assets/fig/encapsulation_send.svg" style="width:22.95cm" /></p>
-<p>Els paquets que produeix cada capa s’anomenen genèricament <span class="concept" id="c14" data-key="PDU">PDU</span>s (Protocol Data Unit, unitat de dades del protocol). Les PDUs de cada capa tenen noms específics com ara <span class="concept" id="c15" data-key="frame">frame</span> (trama), <span class="concept" id="c16" data-key="datagram">datagrama</span> o <span class="concept" id="c17" data-key="segment">segment</span>. Aquests noms s’han de fer servir amb precisió en contextos tècnics.</p>
-<p>Cada capa inclou la <span class="concept" id="c18" data-key="PDU">PDU</span> de la capa superior dins la definició del <span class="concept" id="c19" data-key="packet format">format de paquet</span> de la seva PDU. Aquest procés s’anomena <span class="concept" id="c20" data-key="encapsulation">encapsulació</span>.</p>
-<div class="admonition example">
-<p class="admonition-title">Exercici 5.1</p>
-<p>El programa d’usuari vol enviar <span class="arithmatex">\(420\)</span> bytes de dades fent servir la <span class="concept" id="c21" data-key="stack">pila</span> de la figura anterior. Suposa una mida de capçalera per a les capes 2, 3 i 4 de <span class="arithmatex">\(14\)</span> bytes, <span class="arithmatex">\(20\)</span> bytes i <span class="arithmatex">\(20\)</span> bytes, respectivament.</p>
+<p>Els paquets que produeix cada capa s’anomenen genèricament <span class="concept" id="c7" data-key="PDU">PDU</span>s (Protocol Data Unit, unitat de dades del protocol). Les PDUs de cada capa tenen noms específics com ara <span class="concept" id="c8" data-key="frame">frame</span> (trama), <span class="concept" id="c9" data-key="datagram">datagrama</span> o segment. Aquests noms s’han de fer servir amb precisió en contextos tècnics.</p>
+<p>Cada capa inclou la <span class="concept" id="c10" data-key="PDU">PDU</span> de la capa superior dins la definició del format de paquet de la seva PDU. Aquest procés s’anomena <span class="concept" id="c11" data-key="encapsulation">encapsulació</span>.</p>
+<details class="example" open="open">
+<summary>Exercici 5.1</summary>
+<p>El programa d’usuari vol enviar <span class="arithmatex">\(420\)</span> bytes de dades fent servir la <span class="concept" id="c12" data-key="stack">pila</span> de la figura anterior. Suposa una mida de capçalera per a les capes 2, 3 i 4 de <span class="arithmatex">\(14\)</span> bytes, <span class="arithmatex">\(20\)</span> bytes i <span class="arithmatex">\(20\)</span> bytes, respectivament.</p>
 <ul>
 <li>
-<p>Quina és la mida del <span class="concept" id="c22" data-key="payload">payload</span> i la mida de la <span class="concept" id="c23" data-key="overhead">sobrecàrrega</span> de la <span class="concept" id="c24" data-key="PDU">PDU</span> de cada <span class="concept" id="c25" data-key="layer">capa</span>?</p>
+<p>Quina és la mida del payload i la mida de la sobrecàrrega de la <span class="concept" id="c13" data-key="PDU">PDU</span> de cada <span class="concept" id="c14" data-key="layer">capa</span>?</p>
 </li>
 <li>
-<p>Quina és la mida del <span class="concept" id="c26" data-key="payload">payload</span> i la mida de la <span class="concept" id="c27" data-key="overhead">sobrecàrrega</span> de tota la <span class="concept" id="c28" data-key="stack">pila</span>?</p>
+<p>Quina és la mida del payload i la mida de la sobrecàrrega de tota la <span class="concept" id="c15" data-key="stack">pila</span>?</p>
 </li>
 </ul>
-</div>
+</details>
 <h2 id="sec-stack_layers-receive">[5.2] Recepció de dades<a class="headerlink" href="#sec-stack_layers-receive" title="Permanent link">&para;</a></h2>
-<p>Quan un <span class="concept" id="c29" data-key="packet">paquet</span> arriba a la <span class="concept" id="c30" data-key="stack">pila</span> de xarxa del destinatari, es processa en ordre invers, és a dir, les capes es recorren de baix a dalt. Cada capa inspecciona <em>només</em> la <span class="concept" id="c31" data-key="header">capçalera</span> corresponent a aquella capa. Si tot és correcte, la capa elimina la capçalera i passa la resta del paquet a la capa superior. Al seu torn, la capa de més amunt passa les dades restants (el <span class="concept" id="c32" data-key="payload">payload</span>) al destinatari. Continuant amb l’exemple de la pila de 4 capes:</p>
+<p>Quan un paquet arriba a la <span class="concept" id="c16" data-key="stack">pila</span> de xarxa del destinatari, es processa en ordre invers, és a dir, les capes es recorren de baix a dalt. Cada capa inspecciona <em>només</em> la capçalera corresponent a aquella capa. Si tot és correcte, la capa <span class="concept" id="c17" data-key="decapsulate">elimina la capçalera</span> i passa la resta del paquet a la capa superior. Al seu torn, la capa de més amunt passa les dades restants (el payload) al destinatari. Continuant amb l’exemple de la pila de 4 capes:</p>
 <p><img alt="image" src="../assets/fig/encapsulation_receive.svg" style="width:22.95cm" /></p>
-<p>En una <span class="concept" id="c33" data-key="stack">pila de xarxa</span>, només la capa inferior interactua directament amb l’exterior, p. ex., només la targeta de xarxa física d’un ordinador està connectada a un cable que porta dades cap a altres ordinadors. Alhora, les dades enviades per la capa inferior inclouen les <span class="concept" id="c34" data-key="PDU">PDUs</span> de totes les capes mitjançant l’<span class="concept" id="c35" data-key="encapsulation">encapsulació</span>. Gràcies a això, hi ha una comunicació <span class="concept" id="c36" data-key="virtual">virtual</span> entre cada capa d’un extrem i la seva homòloga a l’altre extrem de la comunicació. La figura següent representa la comunicació real (línia contínua) i virtual (línia discontínua) del nostre exemple:</p>
+<p>En una <span class="concept" id="c18" data-key="stack">pila de xarxa</span>, només la capa inferior interactua directament amb l’exterior, p. ex., només la targeta de xarxa física d’un ordinador està connectada a un cable que porta dades cap a altres ordinadors. Alhora, les dades enviades per la capa inferior inclouen les <span class="concept" id="c19" data-key="PDU">PDUs</span> de totes les capes mitjançant l’<span class="concept" id="c20" data-key="encapsulation">encapsulació</span>. Gràcies a això, hi ha una comunicació virtual entre cada capa d’un extrem i la seva homòloga a l’altre extrem de la comunicació. La figura següent representa la comunicació real (línia contínua) i virtual (línia discontínua) del nostre exemple:</p>
 <p><img alt="image" src="../assets/fig/horizontal_layer_communication.svg" style="width:11.48cm" /></p>
-<div class="admonition example">
-<p class="admonition-title">Exercici 5.2</p>
-<p>Un altre exemple de <span class="concept" id="c37" data-key="stack">pila</span> de xarxa té 3 capes: L1, L2 i L3, de baix a dalt.</p>
-<p>La <span class="concept" id="c38" data-key="PDU">PDU</span> de la capa L2 és la següent:</p>
+<details class="example" open="open">
+<summary>Exercici 5.2</summary>
+<p>Un altre exemple de <span class="concept" id="c21" data-key="stack">pila</span> de xarxa té 3 capes: L1, L2 i L3, de baix a dalt.</p>
+<p>La <span class="concept" id="c22" data-key="PDU">PDU</span> de la capa L2 és la següent:</p>
 <p><img alt="image" src="../assets/rendered/6e0f1a86d60df136.svg" style="width:14.9cm" /></p>
-<p>La <span class="concept" id="c39" data-key="PDU">PDU</span> de la capa L3 és la següent:</p>
+<p>La <span class="concept" id="c23" data-key="PDU">PDU</span> de la capa L3 és la següent:</p>
 <p><img alt="image" src="../assets/rendered/24069387402796e0.svg" style="width:14.9cm" /></p>
-<p>La capa L1 rep un <span class="concept" id="c40" data-key="packet">paquet</span> de dades i la seva funció <code>receive</code> retorna les dades següents (suposa enters <span class="concept" id="c41" data-key="unsigned">sense signe</span> i ordre <span class="concept" id="c42" data-key="big endian">big endian</span> (primer el byte més significatiu) quan calgui:</p>
+<p>La capa L1 rep un paquet de dades i la seva funció <code>receive</code> retorna les dades següents (suposa enters sense signe i ordre big endian (primer el byte més significatiu) quan calgui:</p>
 <p><code>01 23 00 0a 01 00 00 06 00 aa 00 bb 43 20</code></p>
 <ul>
 <li>
-<p>Quin <span class="concept" id="c43" data-key="payload">payload</span> de dades s’ha enviat al programa destinatari en aquest <span class="concept" id="c44" data-key="packet">paquet</span>?</p>
+<p>Quin payload de dades s’ha enviat al programa destinatari en aquest paquet?</p>
 </li>
 <li>
-<p>Si aquest és l’últim <span class="concept" id="c45" data-key="packet">paquet</span> de la comunicació, quantes dades (<span class="concept" id="c46" data-key="payload">payload</span>) s’han enviat al programa d’usuari destinatari?</p>
+<p>Si aquest és l’últim paquet de la comunicació, quantes dades (payload) s’han enviat al programa d’usuari destinatari?</p>
 </li>
 <li>
-<p>Com a màxim, quants ordinadors diferents es poden connectar fent servir aquesta <span class="concept" id="c47" data-key="stack">pila</span>?</p>
+<p>Com a màxim, quants ordinadors diferents es poden connectar fent servir aquesta <span class="concept" id="c24" data-key="stack">pila</span>?</p>
 </li>
 <li>
 <p>Enviem un fitxer com a payload d’aquesta pila. Quina és la seva mida màxima possible?</p>
 </li>
 </ul>
 <p><a id="ex-how_it_is_done-three_layer_network"></a></p>
-</div>
+</details>
 <div class="showcode">
 <p><strong><code>snippets/encapsulation.py</code></strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Codi</label><label for="__tabbed_1_2">Sortida</label></div>
@@ -1669,9 +1669,9 @@ if __name__ == '__main__':
 </div>
 </div>
 </div>
-<div class="admonition example">
-<p class="admonition-title">Exercici 5.3</p>
-<p>El codi anterior agafa unes dades i escriu els bytes que s’enviarien a la capa 1 (la <span class="concept" id="c48" data-key="physical layer">capa física</span>) de la <span class="concept" id="c49" data-key="network stack">pila de xarxa</span> de l’exercici <a href="./#ex-how_it_is_done-three_layer_network">5.2</a>. Implementa l’extrem receptor de la pila de la manera següent:</p>
+<details class="example" open="open">
+<summary>Exercici 5.3</summary>
+<p>El codi anterior agafa unes dades i escriu els bytes que s’enviarien a la capa 1 (la <span class="concept" id="c25" data-key="physical layer">capa física</span>) de la <span class="concept" id="c26" data-key="stack">pila de xarxa</span> de l’exercici <a href="./#ex-how_it_is_done-three_layer_network">5.2</a>. Implementa l’extrem receptor de la pila de la manera següent:</p>
 <ul>
 <li>
 <p>Implementa una funció <code>layer2_decapsulate(data: bytes) -&gt; (int, bytes)</code> que rebi una PDU de capa 2 i retorni la tupla <code>(address, payload)</code>, on <code>address</code> és l’adreça de destinació i <code>payload</code> és la PDU de capa 3 encapsulada.</p>
@@ -1691,11 +1691,11 @@ if __name__ == '__main__':
 </li>
 </ul>
 <p><a id="ex-how_it_is_done-implementation_three_layer_network"></a></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>La biblioteca <code>struct</code> de Python és útil, però no obligatòria, per donar format als bytes dels <span class="concept" id="c50" data-key="packet">paquets</span>.</p>
-</div>
+</details>
+<details class="note" open="open">
+<summary>Nota</summary>
+<p>La biblioteca <code>struct</code> de Python és útil, però no obligatòria, per donar format als bytes dels paquets.</p>
+</details>
 <script>window.XOI_ASSETS = "../assets/";</script>
 
 
@@ -1735,7 +1735,7 @@ if __name__ == '__main__':
       <nav class="md-footer__inner md-grid" aria-label="Peu de pàgina" >
         
           
-          <a href="../packets/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [4] Això és teu?">
+          <a href="../packets/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [4] Paquets">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1745,7 +1745,7 @@ if __name__ == '__main__':
                 Anterior
               </span>
               <div class="md-ellipsis">
-                [4] Això és teu?
+                [4] Paquets
               </div>
             </div>
           </a>
@@ -1799,11 +1799,17 @@ if __name__ == '__main__':
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
+        <script src="../../scripts/header-title.js"></script>
+      
         <script src="../../scripts/wide-tables.js"></script>
       
         <script src="../../scripts/search-highlight.js"></script>
       
+        <script src="../../scripts/search-lang-filter.js"></script>
+      
         <script src="../../scripts/technical-terms.js"></script>
+      
+        <script src="../../scripts/toc-fold.js"></script>
       
         <script src="../../scripts/goatcounter.js"></script>
       

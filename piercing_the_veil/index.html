@@ -33,7 +33,7 @@
     
     
       
-        <title>[2] Piercing the analog-digital veil - Computer Networks and Internet: Study Guide</title>
+        <title>[2] The analog-digital veil - Computer Networks and Internet: Study Guide</title>
       
     
     
@@ -123,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              [2] Piercing the analog-digital veil
+              [2] The analog-digital veil
             
           </span>
         </div>
@@ -493,7 +493,7 @@
   <span class="md-ellipsis">
     
   
-    About this course
+    [1] About this course
   
 
     
@@ -692,7 +692,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Piercing the analog-digital veil
+    [2] The analog-digital veil
   
 
     
@@ -710,7 +710,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Piercing the analog-digital veil
+    [2] The analog-digital veil
   
 
     
@@ -780,7 +780,7 @@
   <span class="md-ellipsis">
     
   
-    [3] Where are you?
+    [3] Addressing
   
 
     
@@ -808,7 +808,7 @@
   <span class="md-ellipsis">
     
   
-    [4] Is this yours?
+    [4] Packets
   
 
     
@@ -1114,7 +1114,7 @@
   <span class="md-ellipsis">
     
   
-    Index of concepts
+    Technical terms
   
 
     
@@ -1545,17 +1545,17 @@
 
 
 <p><img alt="" class="hero" src="../assets/fig/numbers_background.svg" /></p>
-<h1 id="sec-piercing">[2] Piercing the analog-digital veil<a class="headerlink" href="#sec-piercing" title="Permanent link">&para;</a></h1>
+<h1 id="sec-piercing">[2] The analog-digital veil<a class="headerlink" href="#sec-piercing" title="Permanent link">&para;</a></h1>
 <p>We send and receive <span class="concept" id="c1" data-key="message">messages</span> constantly in our personal, professional and political spheres. The almost-instantaneous availability of virtually any desired <span class="concept" id="c2" data-key="information">information</span> is a key characteristic of the current era. When we use a computer of any kind to share or retrieve knowledge, first it must be transformed into <span class="concept" id="c3" data-key="data">data</span> that can be understood both by humans and computers. This can be imagined as a sequence of steps:</p>
 <p><img alt="image" src="../assets/fig/knowledge_info_data_transmission.svg" style="width:22.95cm" /></p>
-<p>Computers work with and transmit digital <span class="concept" id="c4" data-key="data">data</span>, <em>i.e.</em>, sequences of binary <code>0</code> and <code>1</code> symbols. However, data transmission happens in the real world, where <code>0</code> and <code>1</code> are ideas and not tangible objects.</p>
+<p>Computers work with and transmit digital <span class="concept" id="c4" data-key="data">data</span>, <em>i.e.</em>, sequences of binary <code>0</code> and <code>1</code> symbols. However, data transmission happens in the real world, where <code>0</code> and <code>1</code> are ideas and not tangible objects.</p>
 <p>This chapter studies how those digital symbols <em>pierce the veil</em> from the digital to the analog (physical) world on transmission, and back from analog to digital on reception.</p>
 <h2 id="sec-piercing-information_binary">[2.1] Information ↔ Data ↔ Binary messages<a class="headerlink" href="#sec-piercing-information_binary" title="Permanent link">&para;</a></h2>
 <p>Knowledge, <span class="concept" id="c5" data-key="information">information</span>, and <span class="concept" id="c6" data-key="data">data</span> are not the same thing, although they are often used interchangeably. In technical contexts, they should be used and interpreted accurately.</p>
-<div class="admonition example">
-<p class="admonition-title">Exercise 2.1</p>
+<details class="example" open="open">
+<summary>Exercise 2.1</summary>
 <p>Suppose we are outdoors and we want to tell our friend about the weather. We have knowledge about everything related to the weather, because we are there. For our communication, we need to focus on part of that knowledge, and decide what information to send. For instance, we could want to communicate the temperature, and say something like “the temperature is about 22ºC”. There are many ways in which we can store that information as data inside a computer. Most likely, we will represent the number <span class="arithmatex">\(22\)</span> as part of those data. How would you define knowledge, information and data?</p>
-</div>
+</details>
 <p>Even though there are many types of data, <em>i.e.</em> numerical, textual, visual, scientific, <em>etc.</em>, these are eventually represented by numbers. For instance, one could use <span class="concept" id="c7" data-key="ASCII">ASCII</span> encoding to represent the string “Bobby” as the following sequence: <span class="arithmatex">\(66, 111, 98, 98, 121\)</span>.</p>
 <p>Inside a computer, those numbers are stored in binary registers, <em>e.g.</em> in the CPU and in the RAM. However, there are multiple ways of representing numerical data in binary format. More specifically, we need to pay close attention to at least the following aspects whenever reading or writing data:</p>
 <ul>
@@ -1569,19 +1569,19 @@
 <p><span class="concept" id="c9" data-key="sign">signed</span> or <span class="concept" id="c10" data-key="sign">unsigned</span>?</p>
 </li>
 <li>
-<p>For multibyte numbers: <span class="concept" id="c11" data-key="big endian">big endian</span> or <span class="concept" id="c12" data-key="little endian">little endian</span>?</p>
+<p>For multibyte numbers: <span class="concept" id="c11" data-key="big endian/little endian">big endian</span> or <span class="concept" id="c12" data-key="big endian/little endian">little endian</span>?</p>
 </li>
 <li>
-<p>For numbers with decimals: <span class="concept" id="c13" data-key="floating-point">floating-point</span> or <span class="concept" id="c14" data-key="fixed-point">fixed-point</span>?</p>
+<p>For numbers with decimals: <span class="concept" id="c13" data-key="fixed-point/floating-point">floating-point</span> or <span class="concept" id="c14" data-key="fixed-point/floating-point">fixed-point</span>?</p>
 </li>
 </ul>
-<div class="admonition example">
-<p class="admonition-title">Exercise 2.2</p>
-<p>Explain <strong>how to complete the second row given the first</strong> (and vice-versa), and what assumptions you need to make in each case.</p>
+<details class="example" open="open">
+<summary>Exercise 2.2</summary>
+<p>Explain how to complete the second row given the first (and vice-versa), and what assumptions you need to make in each case.</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;"><strong>Number</strong></th>
+<th style="text-align: left;"><strong>Decimal</strong></th>
 <th style="text-align: center;"><span class="arithmatex">\(7\)</span></th>
 <th style="text-align: center;"><span class="arithmatex">\(2\)</span></th>
 <th style="text-align: center;"><span class="arithmatex">\(-3\)</span></th>
@@ -1603,11 +1603,11 @@
 </tbody>
 </table>
 <p>How about à <span class="arithmatex">\(\leftrightarrow\)</span> <code>1100</code> <code>0011</code> <code>1010</code> <code>0000</code>?</p>
-</div>
+</details>
 <p>Sometimes we need to inspect the contents of a binary register (<em>e.g.</em>, for debugging or other analysis purposes) or to set those contents manually. For humans, it is inconvenient and <em>very</em> prone to error to handle binary strings longer than a few bits. When we need to inspect or modify the contents of a binary register (<em>e.g.</em>, for debugging purposes), we often use base <span class="arithmatex">\(16\)</span>, <em>i.e.</em>, <span class="concept" id="c15" data-key="hexadecimal">hexadecimal</span> notation.</p>
 <p>In hexadecimal, there are exactly <span class="arithmatex">\(16 = 2^4\)</span> different digits (<code>0</code> to <code>9</code>, <code>a</code> to <code>f</code>) with decimal values from <span class="arithmatex">\(0\)</span> to <span class="arithmatex">\(15\)</span>, each of which represents exactly <span class="arithmatex">\(4\)</span> bits. When we writing hexadecimal values to a computer, <em>i.e.</em>, in source code, hexadecimal values are typically preceded by <code>0x</code>, <em>e.g.</em>, <code>0x58a5b0</code>. Similarly, binary expressions are preceded by <code>0b</code>, <em>e.g.</em>, <code>0b0011</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<details class="note" open="open">
+<summary>Note</summary>
 <ul>
 <li>
 <p>Spaces and even line breaks between digits do not carry any meaning, they are only used to facilitate visual inspection.</p>
@@ -1616,30 +1616,30 @@
 <p>In some texts, when multiple bases are applicable in a context, they are shown as subscripts as in <code>58a5b0</code><span class="arithmatex">\(_\textrm{16}\)</span> and <code>0011</code><span class="arithmatex">\(_\textrm{2}\)</span>.</p>
 </li>
 </ul>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Exercise 2.3</p>
+</details>
+<details class="example" open="open">
+<summary>Exercise 2.3</summary>
 <p>Consider the following message, which is composed of a concatenation of 3-bit unsigned integers: <code>a4 3f 20</code>.</p>
 <ul>
 <li>
 <p>How many bits and bytes long is it?</p>
 </li>
 <li>
-<p><strong>What are the first five integers</strong> contained in the message?</p>
+<p>What are the first five integers contained in the message?</p>
 </li>
 </ul>
-</div>
+</details>
 <p>Most often, we will let our code handle data manipulation. To do that, we need <span class="concept" id="c16" data-key="bitwise">bitwise</span> and <span class="concept" id="c17" data-key="boolean logic">boolean logic</span> operations such as the following</p>
 <table>
 <thead>
 <tr>
 <th style="text-align: right;"><strong>Operation</strong></th>
-<th style="text-align: center;"><span class="concept" id="c18" data-key="bitwise">bitwise AND</span></th>
-<th style="text-align: center;"><span class="concept" id="c19" data-key="boolean logic">logic AND</span></th>
-<th style="text-align: center;"><span class="concept" id="c20" data-key="bitwise">bitwise OR</span></th>
-<th style="text-align: center;"><span class="concept" id="c21" data-key="boolean logic">logic OR</span></th>
-<th style="text-align: center;"><span class="concept" id="c22" data-key="bitwise">left shift</span></th>
-<th style="text-align: center;"><span class="concept" id="c23" data-key="bitwise">right shift</span></th>
+<th style="text-align: center;">bitwise AND</th>
+<th style="text-align: center;">logic AND</th>
+<th style="text-align: center;">bitwise OR</th>
+<th style="text-align: center;">logic OR</th>
+<th style="text-align: center;">left shift</th>
+<th style="text-align: center;">right shift</th>
 </tr>
 </thead>
 <tbody>
@@ -1655,8 +1655,8 @@
 </tbody>
 </table>
 <p>Other useful python tools are the <code>bin()</code> and <code>hex()</code> functions, that convert an integer into its binary and hexadecimal representation, respectively, and <code>int()</code>, which can parse a string describing a number and return that number. We can also control the format in which we show numbers, <em>e.g.</em>, <code>print(f'{n:08b}')</code> would print the value of variable <code>n</code> in binary form, using at least 8 positions and filling the empty leading positions with zeros (more in the <a href="https://docs.python.org/3/reference/lexical_analysis.html#f-strings">python docs</a>).</p>
-<div class="admonition example">
-<p class="admonition-title">Exercise 2.4</p>
+<details class="example" open="open">
+<summary>Exercise 2.4</summary>
 <p>Consider the code shown next. The numbers printed when run are of special importance in networking and computer science. What do they have in common? (Hint: You may want to modify the code to show their binary representations).</p>
 <p><div class="showcode" markdown="1">
 <strong><code>snippets/bitwisemanipulation.py</code></strong></p>
@@ -1686,12 +1686,12 @@
 </div>
 </div>
 <p><a id="ex-bitwisemanipulation"></a></p>
-</div>
+</details>
 <h2 id="sec-piercing-analog_digital">[2.2] Analog ↔ Digital<a class="headerlink" href="#sec-piercing-analog_digital" title="Permanent link">&para;</a></h2>
-<p>Once we decide what bits to transmit, we need to find a way of making those bits available to another machine at a distance. First, we need to decide what <span class="concept" id="c24" data-key="medium">medium</span> to use and what physical properties we can control and monitor. Popular choices include using voltage on copper wires, sending light over optical fiber and manipulating the electromagnetic <span class="concept" id="c25" data-key="field">field</span> using antennas.</p>
-<div class="admonition example">
-<p class="admonition-title">Exercise 2.5</p>
-<p><strong>Ponder</strong>:</p>
+<p>Once we decide what bits to transmit, we need to find a way of making those bits available to another machine at a distance. First, we need to decide what <span class="concept" id="c18" data-key="medium">medium</span> to use and what physical properties we can control and monitor. Popular choices include using voltage on copper wires, sending light over optical fiber and manipulating the electromagnetic field using antennas.</p>
+<details class="example" open="open">
+<summary>Exercise 2.5</summary>
+<p>Ponder:</p>
 <ul>
 <li>
 <p>Can we make a copper cable as long as we desire?</p>
@@ -1703,43 +1703,43 @@
 <p>Do we need optical fibers to perform light-based communication?</p>
 </li>
 </ul>
-</div>
-<p>If we opt for copper wires, we can put several in <span class="concept" id="c26" data-key="parallel">parallel</span> and send more data at the same clock speed. This, however, comes at the price of additional complexity and cost than <span class="concept" id="c27" data-key="serial">serial</span> designs. Voltage interferences in the data lines may happen for a number of reasons, including physical phenomena such as electromagnetic induction in the wire. Notwithstanding, cables compliant with modern data transmission standards (<em>e.g.</em>, IEEE 802.3) often employ twisted pairs of cables and shielding among other strategies to guarantee bit errors below <span class="arithmatex">\(1\)</span> in <span class="arithmatex">\(10^{12}\)</span> bits.</p>
-<div class="admonition example">
-<p class="admonition-title">Exercise 2.6</p>
-<p><a id="ex-piercing-copper_connectors"></a> <strong>Consider and identify</strong> the following wire connectors:</p>
+</details>
+<p>If we opt for copper wires, we can put several in <span class="concept" id="c19" data-key="parallel/serial">parallel</span> and send more data at the same clock speed. This, however, comes at the price of additional complexity and cost than <span class="concept" id="c20" data-key="parallel/serial">serial</span> designs. Voltage interferences in the data lines may happen for a number of reasons, including physical phenomena such as electromagnetic induction in the wire. Notwithstanding, cables compliant with modern data transmission standards (<em>e.g.</em>, IEEE 802.3) often employ twisted pairs of cables and shielding among other strategies to guarantee bit errors below <span class="arithmatex">\(1\)</span> in <span class="arithmatex">\(10^{12}\)</span> bits.</p>
+<details class="example" open="open">
+<summary>Exercise 2.6</summary>
+<p><a id="ex-piercing-copper_connectors"></a> Consider and identify the following wire connectors:</p>
 <div class="figure-row" markdown="1">
 <p><img alt="image" src="../assets/fig/hdmi_connector.jpg" style="height:3cm" /> <img alt="image" src="../assets/fig/coaxial_connector.jpg" style="height:3cm" /> <img alt="image" src="../assets/fig/usbc_connector.jpg" style="height:3cm" /> <img alt="image" src="../assets/fig/rj11_connector.jpg" style="height:3cm" /></p>
 </div>
-</div>
+</details>
 <p><img alt="image" class="wrap" src="../assets/fig/iceberg.jpg" /></p>
 <p>Have you ever been diving in a swimming pool, looked up and the water was mirror-like? Optical fiber cables work of this phenomenon, called refraction. Light that enters the fiber through one end stays inside until it exits through the other end. The coating of the fiber is important to support its integrity, but that coating does not participate in the “bouncing” of light when advancing through the fiber.</p>
-<p>In a single-mode optical fiber, the sensor at the receiving end detects the presence or absence of a single wavelength range. These cables are relatively thin and cheap, but carry a single signal. Another option is to transmit multiple wavelengths (<em>e.g.</em>, using several laser sources) at the same time, through the same fiber. At the receiving end, a prism is used to divide the beam of light back into its monochrome components, which are sensed separately. In this way, multi-modal optical fiber allows <span class="concept" id="c28" data-key="multiplex">multiplexing</span> several signals, greatly increasing the effective transmission rate.</p>
-<div class="admonition example">
-<p class="admonition-title">Exercise 2.7</p>
-<p><a id="ex-piercing-laser_refraction"></a> When a beam of light enters an optical fiber, it does so with a certain angle of attack. This angle affects the time it takes to reach the other end. If we project a cone of light, light enters the fiber at multiple angles of attack. What happens at the other end if we <strong>turn this cone of light on and off</strong> very quickly? Is it relevant whether we use monomodal or multimodal beams?</p>
+<p>In a single-mode optical fiber, the sensor at the receiving end detects the presence or absence of a single wavelength range. These cables are relatively thin and cheap, but carry a single signal. Another option is to transmit multiple wavelengths (<em>e.g.</em>, using several laser sources) at the same time, through the same fiber. At the receiving end, a prism is used to divide the beam of light back into its monochrome components, which are sensed separately. In this way, multi-modal optical fiber allows <span class="concept" id="c21" data-key="multiplex">multiplexing</span> several signals, greatly increasing the effective transmission rate.</p>
+<details class="example" open="open">
+<summary>Exercise 2.7</summary>
+<p><a id="ex-piercing-laser_refraction"></a> When a beam of light enters an optical fiber, it does so with a certain angle of attack. This angle affects the time it takes to reach the other end. If we project a cone of light, light enters the fiber at multiple angles of attack. What happens at the other end if we turn this cone of light on and off very quickly? Is it relevant whether we use monomodal or multimodal beams?</p>
 <div class="figure-row" markdown="1">
 <p><img alt="image" src="../assets/fig/laser_refraction.jpg" style="height:2.5cm" /> <img alt="image" src="../assets/fig/optical_connector.jpg" style="height:2.5cm" /></p>
 </div>
-</div>
+</details>
 <p><img alt="image" class="wrap" src="../assets/fig/dipole.png" /></p>
-<p>Even though there are many classes of antennas, their main purpose is to detect electromagnetic fields and/or to create them. The Maxwell-Faraday equation tells us that <em>changes</em> in the electric <span class="concept" id="c29" data-key="field (physics)">field</span> <span class="arithmatex">\(\vec{E}\)</span> create a perpendicular magnetic <span class="concept" id="c30" data-key="field (physics)">field</span> <span class="arithmatex">\(\vec{B}\)</span>, and the other way around.</p>
+<p>Even though there are many classes of antennas, their main purpose is to detect electromagnetic fields and/or to create them. The Maxwell-Faraday equation tells us that <em>changes</em> in the electric <span class="concept" id="c22" data-key="field (physics)">field</span> <span class="arithmatex">\(\vec{E}\)</span> create a perpendicular magnetic <span class="concept" id="c23" data-key="field (physics)">field</span> <span class="arithmatex">\(\vec{B}\)</span>, and the other way around.</p>
 <p>A dipole antenna like the one to the right uses this concept by applying an alternating voltage <span class="arithmatex">\(V\)</span>, which generates electromagnetic waves that propagate outwards the dipole axis.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<details class="note" open="open">
+<summary>Note</summary>
 <p>When we emit some energy <span class="arithmatex">\(E\)</span> from a point in all directions, that energy is distributed around a growing sphere. Since the area of a sphere of radius <span class="arithmatex">\(r\)</span> is <span class="arithmatex">\(4 \pi r^2\)</span>, the amount of energy that reaches a point at distance <span class="arithmatex">\(r\)</span> will be in the ballpark of <span class="arithmatex">\(E / r^2\)</span>.</p>
 <p>This is sometimes referred to as the inverse square law, and is the reason why currents inducted in the receiver’s antenna are usually between nanovolts (<span class="arithmatex">\(10^{-9}\)</span> V) and picovolts (<span class="arithmatex">\(10^{-12}\)</span> V). Surprisingly, this is enough for modern detectors to read the data signal.</p>
-</div>
+</details>
 <p><img alt="image" class="wrap" src="../assets/fig/modulation.jpg" /></p>
 <p>Regardless of the method chosen to let the data travel, the veil between analog signals and digital data must still be pierced. Once way of doing this is modulation: a base sinusoidal signal called carrier is produced, and the data are encoded by modifying this carrier. For instance, one can change the amplitude of the carrier (ASK), its frequency (FSK), or even the amplitude and the phase at the same time (QAM).</p>
-<div class="admonition example">
-<p class="admonition-title">Exercise 2.8</p>
-<p>The figure above displays an example of amplitude modulation and of frequency modulation. Which is which? For each case: is that <strong>modulation transmitting an analog or a digital signal</strong>?</p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Exercise 2.9</p>
-<p>What’s the <strong>difference between bandwidth and transmission speed</strong>? Why do you think they are interchangeably used in non-technical contexts?</p>
-</div>
+<details class="example" open="open">
+<summary>Exercise 2.8</summary>
+<p>The figure above displays an example of amplitude modulation and of frequency modulation. Which is which? For each case: is that modulation transmitting an analog or a digital signal?</p>
+</details>
+<details class="example" open="open">
+<summary>Exercise 2.9</summary>
+<p>What’s the difference between bandwidth and transmission speed? Why do you think they are interchangeably used in non-technical contexts?</p>
+</details>
 <script>window.XOI_ASSETS = "../assets/";</script>
 
 
@@ -1796,13 +1796,13 @@
         
         
           
-          <a href="../where_are_you/" class="md-footer__link md-footer__link--next" aria-label="Next: [3] Where are you?">
+          <a href="../where_are_you/" class="md-footer__link md-footer__link--next" aria-label="Next: [3] Addressing">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                [3] Where are you?
+                [3] Addressing
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1843,11 +1843,17 @@
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
+        <script src="../scripts/header-title.js"></script>
+      
         <script src="../scripts/wide-tables.js"></script>
       
         <script src="../scripts/search-highlight.js"></script>
       
+        <script src="../scripts/search-lang-filter.js"></script>
+      
         <script src="../scripts/technical-terms.js"></script>
+      
+        <script src="../scripts/toc-fold.js"></script>
       
         <script src="../scripts/goatcounter.js"></script>
       

@@ -33,7 +33,7 @@
     
     
       
-        <title>[4] Això és teu? - Xarxes d'Ordinadors i Internet: Guia d'Estudi</title>
+        <title>[4] Paquets - Xarxes d'Ordinadors i Internet: Guia d'Estudi</title>
       
     
     
@@ -123,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              [4] Això és teu?
+              [4] Paquets
             
           </span>
         </div>
@@ -493,7 +493,7 @@
   <span class="md-ellipsis">
     
   
-    Sobre aquesta assignatura
+    [1] Sobre aquesta assignatura
   
 
     
@@ -683,7 +683,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Travessant el vel analògic-digital
+    [2] El vel analògic-digital
   
 
     
@@ -711,7 +711,7 @@
   <span class="md-ellipsis">
     
   
-    [3] On ets?
+    [3] Adreçament
   
 
     
@@ -748,7 +748,7 @@
   <span class="md-ellipsis">
     
   
-    [4] Això és teu?
+    [4] Paquets
   
 
     
@@ -766,7 +766,7 @@
   <span class="md-ellipsis">
     
   
-    [4] Això és teu?
+    [4] Paquets
   
 
     
@@ -1125,7 +1125,7 @@
   <span class="md-ellipsis">
     
   
-    Índex de conceptes
+    Termes tècnics
   
 
     
@@ -1567,19 +1567,19 @@
 
 
 <p><img alt="" class="hero" src="../assets/fig/container.jpg" /></p>
-<h1 id="sec-packets">[4] Això és teu?<a class="headerlink" href="#sec-packets" title="Permanent link">&para;</a></h1>
+<h1 id="sec-packets">[4] Paquets<a class="headerlink" href="#sec-packets" title="Permanent link">&para;</a></h1>
 <p>La informació viatja per aquest graf de xarxes en forma de paquets, que contenen una petita quantitat d’informació i de metainformació.</p>
 <p>Els dos extrems de la comunicació han d’acordar el format dels paquets, de manera que aquests paquets es puguin produir i interpretar de manera eficient i automàtica.</p>
 <p>Quan els paquets viatgen per una o més xarxes, es poden perdre o desordenar. Si entre dos ordinadors ha de circular un flux continu de dades, els paquets han de contenir mecanismes per detectar les pèrdues i restaurar l’ordre correcte.</p>
 <h2 id="sec-packets-lan_wan">[4.1] Tinc una entrega per a tu<a class="headerlink" href="#sec-packets-lan_wan" title="Permanent link">&para;</a></h2>
 <p>No és viable establir connexions físiques entre cada parell d’ordinadors que es volen comunicar. En lloc d’això, es comparteixen relativament poques connexions per transportar missatges entre molts parells de dispositius.</p>
 <p>Si un sol dispositiu transmet dades de manera contínua durant molt de temps, aquella connexió queda bloquejada i pot esdevenir un coll d’ampolla que impedeix que altres dispositius es comuniquin. Per evitar aquest problema, les connexions limiten la quantitat màxima de dades que es pot enviar sense interrupció. Com a resultat, els dispositius es veuen obligats a enviar dades en ràfegues discretes anomenades <span class="concept" id="c1" data-key="packet">paquets</span>. L’intercanvi d’aquest tipus de missatges a través d’una o més xarxes s’anomena <span class="concept" id="c2" data-key="packet switching">commutació de paquets</span>.</p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
+<details class="note" open="open">
+<summary>Nota</summary>
 <p>Leonard Kleinrock, un dels pioners de la interconnexió de xarxes, disputa l’autoria de la commutació de paquets, que sovint s’atribueix a Paul Baran i Donald Davies.</p>
-</div>
-<p>Els <span class="concept" id="c3" data-key="packet">paquets</span> han de ser petits perquè les connexions no quedin bloquejades durant massa temps. Alhora, volem que els paquets continguin tantes dades com sigui possible, perquè cada paquet conté dades de <span class="concept" id="c4" data-key="overhead">sobrecàrrega</span> (com ara les adreces que es tracten a la secció <a href="../where_are_you/#sec-where">3</a>) que cal enviar a més de les dades de payload (càrrega útil) de l’usuari. Les xarxes fixen la longitud màxima dels paquets mitjançant un paràmetre anomenat <span class="concept" id="c5" data-key="MTU">unitat màxima de transmissió</span> (MTU), p. ex., 1500 bytes a Ethernet.</p>
-<p>La transmissió de paquets a través d’un <span class="concept" id="c6" data-key="data link">enllaç de dades</span> s’ha de fer amb cura, sobretot quan aquest enllaç és un <span class="concept" id="c7" data-key="bus">bus</span> compartit per diversos dispositius. Cada paquet s’ha de poder distingir individualment de la resta, cosa que es pot fer amb almenys tres estratègies:</p>
+</details>
+<p>Els <span class="concept" id="c3" data-key="packet">paquets</span> han de ser petits perquè les connexions no quedin bloquejades durant massa temps. Alhora, volem que els paquets continguin tantes dades com sigui possible, perquè cada paquet conté dades d’<span class="concept" id="c4" data-key="overhead">overhead</span> (sobrecàrrega, com ara les adreces que es tracten a la secció <a href="../where_are_you/#sec-where">3</a>) que cal enviar a més de les dades de payload (càrrega útil) de l’usuari. Les xarxes fixen la longitud màxima dels paquets mitjançant un paràmetre anomenat unitat màxima de transmissió (<span class="concept" id="c5" data-key="MTU">MTU</span>), p. ex., 1500 bytes a Ethernet.</p>
+<p>La transmissió de paquets a través d’un enllaç de dades s’ha de fer amb cura, sobretot quan aquest enllaç és un bus compartit per diversos dispositius. Cada paquet s’ha de poder distingir individualment de la resta, cosa que es pot fer amb almenys tres estratègies:</p>
 <ol>
 <li>
 <p><em>Longitud fixa</em>: tots els paquets tenen la mateixa longitud. L’emissor i el receptor han d’haver acordat aquest valor per endavant.</p>
@@ -1588,55 +1588,55 @@
 <p><em>Longitud explícita</em>: la longitud del paquet s’inclou dins del paquet, p. ex., fent servir el primer byte del paquet. L’emissor i el receptor han d’acordar com s’inclou aquesta informació i com s’ha d’interpretar.</p>
 </li>
 <li>
-<p><em>Seqüències d’escapament</em>: certes <span class="concept" id="c8" data-key="escape sequence">seqüències d’escapament</span> binàries dins de les dades tenen un significat especial. Per exemple, es podria definir que el byte <code>11110000</code> (<code>0xf0</code>) significa “final de paquet”: aquests bits han d’aparèixer després de cada paquet, i només aleshores. Llavors l’emissor podria començar a transmetre el contingut d’un paquet, seguit de <code>0xf0</code>. Les dues parts han d’acordar quines seqüències d’escapament fan servir, què signifiquen i com enviar dades iguals a aquestes seqüències (p. ex., hauria de ser possible enviar <code>0xf0f0f0</code> sense provocar un “final de paquet” fins que s’hagin transmès tots els bytes).</p>
+<p><em>Seqüències d’escapament</em>: certes seqüències d’escapament binàries dins de les dades tenen un significat especial. Per exemple, es podria definir que el byte <code>11110000</code> (<code>0xf0</code>) significa “final de paquet”: aquests bits han d’aparèixer després de cada paquet, i només aleshores. Llavors l’emissor podria començar a transmetre el contingut d’un paquet, seguit de <code>0xf0</code>. Les dues parts han d’acordar quines seqüències d’escapament fan servir, què signifiquen i com enviar dades iguals a aquestes seqüències (p. ex., hauria de ser possible enviar <code>0xf0f0f0</code> sense provocar un “final de paquet” fins que s’hagin transmès tots els bytes).</p>
 </li>
 </ol>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>També és possible senyalitzar l’<em>inici</em> d’un paquet. En aquest cas, es fa servir una seqüència prèvia anomenada <span class="concept" id="c9" data-key="preamble">preàmbul</span>.</p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Exercici 4.1</p>
+<details class="note" open="open">
+<summary>Nota</summary>
+<p>També és possible senyalitzar l’<em>inici</em> d’un paquet. En aquest cas, es fa servir una seqüència prèvia anomenada preàmbul.</p>
+</details>
+<details class="example" open="open">
+<summary>Exercici 4.1</summary>
 <p>Totes les estratègies descrites més amunt es fan servir avui dia en escenaris reals, segons les característiques, els costos i els compromisos de cadascuna.</p>
 <p>Discuteix quina d’aquestes estratègies seria la més adequada per a cadascun d’aquests escenaris:</p>
 <ul>
 <li>
-<p>Un sol fabricant dissenya el maquinari i el programari que comunica dos extrems. Una sola <span class="concept" id="c10" data-key="data line">línia de dades</span> s’ha de <span class="concept" id="c11" data-key="multiplex">multiplexar</span> per a diverses ordres de control i també per a diversos fluxos de dades. La prioritat és un ús eficient de l’energia i del buffer (memòria intermèdia).</p>
+<p>Un sol fabricant dissenya el maquinari i el programari que comunica dos extrems. Una sola línia de dades s’ha de multiplexar per a diverses ordres de control i també per a diversos fluxos de dades. La prioritat és un ús eficient de l’energia i del buffer (memòria intermèdia).</p>
 </li>
 <li>
-<p>Diversos dispositius comparteixen un <span class="concept" id="c12" data-key="bus">bus</span>. De tant en tant envien missatges de longituds diferents, però no un volum enorme de dades. La prioritat és el cost.</p>
+<p>Diversos dispositius comparteixen un bus. De tant en tant envien missatges de longituds diferents, però no un volum enorme de dades. La prioritat és el cost.</p>
 </li>
 <li>
-<p>Diversos dispositius comparteixen un <span class="concept" id="c13" data-key="bus">bus</span>. Envien contínuament missatges de longituds diferents, intentant maximitzar la taxa de transmissió efectiva a través del <span class="concept" id="c14" data-key="channel">canal</span>. La prioritat és el <span class="concept" id="c15" data-key="throughput">throughput</span> (cabal efectiu).</p>
+<p>Diversos dispositius comparteixen un bus. Envien contínuament missatges de longituds diferents, intentant maximitzar la taxa de transmissió efectiva a través del canal. La prioritat és el <span class="concept" id="c6" data-key="throughput">throughput</span> (cabal efectiu).</p>
 </li>
 </ul>
-</div>
+</details>
 <h2 id="sec-packets-format">[4.2] Si us plau, emplena el formulari<a class="headerlink" href="#sec-packets-format" title="Permanent link">&para;</a></h2>
 <p>Independentment de l’estratègia emprada, els paquets de dades normalment consten de dues parts:</p>
 <ul>
 <li>
-<p>El <span class="concept" id="c16" data-key="payload">payload</span> de dades: la informació que cal transmetre, i</p>
+<p>El <span class="concept" id="c7" data-key="payload">payload</span> de dades: la informació que cal transmetre, i</p>
 </li>
 <li>
-<p>Les <span class="concept" id="c17" data-key="metadata">metadades</span>: la metainformació necessària per lliurar el payload.</p>
+<p>Les <span class="concept" id="c8" data-key="metadata">metadades</span>: la metainformació necessària per lliurar el payload.</p>
 </li>
 </ul>
-<p>La longitud pot ser un dels <span class="concept" id="c18" data-key="field (packet)">camps</span> de metadades inclosos en el paquet, juntament amb altres que ajuden a identificar-ne el tipus i la funció. Els dos extrems de la comunicació han de conèixer la ubicació del payload i de les metadades, així com els camps exactes de metadades inclosos, la seva longitud i el seu significat. Totes aquestes decisions constitueixen el <span class="concept" id="c19" data-key="packet format">format del paquet</span> o l’<span class="concept" id="c20" data-key="packet structure">estructura del paquet</span>.</p>
-<p>Una de les maneres més habituals d’organitzar el payload i les metadades és amb un format <span class="concept" id="c21" data-key="header">capçalera</span>-<span class="concept" id="c22" data-key="body">cos</span>. En aquest cas, primer s’inclou tota la metainformació, seguida de les dades. Altres formats poden incloure un <span class="concept" id="c23" data-key="trailer">trailer</span> o cua final (també conegut com a <span class="concept" id="c24" data-key="tail">tail</span>, que s’usa sobretot per a la <span class="concept" id="c25" data-key="error detection">detecció d’errors</span> i la correcció), en combinació amb la capçalera o substituint-la. Totes les configuracions següents són possibles.</p>
+<p>La longitud pot ser un dels <span class="concept" id="c9" data-key="field (packet)">camps</span> de metadades inclosos en el paquet, juntament amb altres que ajuden a identificar-ne el tipus i la funció. Els dos extrems de la comunicació han de conèixer la ubicació del payload i de les metadades, així com els camps exactes de metadades inclosos, la seva longitud i el seu significat. Totes aquestes decisions constitueixen el <span class="concept" id="c10" data-key="packet format">format del paquet</span> o l’estructura del paquet.</p>
+<p>Una de les maneres més habituals d’organitzar el payload i les metadades és amb un format <span class="concept" id="c11" data-key="header">capçalera</span>-<span class="concept" id="c12" data-key="body">cos</span>. En aquest cas, primer s’inclou tota la metainformació, seguida de les dades. Altres formats poden incloure un trailer o cua final (també conegut com a tail, que s’usa sobretot per a la detecció d’errors i la correcció), en combinació amb la capçalera o substituint-la. Totes les configuracions següents són possibles.</p>
 <p><img alt="image" src="../assets/rendered/fea1a2c974b7402d.svg" style="width:14.9cm" /> <img alt="image" src="../assets/rendered/ece6a972d139c226.svg" style="width:14.9cm" /> <img alt="image" src="../assets/rendered/832958ef12103a5e.svg" style="width:14.9cm" /> <img alt="image" src="../assets/rendered/6263e35d9bc929b2.svg" style="width:14.9cm" /></p>
-<p>El format del payload d’un paquet normalment el defineix l’usuari. En canvi, el format de la capçalera està definit estrictament perquè es pugui produir i <span class="concept" id="c26" data-key="parsing">analitzar</span> fàcilment. Aquest format sovint es presenta amb un diagrama que ajuda a identificar les posicions individuals de cada bit i de cada byte, com en l’exemple (no real) següent:</p>
+<p>El format del payload d’un paquet normalment el defineix l’usuari. En canvi, el format de la capçalera està definit estrictament perquè es pugui produir i analitzar fàcilment. Aquest format sovint es presenta amb un diagrama que ajuda a identificar les posicions individuals de cada bit i de cada byte, com en l’exemple (no real) següent:</p>
 <p><img alt="image" src="../assets/rendered/51c80a3443bfb60f.svg" style="width:17.75cm" /></p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>Els camps també poden tenir longituds fixes o variables, que no necessàriament s’alineen amb els <span class="concept" id="c27" data-key="byte boundary">límits de byte</span>. Els camps també poden tenir una longitud igual a <span class="arithmatex">\(1\)</span> bit, i en aquest cas normalment se’ls anomena <span class="concept" id="c28" data-key="flag">flag</span> (indicador) o bit de flag.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
+<details class="note" open="open">
+<summary>Nota</summary>
+<p>Els camps també poden tenir longituds fixes o variables, que no necessàriament s’alineen amb els límits de byte. Els camps també poden tenir una longitud igual a <span class="arithmatex">\(1\)</span> bit, i en aquest cas normalment se’ls anomena <span class="concept" id="c13" data-key="flag"><code>flag</code></span> o bit de flag.</p>
+</details>
+<details class="note" open="open">
+<summary>Nota</summary>
 <p>En diagrames com l’anterior, sovint es fan servir diverses línies (files) perquè es puguin imprimir i llegir fàcilment. En aquest cas, el significat és el mateix que si tots els camps s’haguessin presentat en una mateixa línia (fila).</p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Exercici 4.2</p>
-<p>El contingut de paquet següent s’ha <span class="concept" id="c29" data-key="sniff">capturat</span> d’una <span class="concept" id="c30" data-key="network">xarxa</span>, expressat en <span class="concept" id="c31" data-key="hexadecimal">hexadecimal</span>. Suposant que el paquet té el format de l’exemple anterior:</p>
+</details>
+<details class="example" open="open">
+<summary>Exercici 4.2</summary>
+<p>El contingut de paquet següent s’ha capturat d’una xarxa, expressat en hexadecimal. Suposant que el paquet té el format de l’exemple anterior:</p>
 <ul>
 <li>
 <p>Indica el valor de cada camp (longitud, importància, tipus, mode, adreça de destinació i payload.</p>
@@ -1646,10 +1646,10 @@
 </li>
 </ul>
 <p><code>00 0c 00 f3 bb bb bb 00 68 65 6c 70</code></p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Exercici 4.3</p>
-<p>El codi següent accepta dos arguments: (1, <code>sys.argv[1]</code>) la <span class="concept" id="c32" data-key="path">ruta</span> d’un fitxer d’entrada, i (2, <code>sys.argv[2]</code>) la <span class="concept" id="c33" data-key="path">ruta</span> d’un fitxer de sortida. Es llegeixen els primers 255 bytes del contingut del fitxer d’entrada, es formategen com un paquet, i els bytes d’aquest paquet s’escriuen al fitxer de sortida.</p>
+</details>
+<details class="example" open="open">
+<summary>Exercici 4.3</summary>
+<p>El codi següent accepta dos arguments: (1, <code>sys.argv[1]</code>) la <span class="concept" id="c14" data-key="path">ruta</span> d’un fitxer d’entrada, i (2, <code>sys.argv[2]</code>) la <span class="concept" id="c15" data-key="path">ruta</span> d’un fitxer de sortida. Es llegeixen els primers 255 bytes del contingut del fitxer d’entrada, es formategen com un paquet, i els bytes d’aquest paquet s’escriuen al fitxer de sortida.</p>
 <p><div class="showcode" markdown="1">
 <strong><code>snippets/simplepacketoutput.py</code></strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Codi</label><label for="__tabbed_1_2">Sortida</label></div>
@@ -1677,7 +1677,7 @@
 </div>
 <ul>
 <li>
-<p>Descriu el <span class="concept" id="c34" data-key="packet format">format de paquet</span> que es fa servir al codi, i les seves limitacions.</p>
+<p>Descriu el <span class="concept" id="c16" data-key="packet format">format de paquet</span> que es fa servir al codi, i les seves limitacions.</p>
 </li>
 <li>
 <p>Amplia el format de paquet de manera que</p>
@@ -1686,7 +1686,7 @@
 <p>Els paquets puguin tenir més de 255 bytes</p>
 </li>
 <li>
-<p>Es pugui codificar l’<span class="concept" id="c35" data-key="address">adreça</span> del dispositiu de destinació</p>
+<p>Es pugui codificar l’adreça del dispositiu de destinació</p>
 </li>
 </ul>
 </li>
@@ -1697,19 +1697,19 @@
 <p>Modifica el codi perquè generi paquets amb el format que proposes.</p>
 </li>
 </ul>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>Llenguatges com Python poden distingir entre fitxers que contenen text i fitxers que contenen dades binàries. Al codi anterior, els fitxers s’obren en <span class="concept" id="c36" data-key="binary mode">mode binari</span> amb els modes <code>'rb'</code> i <code>'wb'</code>.</p>
-<p>Quan s’obren en mode binari, els bytes del fitxer es representen directament amb un objecte <code>bytes</code>, un vector d’enters entre <span class="arithmatex">\(0\)</span> i <span class="arithmatex">\(255\)</span>. En <span class="concept" id="c37" data-key="text mode">mode text</span>, el mètode <code>open</code> processa (<span class="concept" id="c38" data-key="decode">descodifica</span>) aquests bytes una mica més, i retorna una cadena que pot contenir caràcters especials com accents o glifs no llatins. (<a href="https://docs.python.org/3.12/library/functions.html#open">llegir-ne més...</a>)</p>
-</div>
+</details>
+<details class="note" open="open">
+<summary>Nota</summary>
+<p>Llenguatges com Python poden distingir entre fitxers que contenen text i fitxers que contenen dades binàries. Al codi anterior, els fitxers s’obren en mode binari amb els modes <code>'rb'</code> i <code>'wb'</code>.</p>
+<p>Quan s’obren en mode binari, els bytes del fitxer es representen directament amb un objecte <code>bytes</code>, un vector d’enters entre <span class="arithmatex">\(0\)</span> i <span class="arithmatex">\(255\)</span>. En mode text, el mètode <code>open</code> processa (descodifica) aquests bytes una mica més, i retorna una cadena que pot contenir caràcters especials com accents o glifs no llatins. (<a href="https://docs.python.org/3.12/library/functions.html#open">llegir-ne més...</a>)</p>
+</details>
 <h2 id="sec-packets-stream">[4.3] No paren d’arribar<a class="headerlink" href="#sec-packets-stream" title="Permanent link">&para;</a></h2>
-<p>Quan es desenvolupen aplicacions que fan servir capacitats de xarxa, sovint és útil imaginar la comunicació com un <span class="concept" id="c39" data-key="stream">flux</span>, és a dir, com una canonada conceptual on posem les nostres dades (qualsevol quantitat de dades) per un extrem, i surten per l’altre. Si tenim aquesta capacitat, aleshores és molt més fàcil enviar fitxers de qualsevol mida i transmetre una quantitat inacabable d’àudio o de vídeo. Malauradament, tot el que tenim per simular aquests fluxos són paquets.</p>
-<p>Sovint cal reenviar els <span class="concept" id="c40" data-key="packet">paquets</span> a través de diverses xarxes. Els <span class="concept" id="c41" data-key="router">routers</span> (encaminadors) no són perfectes i de vegades estan inoperatius o mal configurats, de manera que no tots els paquets arriben a la seva destinació. A més, paquets diferents es poden lliurar per rutes diferents que poden tenir longituds diferents, de manera que els paquets poden arribar desordenats.</p>
-<p>Si volem simular un <span class="concept" id="c42" data-key="stream">flux</span> de dades, els paquets han de contenir prou metainformació perquè es puguin detectar les pèrdues i restaurar l’ordre correcte. Això introdueix una <span class="concept" id="c43" data-key="overhead">sobrecàrrega</span> que no és adequada en tots els escenaris –p. ex., latència molt baixa–, de manera que algunes aplicacions basen la seva comunicació de xarxa en <span class="concept" id="c44" data-key="message">missatges</span> en lloc de fluxos.</p>
-<p>Quan calen fluxos, es fa servir el concepte d’<span class="concept" id="c45" data-key="offset">offset</span> (desplaçament) per tornar a muntar diversos missatges en un sol flux. Cada paquet conté alguns bytes del flux de dades, i l’offset n’indica la ubicació exacta dins d’aquest flux.</p>
-<div class="admonition example">
-<p class="admonition-title">Exercici 4.4</p>
+<p>Quan es desenvolupen aplicacions que fan servir capacitats de xarxa, sovint és útil imaginar la comunicació com un <span class="concept" id="c17" data-key="message/stream">flux</span>, és a dir, com una canonada conceptual on posem les nostres dades (qualsevol quantitat de dades) per un extrem, i surten per l’altre. Si tenim aquesta capacitat, aleshores és molt més fàcil enviar fitxers de qualsevol mida i transmetre una quantitat inacabable d’àudio o de vídeo. Malauradament, tot el que tenim per simular aquests fluxos són paquets.</p>
+<p>Sovint cal reenviar els <span class="concept" id="c18" data-key="packet">paquets</span> a través de diverses xarxes. Els routers (encaminadors) no són perfectes i de vegades estan inoperatius o mal configurats, de manera que no tots els paquets arriben a la seva destinació. A més, paquets diferents es poden lliurar per rutes diferents que poden tenir longituds diferents, de manera que els paquets poden arribar desordenats.</p>
+<p>Si volem simular un <span class="concept" id="c19" data-key="message/stream">flux</span> de dades, els paquets han de contenir prou metainformació perquè es puguin detectar les pèrdues i restaurar l’ordre correcte. Això introdueix un <span class="concept" id="c20" data-key="overhead">overhead</span> que no és adequat en tots els escenaris –p. ex., latència molt baixa–, de manera que algunes aplicacions basen la seva comunicació de xarxa en <span class="concept" id="c21" data-key="message/stream">missatges</span> en lloc de fluxos.</p>
+<p>Quan calen fluxos, es fa servir el concepte d’<span class="concept" id="c22" data-key="offset">offset</span> (desplaçament) per tornar a muntar diversos missatges en un sol flux. Cada paquet conté alguns bytes del flux de dades, i l’offset n’indica la ubicació exacta dins d’aquest flux.</p>
+<details class="example" open="open">
+<summary>Exercici 4.4</summary>
 <p>El diagrama següent descriu un flux de 48 bytes produït per un node d’origen, així com els paquets en què es va dividir abans de la transmissió:</p>
 <p><img alt="image" src="../assets/rendered/1c01f7fe47484966.svg" style="width:22.07cm" /></p>
 <ul>
@@ -1726,7 +1726,7 @@
 <p>Què passaria si la destinació rebés un missatge fals, amb offset <span class="arithmatex">\(7\)</span> bytes i longitud <span class="arithmatex">\(4\)</span> bytes?</p>
 </li>
 </ul>
-</div>
+</details>
 <script>window.XOI_ASSETS = "../assets/";</script>
 
 
@@ -1766,7 +1766,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Peu de pàgina" >
         
           
-          <a href="../where_are_you/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [3] On ets?">
+          <a href="../where_are_you/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [3] Adreçament">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1776,7 +1776,7 @@
                 Anterior
               </span>
               <div class="md-ellipsis">
-                [3] On ets?
+                [3] Adreçament
               </div>
             </div>
           </a>
@@ -1830,11 +1830,17 @@
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
+        <script src="../../scripts/header-title.js"></script>
+      
         <script src="../../scripts/wide-tables.js"></script>
       
         <script src="../../scripts/search-highlight.js"></script>
       
+        <script src="../../scripts/search-lang-filter.js"></script>
+      
         <script src="../../scripts/technical-terms.js"></script>
+      
+        <script src="../../scripts/toc-fold.js"></script>
       
         <script src="../../scripts/goatcounter.js"></script>
       

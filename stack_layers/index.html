@@ -493,7 +493,7 @@
   <span class="md-ellipsis">
     
   
-    About this course
+    [1] About this course
   
 
     
@@ -683,7 +683,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Piercing the analog-digital veil
+    [2] The analog-digital veil
   
 
     
@@ -711,7 +711,7 @@
   <span class="md-ellipsis">
     
   
-    [3] Where are you?
+    [3] Addressing
   
 
     
@@ -739,7 +739,7 @@
   <span class="md-ellipsis">
     
   
-    [4] Is this yours?
+    [4] Packets
   
 
     
@@ -1114,7 +1114,7 @@
   <span class="md-ellipsis">
     
   
-    Index of concepts
+    Technical terms
   
 
     
@@ -1546,58 +1546,58 @@
 
 <p><img alt="" class="hero" src="../assets/fig/onions.jpg" /></p>
 <h1 id="sec-stack_layers">[5] A Stack of Layers<a class="headerlink" href="#sec-stack_layers" title="Permanent link">&para;</a></h1>
-<p>Modern computer communication is achieved using a <span class="concept" id="c1" data-key="stack">stack</span> of network <span class="concept" id="c2" data-key="layer">layers</span>. Each stack focuses on some problems and is responsible for providing certain features, <em>e.g.</em>, <span class="concept" id="c3" data-key="address">addressing</span> and correct <span class="concept" id="c4" data-key="sequencing">sequencing</span> (introduced in the previous chapters).</p>
-<p>Each <span class="concept" id="c5" data-key="layer">layer</span> defines a <code>send</code>/<code>receive</code> function <em>pair</em>, which is responsible for some of these features. Each layer uses the <code>send</code> and <code>receive</code> of the layer below, <em>i.e.</em>, the features of one layer rely on the features of all layers below it.</p>
-<p>To coordinate layers and enable <span class="concept" id="c6" data-key="virtual">virtual</span> communication between them, each layer defines a different <span class="concept" id="c7" data-key="packet format">packet format</span>, which <span class="concept" id="c8" data-key="encapsulation">encapsulates</span> a packet of the layer above it.</p>
+<p>Modern computer communication is achieved using a <span class="concept" id="c1" data-key="stack">stack</span> of network <span class="concept" id="c2" data-key="layer">layers</span>. Each stack focuses on some problems and is responsible for providing certain features, <em>e.g.</em>, addressing and correct <span class="concept" id="c3" data-key="sequencing">sequencing</span> (introduced in the previous chapters).</p>
+<p>Each <span class="concept" id="c4" data-key="layer">layer</span> defines a <code>send</code>/<code>receive</code> function <em>pair</em>, which is responsible for some of these features. Each layer uses the <code>send</code> and <code>receive</code> of the layer below, <em>i.e.</em>, the features of one layer rely on the features of all layers below it.</p>
+<p>To coordinate layers and enable virtual communication between them, each layer defines a different packet format, which <span class="concept" id="c5" data-key="encapsulation">encapsulates</span> a packet of the layer above it.</p>
 <h2 id="sec-stack_layers-send">[5.1] Sending data<a class="headerlink" href="#sec-stack_layers-send" title="Permanent link">&para;</a></h2>
-<p>To implement these capabilities, each layer transmits not only the <code>data</code> provided by the layer above, but also a header with all the meta-information required for that capability. Thus, each layer needs to define the <span class="concept" id="c9" data-key="packet format">packet format</span>, adding some <span class="concept" id="c10" data-key="overhead">overhead</span> (typically a <span class="concept" id="c11" data-key="header">header</span>) to the <span class="concept" id="c12" data-key="payload">payload</span>, <em>e.g.</em>:</p>
+<p>To implement these capabilities, each layer transmits not only the <code>data</code> provided by the layer above, but also a header with all the meta-information required for that capability. Thus, each layer needs to define the packet format, adding some overhead (typically a header) to the payload, <em>e.g.</em>:</p>
 <p><img alt="image" src="../assets/rendered/1240a1813bf319f9.svg" style="width:16.7cm" /></p>
-<p>When a user program wants to send some data, it uses the <code>send</code> method of the <em>top</em> layer of the stack, which eventually results in some data being transmitted by the physical layer, <em>e.g.</em>, through a cable or antenna. The following figure depicts the structure of a 4-layer <span class="concept" id="c13" data-key="stack">stack</span>:</p>
+<p>When a user program wants to send some data, it uses the <code>send</code> method of the <em>top</em> layer of the stack, which eventually results in some data being transmitted by the physical layer, <em>e.g.</em>, through a cable or antenna. The following figure depicts the structure of a 4-layer <span class="concept" id="c6" data-key="stack">stack</span>:</p>
 <p><img alt="image" src="../assets/fig/encapsulation_send.svg" style="width:22.95cm" /></p>
-<p>The packets produced by each layer are generically referred to as <span class="concept" id="c14" data-key="PDU">PDU</span>s (Protocol Data Unit). The PDUs of each layer have specific names such as <span class="concept" id="c15" data-key="frame">frame</span>, <span class="concept" id="c16" data-key="datagram">datagram</span> or <span class="concept" id="c17" data-key="segment">segment</span>. These names must be used with precision in technical contexts.</p>
-<p>Each layer includes the <span class="concept" id="c18" data-key="PDU">PDU</span> of the layer above inside its PDU’s <span class="concept" id="c19" data-key="packet format">packet format</span> definition. This process is referred to as <span class="concept" id="c20" data-key="encapsulation">encapsulation</span>.</p>
-<div class="admonition example">
-<p class="admonition-title">Exercise 5.1</p>
-<p>The user program wants to send <span class="arithmatex">\(420\)</span> bytes of data using the <span class="concept" id="c21" data-key="stack">stack</span> of the previous figure. Assume a header size for layers 2, 3 and 4 of <span class="arithmatex">\(14\)</span> bytes, <span class="arithmatex">\(20\)</span> bytes and <span class="arithmatex">\(20\)</span> bytes, respectively.</p>
+<p>The packets produced by each layer are generically referred to as <span class="concept" id="c7" data-key="PDU">PDU</span>s (Protocol Data Unit). The PDUs of each layer have specific names such as <span class="concept" id="c8" data-key="frame">frame</span>, <span class="concept" id="c9" data-key="datagram">datagram</span> or segment. These names must be used with precision in technical contexts.</p>
+<p>Each layer includes the <span class="concept" id="c10" data-key="PDU">PDU</span> of the layer above inside its PDU’s packet format definition. This process is referred to as <span class="concept" id="c11" data-key="encapsulation">encapsulation</span>.</p>
+<details class="example" open="open">
+<summary>Exercise 5.1</summary>
+<p>The user program wants to send <span class="arithmatex">\(420\)</span> bytes of data using the <span class="concept" id="c12" data-key="stack">stack</span> of the previous figure. Assume a header size for layers 2, 3 and 4 of <span class="arithmatex">\(14\)</span> bytes, <span class="arithmatex">\(20\)</span> bytes and <span class="arithmatex">\(20\)</span> bytes, respectively.</p>
 <ul>
 <li>
-<p>What is the <span class="concept" id="c22" data-key="payload">payload</span> size and the <span class="concept" id="c23" data-key="overhead">overhead</span> size for each <span class="concept" id="c24" data-key="layer">layer</span>’s <span class="concept" id="c25" data-key="PDU">PDU</span>?</p>
+<p>What is the payload size and the overhead size for each <span class="concept" id="c13" data-key="layer">layer</span>’s <span class="concept" id="c14" data-key="PDU">PDU</span>?</p>
 </li>
 <li>
-<p>What is the <span class="concept" id="c26" data-key="payload">payload</span> size and the <span class="concept" id="c27" data-key="overhead">overhead</span> size of the whole <span class="concept" id="c28" data-key="stack">stack</span>?</p>
+<p>What is the payload size and the overhead size of the whole <span class="concept" id="c15" data-key="stack">stack</span>?</p>
 </li>
 </ul>
-</div>
+</details>
 <h2 id="sec-stack_layers-receive">[5.2] Receiving data<a class="headerlink" href="#sec-stack_layers-receive" title="Permanent link">&para;</a></h2>
-<p>When a <span class="concept" id="c29" data-key="packet">packet</span> reaches the network <span class="concept" id="c30" data-key="stack">stack</span> of the recipient, it is processed in reverse order, <em>i.e.</em>, layers are traversed from bottom to top. Each layer inspects <em>only</em> the <span class="concept" id="c31" data-key="header">header</span> corresponding to that layer. If everything is correct, the layer removes the header and passes the remainder of the packet to the layer above. In turn, the layer on top passes the remaining data (the <span class="concept" id="c32" data-key="payload">payload</span>) to the recipient. Continuing the example of the 4-layer stack:</p>
+<p>When a packet reaches the network <span class="concept" id="c16" data-key="stack">stack</span> of the recipient, it is processed in reverse order, <em>i.e.</em>, layers are traversed from bottom to top. Each layer inspects <em>only</em> the header corresponding to that layer. If everything is correct, the layer <span class="concept" id="c17" data-key="decapsulate">removes the header</span> and passes the remainder of the packet to the layer above. In turn, the layer on top passes the remaining data (the payload) to the recipient. Continuing the example of the 4-layer stack:</p>
 <p><img alt="image" src="../assets/fig/encapsulation_receive.svg" style="width:22.95cm" /></p>
-<p>In a <span class="concept" id="c33" data-key="stack">network stack</span>, only the bottom layer interacts directly with the exterior, <em>e.g.</em>, only the physical network card of a computer is connected to a wire that carries data to other computers. At the same time, data sent by the bottom layer includes the <span class="concept" id="c34" data-key="PDU">PDUs</span> of all layers by means of <span class="concept" id="c35" data-key="encapsulation">encapsulation</span>. Thanks to this, there exists a <span class="concept" id="c36" data-key="virtual">virtual</span> communication between each layer in one end and its counterpart in the other end of communication. The following figure represents the real (solid line) and virtual (dashed line) communication in our example:</p>
+<p>In a <span class="concept" id="c18" data-key="stack">network stack</span>, only the bottom layer interacts directly with the exterior, <em>e.g.</em>, only the physical network card of a computer is connected to a wire that carries data to other computers. At the same time, data sent by the bottom layer includes the <span class="concept" id="c19" data-key="PDU">PDUs</span> of all layers by means of <span class="concept" id="c20" data-key="encapsulation">encapsulation</span>. Thanks to this, there exists a virtual communication between each layer in one end and its counterpart in the other end of communication. The following figure represents the real (solid line) and virtual (dashed line) communication in our example:</p>
 <p><img alt="image" src="../assets/fig/horizontal_layer_communication.svg" style="width:11.48cm" /></p>
-<div class="admonition example">
-<p class="admonition-title">Exercise 5.2</p>
-<p>Another network <span class="concept" id="c37" data-key="stack">stack</span> example has 3 layers: L1, L2 and L3 from bottom to top.</p>
-<p>The <span class="concept" id="c38" data-key="PDU">PDU</span> of layer L2 is as follows:</p>
+<details class="example" open="open">
+<summary>Exercise 5.2</summary>
+<p>Another network <span class="concept" id="c21" data-key="stack">stack</span> example has 3 layers: L1, L2 and L3 from bottom to top.</p>
+<p>The <span class="concept" id="c22" data-key="PDU">PDU</span> of layer L2 is as follows:</p>
 <p><img alt="image" src="../assets/rendered/59dbb02b256b7437.svg" style="width:14.9cm" /></p>
-<p>The <span class="concept" id="c39" data-key="PDU">PDU</span> of layer L3 is as follows:</p>
+<p>The <span class="concept" id="c23" data-key="PDU">PDU</span> of layer L3 is as follows:</p>
 <p><img alt="image" src="../assets/rendered/2ca5ce66ad7e93bf.svg" style="width:14.9cm" /></p>
-<p>Layer L1 receives a <span class="concept" id="c40" data-key="packet">packet</span> of data and its <code>receive</code> function returns the following data (assume <span class="concept" id="c41" data-key="unsigned">unsigned</span> integers and <span class="concept" id="c42" data-key="big endian">big endian</span> order when needed:</p>
+<p>Layer L1 receives a packet of data and its <code>receive</code> function returns the following data (assume unsigned integers and big endian order when needed:</p>
 <p><code>01 23 00 0a 01 00 00 06 00 aa 00 bb 43 20</code></p>
 <ul>
 <li>
-<p>What data <span class="concept" id="c43" data-key="payload">payload</span> was sent to the recipient program in this <span class="concept" id="c44" data-key="packet">packet</span>?</p>
+<p>What data payload was sent to the recipient program in this packet?</p>
 </li>
 <li>
-<p>If this is the last <span class="concept" id="c45" data-key="packet">packet</span> of the communication, how much (<span class="concept" id="c46" data-key="payload">payload</span>) data was sent to the recipient user program?</p>
+<p>If this is the last packet of the communication, how much (payload) data was sent to the recipient user program?</p>
 </li>
 <li>
-<p>At most, how many different computers can connect using this <span class="concept" id="c47" data-key="stack">stack</span>?</p>
+<p>At most, how many different computers can connect using this <span class="concept" id="c24" data-key="stack">stack</span>?</p>
 </li>
 <li>
 <p>We send a file as the payload of this stack. What’s its maximum possible size?</p>
 </li>
 </ul>
 <p><a id="ex-how_it_is_done-three_layer_network"></a></p>
-</div>
+</details>
 <div class="showcode">
 <p><strong><code>snippets/encapsulation.py</code></strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Code</label><label for="__tabbed_1_2">Output</label></div>
@@ -1669,9 +1669,9 @@ if __name__ == '__main__':
 </div>
 </div>
 </div>
-<div class="admonition example">
-<p class="admonition-title">Exercise 5.3</p>
-<p>The previous code takes some data and writes the bytes that would be sent to Layer 1 (the <span class="concept" id="c48" data-key="physical layer">physical layer</span>) of the <span class="concept" id="c49" data-key="network stack">network stack</span> of Exercise <a href="./#ex-how_it_is_done-three_layer_network">5.2</a>. Implement the receiving end of the stack as follows:</p>
+<details class="example" open="open">
+<summary>Exercise 5.3</summary>
+<p>The previous code takes some data and writes the bytes that would be sent to Layer 1 (the <span class="concept" id="c25" data-key="physical layer">physical layer</span>) of the <span class="concept" id="c26" data-key="stack">network stack</span> of Exercise <a href="./#ex-how_it_is_done-three_layer_network">5.2</a>. Implement the receiving end of the stack as follows:</p>
 <ul>
 <li>
 <p>Implement a <code>layer2_decapsulate(data: bytes) -&gt; (int, bytes)</code> function that takes a Layer 2 PDU and returns the tuple <code>(address, payload)</code>, where <code>address</code> is the destination address and <code>payload</code> is the encapsulated Layer 3 PDU.</p>
@@ -1691,11 +1691,11 @@ if __name__ == '__main__':
 </li>
 </ul>
 <p><a id="ex-how_it_is_done-implementation_three_layer_network"></a></p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Python’s <code>struct</code> library is useful, but not mandatory, to format <span class="concept" id="c50" data-key="packet">packet</span> bytes.</p>
-</div>
+</details>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>Python’s <code>struct</code> library is useful, but not mandatory, to format packet bytes.</p>
+</details>
 <script>window.XOI_ASSETS = "../assets/";</script>
 
 
@@ -1735,7 +1735,7 @@ if __name__ == '__main__':
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../packets/" class="md-footer__link md-footer__link--prev" aria-label="Previous: [4] Is this yours?">
+          <a href="../packets/" class="md-footer__link md-footer__link--prev" aria-label="Previous: [4] Packets">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1745,7 +1745,7 @@ if __name__ == '__main__':
                 Previous
               </span>
               <div class="md-ellipsis">
-                [4] Is this yours?
+                [4] Packets
               </div>
             </div>
           </a>
@@ -1799,11 +1799,17 @@ if __name__ == '__main__':
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
+        <script src="../scripts/header-title.js"></script>
+      
         <script src="../scripts/wide-tables.js"></script>
       
         <script src="../scripts/search-highlight.js"></script>
       
+        <script src="../scripts/search-lang-filter.js"></script>
+      
         <script src="../scripts/technical-terms.js"></script>
+      
+        <script src="../scripts/toc-fold.js"></script>
       
         <script src="../scripts/goatcounter.js"></script>
       

@@ -33,7 +33,7 @@
     
     
       
-        <title>[3] On ets? - Xarxes d'Ordinadors i Internet: Guia d'Estudi</title>
+        <title>[3] Adreçament - Xarxes d'Ordinadors i Internet: Guia d'Estudi</title>
       
     
     
@@ -123,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              [3] On ets?
+              [3] Adreçament
             
           </span>
         </div>
@@ -493,7 +493,7 @@
   <span class="md-ellipsis">
     
   
-    Sobre aquesta assignatura
+    [1] Sobre aquesta assignatura
   
 
     
@@ -683,7 +683,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Travessant el vel analògic-digital
+    [2] El vel analògic-digital
   
 
     
@@ -720,7 +720,7 @@
   <span class="md-ellipsis">
     
   
-    [3] On ets?
+    [3] Adreçament
   
 
     
@@ -738,7 +738,7 @@
   <span class="md-ellipsis">
     
   
-    [3] On ets?
+    [3] Adreçament
   
 
     
@@ -819,7 +819,7 @@
   <span class="md-ellipsis">
     
   
-    [4] Això és teu?
+    [4] Paquets
   
 
     
@@ -1125,7 +1125,7 @@
   <span class="md-ellipsis">
     
   
-    Índex de conceptes
+    Termes tècnics
   
 
     
@@ -1567,89 +1567,89 @@
 
 
 <p><img alt="" class="hero" src="../assets/fig/street_plaque.jpg" /></p>
-<h1 id="sec-where">[3] On ets?<a class="headerlink" href="#sec-where" title="Permanent link">&para;</a></h1>
+<h1 id="sec-where">[3] Adreçament<a class="headerlink" href="#sec-where" title="Permanent link">&para;</a></h1>
 <p>Connectar dos ordinadors els fa molt més útils que dues màquines aïllades. Tanmateix, el seu veritable potencial només es desbloqueja quan es poden connectar a <em>moltíssims</em> altres ordinadors.</p>
 <p>Limitacions pràctiques com el cost i la ubicació geogràfica fan que sigui impossible connectar directament cada parell d’ordinadors. En lloc d’això, els dispositius es distribueixen en un graf de xarxes interconnectades, que es pot estendre fins i tot més enllà de l’escala d’un planeta.</p>
 <p>Tant si és localment, a l’abast físic, com en un altre continent, cal un sistema d’adreçament per identificar, localitzar i encaminar els missatges perquè arribin als peers (parells) previstos, tal com fem amb les ubicacions físiques.</p>
 <h2 id="sec-where-topology">[3.1] Si us plau, contacta’m<a class="headerlink" href="#sec-where-topology" title="Permanent link">&para;</a></h2>
-<p>Quan només hi intervenen <span class="arithmatex">\(2\)</span> <span class="concept" id="c1" data-key="device">dispositius</span>, es pot fer servir una connexió <span class="concept" id="c2" data-key="point-to-point">punt a punt</span>. En aquest tipus de connexió, només hi ha “aquest costat” i “l’altre costat” del cable. A més, quan un dispositiu vol comunicar-se amb l’altre extrem, només hi ha un enllaç (p. ex., un cable) on triar, de manera que no hi ha cap confusió possible. Com que podem fer funcionar aquesta connexió amb només <span class="arithmatex">\(2\)</span> <span class="concept" id="c3" data-key="network card">targetes de xarxa</span> i <span class="arithmatex">\(1\)</span> cable, les connexions punt a punt són viables per a <span class="arithmatex">\(N=2\)</span> dispositius.</p>
+<p>Quan només hi intervenen <span class="arithmatex">\(2\)</span> <span class="concept" id="c1" data-key="device">dispositius</span>, es pot fer servir una connexió <span class="concept" id="c2" data-key="point-to-point">punt a punt</span>. En aquest tipus de connexió, només hi ha “aquest costat” i “l’altre costat” del cable. A més, quan un dispositiu vol comunicar-se amb l’altre extrem, només hi ha un enllaç (p. ex., un cable) on triar, de manera que no hi ha cap confusió possible. Com que podem fer funcionar aquesta connexió amb només <span class="arithmatex">\(2\)</span> <span class="concept" id="c3" data-key="network card">targetes de xarxa</span> (també: controlador de xarxa, NIC) i <span class="arithmatex">\(1\)</span> cable, les connexions punt a punt són viables per a <span class="arithmatex">\(N=2\)</span> dispositius.</p>
 <p><img alt="image" class="wrap" src="../assets/fig/complete_graph.svg" /></p>
-<p>Si volem connectar <span class="arithmatex">\(N &gt; 2\)</span> dispositius, una opció ingènua és connectar cada dispositiu amb tots els altres en un <span class="concept" id="c4" data-key="complete graph"><em>graf complet</em></span>. Ara cada dispositiu ha de gestionar <span class="arithmatex">\(N - 1\)</span> cables cap als altres dispositius, però comunicar-se amb qualsevol altre dispositiu és tan fàcil com triar el cable correcte i establir una connexió punt a punt.</p>
-<p>El problema principal d’aquest enfocament és que el nombre total de connexions és <span class="arithmatex">\(N \cdot (N-1) / 2 = O(N^2)\)</span> (en saber més al teu estimat curs de <em>Matemàtica Discreta</em>). Això vol dir que, per tenir <span class="arithmatex">\(N=10\)</span> dispositius connectats d’aquesta manera, necessitaries per exemple <span class="arithmatex">\(40\)</span> cables <em>i</em> <span class="arithmatex">\(90\)</span> <span class="concept" id="c5" data-key="network card">targetes de xarxa</span>. Per a <span class="arithmatex">\(N=1000\)</span> dispositius, hi hauria mig milió de connexions punt a punt, cosa que ja és força ingestionable.</p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p><span class="arithmatex">\(O(N^2)\)</span> és la notació d’una fita de complexitat <span class="concept" id="c6" data-key="quadratic">quadràtica</span>. <em>No</em> és el mateix que <span class="concept" id="c7" data-key="exponential">exponencial</span> i no s’han de confondre mai. (<a href="https://en.wikipedia.org/wiki/Big_O_notation">llegir-ne més...</a>)</p>
-</div>
+<p>Si volem connectar <span class="arithmatex">\(N &gt; 2\)</span> dispositius, una opció ingènua és connectar cada dispositiu amb tots els altres en un <em>graf complet</em>. Ara cada dispositiu ha de gestionar <span class="arithmatex">\(N - 1\)</span> cables cap als altres dispositius, però comunicar-se amb qualsevol altre dispositiu és tan fàcil com triar el cable correcte i establir una connexió punt a punt.</p>
+<p>El problema principal d’aquest enfocament és que el nombre total de connexions és <span class="arithmatex">\(N \cdot (N-1) / 2 = O(N^2)\)</span> (en saber més al teu estimat curs de <em>Matemàtica Discreta</em>). Això vol dir que, per tenir <span class="arithmatex">\(N=10\)</span> dispositius connectats d’aquesta manera, necessitaries per exemple <span class="arithmatex">\(40\)</span> cables <em>i</em> <span class="arithmatex">\(90\)</span> <span class="concept" id="c4" data-key="network card">targetes de xarxa</span>. Per a <span class="arithmatex">\(N=1000\)</span> dispositius, hi hauria mig milió de connexions punt a punt, cosa que ja és força ingestionable.</p>
+<details class="note" open="open">
+<summary>Nota</summary>
+<p><span class="arithmatex">\(O(N^2)\)</span> és la notació d’una fita de complexitat quadràtica. <em>No</em> és el mateix que exponencial i no s’han de confondre mai. (<a href="https://en.wikipedia.org/wiki/Big_O_notation">llegir-ne més...</a>)</p>
+</details>
 <p><img alt="image" class="wrap" src="../assets/fig/bus_graph.svg" style="height:4cm" /></p>
-<p>Tenim un truc amagat a la màniga: els <span class="concept" id="c8" data-key="bus">busos de dades</span>, en què una o més línies de dades estan connectades simultàniament a diversos dispositius. Això conserva la simplicitat de les connexions punt a punt, perquè cada dispositiu només ha de gestionar <span class="arithmatex">\(1\)</span> cable i el pot fer servir per comunicar-se amb tots els altres dispositius. També es conserva la rendibilitat, ja que només calen <span class="arithmatex">\(N\)</span> targetes de xarxa per a <span class="arithmatex">\(N\)</span> dispositius (<span class="arithmatex">\(O(N)\)</span>).</p>
-<p>El principal avantatge dels busos de dades és també la seva principal debilitat: tots els dispositius envien i reben dades per la mateixa línia de dades, però no ho poden fer alhora perquè només hi ha una línia. Si dos o més ho fan, es produeix una <span class="concept" id="c9" data-key="collision">col·lisió</span> que fa impossible la transmissió de dades mentre dura.</p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>A mesura que es desenvolupaven les xarxes d’ordinadors, es van provar moltes alternatives a la <span class="concept" id="c10" data-key="topology">topologia</span> de bus. Un exemple curiós és <span class="concept" id="c11" data-key="Token Ring">Token Ring</span>, en què els dispositius estan connectats al voltant d’un cercle i els missatges hi circulen en un sol sentit.</p>
-</div>
-<p>A la pràctica, no és trivial implementar una tecnologia de bus on es puguin afegir nous dispositius amb el temps. Històricament, de vegades es feia perforant físicament el cable principal del bus i afegint un cable nou cap a l’ordinador que s’hi connectava. Més endavant, això es va simplificar amb uns dispositius anomenats <span class="concept" id="c12" data-key="hub">hubs</span> (concentradors). Funcionaven de manera semblant, però oferien <span class="concept" id="c13" data-key="port">ports</span> ja integrats i connectors extraïbles. Avui dia, els hubs han estat substituïts pels <span class="concept" id="c14" data-key="switch">switches</span> (commutadors). Els switches ofereixen la funcionalitat d’un bus, connectant cada dispositiu amb tots els altres, i a més eviten les col·lisions. Per raons òbvies, estructurar les connexions al voltant d’un switch s’anomena <span class="concept" id="c15" data-key="star topology">topologia en estrella</span>.</p>
-<div class="admonition example">
-<p class="admonition-title">Exercici 3.1</p>
-<p>Què <strong>cal en un switch</strong> que no calgui en un hub?</p>
+<p>Tenim un truc amagat a la màniga: els busos de dades, en què una o més línies de dades estan connectades simultàniament a diversos dispositius. Això conserva la simplicitat de les connexions punt a punt, perquè cada dispositiu només ha de gestionar <span class="arithmatex">\(1\)</span> cable i el pot fer servir per comunicar-se amb tots els altres dispositius. També es conserva la rendibilitat, ja que només calen <span class="arithmatex">\(N\)</span> targetes de xarxa per a <span class="arithmatex">\(N\)</span> dispositius (<span class="arithmatex">\(O(N)\)</span>).</p>
+<p>El principal avantatge dels busos de dades és també la seva principal debilitat: tots els dispositius envien i reben dades per la mateixa línia de dades, però no ho poden fer alhora perquè només hi ha una línia. Si dos o més ho fan, es produeix una col·lisió que fa impossible la transmissió de dades mentre dura.</p>
+<details class="note" open="open">
+<summary>Nota</summary>
+<p>A mesura que es desenvolupaven les xarxes d’ordinadors, es van provar moltes alternatives a la <span class="concept" id="c5" data-key="topology">topologia</span> de bus. Un exemple curiós és Token Ring, en què els dispositius estan connectats al voltant d’un cercle i els missatges hi circulen en un sol sentit.</p>
+</details>
+<p>A la pràctica, no és trivial implementar una tecnologia de bus on es puguin afegir nous dispositius amb el temps. Històricament, de vegades es feia perforant físicament el cable principal del bus i afegint un cable nou cap a l’ordinador que s’hi connectava. Més endavant, això es va simplificar amb uns dispositius anomenats <span class="concept" id="c6" data-key="hub">hubs</span> (concentradors). Funcionaven de manera semblant, però oferien <span class="concept" id="c7" data-key="physical port">ports físics</span> ja integrats i connectors extraïbles. Avui dia, els hubs han estat substituïts pels <span class="concept" id="c8" data-key="switch">switches</span> (commutadors). Els switches ofereixen la funcionalitat d’un bus, connectant cada dispositiu amb tots els altres, i a més eviten les col·lisions. Per raons òbvies, estructurar les connexions al voltant d’un switch s’anomena topologia en estrella.</p>
+<details class="example" open="open">
+<summary>Exercici 3.1</summary>
+<p>Què cal en un switch que no calgui en un hub?</p>
 <p><img alt="image" src="../assets/fig/switch.jpg" style="width:17.21cm" /></p>
-</div>
-<p>Les topologies de bus funcionen molt bé a escala local i s’utilitzen àmpliament en <span class="concept" id="c16" data-key="LAN"><span class="concept" id="c17" data-key="network">xarxes</span> d’àrea local (LANs)</span>. Tanmateix, no són rendibles (de vegades ni tan sols físicament possibles) quan els dispositius són lluny els uns dels altres. En lloc d’això, els dispositius es poden organitzar en LANs separades, cadascuna conceptualment un bus, i després aquestes LANs separades es poden connectar mitjançant connexions punt a punt més barates i factibles. Considerats en conjunt, aquests dispositius formarien llavors una <span class="concept" id="c18" data-key="WAN">xarxa d’àrea extensa (WAN)</span>.</p>
+</details>
+<p>Les topologies de bus funcionen molt bé a escala local i s’utilitzen àmpliament en <span class="concept" id="c9" data-key="LAN"><span class="concept" id="c10" data-key="network">xarxes</span> d’àrea local (LANs)</span>. Tanmateix, no són rendibles (de vegades ni tan sols físicament possibles) quan els dispositius són lluny els uns dels altres. En lloc d’això, els dispositius es poden organitzar en LANs separades, cadascuna conceptualment un bus, i després aquestes LANs separades es poden connectar mitjançant connexions punt a punt més barates i factibles. Considerats en conjunt, aquests dispositius formarien llavors una <span class="concept" id="c11" data-key="WAN">xarxa d’àrea extensa (WAN)</span>.</p>
 <p><img alt="image" src="../assets/fig/lan_wan_structure.svg" style="width:14.92cm" /></p>
 <h2 id="sec-where-addresses">[3.2] Necessito trobar-te<a class="headerlink" href="#sec-where-addresses" title="Permanent link">&para;</a></h2>
-<p>Un cop més, el principal avantatge dels <span class="concept" id="c19" data-key="bus">busos</span> de dades és també la seva principal debilitat: tots els dispositius envien i reben dades per la mateixa línia de dades. Encara que no hi hagi col·lisions, cada missatge enviat al bus el reben tots els dispositius. Tanmateix, el que realment volem és que el nostre missatge arribi al seu destí, i només al seu destí. Anomenem-ho el <em>problema de trobar el meu dispositiu</em>.</p>
-<p>El problema de trobar el meu dispositiu no és exclusiu dels busos o de les <span class="concept" id="c20" data-key="LAN">LANs</span>. Al contrari, esdevé molt important quan considerem les <span class="concept" id="c21" data-key="WAN">WANs</span>, on no tots els dispositius estan interconnectats directament. En aquest cas, hem d’assegurar-nos que podem <span class="concept" id="c22" data-key="routing">encaminar</span> els nostres missatges entre diferents LANs i que arriben al seu destí.</p>
-<p>Sorprenentment, ni tan sols les connexions punt a punt estan a resguard del problema de trobar el meu dispositiu. Suposant que els dispositius A i B estan connectats d’aquesta manera, dos programes diferents poden voler intercanviar informació al mateix temps, p. ex., un programari de control d’alarmes i una aplicació de reproducció de música en temps real. En aquest escenari, vols que el <span class="concept" id="c23" data-key="client">client</span> i el <span class="concept" id="c24" data-key="server">servidor</span> del <span class="concept" id="c25" data-key="service">servei</span> de monitoratge de l’alarma es comuniquin entre ells, però no amb el servei de música en temps real, i viceversa.</p>
-<p>La solució més habitual a aquest problema és fer servir identificadors que ens permetin diferenciar entre dispositius o fins i tot entre <span class="concept" id="c26" data-key="process">processos</span> en execució dins d’un <span class="concept" id="c27" data-key="OS">sistema operatiu (SO)</span>. Alguns d’aquests identificadors s’anomenen <span class="concept" id="c28" data-key="address">adreces</span>, precisament perquè s’utilitzen per trobar i arribar a un dispositiu remot.</p>
-<p>Les <span class="concept" id="c29" data-key="address">adreces</span> solen ser identificadors <em>numèrics</em>, és a dir, només un nombre. Com a tals, es poden expressar en bases diferents, incloent-hi la decimal i l’<span class="concept" id="c30" data-key="hexadecimal">hexadecimal</span>. Aquests nombres s’extreuen d’un conjunt predefinit, i l’elecció d’aquest conjunt determina el nombre màxim d’elements que podem identificar de manera única.</p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
+<p>Un cop més, el principal avantatge dels busos de dades és també la seva principal debilitat: tots els dispositius envien i reben dades per la mateixa línia de dades. Encara que no hi hagi col·lisions, cada missatge enviat al bus el reben tots els dispositius. Tanmateix, el que realment volem és que el nostre missatge arribi al seu destí, i només al seu destí. Anomenem-ho el <em>problema de trobar el meu dispositiu</em>.</p>
+<p>El problema de trobar el meu dispositiu no és exclusiu dels busos o de les <span class="concept" id="c12" data-key="LAN">LANs</span>. Al contrari, esdevé molt important quan considerem les <span class="concept" id="c13" data-key="WAN">WANs</span>, on no tots els dispositius estan interconnectats directament. En aquest cas, hem d’assegurar-nos que podem encaminar els nostres missatges entre diferents LANs i que arriben al seu destí.</p>
+<p>Sorprenentment, ni tan sols les connexions punt a punt estan a resguard del problema de trobar el meu dispositiu. Suposant que els dispositius A i B estan connectats d’aquesta manera, dos programes diferents poden voler intercanviar informació al mateix temps, p. ex., un programari de control d’alarmes i una aplicació de reproducció de música en temps real. En aquest escenari, vols que el <span class="concept" id="c14" data-key="client/server">client</span> i el <span class="concept" id="c15" data-key="client/server">servidor</span> del <span class="concept" id="c16" data-key="service">servei</span> de monitoratge de l’alarma es comuniquin entre ells, però no amb el servei de música en temps real, i viceversa.</p>
+<p>La solució més habitual a aquest problema és fer servir identificadors que ens permetin diferenciar entre dispositius o fins i tot entre <span class="concept" id="c17" data-key="process">processos</span> en execució dins d’un sistema operatiu (SO). Alguns d’aquests identificadors s’anomenen adreces, precisament perquè s’utilitzen per trobar i arribar a un dispositiu remot.</p>
+<p>Les adreces solen ser identificadors <em>numèrics</em>, és a dir, només un nombre. Com a tals, es poden expressar en bases diferents, incloent-hi la decimal i l’hexadecimal. Aquests nombres s’extreuen d’un conjunt predefinit, i l’elecció d’aquest conjunt determina el nombre màxim d’elements que podem identificar de manera única.</p>
+<details class="note" open="open">
+<summary>Nota</summary>
 <p>Les adreces expressades com <code>d8:43:ae:61:ed:f1</code> o <code>192.168.1.1</code> (com es veurà més endavant al curs) també són nombres que hauríem pogut expressar com <code>237785200061937</code> i <code>3232235777</code>, respectivament (cosa que no és tan pràctica).</p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Exercici 3.2</p>
-<p><strong>Quants elements es poden identificar de manera única</strong> (com a màxim) amb una adreça que expressem amb 5 bits? I amb 10? I amb 20? Expressa la solució general matemàticament.</p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Exercici 3.3</p>
-<p>Suposem que hi ha <span class="arithmatex">\(1000\)</span> màquines en una LAN. <strong>Quants bits d’adreça calen</strong>? I per a <span class="arithmatex">\(800\)</span> màquines? I per a <span class="arithmatex">\(1100\)</span>? Expressa la solució general matemàticament.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
+</details>
+<details class="example" open="open">
+<summary>Exercici 3.2</summary>
+<p>Quants elements es poden identificar de manera única (com a màxim) amb una adreça que expressem amb 5 bits? I amb 10? I amb 20? Expressa la solució general matemàticament.</p>
+</details>
+<details class="example" open="open">
+<summary>Exercici 3.3</summary>
+<p>Suposem que hi ha <span class="arithmatex">\(1000\)</span> màquines en una LAN. Quants bits d’adreça calen? I per a <span class="arithmatex">\(800\)</span> màquines? I per a <span class="arithmatex">\(1100\)</span>? Expressa la solució general matemàticament.</p>
+</details>
+<details class="note" open="open">
+<summary>Nota</summary>
 <p>El 2019 ens vam quedar sense adreces d’Internet (v4). Ups!</p>
-</div>
+</details>
 <h2 id="sec-where-route">[3.3] Com hi arribo?<a class="headerlink" href="#sec-where-route" title="Permanent link">&para;</a></h2>
-<p>En molts escenaris, calen diverses adreces per dur a terme la comunicació <span class="concept" id="c31" data-key="end-to-end">extrem a extrem</span> desitjada. Per exemple, pot ser que hàgim d’identificar un únic dispositiu dins d’una <span class="concept" id="c32" data-key="LAN">LAN</span>, i aquesta LAN dins d’una <span class="concept" id="c33" data-key="WAN">WAN</span>. De vegades, caldrà identificar un <span class="concept" id="c34" data-key="process">procés</span> (un programa en execució) dins d’aquest dispositiu. No és gaire diferent de quan algú et ve a visitar en persona:</p>
+<p>En molts escenaris, calen diverses adreces per dur a terme la comunicació <span class="concept" id="c18" data-key="end-to-end">extrem a extrem</span> desitjada. Per exemple, pot ser que hàgim d’identificar un únic dispositiu dins d’una <span class="concept" id="c19" data-key="LAN">LAN</span>, i aquesta LAN dins d’una <span class="concept" id="c20" data-key="WAN">WAN</span>. De vegades, caldrà identificar un <span class="concept" id="c21" data-key="process">procés</span> (un programa en execució) dins d’aquest dispositiu. No és gaire diferent de quan algú et ve a visitar en persona:</p>
 <p><img alt="image" src="../assets/rendered/eca588630dc3d823.svg" style="width:7.74cm" /></p>
 <p><img alt="image" src="../assets/rendered/f4df73296c7216d7.svg" style="width:11.33cm" /></p>
-<p>Sigui quin sigui el sistema d’adreçament que fem servir, ha de contenir prou informació per localitzar i arribar al destí, és a dir, per <span class="concept" id="c35" data-key="routing">encaminar</span> els nostres missatges a través del graf de connexions. El procés d’encaminament implica diversos passos o “salts” entre xarxes fins que s’arriba a la LAN de destí.</p>
-<p>El nom <span class="concept" id="c36" data-key="router">router</span> (encaminador) designa un tipus de dispositiu de xarxa la feina del qual és reenviar aquests missatges entre xarxes. Aquests dispositius han de contenir prou informació perquè, quan reben un missatge amb una <span class="concept" id="c37" data-key="address">adreça</span> de destí, puguin decidir quina <span class="concept" id="c38" data-key="network interface">interfície de xarxa</span> han de fer servir. Per la seva banda, els dispositius que no són routers només cal que estiguin configurats per poder arribar al router següent.</p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>A casa, el teu <span class="concept" id="c39" data-key="router">router</span> normalment també fa el paper de <span class="concept" id="c40" data-key="switch">switch</span>, però són conceptes diferents.</p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Exercici 3.4</p>
+<p>Sigui quin sigui el sistema d’adreçament que fem servir, ha de contenir prou informació per localitzar i arribar al destí, és a dir, per encaminar els nostres missatges a través del graf de connexions. El procés d’encaminament implica diversos passos o “salts” entre xarxes fins que s’arriba a la LAN de destí.</p>
+<p>El nom <span class="concept" id="c22" data-key="router">router</span> (encaminador) designa un tipus de dispositiu de xarxa la feina del qual és reenviar aquests missatges entre xarxes. Aquests dispositius han de contenir prou informació perquè, quan reben un missatge amb una <span class="concept" id="c23" data-key="address">adreça</span> de destí, puguin decidir quina <span class="concept" id="c24" data-key="network interface">interfície de xarxa</span> han de fer servir. Per la seva banda, els dispositius que no són routers només cal que estiguin configurats per poder arribar al router següent.</p>
+<details class="note" open="open">
+<summary>Nota</summary>
+<p>A casa, el teu <span class="concept" id="c25" data-key="router">router</span> normalment també fa el paper de <span class="concept" id="c26" data-key="switch">switch</span>, però són conceptes diferents.</p>
+</details>
+<details class="example" open="open">
+<summary>Exercici 3.4</summary>
 <p>Aquesta figura representa un grapat de dispositius i les seves connexions físiques. Aquests dispositius només es poden comunicar enviant missatges a través d’aquestes connexions. Tot i així, <span class="node">3</span> vol enviar un missatge a <span class="node">7</span>.</p>
 <p><img alt="image" src="../assets/fig/how_many_packets.svg" style="width:11.48cm" /></p>
 <ul>
 <li>
-<p>Pots identificar algun dispositiu que probablement actuï com a <span class="concept" id="c41" data-key="switch">switch</span>? I com a <span class="concept" id="c42" data-key="router">router</span>?</p>
+<p>Pots identificar algun dispositiu que probablement actuï com a <span class="concept" id="c27" data-key="switch">switch</span>? I com a <span class="concept" id="c28" data-key="router">router</span>?</p>
 </li>
 <li>
-<p>Quin és el <strong>nombre mínim de missatges</strong> enviats perquè <span class="node">3</span> pugui contactar amb <span class="node">7</span>, i <span class="node">7</span> pugui respondre a <span class="node">3</span>? Enumera’ls en l’ordre en què es produeixen.</p>
+<p>Quin és el nombre mínim de missatges enviats perquè <span class="node">3</span> pugui contactar amb <span class="node">7</span>, i <span class="node">7</span> pugui respondre a <span class="node">3</span>? Enumera’ls en l’ordre en què es produeixen.</p>
 </li>
 <li>
 <p>Quina informació s’ha d’incloure en aquests missatges perquè la comunicació <span class="node">3</span> <span class="arithmatex">\(\leftrightarrow\)</span> <span class="node">7</span> pugui tenir lloc?</p>
 </li>
 </ul>
 <p><a id="ex-how_many_packets"></a></p>
-</div>
-<p>Els <span class="concept" id="c43" data-key="swimlane diagram">diagrames de carrils</span> com el de sota s’utilitzen per representar les interaccions (p. ex., intercanvi de missatges) entre actors (p. ex., dispositius de xarxa). En aquests diagrames, l’eix vertical representa el temps, cosa que és molt valuosa per identificar relacions de causa-efecte.</p>
+</details>
+<p>Els <span class="concept" id="c29" data-key="swimlane diagram">diagrames de carrils</span> com el de sota s’utilitzen per representar les interaccions (p. ex., intercanvi de missatges) entre actors (p. ex., dispositius de xarxa). En aquests diagrames, l’eix vertical representa el temps, cosa que és molt valuosa per identificar relacions de causa-efecte.</p>
 <p><img alt="image" src="../assets/fig/swimlane_example.svg" style="width:8.03cm" /></p>
-<div class="admonition example">
-<p class="admonition-title">Exercici 3.5</p>
-<p>A partir de la teva resposta a l’Ex.<a href="./#ex-how_many_packets">3.4</a>, <strong>elabora un diagrama de carrils</strong> que representi els intercanvis de missatges. Per a cada missatge (p. ex., damunt de les fletxes), inclou-hi la informació d’adreçament que conté.</p>
-</div>
+<details class="example" open="open">
+<summary>Exercici 3.5</summary>
+<p>A partir de la teva resposta a l’Ex.<a href="./#ex-how_many_packets">3.4</a>, elabora un diagrama de carrils que representi els intercanvis de missatges. Per a cada missatge (p. ex., damunt de les fletxes), inclou-hi la informació d’adreçament que conté.</p>
+</details>
 <script>window.XOI_ASSETS = "../assets/";</script>
 
 
@@ -1689,7 +1689,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Peu de pàgina" >
         
           
-          <a href="../piercing_the_veil/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [2] Travessant el vel analògic-digital">
+          <a href="../piercing_the_veil/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [2] El vel analògic-digital">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1699,20 +1699,20 @@
                 Anterior
               </span>
               <div class="md-ellipsis">
-                [2] Travessant el vel analògic-digital
+                [2] El vel analògic-digital
               </div>
             </div>
           </a>
         
         
           
-          <a href="../packets/" class="md-footer__link md-footer__link--next" aria-label="Següent: [4] Això és teu?">
+          <a href="../packets/" class="md-footer__link md-footer__link--next" aria-label="Següent: [4] Paquets">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Següent
               </span>
               <div class="md-ellipsis">
-                [4] Això és teu?
+                [4] Paquets
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1753,11 +1753,17 @@
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
+        <script src="../../scripts/header-title.js"></script>
+      
         <script src="../../scripts/wide-tables.js"></script>
       
         <script src="../../scripts/search-highlight.js"></script>
       
+        <script src="../../scripts/search-lang-filter.js"></script>
+      
         <script src="../../scripts/technical-terms.js"></script>
+      
+        <script src="../../scripts/toc-fold.js"></script>
       
         <script src="../../scripts/goatcounter.js"></script>
       

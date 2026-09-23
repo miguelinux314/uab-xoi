@@ -281,7 +281,7 @@
   
     
   
-  Curso
+  Resumen
 
         </a>
       </li>
@@ -493,7 +493,7 @@
   <span class="md-ellipsis">
     
   
-    Sobre esta asignatura
+    [1] Sobre esta asignatura
   
 
     
@@ -555,7 +555,7 @@
   <span class="md-ellipsis">
     
   
-    Curso
+    Resumen
   
 
     
@@ -571,7 +571,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Curso
+    Resumen
   
 
           </label>
@@ -683,7 +683,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Atravesando el velo analógico-digital
+    [2] El velo analógico-digital
   
 
     
@@ -711,7 +711,7 @@
   <span class="md-ellipsis">
     
   
-    [3] ¿Dónde estás?
+    [3] Direccionamiento
   
 
     
@@ -739,7 +739,7 @@
   <span class="md-ellipsis">
     
   
-    [4] ¿Esto es tuyo?
+    [4] Paquetes
   
 
     
@@ -1000,10 +1000,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#direccionamiento-de-capa-2" class="md-nav__link">
+  <a href="#sec-layer2-layer_2_addressing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Direccionamiento de capa 2
+        [7.1] Direccionamiento de capa 2
       
     </span>
   </a>
@@ -1023,10 +1023,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#formato-de-paquete" class="md-nav__link">
+  <a href="#sec-layer2-ethernet-packet_format" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Formato de paquete
+        [7.2.1] Formato de paquete
       
     </span>
   </a>
@@ -1034,10 +1034,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#funcionamiento" class="md-nav__link">
+  <a href="#sec-layer2-ethernet-operation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Funcionamiento
+        [7.2.2] Funcionamiento
       
     </span>
   </a>
@@ -1164,7 +1164,7 @@
   <span class="md-ellipsis">
     
   
-    Índice de conceptos
+    Términos técnicos
   
 
     
@@ -1578,10 +1578,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#direccionamiento-de-capa-2" class="md-nav__link">
+  <a href="#sec-layer2-layer_2_addressing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Direccionamiento de capa 2
+        [7.1] Direccionamiento de capa 2
       
     </span>
   </a>
@@ -1601,10 +1601,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#formato-de-paquete" class="md-nav__link">
+  <a href="#sec-layer2-ethernet-packet_format" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Formato de paquete
+        [7.2.1] Formato de paquete
       
     </span>
   </a>
@@ -1612,10 +1612,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#funcionamiento" class="md-nav__link">
+  <a href="#sec-layer2-ethernet-operation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Funcionamiento
+        [7.2.2] Funcionamiento
       
     </span>
   </a>
@@ -1651,90 +1651,90 @@
 <p><img alt="image" src="../assets/fig/network_layer2.svg" style="width:13.77cm" /></p>
 </div>
 <h3 id="capacidades">Capacidades<a class="headerlink" href="#capacidades" title="Permanent link">&para;</a></h3>
-<p>Los protocolos de capa 2 permiten que varios dispositivos intercambien mensajes y se identifiquen entre sí dentro de una red local (<span class="concept" id="c1" data-key="LAN">LAN</span>, red de área local). No se puede contactar <em>directamente</em> con los dispositivos de fuera de la LAN mediante protocolos de capa 2.</p>
+<p>Los protocolos de capa 2 permiten que varios dispositivos intercambien mensajes y se identifiquen entre sí dentro de una red local (LAN, red de área local). No se puede contactar <em>directamente</em> con los dispositivos de fuera de la LAN mediante protocolos de capa 2.</p>
 <p>La capa 2 abstrae a las capas superiores (incluidas las aplicaciones de usuario) de los detalles concretos del hardware conectado. Esto hace más fácil (léase: más barato) escribir el código una vez y ejecutarlo en cualquier sitio.</p>
-<p>Los mensajes de capa 2 tienen una longitud limitada. La cantidad máxima de datos de payload (carga útil) que se pueden insertar en un protocolo de capa 2 se denomina <span class="concept" id="c2" data-key="MTU">unidad máxima de transmisión (MTU)</span>, p.ej. <span class="arithmatex">\(1500\)</span> bytes en Ethernet.</p>
-<p>Algunos protocolos de capa 2 también pueden proporcionar <span class="concept" id="c3" data-key="authentication">autenticación</span> de usuario y protección <span class="concept" id="c4" data-key="cryptography">criptográfica</span>; <span class="concept" id="c5" data-key="Wi-Fi">Wi-Fi</span> es un ejemplo destacado, aunque las redes cableadas también pueden emplear, p.ej. IEEE 802.1X.</p>
+<p>Los mensajes de capa 2 tienen una longitud limitada. La cantidad máxima de datos de payload (carga útil) que se pueden insertar en un protocolo de capa 2 se denomina unidad máxima de transmisión (MTU), p. ej. <span class="arithmatex">\(1500\)</span> bytes en Ethernet.</p>
+<p>Algunos protocolos de capa 2 también pueden proporcionar autenticación de usuario y protección criptográfica; <span class="concept" id="c1" data-key="wi-fi">Wi-Fi</span> es un ejemplo destacado, aunque las redes cableadas también pueden emplear, p. ej. IEEE 802.1X.</p>
 <p><img alt="image" src="../assets/fig/protocols_layer2.svg" style="width:20.66cm" /></p>
 <h3 id="protocolos">Protocolos<a class="headerlink" href="#protocolos" title="Permanent link">&para;</a></h3>
-<p>Se han definido y se siguen definiendo muchos <span class="concept" id="c6" data-key="protocol">protocolos</span> dentro de la capa 2. Los más importantes en la actualidad:</p>
+<p>Se han definido y se siguen definiendo muchos protocolos dentro de la capa 2. Los más importantes en la actualidad:</p>
 <ul>
 <li>
-<p><span class="concept" id="c7" data-key="Ethernet">Ethernet</span> (IEEE 802.3), que se trata en Section <a href="./#sec-layer2-ethernet">7.2</a>.</p>
+<p><span class="concept" id="c2" data-key="ethernet">Ethernet</span> (IEEE 802.3), que se trata en Section <a href="./#sec-layer2-ethernet">7.2</a>.</p>
 </li>
 <li>
-<p><span class="concept" id="c8" data-key="Wi-Fi">Wi-Fi</span> (p.ej. IEEE 802.11be, alias Wi-Fi 7, de 2024).</p>
+<p><span class="concept" id="c3" data-key="wi-fi">Wi-Fi</span> (p. ej. IEEE 802.11be, alias Wi-Fi 7, de 2024).</p>
 </li>
 </ul>
-<p>Dentro de <span class="concept" id="c9" data-key="TCP/IP">TCP/IP</span>, la capa 2 <span class="concept" id="c10" data-key="encapsulation">encapsula</span> las siguientes <span class="concept" id="c11" data-key="PDU">PDU</span> de protocolo (ambas se tratan en el Capítulo <a href="../layer3/#sec-layer3">8</a>):</p>
+<p>Dentro de TCP/IP, la capa 2 encapsula las siguientes PDU de protocolo (ambas se tratan en el Capítulo <a href="../layer3/#sec-layer3">8</a>):</p>
 <ul>
 <li>
-<p><span class="concept" id="c12" data-key="datagram">Datagramas</span> <span class="concept" id="c13" data-key="IPv4">IPv4</span> e <span class="concept" id="c14" data-key="IPv6">IPv6</span>.</p>
+<p>Datagramas <span class="concept" id="c4" data-key="IPv4">IPv4</span> e <span class="concept" id="c5" data-key="IPv6">IPv6</span>.</p>
 </li>
 <li>
-<p>Mensajes <span class="concept" id="c15" data-key="ARP">ARP</span>.</p>
+<p>Mensajes ARP.</p>
 </li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>La orden <code>ip link</code> muestra y permite configurar tus interfaces, incluida la dirección <span class="concept" id="c16" data-key="MAC">MAC</span>.</p>
-<p>Tu sistema operativo suele asignar automáticamente los nombres internos de las interfaces según su tipo, p.ej. <code>eth0</code> o <code>wlan1</code>. Normalmente se pueden renombrar las interfaces, porque los nombres de interfaz no forman parte de TCP/IP; se usan exclusivamente dentro de ese sistema operativo.</p>
-</div>
-<h2 id="direccionamiento-de-capa-2">Direccionamiento de capa 2<a class="headerlink" href="#direccionamiento-de-capa-2" title="Permanent link">&para;</a></h2>
-<p>En la mayoría de las tecnologías de LAN, las direcciones de capa 2 son identificadores numéricos únicos para cada dispositivo dentro de la LAN. El tipo más frecuente son las direcciones MAC de Ethernet (técnicamente EUI-48), que ocupan <span class="arithmatex">\(6\)</span> bytes (es decir, <span class="arithmatex">\(48\)</span> bits). También se usan fuera de Ethernet, p.ej. en Wi-Fi y Bluetooth.</p>
+<details class="note" open="open">
+<summary>Nota</summary>
+<p>La orden <code>ip link</code> muestra y permite configurar tus interfaces, incluida la dirección <span class="concept" id="c6" data-key="MAC">MAC</span>.</p>
+<p>Tu sistema operativo suele asignar automáticamente los nombres internos de las interfaces según su tipo, p. ej. <code>eth0</code> o <code>wlan1</code>. Normalmente se pueden renombrar las interfaces, porque los nombres de interfaz no forman parte de TCP/IP; se usan exclusivamente dentro de ese sistema operativo.</p>
+</details>
+<h2 id="sec-layer2-layer_2_addressing">[7.1] Direccionamiento de capa 2<a class="headerlink" href="#sec-layer2-layer_2_addressing" title="Permanent link">&para;</a></h2>
+<p>En la mayoría de las tecnologías de LAN, las direcciones de capa 2 son identificadores numéricos únicos para cada dispositivo dentro de la LAN. El tipo más frecuente son las direcciones MAC de Ethernet (técnicamente EUI-48), que ocupan <span class="arithmatex">\(6\)</span> bytes (es decir, <span class="arithmatex">\(48\)</span> bits). También se usan fuera de Ethernet, p. ej. en Wi-Fi y Bluetooth.</p>
 <p>Las direcciones MAC se presentan a las personas habitualmente en el siguiente formato:<br />
-<code>01:23:45:67:89:ab</code>. Algunas direcciones tienen un significado especial y no son identificadores válidos de dispositivo. Por ejemplo, <code>ff:ff:ff:ff:ff:ff</code> es la dirección de <span class="concept" id="c17" data-key="broadcast">broadcast</span> (difusión), que significa “todos los de la LAN”. Además, <code>00:00:00:00:00:00</code> se usa para representar una dirección MAC desconocida (consulta <a href="https://www.iana.org/assignments/ethernet-numbers/ethernet-numbers.xml"><u>RFC 9542</u></a> para una descripción completa de las direcciones MAC reservadas, incluidas las de <span class="concept" id="c18" data-key="multicast">multicast</span> (envío a un grupo)).</p>
+<code>01:23:45:67:89:ab</code>. Algunas direcciones tienen un significado especial y no son identificadores válidos de dispositivo. Por ejemplo, <code>ff:ff:ff:ff:ff:ff</code> es la dirección de <span class="concept" id="c7" data-key="broadcast">broadcast</span> (difusión), que significa “todos los de la LAN”. Además, <code>00:00:00:00:00:00</code> se usa para representar una dirección MAC desconocida (consulta <a href="https://www.iana.org/assignments/ethernet-numbers/ethernet-numbers.xml"><u>RFC 9542</u></a> para una descripción completa de las direcciones MAC reservadas, incluidas las de <span class="concept" id="c8" data-key="unicast/multicast">multicast</span> (envío a un grupo)).</p>
 <p>El hardware de red viene con una dirección MAC integrada, única y predefinida, lista para usar. Las MAC de los dispositivos se pueden configurar a nivel de sistema operativo, pero permanecen constantes mientras están en uso.</p>
 <h2 id="sec-layer2-ethernet">[7.2] Protocolo Ethernet de capa 2<a class="headerlink" href="#sec-layer2-ethernet" title="Permanent link">&para;</a></h2>
-<h3 id="formato-de-paquete">Formato de paquete<a class="headerlink" href="#formato-de-paquete" title="Permanent link">&para;</a></h3>
-<p>La capa 2 de Ethernet define el siguiente formato, usado en todos los mensajes. Los paquetes de este tipo se denominan <span class="concept" id="c19" data-key="frame">frames</span> (tramas):</p>
-<p><img alt="image" src="../assets/rendered/c89f77233e79ca4d.svg" style="width:22.07cm" /></p>
+<h3 id="sec-layer2-ethernet-packet_format">[7.2.1] Formato de paquete<a class="headerlink" href="#sec-layer2-ethernet-packet_format" title="Permanent link">&para;</a></h3>
+<p>La capa 2 de Ethernet define el siguiente formato, usado en todos los mensajes. Los paquetes de este tipo se denominan frames (tramas):</p>
+<p><img alt="image" src="../assets/rendered/80eebb3145e1930d.svg" style="width:22.07cm" /></p>
 <ul>
 <li>
-<p><strong>MAC de destino</strong>: la dirección MAC del dispositivo de destino, o <code>ff:ff:ff:ff:ff:ff</code> para <span class="concept" id="c20" data-key="broadcast">broadcast</span>.</p>
+<p><strong>MAC de destino</strong>: la dirección MAC del dispositivo de destino, o <code>ff:ff:ff:ff:ff:ff</code> para <span class="concept" id="c9" data-key="broadcast">broadcast</span>.</p>
 </li>
 <li>
 <p><strong>MAC de origen</strong>: la MAC del dispositivo que envía el frame.</p>
 </li>
 <li>
-<p><strong>Tipo de payload</strong>: identificador del protocolo <span class="concept" id="c21" data-key="encapsulation">encapsulado</span> en el payload,<br />
-    p.ej. <code>0x0800</code> <span class="arithmatex">\(\rightarrow\)</span> <span class="concept" id="c22" data-key="IPv4">IPv4</span>, <code>0x86DD</code> <span class="arithmatex">\(\rightarrow\)</span> <span class="concept" id="c23" data-key="IPv6">IPv6</span>, y <code>0x0806</code> <span class="arithmatex">\(\rightarrow\)</span> <span class="concept" id="c24" data-key="ARP">ARP</span>. A veces se le llama <a href="https://en.wikipedia.org/wiki/EtherType#Values"><u>EtherType</u></a>.</p>
+<p><strong>Tipo de payload</strong>: identificador del protocolo encapsulado en el payload,<br />
+    p. ej. <code>0x0800</code> <span class="arithmatex">\(\rightarrow\)</span> <span class="concept" id="c10" data-key="IPv4">IPv4</span>, <code>0x86DD</code> <span class="arithmatex">\(\rightarrow\)</span> <span class="concept" id="c11" data-key="IPv6">IPv6</span>, y <code>0x0806</code> <span class="arithmatex">\(\rightarrow\)</span> ARP. A veces se le llama <a href="https://en.wikipedia.org/wiki/EtherType#Values"><u>EtherType</u></a>.</p>
 </li>
 <li>
-<p><strong>Payload</strong>: contenido que se solicita enviar, p.ej. por IPv4 o ARP. La longitud máxima de este campo, la <span class="concept" id="c25" data-key="MTU">MTU</span>, es de <span class="arithmatex">\(1500\)</span> bytes en ethernet.</p>
+<p><strong>Payload</strong>: contenido que se solicita enviar, p. ej. por IPv4 o ARP. La longitud máxima de este campo, la MTU, es de <span class="arithmatex">\(1500\)</span> bytes en ethernet.</p>
 </li>
 </ul>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 7.1</p>
+<details class="example" open="open">
+<summary>Ejercicio 7.1</summary>
 <ul>
 <li>
-<p>¿Cuántas direcciones MAC diferentes hay en Ethernet (incluidos los <span class="concept" id="c26" data-key="address block">bloques</span> reservados)?</p>
+<p>¿Cuántas direcciones MAC diferentes hay en Ethernet (incluidos los bloques reservados)?</p>
 </li>
 <li>
 <p>¿Son suficientes para que cada dispositivo de la Tierra con capacidad de conectarse a internet tenga una MAC única?</p>
 </li>
 </ul>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 7.2</p>
+</details>
+<details class="example" open="open">
+<summary>Ejercicio 7.2</summary>
 <p>¿Es válido el siguiente frame?</p>
 <p><code>c2 21 90 15 bc b6 42 40 e5 f7 5e 32 42 77 57</code><br />
 <code>03 ca 27 6b 1f 97 e9 02 7f 80 fa 8b 61 59 2a</code><br />
 <code>81 b6 73 b0 b4 e1 75 4f ef 40 dd 9f 3c 48 67</code></p>
-</div>
-<h3 id="funcionamiento">Funcionamiento<a class="headerlink" href="#funcionamiento" title="Permanent link">&para;</a></h3>
-<p>Los mensajes dentro de una LAN Ethernet se envían normalmente en modo <span class="concept" id="c27" data-key="unicast">unicast</span> (envío a un único destinatario), es decir, son mensajes de uno a uno. Esto permite que los <span class="concept" id="c28" data-key="switch">switches</span> (conmutadores) minimicen el consumo de <span class="concept" id="c29" data-key="power">energía</span> y de <span class="concept" id="c30" data-key="bandwidth">ancho de banda</span>. En <span class="concept" id="c31" data-key="unicast">unicast</span>, el dispositivo de origen debe conocer la MAC del destino.</p>
+</details>
+<h3 id="sec-layer2-ethernet-operation">[7.2.2] Funcionamiento<a class="headerlink" href="#sec-layer2-ethernet-operation" title="Permanent link">&para;</a></h3>
+<p>Los mensajes dentro de una LAN Ethernet se envían normalmente en modo <span class="concept" id="c12" data-key="unicast/multicast">unicast</span> (envío a un único destinatario), es decir, son mensajes de uno a uno. Esto permite que los switches (conmutadores) minimicen el consumo de energía y de <span class="concept" id="c13" data-key="bandwidth">ancho de banda</span>. En <span class="concept" id="c14" data-key="unicast/multicast">unicast</span>, el dispositivo de origen debe conocer la MAC del destino.</p>
 <p><img alt="image" src="../assets/fig/ethernet_message_unicast.svg" style="width:22.95cm" /></p>
-<p>Ethernet también admite el <span class="concept" id="c32" data-key="broadcast">broadcast</span> a todos los nodos de la LAN. En este caso, la dirección MAC de destino debe ser <code>ff:ff:ff:ff:ff:ff</code>. Cuando un dispositivo recibe un frame, lo descarta salvo que el campo de MAC de destino del frame sea idéntico a su propia dirección MAC, o sea el de <span class="concept" id="c33" data-key="broadcast">broadcast</span>.</p>
-<p>Un nodo también descartará un frame con un campo de tipo de payload (<span class="concept" id="c34" data-key="EtherType">EtherType</span>) no soportado. Si el tipo de payload sí está soportado, se usa para decidir qué parte del sistema operativo recibe el mensaje, p.ej. la pila <span class="concept" id="c35" data-key="IPv4">IPv4</span> o el subsistema <span class="concept" id="c36" data-key="ARP">ARP</span>.</p>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 7.3</p>
-<p>Siguiendo con el ejemplo de la figura anterior, la tarjeta de red del nodo B recibe un <span class="concept" id="c37" data-key="frame">frame</span> que empieza con los siguientes bytes. ¿Debería aceptarlo B?</p>
+<p>Ethernet también admite el <span class="concept" id="c15" data-key="broadcast">broadcast</span> a todos los nodos de la LAN. En este caso, la dirección MAC de destino debe ser <code>ff:ff:ff:ff:ff:ff</code>. Cuando un dispositivo recibe un frame, lo descarta salvo que el campo de MAC de destino del frame sea idéntico a su propia dirección MAC, o sea el de <span class="concept" id="c16" data-key="broadcast">broadcast</span>.</p>
+<p>Un nodo también descartará un frame con un campo de tipo de payload (<span class="concept" id="c17" data-key="ethertype">EtherType</span>) no soportado. Si el tipo de payload sí está soportado, se usa para decidir qué parte del sistema operativo recibe el mensaje, p. ej. la pila <span class="concept" id="c18" data-key="IPv4">IPv4</span> o el subsistema ARP.</p>
+<details class="example" open="open">
+<summary>Ejercicio 7.3</summary>
+<p>Siguiendo con el ejemplo de la figura anterior, la tarjeta de red del nodo B recibe un frame que empieza con los siguientes bytes. ¿Debería aceptarlo B?</p>
 <p><code>00 11 22 00 0a ff ff ff ff ff ff DD …</code></p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 7.4</p>
-<p>Los siguientes scripts ejemplifican cómo enviar y recibir frames <span class="concept" id="c38" data-key="Ethernet">Ethernet</span> en crudo. El <span class="concept" id="c39" data-key="client">cliente</span> envía <span class="arithmatex">\(5\)</span> frames idénticos de <span class="concept" id="c40" data-key="EtherType">EtherType</span> <code>0x1234</code> y después termina. El <span class="concept" id="c41" data-key="server">servidor</span> espera hasta recibir <span class="arithmatex">\(5\)</span> frames Ethernet de ese tipo (se comprueba en las líneas 12-13) y después termina.</p>
+</details>
+<details class="example" open="open">
+<summary>Ejercicio 7.4</summary>
+<p>Los siguientes scripts ejemplifican cómo enviar y recibir frames <span class="concept" id="c19" data-key="ethernet">Ethernet</span> en crudo. El cliente envía <span class="arithmatex">\(5\)</span> frames idénticos de <span class="concept" id="c20" data-key="ethertype">EtherType</span> <code>0x1234</code> y después termina. El servidor espera hasta recibir <span class="arithmatex">\(5\)</span> frames Ethernet de ese tipo (se comprueba en las líneas 12-13) y después termina.</p>
 <ul>
 <li>
 <p>Cambia la dirección MAC y el nombre de interfaz del cliente por los tuyos.</p>
@@ -1743,14 +1743,14 @@
 <p>Haz que el servidor rechace los frames que no vayan dirigidos a él.</p>
 </li>
 <li>
-<p>Amplía estos scripts para implementar una aplicación sencilla con capacidades de <span class="concept" id="c42" data-key="LAN">LAN</span>.<br />
+<p>Amplía estos scripts para implementar una aplicación sencilla con capacidades de LAN.<br />
     Ejemplos sugeridos:</p>
 <ul>
 <li>
-<p>Un servicio de <span class="concept" id="c43" data-key="echo">eco</span> de capa 2 que distinga entre peticiones y respuestas.</p>
+<p>Un servicio de eco de capa 2 que distinga entre peticiones y respuestas.</p>
 </li>
 <li>
-<p>Un chat <span class="concept" id="c44" data-key="peer-to-peer">peer-to-peer</span> (par a par) de capa 2 que incluya el apodo del origen en todos los mensajes.</p>
+<p>Un chat peer-to-peer (par a par) de capa 2 que incluya el apodo del origen en todos los mensajes.</p>
 </li>
 <li>
 <p>Un servicio de calculadora de capa 2 que soporte operaciones aritméticas básicas<br />
@@ -1759,11 +1759,11 @@
 </ul>
 </li>
 <li>
-<p>¿Qué falta para que tu aplicación pueda conectarse al resto de <span class="concept" id="c45" data-key="Internet">Internet</span> más allá de tu <span class="concept" id="c46" data-key="LAN">LAN</span>?</p>
+<p>¿Qué falta para que tu aplicación pueda conectarse al resto de Internet más allá de tu LAN?</p>
 </li>
 </ul>
 <p><a id="ex-layer2-echo"></a></p>
-</div>
+</details>
 <div class="showcode">
 <p><strong><code>snippets/ethernetclient.py</code></strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Código</label><label for="__tabbed_1_2">Salida</label></div>
@@ -1836,12 +1836,12 @@ Received frame 6/5, 21 bytes. Payload: b'xoi uab'
 </div>
 </div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>Tendrás que ejecutar estos scripts con privilegios, p.ej. con <code>sudo</code>. Como alternativa, puedes añadir permanentemente las capacidades <code>CAP_NET_RAW</code> a tu binario de python con</p>
+<details class="note" open="open">
+<summary>Nota</summary>
+<p>Tendrás que ejecutar estos scripts con privilegios, p. ej. con <code>sudo</code>. Como alternativa, puedes añadir permanentemente las capacidades <code>CAP_NET_RAW</code> a tu binario de python con</p>
 <p><code>sudo setcap cap_net_raw+ep ./venv/bin/python</code>.</p>
 <p>Después de eso, puedes ejecutar <code>./venv/bin/python script.py</code> directamente sin <code>sudo</code>.</p>
-</div>
+</details>
 <script>window.XOI_ASSETS = "../assets/";</script>
 
 
@@ -1945,11 +1945,17 @@ Received frame 6/5, 21 bytes. Payload: b'xoi uab'
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
+        <script src="../../scripts/header-title.js"></script>
+      
         <script src="../../scripts/wide-tables.js"></script>
       
         <script src="../../scripts/search-highlight.js"></script>
       
+        <script src="../../scripts/search-lang-filter.js"></script>
+      
         <script src="../../scripts/technical-terms.js"></script>
+      
+        <script src="../../scripts/toc-fold.js"></script>
       
         <script src="../../scripts/goatcounter.js"></script>
       

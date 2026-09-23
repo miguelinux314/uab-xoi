@@ -277,7 +277,7 @@
   
     
   
-  Curso
+  Resumen
 
         </a>
       </li>
@@ -492,7 +492,7 @@
   <span class="md-ellipsis">
     
   
-    Sobre esta asignatura
+    [1] Sobre esta asignatura
   
 
     
@@ -551,7 +551,7 @@
   <span class="md-ellipsis">
     
   
-    Curso
+    Resumen
   
 
     
@@ -567,7 +567,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Curso
+    Resumen
   
 
           </label>
@@ -679,7 +679,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Atravesando el velo analógico-digital
+    [2] El velo analógico-digital
   
 
     
@@ -707,7 +707,7 @@
   <span class="md-ellipsis">
     
   
-    [3] ¿Dónde estás?
+    [3] Direccionamiento
   
 
     
@@ -735,7 +735,7 @@
   <span class="md-ellipsis">
     
   
-    [4] ¿Esto es tuyo?
+    [4] Paquetes
   
 
     
@@ -1041,7 +1041,7 @@
   <span class="md-ellipsis">
     
   
-    Índice de conceptos
+    Términos técnicos
   
 
     
@@ -1445,7 +1445,9 @@
 <div class="frontpage">
 <h1 id="redes-de-ordenadores-e-internet-xoi"><strong>Redes de Ordenadores e Internet (XOI)</strong><a class="headerlink" href="#redes-de-ordenadores-e-internet-xoi" title="Permanent link">&para;</a></h1>
 <p class="cover-studyguide">Guía de Estudio</p>
+<p class="cover-year"><span id="xoi-academic-year"></span></p>
 <p class="cover-course">104353 - Ingeniería de Datos - 1er curso - Universitat Autònoma de Barcelona</p>
+<script>(() => { const el = document.getElementById("xoi-academic-year"); if (!el) return; const now = new Date(); const startYear = now.getMonth() >= 8 ? now.getFullYear() : now.getFullYear() - 1; el.textContent = `${startYear}/${String(startYear + 1).slice(-2)}`;})();</script>
 <p><a class="md-button md-button--primary" href="assets/xoi-uab-study-guide-es.zip"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2m-2 6h-2v2h2v2h-2v2h-2v-2h2v-2h-2v-2h2v-2h-2V8h2v2h2z"/></svg></span> PDF Castellano</a>
 <a class="md-button md-button--primary" href="../ca/assets/xoi-uab-study-guide-ca.zip"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2m-2 6h-2v2h2v2h-2v2h-2v-2h2v-2h-2v-2h2v-2h-2V8h2v2h2z"/></svg></span> PDF Català</a>
 <a class="md-button md-button--primary" href="../assets/xoi-uab-study-guide-en.zip"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2m-2 6h-2v2h2v2h-2v2h-2v-2h2v-2h-2v-2h2v-2h-2V8h2v2h2z"/></svg></span> PDF English</a></p>
@@ -1538,11 +1540,17 @@
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
+        <script src="../scripts/header-title.js"></script>
+      
         <script src="../scripts/wide-tables.js"></script>
       
         <script src="../scripts/search-highlight.js"></script>
       
+        <script src="../scripts/search-lang-filter.js"></script>
+      
         <script src="../scripts/technical-terms.js"></script>
+      
+        <script src="../scripts/toc-fold.js"></script>
       
         <script src="../scripts/goatcounter.js"></script>
       

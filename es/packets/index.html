@@ -33,7 +33,7 @@
     
     
       
-        <title>[4] ¿Esto es tuyo? - Redes de Ordenadores e Internet: Guía de Estudio</title>
+        <title>[4] Paquetes - Redes de Ordenadores e Internet: Guía de Estudio</title>
       
     
     
@@ -123,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              [4] ¿Esto es tuyo?
+              [4] Paquetes
             
           </span>
         </div>
@@ -281,7 +281,7 @@
   
     
   
-  Curso
+  Resumen
 
         </a>
       </li>
@@ -493,7 +493,7 @@
   <span class="md-ellipsis">
     
   
-    Sobre esta asignatura
+    [1] Sobre esta asignatura
   
 
     
@@ -555,7 +555,7 @@
   <span class="md-ellipsis">
     
   
-    Curso
+    Resumen
   
 
     
@@ -571,7 +571,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Curso
+    Resumen
   
 
           </label>
@@ -683,7 +683,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Atravesando el velo analógico-digital
+    [2] El velo analógico-digital
   
 
     
@@ -711,7 +711,7 @@
   <span class="md-ellipsis">
     
   
-    [3] ¿Dónde estás?
+    [3] Direccionamiento
   
 
     
@@ -748,7 +748,7 @@
   <span class="md-ellipsis">
     
   
-    [4] ¿Esto es tuyo?
+    [4] Paquetes
   
 
     
@@ -766,7 +766,7 @@
   <span class="md-ellipsis">
     
   
-    [4] ¿Esto es tuyo?
+    [4] Paquetes
   
 
     
@@ -1125,7 +1125,7 @@
   <span class="md-ellipsis">
     
   
-    Índice de conceptos
+    Términos técnicos
   
 
     
@@ -1567,76 +1567,76 @@
 
 
 <p><img alt="" class="hero" src="../assets/fig/container.jpg" /></p>
-<h1 id="sec-packets">[4] ¿Esto es tuyo?<a class="headerlink" href="#sec-packets" title="Permanent link">&para;</a></h1>
+<h1 id="sec-packets">[4] Paquetes<a class="headerlink" href="#sec-packets" title="Permanent link">&para;</a></h1>
 <p>La información viaja por este grafo de redes en forma de paquetes, que contienen una pequeña cantidad de información y de meta-información.</p>
 <p>El formato de los paquetes debe estar acordado por ambos extremos de la comunicación, de modo que esos paquetes puedan producirse e interpretarse de forma eficiente y automática.</p>
 <p>Cuando los paquetes viajan por una o varias redes, pueden perderse o desordenarse. Si tiene que fluir un flujo continuo de datos entre dos ordenadores, los paquetes deben contener mecanismos para detectar pérdidas y restaurar el orden correcto.</p>
 <h2 id="sec-packets-lan_wan">[4.1] Tengo un paquete para ti<a class="headerlink" href="#sec-packets-lan_wan" title="Permanent link">&para;</a></h2>
 <p>No es viable establecer conexiones físicas entre cada par de ordenadores que quieren comunicarse. En su lugar, se comparten relativamente pocas conexiones para transportar mensajes entre muchos pares de dispositivos.</p>
 <p>Si un único dispositivo transmite datos de forma continua durante mucho tiempo, esa conexión queda bloqueada y puede convertirse en un cuello de botella que impida comunicarse a otros dispositivos. Para evitar este problema, las conexiones limitan la cantidad máxima de datos que pueden enviarse sin interrupción. Como resultado, los dispositivos se ven obligados a enviar los datos en ráfagas discretas llamadas <span class="concept" id="c1" data-key="packet">paquetes</span>. El intercambio de este tipo de mensajes a través de una o varias redes se denomina <span class="concept" id="c2" data-key="packet switching">conmutación de paquetes</span>.</p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
+<details class="note" open="open">
+<summary>Nota</summary>
 <p>Leonard Kleinrock, uno de los pioneros de la interconexión de redes, disputa la autoría de la conmutación de paquetes, que a menudo se atribuye a Paul Baran y a Donald Davies.</p>
-</div>
-<p><span class="concept" id="c3" data-key="packet">Los paquetes</span> deben ser pequeños para que las conexiones no queden bloqueadas demasiado tiempo. Al mismo tiempo, queremos que los paquetes contengan tantos datos como sea posible, porque cada paquete contiene datos de <span class="concept" id="c4" data-key="overhead">overhead</span> (sobrecarga), como las direcciones que se comentan en la Sección <a href="../where_are_you/#sec-where">3</a>, que hay que enviar además de los datos de payload (carga útil) del usuario. Las redes fijan la longitud máxima de paquete mediante un parámetro llamado <span class="concept" id="c5" data-key="MTU">unidad máxima de transmisión</span> (MTU), p.ej. 1500 bytes en Ethernet.</p>
-<p>La transmisión de paquetes a través de un <span class="concept" id="c6" data-key="data link">enlace de datos</span> debe hacerse con cuidado, en particular cuando ese enlace es un <span class="concept" id="c7" data-key="bus">bus</span> compartido por varios dispositivos. Cada paquete debe poder distinguirse individualmente del resto, lo que puede conseguirse mediante al menos tres estrategias:</p>
+</details>
+<p><span class="concept" id="c3" data-key="packet">Los paquetes</span> deben ser pequeños para que las conexiones no queden bloqueadas demasiado tiempo. Al mismo tiempo, queremos que los paquetes contengan tantos datos como sea posible, porque cada paquete contiene datos de <span class="concept" id="c4" data-key="overhead">overhead</span> (sobrecarga), como las direcciones que se comentan en la Sección <a href="../where_are_you/#sec-where">3</a>, que hay que enviar además de los datos de payload (carga útil) del usuario. Las redes fijan la longitud máxima de paquete mediante un parámetro llamado unidad máxima de transmisión (<span class="concept" id="c5" data-key="MTU">MTU</span>), p. ej. 1500 bytes en Ethernet.</p>
+<p>La transmisión de paquetes a través de un enlace de datos debe hacerse con cuidado, en particular cuando ese enlace es un bus compartido por varios dispositivos. Cada paquete debe poder distinguirse individualmente del resto, lo que puede conseguirse mediante al menos tres estrategias:</p>
 <ol>
 <li>
 <p><em>Longitud fija</em>: la longitud de todos los paquetes es la misma. El emisor y el receptor deben haber acordado este valor de antemano.</p>
 </li>
 <li>
-<p><em>Longitud explícita</em>: la longitud del paquete se incluye en el propio paquete, p.ej. usando el primer byte del paquete. El emisor y el receptor deben ponerse de acuerdo sobre cómo se incluye esta información y cómo interpretarla.</p>
+<p><em>Longitud explícita</em>: la longitud del paquete se incluye en el propio paquete, p. ej. usando el primer byte del paquete. El emisor y el receptor deben ponerse de acuerdo sobre cómo se incluye esta información y cómo interpretarla.</p>
 </li>
 <li>
-<p><em>Secuencias de escape</em>: ciertas <span class="concept" id="c8" data-key="escape sequence">secuencias de escape</span> binarias dentro de los datos tienen un significado especial. Por ejemplo, podría definirse que el byte <code>11110000</code> (<code>0xf0</code>) significa “fin de paquete”: estos bits deben aparecer después de cada paquete, y solo entonces. Así, el emisor podría empezar a transmitir el contenido de un paquete, seguido de <code>0xf0</code>. Ambas partes deben acordar qué secuencias de escape usar, qué significan y cómo enviar datos iguales a esas secuencias (p.ej. debería ser posible enviar <code>0xf0f0f0</code> sin provocar un “fin de paquete” hasta que se hayan transmitido todos los bytes).</p>
+<p><em>Secuencias de escape</em>: ciertas secuencias de escape binarias dentro de los datos tienen un significado especial. Por ejemplo, podría definirse que el byte <code>11110000</code> (<code>0xf0</code>) significa “fin de paquete”: estos bits deben aparecer después de cada paquete, y solo entonces. Así, el emisor podría empezar a transmitir el contenido de un paquete, seguido de <code>0xf0</code>. Ambas partes deben acordar qué secuencias de escape usar, qué significan y cómo enviar datos iguales a esas secuencias (p. ej. debería ser posible enviar <code>0xf0f0f0</code> sin provocar un “fin de paquete” hasta que se hayan transmitido todos los bytes).</p>
 </li>
 </ol>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>También es posible señalar el <em>principio</em> de un paquete. En ese caso se utiliza una secuencia previa llamada <span class="concept" id="c9" data-key="preamble">preámbulo</span>.</p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 4.1</p>
+<details class="note" open="open">
+<summary>Nota</summary>
+<p>También es posible señalar el <em>principio</em> de un paquete. En ese caso se utiliza una secuencia previa llamada preámbulo.</p>
+</details>
+<details class="example" open="open">
+<summary>Ejercicio 4.1</summary>
 <p>Todas las estrategias descritas arriba se usan hoy en día en escenarios reales, dependiendo de las características, los costes y los compromisos de cada una.</p>
 <p>Discute cuál de estas estrategias sería la más apropiada para cada uno de estos escenarios:</p>
 <ul>
 <li>
-<p>Un único fabricante diseña el hardware y el software que comunica dos extremos. Una única <span class="concept" id="c10" data-key="data line">línea de datos</span> debe <span class="concept" id="c11" data-key="multiplex">multiplexarse</span> para varios comandos de control y también para varios flujos de datos. La prioridad es un uso eficiente de la energía y del buffer (memoria intermedia).</p>
+<p>Un único fabricante diseña el hardware y el software que comunica dos extremos. Una única línea de datos debe multiplexarse para varios comandos de control y también para varios flujos de datos. La prioridad es un uso eficiente de la energía y del buffer (memoria intermedia).</p>
 </li>
 <li>
-<p>Varios dispositivos comparten un <span class="concept" id="c12" data-key="bus">bus</span>. De vez en cuando envían mensajes de distintas longitudes, pero no un volumen enorme de datos. La prioridad es el coste.</p>
+<p>Varios dispositivos comparten un bus. De vez en cuando envían mensajes de distintas longitudes, pero no un volumen enorme de datos. La prioridad es el coste.</p>
 </li>
 <li>
-<p>Varios dispositivos comparten un <span class="concept" id="c13" data-key="bus">bus</span>. Envían continuamente mensajes de distintas longitudes, intentando maximizar la tasa efectiva de transmisión por el <span class="concept" id="c14" data-key="channel">canal</span>. La prioridad es el <span class="concept" id="c15" data-key="throughput">throughput</span> (caudal efectivo).</p>
+<p>Varios dispositivos comparten un bus. Envían continuamente mensajes de distintas longitudes, intentando maximizar la tasa efectiva de transmisión por el canal. La prioridad es el <span class="concept" id="c6" data-key="throughput">throughput</span> (caudal efectivo).</p>
 </li>
 </ul>
-</div>
+</details>
 <h2 id="sec-packets-format">[4.2] Por favor, rellena el formulario<a class="headerlink" href="#sec-packets-format" title="Permanent link">&para;</a></h2>
 <p>Independientemente de la estrategia empleada, los paquetes de datos suelen constar de dos partes:</p>
 <ul>
 <li>
-<p><span class="concept" id="c16" data-key="payload">payload</span> de datos: la información que hay que transmitir, y</p>
+<p><span class="concept" id="c7" data-key="payload">payload</span> de datos: la información que hay que transmitir, y</p>
 </li>
 <li>
-<p><span class="concept" id="c17" data-key="metadata">metadatos</span>: la meta-información necesaria para entregar el payload.</p>
+<p><span class="concept" id="c8" data-key="metadata">metadatos</span>: la meta-información necesaria para entregar el payload.</p>
 </li>
 </ul>
-<p>La longitud puede ser uno de los <span class="concept" id="c18" data-key="field (packet)">campos</span> de metadatos incluidos en el paquete, junto con otros que ayudan a identificar su tipo y su función. La ubicación del payload y de los metadatos, así como los campos de metadatos exactos que se incluyen, su longitud y su significado deben ser conocidos por ambos extremos de la comunicación. Todas estas decisiones constituyen el <span class="concept" id="c19" data-key="packet format">formato de paquete</span> o <span class="concept" id="c20" data-key="packet structure">estructura de paquete</span>.</p>
-<p>Una de las formas más habituales de disponer el payload y los metadatos es con un formato <span class="concept" id="c21" data-key="header">cabecera</span>-<span class="concept" id="c22" data-key="body">cuerpo</span>. En este caso, toda la meta-información se incluye primero, seguida de los datos. Otros formatos pueden incluir un <span class="concept" id="c23" data-key="trailer">trailer</span> (cola), también conocido como <span class="concept" id="c24" data-key="tail">tail</span>, que se usa sobre todo para la <span class="concept" id="c25" data-key="error detection">detección de errores</span> y su corrección, en combinación con la cabecera o en su lugar. Todas las configuraciones siguientes son posibles.</p>
+<p>La longitud puede ser uno de los <span class="concept" id="c9" data-key="field (packet)">campos</span> de metadatos incluidos en el paquete, junto con otros que ayudan a identificar su tipo y su función. La ubicación del payload y de los metadatos, así como los campos de metadatos exactos que se incluyen, su longitud y su significado deben ser conocidos por ambos extremos de la comunicación. Todas estas decisiones constituyen el <span class="concept" id="c10" data-key="packet format">formato de paquete</span> o estructura de paquete.</p>
+<p>Una de las formas más habituales de disponer el payload y los metadatos es con un formato <span class="concept" id="c11" data-key="header">cabecera</span>-<span class="concept" id="c12" data-key="body">cuerpo</span>. En este caso, toda la meta-información se incluye primero, seguida de los datos. Otros formatos pueden incluir un trailer (cola), también conocido como tail, que se usa sobre todo para la detección de errores y su corrección, en combinación con la cabecera o en su lugar. Todas las configuraciones siguientes son posibles.</p>
 <p><img alt="image" src="../assets/rendered/47f0917cce21ebd2.svg" style="width:14.9cm" /> <img alt="image" src="../assets/rendered/45210f04b4b6bd10.svg" style="width:14.9cm" /> <img alt="image" src="../assets/rendered/b05269260e1a8ce8.svg" style="width:14.9cm" /> <img alt="image" src="../assets/rendered/970b4a631035567a.svg" style="width:14.9cm" /></p>
-<p>El formato del payload de un paquete normalmente lo define el usuario. El formato de la cabecera, en cambio, está estrictamente definido para que pueda producirse y <span class="concept" id="c26" data-key="parsing">analizarse</span> con facilidad. Este formato suele presentarse mediante un diagrama que ayuda a identificar las posiciones individuales de bit y de byte, como en el siguiente ejemplo (ficticio):</p>
+<p>El formato del payload de un paquete normalmente lo define el usuario. El formato de la cabecera, en cambio, está estrictamente definido para que pueda producirse y analizarse con facilidad. Este formato suele presentarse mediante un diagrama que ayuda a identificar las posiciones individuales de bit y de byte, como en el siguiente ejemplo (ficticio):</p>
 <p><img alt="image" src="../assets/rendered/7b9e24dbe2177a49.svg" style="width:17.75cm" /></p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>Los campos también pueden tener longitudes fijas o variables, que no encajan necesariamente con las <span class="concept" id="c27" data-key="byte boundary">fronteras de byte</span>. Los campos también pueden tener una longitud igual a <span class="arithmatex">\(1\)</span> bit, en cuyo caso normalmente se le llama <span class="concept" id="c28" data-key="flag">flag</span> (indicador) o bit de flag.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
+<details class="note" open="open">
+<summary>Nota</summary>
+<p>Los campos también pueden tener longitudes fijas o variables, que no encajan necesariamente con las fronteras de byte. Los campos también pueden tener una longitud igual a <span class="arithmatex">\(1\)</span> bit, en cuyo caso normalmente se le llama <span class="concept" id="c13" data-key="flag"><code>flag</code></span> o bit de flag.</p>
+</details>
+<details class="note" open="open">
+<summary>Nota</summary>
 <p>En diagramas como el anterior se usan a menudo varias líneas (filas) para que puedan imprimirse y leerse con facilidad. En ese caso, el significado es el mismo que si todos los campos se hubieran presentado a lo largo de la misma línea (fila).</p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 4.2</p>
-<p>El siguiente contenido de un paquete fue <span class="concept" id="c29" data-key="sniff">capturado</span> de una <span class="concept" id="c30" data-key="network">red</span>, expresado en <span class="concept" id="c31" data-key="hexadecimal">hexadecimal</span>. Suponiendo que el paquete tiene el formato del ejemplo anterior:</p>
+</details>
+<details class="example" open="open">
+<summary>Ejercicio 4.2</summary>
+<p>El siguiente contenido de un paquete fue capturado de una red, expresado en hexadecimal. Suponiendo que el paquete tiene el formato del ejemplo anterior:</p>
 <ul>
 <li>
 <p>Indica el valor de cada campo (longitud, importancia, tipo, modo, dirección de destino y payload.</p>
@@ -1646,10 +1646,10 @@
 </li>
 </ul>
 <p><code>00 0c 00 f3 bb bb bb 00 68 65 6c 70</code></p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 4.3</p>
-<p>El siguiente código acepta dos argumentos: (1, <code>sys.argv[1]</code>) la <span class="concept" id="c32" data-key="path">ruta</span> de un fichero de entrada, y (2, <code>sys.argv[2]</code>) la <span class="concept" id="c33" data-key="path">ruta</span> de un fichero de salida. Se leen los primeros 255 bytes del contenido del fichero de entrada, se formatean como un paquete y los bytes de ese paquete se escriben en el fichero de salida.</p>
+</details>
+<details class="example" open="open">
+<summary>Ejercicio 4.3</summary>
+<p>El siguiente código acepta dos argumentos: (1, <code>sys.argv[1]</code>) la <span class="concept" id="c14" data-key="path">ruta</span> de un fichero de entrada, y (2, <code>sys.argv[2]</code>) la <span class="concept" id="c15" data-key="path">ruta</span> de un fichero de salida. Se leen los primeros 255 bytes del contenido del fichero de entrada, se formatean como un paquete y los bytes de ese paquete se escriben en el fichero de salida.</p>
 <p><div class="showcode" markdown="1">
 <strong><code>snippets/simplepacketoutput.py</code></strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Código</label><label for="__tabbed_1_2">Salida</label></div>
@@ -1677,7 +1677,7 @@
 </div>
 <ul>
 <li>
-<p>Describe el <span class="concept" id="c34" data-key="packet format">formato de paquete</span> usado en el código, y sus limitaciones.</p>
+<p>Describe el <span class="concept" id="c16" data-key="packet format">formato de paquete</span> usado en el código, y sus limitaciones.</p>
 </li>
 <li>
 <p>Extiende el formato de paquete para que</p>
@@ -1686,7 +1686,7 @@
 <p>los paquetes puedan ser más largos de 255 bytes</p>
 </li>
 <li>
-<p>pueda codificarse la <span class="concept" id="c35" data-key="address">dirección</span> del dispositivo de destino</p>
+<p>pueda codificarse la dirección del dispositivo de destino</p>
 </li>
 </ul>
 </li>
@@ -1697,19 +1697,19 @@
 <p>Modifica el código para que produzca paquetes con el formato que has propuesto.</p>
 </li>
 </ul>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>Lenguajes como Python pueden distinguir entre ficheros que contienen texto y ficheros que contienen datos binarios. En el código anterior, los ficheros se abren en <span class="concept" id="c36" data-key="binary mode">modo binario</span> usando los modos <code>'rb'</code> y <code>'wb'</code>.</p>
-<p>Cuando se abre en modo binario, los bytes del fichero se representan directamente mediante un objeto <code>bytes</code>, un array de enteros entre <span class="arithmatex">\(0\)</span> y <span class="arithmatex">\(255\)</span>. En <span class="concept" id="c37" data-key="text mode">modo texto</span>, esos bytes son procesados (<span class="concept" id="c38" data-key="decode">decodificados</span>) además por el método <code>open</code>, que devuelve una cadena que puede contener caracteres especiales como acentos o glifos no latinos. (<a href="https://docs.python.org/3.12/library/functions.html#open">leer más...</a>)</p>
-</div>
+</details>
+<details class="note" open="open">
+<summary>Nota</summary>
+<p>Lenguajes como Python pueden distinguir entre ficheros que contienen texto y ficheros que contienen datos binarios. En el código anterior, los ficheros se abren en modo binario usando los modos <code>'rb'</code> y <code>'wb'</code>.</p>
+<p>Cuando se abre en modo binario, los bytes del fichero se representan directamente mediante un objeto <code>bytes</code>, un array de enteros entre <span class="arithmatex">\(0\)</span> y <span class="arithmatex">\(255\)</span>. En modo texto, esos bytes son procesados (decodificados) además por el método <code>open</code>, que devuelve una cadena que puede contener caracteres especiales como acentos o glifos no latinos. (<a href="https://docs.python.org/3.12/library/functions.html#open">leer más...</a>)</p>
+</details>
 <h2 id="sec-packets-stream">[4.3] No paran de llegar<a class="headerlink" href="#sec-packets-stream" title="Permanent link">&para;</a></h2>
-<p>Al desarrollar aplicaciones que usan capacidades de red, a menudo resulta útil imaginar la comunicación como un <span class="concept" id="c39" data-key="stream">flujo</span>, es decir, como una tubería conceptual donde ponemos nuestros datos (cualquier cantidad de datos) por un extremo y salen por el otro. Si tenemos esta capacidad, resulta mucho más fácil enviar ficheros de cualquier tamaño y transmitir una cantidad interminable de audio o de vídeo. Por desgracia, lo único que tenemos para simular esos flujos son paquetes.</p>
-<p><span class="concept" id="c40" data-key="packet">Los paquetes</span> a menudo tienen que reenviarse a través de varias redes. Los <span class="concept" id="c41" data-key="router">routers</span> (encaminadores) no son perfectos y a veces están fuera de servicio o mal configurados, así que no todos los paquetes llegan a su destino. Además, paquetes distintos pueden entregarse por rutas distintas que pueden tener longitudes distintas, de modo que los paquetes pueden llegar desordenados.</p>
-<p>Si queremos simular un <span class="concept" id="c42" data-key="stream">flujo</span> de datos, los paquetes deben contener suficiente meta-información para que puedan detectarse las pérdidas y restaurarse el orden correcto. Esto introduce un <span class="concept" id="c43" data-key="overhead">overhead</span> que no es adecuado en todos los escenarios –p.ej. latencia muy baja–, así que algunas aplicaciones basan su comunicación en red en <span class="concept" id="c44" data-key="message">mensajes</span> en lugar de en flujos.</p>
-<p>Cuando se requieren flujos, se usa el concepto de <span class="concept" id="c45" data-key="offset">offset</span> (desplazamiento) para reensamblar varios mensajes en un único flujo. Cada paquete contiene algunos bytes del flujo de datos, y el offset indica la posición exacta dentro de ese flujo.</p>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 4.4</p>
+<p>Al desarrollar aplicaciones que usan capacidades de red, a menudo resulta útil imaginar la comunicación como un <span class="concept" id="c17" data-key="message/stream">flujo</span>, es decir, como una tubería conceptual donde ponemos nuestros datos (cualquier cantidad de datos) por un extremo y salen por el otro. Si tenemos esta capacidad, resulta mucho más fácil enviar ficheros de cualquier tamaño y transmitir una cantidad interminable de audio o de vídeo. Por desgracia, lo único que tenemos para simular esos flujos son paquetes.</p>
+<p><span class="concept" id="c18" data-key="packet">Los paquetes</span> a menudo tienen que reenviarse a través de varias redes. Los routers (encaminadores) no son perfectos y a veces están fuera de servicio o mal configurados, así que no todos los paquetes llegan a su destino. Además, paquetes distintos pueden entregarse por rutas distintas que pueden tener longitudes distintas, de modo que los paquetes pueden llegar desordenados.</p>
+<p>Si queremos simular un <span class="concept" id="c19" data-key="message/stream">flujo</span> de datos, los paquetes deben contener suficiente meta-información para que puedan detectarse las pérdidas y restaurarse el orden correcto. Esto introduce un <span class="concept" id="c20" data-key="overhead">overhead</span> que no es adecuado en todos los escenarios –p. ej. latencia muy baja–, así que algunas aplicaciones basan su comunicación en red en <span class="concept" id="c21" data-key="message/stream">mensajes</span> en lugar de en flujos.</p>
+<p>Cuando se requieren flujos, se usa el concepto de <span class="concept" id="c22" data-key="offset">offset</span> (desplazamiento) para reensamblar varios mensajes en un único flujo. Cada paquete contiene algunos bytes del flujo de datos, y el offset indica la posición exacta dentro de ese flujo.</p>
+<details class="example" open="open">
+<summary>Ejercicio 4.4</summary>
 <p>El siguiente diagrama describe un flujo de 48 bytes producido por un nodo origen, así como los paquetes en los que se dividió antes de la transmisión:</p>
 <p><img alt="image" src="../assets/rendered/2599e853a5ce99a7.svg" style="width:22.07cm" /></p>
 <ul>
@@ -1726,7 +1726,7 @@
 <p>¿Qué ocurriría si el destino recibiera un mensaje espurio, con offset de <span class="arithmatex">\(7\)</span> bytes y longitud de <span class="arithmatex">\(4\)</span> bytes?</p>
 </li>
 </ul>
-</div>
+</details>
 <script>window.XOI_ASSETS = "../assets/";</script>
 
 
@@ -1766,7 +1766,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Pie" >
         
           
-          <a href="../where_are_you/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [3] ¿Dónde estás?">
+          <a href="../where_are_you/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: [3] Direccionamiento">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1776,7 +1776,7 @@
                 Anterior
               </span>
               <div class="md-ellipsis">
-                [3] ¿Dónde estás?
+                [3] Direccionamiento
               </div>
             </div>
           </a>
@@ -1830,11 +1830,17 @@
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
+        <script src="../../scripts/header-title.js"></script>
+      
         <script src="../../scripts/wide-tables.js"></script>
       
         <script src="../../scripts/search-highlight.js"></script>
       
+        <script src="../../scripts/search-lang-filter.js"></script>
+      
         <script src="../../scripts/technical-terms.js"></script>
+      
+        <script src="../../scripts/toc-fold.js"></script>
       
         <script src="../../scripts/goatcounter.js"></script>
       

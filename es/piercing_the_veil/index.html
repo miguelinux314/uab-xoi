@@ -33,7 +33,7 @@
     
     
       
-        <title>[2] Atravesando el velo analógico-digital - Redes de Ordenadores e Internet: Guía de Estudio</title>
+        <title>[2] El velo analógico-digital - Redes de Ordenadores e Internet: Guía de Estudio</title>
       
     
     
@@ -123,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              [2] Atravesando el velo analógico-digital
+              [2] El velo analógico-digital
             
           </span>
         </div>
@@ -281,7 +281,7 @@
   
     
   
-  Curso
+  Resumen
 
         </a>
       </li>
@@ -493,7 +493,7 @@
   <span class="md-ellipsis">
     
   
-    Sobre esta asignatura
+    [1] Sobre esta asignatura
   
 
     
@@ -555,7 +555,7 @@
   <span class="md-ellipsis">
     
   
-    Curso
+    Resumen
   
 
     
@@ -571,7 +571,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Curso
+    Resumen
   
 
           </label>
@@ -692,7 +692,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Atravesando el velo analógico-digital
+    [2] El velo analógico-digital
   
 
     
@@ -710,7 +710,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Atravesando el velo analógico-digital
+    [2] El velo analógico-digital
   
 
     
@@ -780,7 +780,7 @@
   <span class="md-ellipsis">
     
   
-    [3] ¿Dónde estás?
+    [3] Direccionamiento
   
 
     
@@ -808,7 +808,7 @@
   <span class="md-ellipsis">
     
   
-    [4] ¿Esto es tuyo?
+    [4] Paquetes
   
 
     
@@ -1114,7 +1114,7 @@
   <span class="md-ellipsis">
     
   
-    Índice de conceptos
+    Términos técnicos
   
 
     
@@ -1545,39 +1545,39 @@
 
 
 <p><img alt="" class="hero" src="../assets/fig/numbers_background.svg" /></p>
-<h1 id="sec-piercing">[2] Atravesando el velo analógico-digital<a class="headerlink" href="#sec-piercing" title="Permanent link">&para;</a></h1>
+<h1 id="sec-piercing">[2] El velo analógico-digital<a class="headerlink" href="#sec-piercing" title="Permanent link">&para;</a></h1>
 <p>Enviamos y recibimos <span class="concept" id="c1" data-key="message">mensajes</span> constantemente en nuestras esferas personal, profesional y política. La disponibilidad casi instantánea de prácticamente cualquier <span class="concept" id="c2" data-key="information">información</span> que deseemos es una característica clave de la era actual. Cuando usamos un ordenador de cualquier tipo para compartir u obtener conocimiento, primero hay que transformarlo en <span class="concept" id="c3" data-key="data">datos</span> que puedan entender tanto los humanos como los ordenadores. Podemos imaginarlo como una secuencia de pasos:</p>
 <p><img alt="image" src="../assets/fig/knowledge_info_data_transmission.svg" style="width:22.95cm" /></p>
 <p>Los ordenadores trabajan con <span class="concept" id="c4" data-key="data">datos</span> digitales y transmiten secuencias de símbolos binarios (les solemos llamar <code>0</code> y <code>1</code>). Sin embargo, la transmisión sucede en el mundo físico donde <code>0</code> y <code>1</code> son ideas y no objetos tangibles.</p>
 <p>Este capítulo estudia cómo esos símbolos digitales <em>atraviesan el velo</em> del mundo digital al analógico (físico) en la transmisión, y de vuelta del analógico al digital en la recepción.</p>
 <h2 id="sec-piercing-information_binary">[2.1] Información ↔ Datos ↔ Mensajes binarios<a class="headerlink" href="#sec-piercing-information_binary" title="Permanent link">&para;</a></h2>
 <p>Conocimiento, <span class="concept" id="c5" data-key="information">información</span> y <span class="concept" id="c6" data-key="data">datos</span> no son lo mismo, aunque a menudo se usen indistintamente. En contextos técnicos, deben usarse e interpretarse con precisión.</p>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 2.1</p>
+<details class="example" open="open">
+<summary>Ejercicio 2.1</summary>
 <p>Supón que estamos al aire libre y queremos contarle a un amigo qué tiempo hace. Tenemos conocimiento sobre todo lo relacionado con el tiempo, porque estamos allí. Para comunicarnos, necesitamos centrarnos en una parte de ese conocimiento y decidir qué información enviar. Por ejemplo, podríamos querer comunicar la temperatura y decir algo como “la temperatura es de unos 22ºC”. Hay muchas formas de almacenar esa información como datos dentro de un ordenador. Lo más probable es que representemos el número <span class="arithmatex">\(22\)</span> como parte de esos datos. ¿Cómo definirías conocimiento, información y datos?</p>
-</div>
+</details>
 <p>Aunque hay muchos tipos de dato (numéricos, textuales, visuales, científicos, <em>etc.</em>), todos se representan mediante números. Por ejemplo, se podría usar la codificación <span class="concept" id="c7" data-key="ASCII">ASCII</span> para representar la cadena “Bobby” como la siguiente secuencia: <span class="arithmatex">\(66, 111, 98, 98, 121\)</span>.</p>
-<p>Dentro de un ordenador, esos números se almacenan en registros binarios, p.ej. en la CPU y en la RAM. Hay múltiples formas de representar datos numéricos en formato binario. En concreto, debemos prestar mucha atención como mínimo a los siguientes aspectos siempre que leamos o escribamos datos:</p>
+<p>Dentro de un ordenador, esos números se almacenan en registros binarios, p. ej. en la CPU y en la RAM. Hay múltiples formas de representar datos numéricos en formato binario. En concreto, debemos prestar mucha atención como mínimo a los siguientes aspectos siempre que leamos o escribamos datos:</p>
 <ul>
 <li>
 <p>¿entero o con decimales?</p>
 </li>
 <li>
-<p>¿<span class="concept" id="c8" data-key="bitdepth">profundidad de bits</span>? (p.ej. 8 bits por número)</p>
+<p>¿<span class="concept" id="c8" data-key="bitdepth">profundidad de bits</span>? (p. ej. 8 bits por número)</p>
 </li>
 <li>
 <p>¿<span class="concept" id="c9" data-key="sign">con signo</span> o <span class="concept" id="c10" data-key="sign">sin signo</span>?</p>
 </li>
 <li>
-<p>Para números de varios bytes: ¿<span class="concept" id="c11" data-key="big endian">big endian</span> o <span class="concept" id="c12" data-key="little endian">little endian</span>?</p>
+<p>Para números de varios bytes: ¿<span class="concept" id="c11" data-key="big endian/little endian">big endian</span> o <span class="concept" id="c12" data-key="big endian/little endian">little endian</span>?</p>
 </li>
 <li>
-<p>Para números con decimales: ¿<span class="concept" id="c13" data-key="floating-point">coma flotante</span> o <span class="concept" id="c14" data-key="fixed-point">coma fija</span>?</p>
+<p>Para números con decimales: ¿<span class="concept" id="c13" data-key="fixed-point/floating-point">coma flotante</span> o <span class="concept" id="c14" data-key="fixed-point/floating-point">coma fija</span>?</p>
 </li>
 </ul>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 2.2</p>
-<p>Explica <strong>cómo completar la segunda fila a partir de la primera</strong> (y viceversa), y qué suposiciones necesitas hacer en cada caso.</p>
+<details class="example" open="open">
+<summary>Ejercicio 2.2</summary>
+<p>Explica cómo completar la segunda fila a partir de la primera (y viceversa), y qué suposiciones necesitas hacer en cada caso.</p>
 <table>
 <thead>
 <tr>
@@ -1603,11 +1603,11 @@
 </tbody>
 </table>
 <p>¿Y qué hay de à <span class="arithmatex">\(\leftrightarrow\)</span> <code>1100</code> <code>0011</code> <code>1010</code> <code>0000</code>?</p>
-</div>
-<p>A veces necesitamos inspeccionar el contenido de un registro binario (p.ej. para depuración u otros fines de análisis) o establecer ese contenido manualmente. Para los humanos, manejar cadenas binarias de más de unos pocos bits es incómodo y <em>muy</em> propenso a errores. Cuando necesitamos inspeccionar o modificar el contenido de un registro binario (p.ej. para depuración), a menudo usamos la base <span class="arithmatex">\(16\)</span>, es decir, la notación <span class="concept" id="c15" data-key="hexadecimal">hexadecimal</span>.</p>
-<p>En hexadecimal hay exactamente <span class="arithmatex">\(16 = 2^4\)</span> dígitos distintos (<code>0</code> a <code>9</code>, <code>a</code> a <code>f</code>) con valores decimales de <span class="arithmatex">\(0\)</span> a <span class="arithmatex">\(15\)</span>, cada uno de los cuales representa exactamente <span class="arithmatex">\(4\)</span> bits. Cuando escribimos valores hexadecimales para un ordenador, es decir, en código fuente, los valores hexadecimales suelen ir precedidos de <code>0x</code>, p.ej. <code>0x58a5b0</code>. Del mismo modo, las expresiones binarias van precedidas de <code>0b</code>, p.ej. <code>0b0011</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
+</details>
+<p>A veces necesitamos inspeccionar el contenido de un registro binario (p. ej. para depuración u otros fines de análisis) o establecer ese contenido manualmente. Para los humanos, manejar cadenas binarias de más de unos pocos bits es incómodo y <em>muy</em> propenso a errores. Cuando necesitamos inspeccionar o modificar el contenido de un registro binario (p. ej. para depuración), a menudo usamos la base <span class="arithmatex">\(16\)</span>, es decir, la notación <span class="concept" id="c15" data-key="hexadecimal">hexadecimal</span>.</p>
+<p>En hexadecimal hay exactamente <span class="arithmatex">\(16 = 2^4\)</span> dígitos distintos (<code>0</code> a <code>9</code>, <code>a</code> a <code>f</code>) con valores decimales de <span class="arithmatex">\(0\)</span> a <span class="arithmatex">\(15\)</span>, cada uno de los cuales representa exactamente <span class="arithmatex">\(4\)</span> bits. Cuando escribimos valores hexadecimales para un ordenador, es decir, en código fuente, los valores hexadecimales suelen ir precedidos de <code>0x</code>, p. ej. <code>0x58a5b0</code>. Del mismo modo, las expresiones binarias van precedidas de <code>0b</code>, p. ej. <code>0b0011</code>.</p>
+<details class="note" open="open">
+<summary>Nota</summary>
 <ul>
 <li>
 <p>Los espacios, e incluso los saltos de línea, entre dígitos no tienen ningún significado; solo se usan para facilitar la inspección visual.</p>
@@ -1616,30 +1616,30 @@
 <p>En algunos textos, cuando en un contexto pueden aplicarse varias bases, estas se indican como subíndices, como en <code>58a5b0</code><span class="arithmatex">\(_\textrm{16}\)</span> y <code>0011</code><span class="arithmatex">\(_\textrm{2}\)</span>.</p>
 </li>
 </ul>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 2.3</p>
+</details>
+<details class="example" open="open">
+<summary>Ejercicio 2.3</summary>
 <p>Considera el siguiente mensaje, compuesto por una concatenación de enteros sin signo de 3 bits: <code>a4 3f 20</code>.</p>
 <ul>
 <li>
 <p>¿Cuántos bits y bytes de longitud tiene?</p>
 </li>
 <li>
-<p><strong>¿Cuáles son los cinco primeros enteros</strong> contenidos en el mensaje?</p>
+<p>¿Cuáles son los cinco primeros enteros contenidos en el mensaje?</p>
 </li>
 </ul>
-</div>
+</details>
 <p>La mayoría de las veces dejaremos que nuestro código se encargue de manipular los datos. Para ello, necesitamos operaciones <span class="concept" id="c16" data-key="bitwise">a nivel de bits</span> y de <span class="concept" id="c17" data-key="boolean logic">lógica booleana</span> como las siguientes</p>
 <table>
 <thead>
 <tr>
 <th style="text-align: right;"><strong>Operación</strong></th>
-<th style="text-align: center;"><span class="concept" id="c18" data-key="bitwise">AND (bits)</span></th>
-<th style="text-align: center;"><span class="concept" id="c19" data-key="boolean logic">AND lógico</span></th>
-<th style="text-align: center;"><span class="concept" id="c20" data-key="bitwise">OR (bits)</span></th>
-<th style="text-align: center;"><span class="concept" id="c21" data-key="boolean logic">OR lógico</span></th>
-<th style="text-align: center;"><span class="concept" id="c22" data-key="bitwise">Despl. izq.</span></th>
-<th style="text-align: center;"><span class="concept" id="c23" data-key="bitwise">Despl. der.</span></th>
+<th style="text-align: center;">AND (bits)</th>
+<th style="text-align: center;">AND lógico</th>
+<th style="text-align: center;">OR (bits)</th>
+<th style="text-align: center;">OR lógico</th>
+<th style="text-align: center;">Despl. izq.</th>
+<th style="text-align: center;">Despl. der.</th>
 </tr>
 </thead>
 <tbody>
@@ -1654,9 +1654,9 @@
 </tr>
 </tbody>
 </table>
-<p>Otras herramientas útiles de python son las funciones <code>bin()</code> y <code>hex()</code>, que convierten un entero en su representación binaria y hexadecimal, respectivamente, e <code>int()</code>, que puede analizar una cadena que describe un número y devolver ese número. También podemos controlar el formato con el que mostramos los números; p.ej. <code>print(f'{n:08b}')</code> imprimiría el valor de la variable <code>n</code> en forma binaria, usando al menos 8 posiciones y rellenando con ceros las posiciones iniciales vacías (más información en la <a href="https://docs.python.org/3/reference/lexical_analysis.html#f-strings">documentación de python</a>).</p>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 2.4</p>
+<p>Otras herramientas útiles de python son las funciones <code>bin()</code> y <code>hex()</code>, que convierten un entero en su representación binaria y hexadecimal, respectivamente, e <code>int()</code>, que puede analizar una cadena que describe un número y devolver ese número. También podemos controlar el formato con el que mostramos los números; p. ej. <code>print(f'{n:08b}')</code> imprimiría el valor de la variable <code>n</code> en forma binaria, usando al menos 8 posiciones y rellenando con ceros las posiciones iniciales vacías (más información en la <a href="https://docs.python.org/3/reference/lexical_analysis.html#f-strings">documentación de python</a>).</p>
+<details class="example" open="open">
+<summary>Ejercicio 2.4</summary>
 <p>Considera el código que se muestra a continuación. Los números que imprime al ejecutarse tienen una importancia especial en redes y en informática. ¿Qué tienen en común? (Pista: quizá quieras modificar el código para mostrar sus representaciones binarias).</p>
 <p><div class="showcode" markdown="1">
 <strong><code>snippets/bitwisemanipulation.py</code></strong></p>
@@ -1686,12 +1686,12 @@
 </div>
 </div>
 <p><a id="ex-bitwisemanipulation"></a></p>
-</div>
+</details>
 <h2 id="sec-piercing-analog_digital">[2.2] Analógico ↔ Digital<a class="headerlink" href="#sec-piercing-analog_digital" title="Permanent link">&para;</a></h2>
-<p>Una vez decidimos qué bits transmitir, necesitamos encontrar una forma de hacer que esos bits lleguen a otra máquina a distancia. Primero, tenemos que decidir qué <span class="concept" id="c24" data-key="medium">medio</span> usar y qué propiedades físicas podemos controlar y monitorizar. Entre las opciones más populares están usar el voltaje en cables de cobre, enviar luz por fibra óptica y manipular el <span class="concept" id="c25" data-key="field">campo</span> electromagnético mediante antenas.</p>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 2.5</p>
-<p><strong>Reflexiona</strong>:</p>
+<p>Una vez decidimos qué bits transmitir, necesitamos encontrar una forma de hacer que esos bits lleguen a otra máquina a distancia. Primero, tenemos que decidir qué <span class="concept" id="c18" data-key="medium">medio</span> usar y qué propiedades físicas podemos controlar y monitorizar. Entre las opciones más populares están usar el voltaje en cables de cobre, enviar luz por fibra óptica y manipular el campo electromagnético mediante antenas.</p>
+<details class="example" open="open">
+<summary>Ejercicio 2.5</summary>
+<p>Reflexiona:</p>
 <ul>
 <li>
 <p>¿Podemos hacer un cable de cobre tan largo como queramos?</p>
@@ -1703,43 +1703,43 @@
 <p>¿Necesitamos fibras ópticas para realizar comunicaciones basadas en la luz?</p>
 </li>
 </ul>
-</div>
-<p>Si optamos por cables de cobre, podemos poner varios en <span class="concept" id="c26" data-key="parallel">paralelo</span> y enviar más datos a la misma velocidad de reloj. Esto, sin embargo, tiene el precio de una complejidad y un coste mayores que los diseños en <span class="concept" id="c27" data-key="serial">serie</span>. Pueden producirse interferencias de voltaje en las líneas de datos por diversos motivos, incluidos fenómenos físicos como la inducción electromagnética en el cable. No obstante, los cables que cumplen los estándares modernos de transmisión de datos (p.ej. IEEE 802.3) suelen emplear pares trenzados de cables y apantallamiento, entre otras estrategias, para garantizar errores de bit por debajo de <span class="arithmatex">\(1\)</span> de cada <span class="arithmatex">\(10^{12}\)</span> bits.</p>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 2.6</p>
-<p><a id="ex-piercing-copper_connectors"></a> <strong>Observa e identifica</strong> los siguientes conectores de cable:</p>
+</details>
+<p>Si optamos por cables de cobre, podemos poner varios en <span class="concept" id="c19" data-key="parallel/serial">paralelo</span> y enviar más datos a la misma velocidad de reloj. Esto, sin embargo, tiene el precio de una complejidad y un coste mayores que los diseños en <span class="concept" id="c20" data-key="parallel/serial">serie</span>. Pueden producirse interferencias de voltaje en las líneas de datos por diversos motivos, incluidos fenómenos físicos como la inducción electromagnética en el cable. No obstante, los cables que cumplen los estándares modernos de transmisión de datos (p. ej. IEEE 802.3) suelen emplear pares trenzados de cables y apantallamiento, entre otras estrategias, para garantizar errores de bit por debajo de <span class="arithmatex">\(1\)</span> de cada <span class="arithmatex">\(10^{12}\)</span> bits.</p>
+<details class="example" open="open">
+<summary>Ejercicio 2.6</summary>
+<p><a id="ex-piercing-copper_connectors"></a> Observa e identifica los siguientes conectores de cable:</p>
 <div class="figure-row" markdown="1">
 <p><img alt="image" src="../assets/fig/hdmi_connector.jpg" style="height:3cm" /> <img alt="image" src="../assets/fig/coaxial_connector.jpg" style="height:3cm" /> <img alt="image" src="../assets/fig/usbc_connector.jpg" style="height:3cm" /> <img alt="image" src="../assets/fig/rj11_connector.jpg" style="height:3cm" /></p>
 </div>
-</div>
+</details>
 <p><img alt="image" class="wrap" src="../assets/fig/iceberg.jpg" /></p>
 <p>¿Alguna vez has buceado en una piscina, has mirado hacia arriba y el agua parecía un espejo? Los cables de fibra óptica funcionan gracias a este fenómeno, llamado refracción. La luz que entra en la fibra por un extremo permanece dentro hasta que sale por el otro. El recubrimiento de la fibra es importante para preservar su integridad, pero no participa en el “rebote” de la luz mientras avanza por la fibra.</p>
-<p>En una fibra óptica monomodo, el sensor del extremo receptor detecta la presencia o ausencia de un único rango de longitudes de onda. Estos cables son relativamente finos y baratos, pero transportan una sola señal. Otra opción es transmitir varias longitudes de onda (p.ej. usando varias fuentes láser) al mismo tiempo, por la misma fibra. En el extremo receptor, se usa un prisma para volver a dividir el haz de luz en sus componentes monocromáticos, que se detectan por separado. De este modo, la fibra óptica multimodo permite <span class="concept" id="c28" data-key="multiplex">multiplexar</span> varias señales, lo que aumenta enormemente la velocidad efectiva de transmisión.</p>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 2.7</p>
-<p><a id="ex-piercing-laser_refraction"></a> Cuando un haz de luz entra en una fibra óptica, lo hace con un cierto ángulo de ataque. Este ángulo afecta al tiempo que tarda en llegar al otro extremo. Si proyectamos un cono de luz, la luz entra en la fibra con múltiples ángulos de ataque. ¿Qué ocurre en el otro extremo si <strong>encendemos y apagamos este cono de luz</strong> muy rápidamente? ¿Importa si usamos haces monomodo o multimodo?</p>
+<p>En una fibra óptica monomodo, el sensor del extremo receptor detecta la presencia o ausencia de un único rango de longitudes de onda. Estos cables son relativamente finos y baratos, pero transportan una sola señal. Otra opción es transmitir varias longitudes de onda (p. ej. usando varias fuentes láser) al mismo tiempo, por la misma fibra. En el extremo receptor, se usa un prisma para volver a dividir el haz de luz en sus componentes monocromáticos, que se detectan por separado. De este modo, la fibra óptica multimodo permite <span class="concept" id="c21" data-key="multiplex">multiplexar</span> varias señales, lo que aumenta enormemente la velocidad efectiva de transmisión.</p>
+<details class="example" open="open">
+<summary>Ejercicio 2.7</summary>
+<p><a id="ex-piercing-laser_refraction"></a> Cuando un haz de luz entra en una fibra óptica, lo hace con un cierto ángulo de ataque. Este ángulo afecta al tiempo que tarda en llegar al otro extremo. Si proyectamos un cono de luz, la luz entra en la fibra con múltiples ángulos de ataque. ¿Qué ocurre en el otro extremo si encendemos y apagamos este cono de luz muy rápidamente? ¿Importa si usamos haces monomodo o multimodo?</p>
 <div class="figure-row" markdown="1">
 <p><img alt="image" src="../assets/fig/laser_refraction.jpg" style="height:2.5cm" /> <img alt="image" src="../assets/fig/optical_connector.jpg" style="height:2.5cm" /></p>
 </div>
-</div>
+</details>
 <p><img alt="image" class="wrap" src="../assets/fig/dipole.png" /></p>
-<p>Aunque hay muchas clases de antenas, su propósito principal es detectar campos electromagnéticos y/o crearlos. La ecuación de Maxwell-Faraday nos dice que los <em>cambios</em> en el <span class="concept" id="c29" data-key="field (physics)">campo</span> eléctrico <span class="arithmatex">\(\vec{E}\)</span> crean un <span class="concept" id="c30" data-key="field (physics)">campo</span> magnético perpendicular <span class="arithmatex">\(\vec{B}\)</span>, y viceversa.</p>
+<p>Aunque hay muchas clases de antenas, su propósito principal es detectar campos electromagnéticos y/o crearlos. La ecuación de Maxwell-Faraday nos dice que los <em>cambios</em> en el <span class="concept" id="c22" data-key="field (physics)">campo</span> eléctrico <span class="arithmatex">\(\vec{E}\)</span> crean un <span class="concept" id="c23" data-key="field (physics)">campo</span> magnético perpendicular <span class="arithmatex">\(\vec{B}\)</span>, y viceversa.</p>
 <p>Una antena de dipolo como la de la derecha aprovecha este concepto aplicando un voltaje alterno <span class="arithmatex">\(V\)</span>, que genera ondas electromagnéticas que se propagan hacia fuera desde el eje del dipolo.</p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
+<details class="note" open="open">
+<summary>Nota</summary>
 <p>Cuando emitimos una energía <span class="arithmatex">\(E\)</span> desde un punto en todas las direcciones, esa energía se distribuye sobre una esfera creciente. Como el área de una esfera de radio <span class="arithmatex">\(r\)</span> es <span class="arithmatex">\(4 \pi r^2\)</span>, la cantidad de energía que llega a un punto a distancia <span class="arithmatex">\(r\)</span> será del orden de <span class="arithmatex">\(E / r^2\)</span>.</p>
 <p>Esto se conoce a veces como la ley de la inversa del cuadrado, y es la razón por la que las corrientes inducidas en la antena del receptor suelen estar entre nanovoltios (<span class="arithmatex">\(10^{-9}\)</span> V) y picovoltios (<span class="arithmatex">\(10^{-12}\)</span> V). Sorprendentemente, esto basta para que los detectores modernos lean la señal de datos.</p>
-</div>
+</details>
 <p><img alt="image" class="wrap" src="../assets/fig/modulation.jpg" /></p>
 <p>Independientemente del método elegido para que viajen los datos, sigue siendo necesario atravesar el velo entre las señales analógicas y los datos digitales. Una forma de hacerlo es la modulación: se produce una señal sinusoidal base llamada portadora, y los datos se codifican modificando esta portadora. Por ejemplo, se puede cambiar la amplitud de la portadora (ASK), su frecuencia (FSK), o incluso la amplitud y la fase al mismo tiempo (QAM).</p>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 2.8</p>
-<p>La figura anterior muestra un ejemplo de modulación en amplitud y otro de modulación en frecuencia. ¿Cuál es cuál? Para cada caso: ¿esa <strong>modulación transmite una señal analógica o digital</strong>?</p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Ejercicio 2.9</p>
-<p>¿Cuál es la <strong>diferencia entre ancho de banda y velocidad de transmisión</strong>? ¿Por qué crees que se usan indistintamente en contextos no técnicos?</p>
-</div>
+<details class="example" open="open">
+<summary>Ejercicio 2.8</summary>
+<p>La figura anterior muestra un ejemplo de modulación en amplitud y otro de modulación en frecuencia. ¿Cuál es cuál? Para cada caso: ¿esa modulación transmite una señal analógica o digital?</p>
+</details>
+<details class="example" open="open">
+<summary>Ejercicio 2.9</summary>
+<p>¿Cuál es la diferencia entre ancho de banda y velocidad de transmisión? ¿Por qué crees que se usan indistintamente en contextos no técnicos?</p>
+</details>
 <script>window.XOI_ASSETS = "../assets/";</script>
 
 
@@ -1796,13 +1796,13 @@
         
         
           
-          <a href="../where_are_you/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: [3] ¿Dónde estás?">
+          <a href="../where_are_you/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: [3] Direccionamiento">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Siguiente
               </span>
               <div class="md-ellipsis">
-                [3] ¿Dónde estás?
+                [3] Direccionamiento
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1843,11 +1843,17 @@
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
+        <script src="../../scripts/header-title.js"></script>
+      
         <script src="../../scripts/wide-tables.js"></script>
       
         <script src="../../scripts/search-highlight.js"></script>
       
+        <script src="../../scripts/search-lang-filter.js"></script>
+      
         <script src="../../scripts/technical-terms.js"></script>
+      
+        <script src="../../scripts/toc-fold.js"></script>
       
         <script src="../../scripts/goatcounter.js"></script>
       

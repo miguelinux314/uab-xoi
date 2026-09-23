@@ -493,7 +493,7 @@
   <span class="md-ellipsis">
     
   
-    About this course
+    [1] About this course
   
 
     
@@ -683,7 +683,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Piercing the analog-digital veil
+    [2] The analog-digital veil
   
 
     
@@ -711,7 +711,7 @@
   <span class="md-ellipsis">
     
   
-    [3] Where are you?
+    [3] Addressing
   
 
     
@@ -739,7 +739,7 @@
   <span class="md-ellipsis">
     
   
-    [4] Is this yours?
+    [4] Packets
   
 
     
@@ -950,10 +950,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-tcpip-stack" class="md-nav__link">
+  <a href="#sec-internet-the_tcp_ip_stack" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The TCP/IP stack
+        [6.1] The TCP/IP stack
       
     </span>
   </a>
@@ -961,10 +961,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tcpip-protocol-overview" class="md-nav__link">
+  <a href="#sec-internet-tcp_ip_protocol_overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        TCP/IP protocol overview
+        [6.2] TCP/IP protocol overview
       
     </span>
   </a>
@@ -972,10 +972,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#who-is-the-internet-boss" class="md-nav__link">
+  <a href="#sec-internet-who_is_the_internet_boss" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Who is the Internet boss?
+        [6.3] Who is the Internet boss?
       
     </span>
   </a>
@@ -1125,7 +1125,7 @@
   <span class="md-ellipsis">
     
   
-    Index of concepts
+    Technical terms
   
 
     
@@ -1517,10 +1517,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-tcpip-stack" class="md-nav__link">
+  <a href="#sec-internet-the_tcp_ip_stack" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The TCP/IP stack
+        [6.1] The TCP/IP stack
       
     </span>
   </a>
@@ -1528,10 +1528,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tcpip-protocol-overview" class="md-nav__link">
+  <a href="#sec-internet-tcp_ip_protocol_overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        TCP/IP protocol overview
+        [6.2] TCP/IP protocol overview
       
     </span>
   </a>
@@ -1539,10 +1539,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#who-is-the-internet-boss" class="md-nav__link">
+  <a href="#sec-internet-who_is_the_internet_boss" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Who is the Internet boss?
+        [6.3] Who is the Internet boss?
       
     </span>
   </a>
@@ -1568,10 +1568,10 @@
 
 <p><img alt="" class="hero" src="../assets/fig/earth.jpg" /></p>
 <h1 id="sec-internet">[6] The Internet<a class="headerlink" href="#sec-internet" title="Permanent link">&para;</a></h1>
-<p>Modern communications are based on layered network <span class="concept" id="c1" data-key="stack">stacks</span>. Maybe you just downloaded this guide from the Internet. What layers are used exactly? What protocols are employed, and with what purpose? This chapter provides a primer to answer these questions.</p>
-<h2 id="the-tcpip-stack">The TCP/IP stack<a class="headerlink" href="#the-tcpip-stack" title="Permanent link">&para;</a></h2>
-<p>The <span class="concept" id="c2" data-key="Internet">Internet</span> is a practical solution to the problem of global computer communication, whose development started in the late 1960’s – early 1970’s, and is still ongoing.</p>
-<p><span class="concept" id="c3" data-key="packet">Packet</span> switching was conceived during the early 1960s, and the first wide-area implementation, <span class="concept" id="c4" data-key="ARPANET">ARPANET</span>, began in 1969. A key challenge at the time was to interconnect existing <span class="concept" id="c5" data-key="network">networks</span>, owned by different organizations, and based on different technologies and <span class="concept" id="c6" data-key="protocol">protocols</span>. To make things viable, all the following requirements had to be met:</p>
+<p>Modern communications are based on layered network stacks. Maybe you just downloaded this guide from the Internet. What layers are used exactly? What protocols are employed, and with what purpose? This chapter provides a primer to answer these questions.</p>
+<h2 id="sec-internet-the_tcp_ip_stack">[6.1] The TCP/IP stack<a class="headerlink" href="#sec-internet-the_tcp_ip_stack" title="Permanent link">&para;</a></h2>
+<p>The <span class="concept" id="c1" data-key="internet">Internet</span> is a practical solution to the problem of global computer communication, whose development started in the late 1960’s – early 1970’s, and is still ongoing.</p>
+<p>Packet switching was conceived during the early 1960s, and the first wide-area implementation, ARPANET, began in 1969. A key challenge at the time was to interconnect existing networks, owned by different organizations, and based on different technologies and <span class="concept" id="c2" data-key="protocol">protocols</span>. To make things viable, all the following requirements had to be met:</p>
 <ul>
 <li>
 <p>Existing networks should work without updates to the physical infrastructure or their protocols, just the way those protocols are used.</p>
@@ -1586,19 +1586,19 @@
 <p>Messages that arrive may not be in order, and may be repeated.</p>
 </li>
 </ul>
-<p>The solution adopted by ARPANET –and later by the whole world– is the <span class="concept" id="c7" data-key="TCP/IP">TCP/IP</span> protocol suite, first described in 1974. It is a layered approach, designed to be “plugged-in” on top of existing <span class="concept" id="c8" data-key="LAN">LANs</span>, with the goal of offering networking capabilities to all user applications.</p>
+<p>The solution adopted by ARPANET –and later by the whole world– is the <span class="concept" id="c3" data-key="TCP/IP">TCP/IP</span> protocol suite, first described in 1974. It is a layered approach, designed to be “plugged-in” on top of existing LANs, with the goal of offering networking capabilities to all user applications.</p>
 <p><img alt="image" src="../assets/rendered/a18f1fc1933ffdfa.svg" style="width:16.67cm" /></p>
 <p>In a nutshell, the main services offered by these layers are as follows:</p>
 <ol>
 <li>
-<p><strong>(Physical)</strong>: Send <span class="concept" id="c9" data-key="digital">digital</span> data through <span class="concept" id="c10" data-key="analog">analog</span> media.</p>
+<p><strong>(Physical)</strong>: Send <span class="concept" id="c4" data-key="digital">digital</span> data through <span class="concept" id="c5" data-key="analog">analog</span> media.</p>
 </li>
 <li>
-<p><strong>(Network)</strong>: Identify and communicate devices within the same <span class="concept" id="c11" data-key="LAN">LAN</span>.<br />
+<p><strong>(Network)</strong>: Identify and communicate devices within the same LAN.<br />
     The term “Data Link” layer (from the OSI model) is sometimes used.</p>
 </li>
 <li>
-<p><strong>(Internet)</strong>: Identify and communicate devices across all <span class="concept" id="c12" data-key="LAN">LANs</span>.<br />
+<p><strong>(Internet)</strong>: Identify and communicate devices across all LANs.<br />
     The term “Network” layer (also from OSI) is sometimes used.</p>
 </li>
 <li>
@@ -1606,12 +1606,10 @@
     Also (choose <em>only</em> one):</p>
 <ol>
 <li>
-<p>Make sure a <span class="concept" id="c13" data-key="stream">stream</span> of data successfully reaches the other end, and in order<br />
-    – <em>but</em> an <span class="concept" id="c14" data-key="overhead">overhead</span> is introduced and <span class="concept" id="c15" data-key="connection">connections</span> must be established (<span class="concept" id="c16" data-key="TCP">TCP</span>).</p>
+<p>Make sure a <span class="concept" id="c6" data-key="stream">stream</span> of data successfully reaches the other end, and in order – <em>but</em> an overhead is introduced and <span class="concept" id="c7" data-key="connection">connections</span> must be established (<span class="concept" id="c8" data-key="TCP">TCP</span>).</p>
 </li>
 <li>
-<p>Use simple, relatively efficient messages, and have a small overhead<br />
-    – <em>but</em> messages may be lost, reordered or duplicated (<span class="concept" id="c17" data-key="UDP">UDP</span>).</p>
+<p>Use simple, relatively efficient messages, and have a small overhead – <em>but</em> messages may be lost, reordered or duplicated (<span class="concept" id="c9" data-key="UDP">UDP</span>).</p>
 </li>
 </ol>
 </li>
@@ -1620,8 +1618,8 @@
     Don’t forget about security (<em>e.g.</em>, cryptography) or about efficiency (<em>e.g.</em>, compression): Layers 4 and below don’t provide that.</p>
 </li>
 </ol>
-<h2 id="tcpip-protocol-overview">TCP/IP protocol overview<a class="headerlink" href="#tcpip-protocol-overview" title="Permanent link">&para;</a></h2>
-<p>Multiple <span class="concept" id="c18" data-key="protocol">protocols</span> are defined to implement the functionality of each <span class="concept" id="c19" data-key="layer">layer</span>. These definitions include the required <span class="concept" id="c20" data-key="packet format">packet format</span>, the rules to exchange those packets and their semantics. These protocols must be understood as a system, in which each part has very specific tasks.</p>
+<h2 id="sec-internet-tcp_ip_protocol_overview">[6.2] TCP/IP protocol overview<a class="headerlink" href="#sec-internet-tcp_ip_protocol_overview" title="Permanent link">&para;</a></h2>
+<p>Multiple <span class="concept" id="c10" data-key="protocol">protocols</span> are defined to implement the functionality of each layer. These definitions include the required packet format, the rules to exchange those packets and their semantics. These protocols must be understood as a system, in which each part has very specific tasks.</p>
 <p>Some of the most relevant protocols to communications using the Internet are shown in the next figure. In it:</p>
 <ul>
 <li>
@@ -1635,33 +1633,33 @@
 </li>
 </ul>
 <p><img alt="image" src="../assets/fig/protocol_dependencies.svg" style="width:22.95cm" /></p>
-<div class="admonition example">
-<p class="admonition-title">Exercise 6.1</p>
-<p>We want to send the sentence “Sorry, I’ll be 5 minutes late” by email. Our email client will send those data using the SMTP protocol, which in turn uses TCP (part of Layer 4). Assuming SMTP uses headers in its <span class="concept" id="c21" data-key="PDU">PDU</span>, how many headers will the corresponding Layer-2 <span class="concept" id="c22" data-key="PDU">PDU</span> contain?</p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Exercise 6.2</p>
+<details class="example" open="open">
+<summary>Exercise 6.1</summary>
+<p>We want to send the sentence “Sorry, I’ll be 5 minutes late” by email. Our email client will send those data using the SMTP protocol, which in turn uses TCP (part of Layer 4). Assuming SMTP uses headers in its PDU, how many headers will the corresponding Layer-2 PDU contain?</p>
+</details>
+<details class="example" open="open">
+<summary>Exercise 6.2</summary>
 <p>Why do you think Layer 3 has only one protocol (two if you count IPv4 and IPv6 separately)?</p>
-</div>
-<h2 id="who-is-the-internet-boss">Who is the Internet boss?<a class="headerlink" href="#who-is-the-internet-boss" title="Permanent link">&para;</a></h2>
-<p>The <span class="concept" id="c23" data-key="IETF">Internet Engineering Task Force (IETF)</span> was created in 1986 to develop and publish standards to be used in the Internet. Their main output are <span class="concept" id="c24" data-key="RFC">“Request for Comment” (RFC)</span> documents, which contain complete technical descriptions of those standards.</p>
+</details>
+<h2 id="sec-internet-who_is_the_internet_boss">[6.3] Who is the Internet boss?<a class="headerlink" href="#sec-internet-who_is_the_internet_boss" title="Permanent link">&para;</a></h2>
+<p>The Internet Engineering Task Force (<span class="concept" id="c11" data-key="IETF">IETF</span>) was created in 1986 to develop and publish standards to be used in the Internet. Their main output are “Request for Comment” (<span class="concept" id="c12" data-key="RFC">RFC</span>) documents, which contain complete technical descriptions of those standards.</p>
 <p>These RFCs are created by working groups of experts, for everyone to use freely and free of charge. Anyone can participate in these working groups, including researchers, governments and industry stakeholders. Decisions are made when 80-90% of the participants agree, so no single entity controls the standardization process.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<details class="note" open="open">
+<summary>Note</summary>
 <p>“We reject kings, presidents, and voting. We believe in rough consensus and running code” — Dave Clark (IETF), 1992.</p>
 <p>See DOI <a href="https://dx.doi.org/10.1109/MAHC.2006.42"><u>10.1109/MAHC.2006.42</u></a> for a short story of struggle for power.</p>
-</div>
-<p>RFCs standards are descriptive, not prescriptive. This means that nobody polices the correct use of these standards. Instead, manufacturers have the incentive to be compliant with the RFCs so that their products are compatible with others. The value of RFCs (and any other standard) is dependent on whether they are adopted by users. RFCs can be updated and <span class="concept" id="c25" data-key="retire (standard)">retired</span> for this reason.</p>
-<p>TCP/IP protocols prevail because they are flexible and work reasonably well in most situations, even though they are not optimal in virtually any of them. Also, TCP/IP protocols are free, as opposed to <span class="concept" id="c26" data-key="privative">privative</span> protocols that forced the purchase of a specific vendor’s solution.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+</details>
+<p>RFCs standards are descriptive, not prescriptive. This means that nobody polices the correct use of these standards. Instead, manufacturers have the incentive to be compliant with the RFCs so that their products are compatible with others. The value of RFCs (and any other standard) is dependent on whether they are adopted by users. RFCs can be updated and retired for this reason.</p>
+<p>TCP/IP protocols prevail because they are flexible and work reasonably well in most situations, even though they are not optimal in virtually any of them. Also, TCP/IP protocols are free, as opposed to <span class="concept" id="c13" data-key="privative">privative</span> protocols that forced the purchase of a specific vendor’s solution.</p>
+<details class="note" open="open">
+<summary>Note</summary>
 <p>Today it is hard to imagine a world <em>not</em> dominated by the TCP/IP architecture, but entirely different stacks were commercialized and supported until the late 90s. Examples include AppleTalk and IPX/SPX, by Apple and Novell, respectively.</p>
-</div>
-<p>Some aspects of TCP/IP like unique identifiers (including <span class="concept" id="c27" data-key="DNS">DNS</span>, the Domain Name System) and reserved numbers need to be agreed upon by everyone for the Internet to work properly. The <span class="concept" id="c28" data-key="IANA">IANA</span> (Internet Assigned Numbers Authority) works in coordination with the <span class="concept" id="c29" data-key="IETF">IETF</span> to define the appropriate <span class="concept" id="c30" data-key="RFC">RFCs</span>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Since 2016, IANA is managed by a nonprofit multistakeholder organization (<span class="concept" id="c31" data-key="ICANN">ICANN - Internet Corporation for Assigned Names and Numbers</span>). Since 2004, the responsibility for regional domains (<em>e.g.</em>, <code>.cat</code>, <code>.fr</code>, <code>.es</code>) is transferred to continent-level organizations called regional Internet Registries (<span class="concept" id="c32" data-key="RIR">RIRs</span>).</p>
-</div>
+</details>
+<p>Some aspects of TCP/IP like unique identifiers (including <span class="concept" id="c14" data-key="DNS">DNS</span>, the Domain Name System) and reserved numbers need to be agreed upon by everyone for the Internet to work properly. The <span class="concept" id="c15" data-key="IANA">IANA</span> (Internet Assigned Numbers Authority) works in coordination with the <span class="concept" id="c16" data-key="IETF">IETF</span> to define the appropriate <span class="concept" id="c17" data-key="RFC">RFCs</span>.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>Since 2016, IANA is managed by a nonprofit multistakeholder organization (<span class="concept" id="c18" data-key="ICANN">ICANN</span> - Internet Corporation for Assigned Names and Numbers). Since 2004, the responsibility for regional domains (<em>e.g.</em>, <code>.cat</code>, <code>.fr</code>, <code>.es</code>) is transferred to continent-level organizations called regional Internet Registries (<span class="concept" id="c19" data-key="RIR">RIRs</span>).</p>
+</details>
 <script>window.XOI_ASSETS = "../assets/";</script>
 
 
@@ -1765,11 +1763,17 @@
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
+        <script src="../scripts/header-title.js"></script>
+      
         <script src="../scripts/wide-tables.js"></script>
       
         <script src="../scripts/search-highlight.js"></script>
       
+        <script src="../scripts/search-lang-filter.js"></script>
+      
         <script src="../scripts/technical-terms.js"></script>
+      
+        <script src="../scripts/toc-fold.js"></script>
       
         <script src="../scripts/goatcounter.js"></script>
       

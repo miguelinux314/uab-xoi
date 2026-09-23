@@ -493,7 +493,7 @@
   <span class="md-ellipsis">
     
   
-    Sobre aquesta assignatura
+    [1] Sobre aquesta assignatura
   
 
     
@@ -683,7 +683,7 @@
   <span class="md-ellipsis">
     
   
-    [2] Travessant el vel analògic-digital
+    [2] El vel analògic-digital
   
 
     
@@ -711,7 +711,7 @@
   <span class="md-ellipsis">
     
   
-    [3] On ets?
+    [3] Adreçament
   
 
     
@@ -739,7 +739,7 @@
   <span class="md-ellipsis">
     
   
-    [4] Això és teu?
+    [4] Paquets
   
 
     
@@ -950,10 +950,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#la-pila-tcpip" class="md-nav__link">
+  <a href="#sec-internet-the_tcp_ip_stack" class="md-nav__link">
     <span class="md-ellipsis">
       
-        La pila TCP/IP
+        [6.1] La pila TCP/IP
       
     </span>
   </a>
@@ -961,10 +961,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#visio-general-dels-protocols-tcpip" class="md-nav__link">
+  <a href="#sec-internet-tcp_ip_protocol_overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Visió general dels protocols TCP/IP
+        [6.2] Visió general dels protocols TCP/IP
       
     </span>
   </a>
@@ -972,10 +972,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#qui-mana-a-internet" class="md-nav__link">
+  <a href="#sec-internet-who_is_the_internet_boss" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Qui mana a Internet?
+        [6.3] Qui mana a Internet?
       
     </span>
   </a>
@@ -1125,7 +1125,7 @@
   <span class="md-ellipsis">
     
   
-    Índex de conceptes
+    Termes tècnics
   
 
     
@@ -1517,10 +1517,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#la-pila-tcpip" class="md-nav__link">
+  <a href="#sec-internet-the_tcp_ip_stack" class="md-nav__link">
     <span class="md-ellipsis">
       
-        La pila TCP/IP
+        [6.1] La pila TCP/IP
       
     </span>
   </a>
@@ -1528,10 +1528,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#visio-general-dels-protocols-tcpip" class="md-nav__link">
+  <a href="#sec-internet-tcp_ip_protocol_overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Visió general dels protocols TCP/IP
+        [6.2] Visió general dels protocols TCP/IP
       
     </span>
   </a>
@@ -1539,10 +1539,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#qui-mana-a-internet" class="md-nav__link">
+  <a href="#sec-internet-who_is_the_internet_boss" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Qui mana a Internet?
+        [6.3] Qui mana a Internet?
       
     </span>
   </a>
@@ -1568,10 +1568,10 @@
 
 <p><img alt="" class="hero" src="../assets/fig/earth.jpg" /></p>
 <h1 id="sec-internet">[6] Internet<a class="headerlink" href="#sec-internet" title="Permanent link">&para;</a></h1>
-<p>Les comunicacions modernes es basen en <span class="concept" id="c1" data-key="stack">piles</span> de xarxa organitzades en capes. Potser acabes de descarregar aquesta guia d’Internet. Quines capes s’utilitzen exactament? Quins protocols s’empren, i amb quina finalitat? Aquest capítol ofereix una introducció per respondre aquestes preguntes.</p>
-<h2 id="la-pila-tcpip">La pila TCP/IP<a class="headerlink" href="#la-pila-tcpip" title="Permanent link">&para;</a></h2>
-<p><span class="concept" id="c2" data-key="Internet">Internet</span> és una solució pràctica al problema de la comunicació global entre ordinadors, el desenvolupament de la qual va començar a finals dels anys seixanta i principis dels setanta, i encara continua.</p>
-<p>La commutació de <span class="concept" id="c3" data-key="packet">paquets</span> es va concebre a principis dels anys seixanta, i la primera implementació d’àrea extensa, <span class="concept" id="c4" data-key="ARPANET">ARPANET</span>, va començar el 1969. Un repte clau en aquell moment era interconnectar les <span class="concept" id="c5" data-key="network">xarxes</span> existents, propietat de diferents organitzacions i basades en diferents tecnologies i <span class="concept" id="c6" data-key="protocol">protocols</span>. Perquè tot fos viable, calia complir tots els requisits següents:</p>
+<p>Les comunicacions modernes es basen en piles de xarxa organitzades en capes. Potser acabes de descarregar aquesta guia d’Internet. Quines capes s’utilitzen exactament? Quins protocols s’empren, i amb quina finalitat? Aquest capítol ofereix una introducció per respondre aquestes preguntes.</p>
+<h2 id="sec-internet-the_tcp_ip_stack">[6.1] La pila TCP/IP<a class="headerlink" href="#sec-internet-the_tcp_ip_stack" title="Permanent link">&para;</a></h2>
+<p><span class="concept" id="c1" data-key="internet">Internet</span> és una solució pràctica al problema de la comunicació global entre ordinadors, el desenvolupament de la qual va començar a finals dels anys seixanta i principis dels setanta, i encara continua.</p>
+<p>La commutació de paquets es va concebre a principis dels anys seixanta, i la primera implementació d’àrea extensa, ARPANET, va començar el 1969. Un repte clau en aquell moment era interconnectar les xarxes existents, propietat de diferents organitzacions i basades en diferents tecnologies i <span class="concept" id="c2" data-key="protocol">protocols</span>. Perquè tot fos viable, calia complir tots els requisits següents:</p>
 <ul>
 <li>
 <p>Les xarxes existents havien de funcionar sense actualitzacions de la infraestructura física ni dels seus protocols, només de la manera com s’utilitzen aquests protocols.</p>
@@ -1586,19 +1586,19 @@
 <p>Els missatges que arriben poden no estar en ordre, i poden estar repetits.</p>
 </li>
 </ul>
-<p>La solució adoptada per ARPANET –i més tard per tot el món– és el conjunt de protocols <span class="concept" id="c7" data-key="TCP/IP">TCP/IP</span>, descrit per primera vegada el 1974. És un enfocament per capes, dissenyat per “endollar-se” damunt de les <span class="concept" id="c8" data-key="LAN">LANs</span> (xarxes d’àrea local) existents, amb l’objectiu d’oferir capacitats de xarxa a totes les aplicacions d’usuari.</p>
+<p>La solució adoptada per ARPANET –i més tard per tot el món– és el conjunt de protocols <span class="concept" id="c3" data-key="TCP/IP">TCP/IP</span>, descrit per primera vegada el 1974. És un enfocament per capes, dissenyat per “endollar-se” damunt de les LANs (xarxes d’àrea local) existents, amb l’objectiu d’oferir capacitats de xarxa a totes les aplicacions d’usuari.</p>
 <p><img alt="image" src="../assets/rendered/02487d7ece2c005c.svg" style="width:16.67cm" /></p>
 <p>En poques paraules, els principals serveis que ofereixen aquestes capes són els següents:</p>
 <ol>
 <li>
-<p><strong>(Física)</strong>: Enviar dades <span class="concept" id="c9" data-key="digital">digital</span>s a través de mitjans <span class="concept" id="c10" data-key="analog">analògics</span>.</p>
+<p><strong>(Física)</strong>: Enviar dades <span class="concept" id="c4" data-key="digital">digital</span>s a través de mitjans <span class="concept" id="c5" data-key="analog">analògics</span>.</p>
 </li>
 <li>
-<p><strong>(Xarxa)</strong>: Identificar i comunicar dispositius dins de la mateixa <span class="concept" id="c11" data-key="LAN">LAN</span>.<br />
+<p><strong>(Xarxa)</strong>: Identificar i comunicar dispositius dins de la mateixa LAN.<br />
     De vegades s’utilitza el terme capa d’“enllaç de dades” (del model OSI).</p>
 </li>
 <li>
-<p><strong>(Internet)</strong>: Identificar i comunicar dispositius a través de totes les <span class="concept" id="c12" data-key="LAN">LANs</span>.<br />
+<p><strong>(Internet)</strong>: Identificar i comunicar dispositius a través de totes les LANs.<br />
     De vegades s’utilitza el terme capa de “xarxa” (també del model OSI).</p>
 </li>
 <li>
@@ -1606,12 +1606,10 @@
     A més (tria’n <em>només</em> una):</p>
 <ol>
 <li>
-<p>Assegurar que un <span class="concept" id="c13" data-key="stream">flux</span> de dades arriba correctament a l’altre extrem, i en ordre<br />
-    – <em>però</em> s’introdueix una <span class="concept" id="c14" data-key="overhead">sobrecàrrega</span> i cal establir <span class="concept" id="c15" data-key="connection">connexions</span> (<span class="concept" id="c16" data-key="TCP">TCP</span>).</p>
+<p>Assegurar que un <span class="concept" id="c6" data-key="stream">flux</span> de dades arriba correctament a l’altre extrem, i en ordre – <em>però</em> s’introdueix una sobrecàrrega i cal establir <span class="concept" id="c7" data-key="connection">connexions</span> (<span class="concept" id="c8" data-key="TCP">TCP</span>).</p>
 </li>
 <li>
-<p>Utilitzar missatges simples i relativament eficients, amb una sobrecàrrega petita<br />
-    – <em>però</em> els missatges es poden perdre, desordenar o duplicar (<span class="concept" id="c17" data-key="UDP">UDP</span>).</p>
+<p>Utilitzar missatges simples i relativament eficients, amb una sobrecàrrega petita – <em>però</em> els missatges es poden perdre, desordenar o duplicar (<span class="concept" id="c9" data-key="UDP">UDP</span>).</p>
 </li>
 </ol>
 </li>
@@ -1620,8 +1618,8 @@
     No t’oblidis de la seguretat (p. ex., criptografia) ni de l’eficiència (p. ex., compressió): la capa 4 i les inferiors no ho proporcionen.</p>
 </li>
 </ol>
-<h2 id="visio-general-dels-protocols-tcpip">Visió general dels protocols TCP/IP<a class="headerlink" href="#visio-general-dels-protocols-tcpip" title="Permanent link">&para;</a></h2>
-<p>Es defineixen múltiples <span class="concept" id="c18" data-key="protocol">protocols</span> per implementar la funcionalitat de cada <span class="concept" id="c19" data-key="layer">capa</span>. Aquestes definicions inclouen el <span class="concept" id="c20" data-key="packet format">format de paquet</span> requerit, les regles per intercanviar aquests paquets i la seva semàntica. Aquests protocols s’han d’entendre com un sistema, en el qual cada part té tasques molt específiques.</p>
+<h2 id="sec-internet-tcp_ip_protocol_overview">[6.2] Visió general dels protocols TCP/IP<a class="headerlink" href="#sec-internet-tcp_ip_protocol_overview" title="Permanent link">&para;</a></h2>
+<p>Es defineixen múltiples <span class="concept" id="c10" data-key="protocol">protocols</span> per implementar la funcionalitat de cada capa. Aquestes definicions inclouen el format de paquet requerit, les regles per intercanviar aquests paquets i la seva semàntica. Aquests protocols s’han d’entendre com un sistema, en el qual cada part té tasques molt específiques.</p>
 <p>Alguns dels protocols més rellevants per a les comunicacions a través d’Internet es mostren a la figura següent. En aquesta:</p>
 <ul>
 <li>
@@ -1635,33 +1633,33 @@
 </li>
 </ul>
 <p><img alt="image" src="../assets/fig/protocol_dependencies.svg" style="width:22.95cm" /></p>
-<div class="admonition example">
-<p class="admonition-title">Exercici 6.1</p>
-<p>Volem enviar la frase “Perdó, arribaré 5 minuts tard” per correu electrònic. El nostre client de correu enviarà aquestes dades amb el protocol SMTP, que al seu torn utilitza TCP (part de la capa 4). Suposant que SMTP utilitza capçaleres a la seva <span class="concept" id="c21" data-key="PDU">PDU</span>, quantes capçaleres contindrà la <span class="concept" id="c22" data-key="PDU">PDU</span> corresponent de la capa 2?</p>
-</div>
-<div class="admonition example">
-<p class="admonition-title">Exercici 6.2</p>
+<details class="example" open="open">
+<summary>Exercici 6.1</summary>
+<p>Volem enviar la frase “Perdó, arribaré 5 minuts tard” per correu electrònic. El nostre client de correu enviarà aquestes dades amb el protocol SMTP, que al seu torn utilitza TCP (part de la capa 4). Suposant que SMTP utilitza capçaleres a la seva PDU, quantes capçaleres contindrà la PDU corresponent de la capa 2?</p>
+</details>
+<details class="example" open="open">
+<summary>Exercici 6.2</summary>
 <p>Per què creus que la capa 3 només té un protocol (dos si comptes IPv4 i IPv6 per separat)?</p>
-</div>
-<h2 id="qui-mana-a-internet">Qui mana a Internet?<a class="headerlink" href="#qui-mana-a-internet" title="Permanent link">&para;</a></h2>
-<p>La <span class="concept" id="c23" data-key="IETF">Internet Engineering Task Force (IETF)</span> es va crear el 1986 per desenvolupar i publicar estàndards per utilitzar a Internet. El seu principal resultat són els documents <span class="concept" id="c24" data-key="RFC">“Request for Comment” (RFC)</span>, que contenen descripcions tècniques completes d’aquests estàndards.</p>
+</details>
+<h2 id="sec-internet-who_is_the_internet_boss">[6.3] Qui mana a Internet?<a class="headerlink" href="#sec-internet-who_is_the_internet_boss" title="Permanent link">&para;</a></h2>
+<p>La Internet Engineering Task Force (<span class="concept" id="c11" data-key="IETF">IETF</span>) es va crear el 1986 per desenvolupar i publicar estàndards per utilitzar a Internet. El seu principal resultat són els documents “Request for Comment” (<span class="concept" id="c12" data-key="RFC">RFC</span>), que contenen descripcions tècniques completes d’aquests estàndards.</p>
 <p>Aquests RFCs els creen grups de treball d’experts, perquè tothom els pugui utilitzar lliurement i de franc. Qualsevol persona pot participar en aquests grups de treball, inclosos investigadors, governs i agents de la indústria. Les decisions es prenen quan hi està d’acord entre el 80 i el 90% dels participants, de manera que cap entitat controla per si sola el procés d’estandardització.</p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
+<details class="note" open="open">
+<summary>Nota</summary>
 <p>“Rebutgem els reis, els presidents i les votacions. Creiem en el consens aproximat i en el codi que funciona” — Dave Clark (IETF), 1992.</p>
 <p>Consulta el DOI <a href="https://dx.doi.org/10.1109/MAHC.2006.42"><u>10.1109/MAHC.2006.42</u></a> per a una breu història de lluita pel poder.</p>
-</div>
-<p>Els estàndards RFC són descriptius, no prescriptius. Això vol dir que ningú vigila l’ús correcte d’aquests estàndards. En canvi, els fabricants tenen l’incentiu de complir els RFCs perquè els seus productes siguin compatibles amb els d’altres. El valor dels RFCs (i de qualsevol altre estàndard) depèn que els usuaris els adoptin. Per aquest motiu, els RFCs es poden actualitzar i <span class="concept" id="c25" data-key="retire (standard)">retirar</span>.</p>
-<p>Els protocols TCP/IP s’imposen perquè són flexibles i funcionen raonablement bé en la majoria de situacions, tot i que no són òptims pràcticament en cap. A més, els protocols TCP/IP són lliures, a diferència dels protocols <span class="concept" id="c26" data-key="privative">privatius</span> que obligaven a comprar la solució d’un fabricant concret.</p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
+</details>
+<p>Els estàndards RFC són descriptius, no prescriptius. Això vol dir que ningú vigila l’ús correcte d’aquests estàndards. En canvi, els fabricants tenen l’incentiu de complir els RFCs perquè els seus productes siguin compatibles amb els d’altres. El valor dels RFCs (i de qualsevol altre estàndard) depèn que els usuaris els adoptin. Per aquest motiu, els RFCs es poden actualitzar i retirar.</p>
+<p>Els protocols TCP/IP s’imposen perquè són flexibles i funcionen raonablement bé en la majoria de situacions, tot i que no són òptims pràcticament en cap. A més, els protocols TCP/IP són lliures, a diferència dels protocols <span class="concept" id="c13" data-key="privative">privatius</span> que obligaven a comprar la solució d’un fabricant concret.</p>
+<details class="note" open="open">
+<summary>Nota</summary>
 <p>Avui és difícil imaginar un món <em>no</em> dominat per l’arquitectura TCP/IP, però es van comercialitzar i mantenir piles completament diferents fins a finals dels noranta. En són exemples AppleTalk i IPX/SPX, d’Apple i Novell, respectivament.</p>
-</div>
-<p>Alguns aspectes de TCP/IP, com ara els identificadors únics (inclòs el <span class="concept" id="c27" data-key="DNS">DNS</span>, el sistema de noms de domini) i els números reservats, han de ser acordats per tothom perquè Internet funcioni correctament. La <span class="concept" id="c28" data-key="IANA">IANA</span> (Internet Assigned Numbers Authority) treballa en coordinació amb la <span class="concept" id="c29" data-key="IETF">IETF</span> per definir els <span class="concept" id="c30" data-key="RFC">RFCs</span> adequats.</p>
-<div class="admonition note">
-<p class="admonition-title">Nota</p>
-<p>Des del 2016, la IANA és gestionada per una organització sense ànim de lucre amb múltiples parts interessades (<span class="concept" id="c31" data-key="ICANN">ICANN - Internet Corporation for Assigned Names and Numbers</span>). Des del 2004, la responsabilitat dels dominis regionals (p. ex., <code>.cat</code>, <code>.fr</code>, <code>.es</code>) s’ha transferit a organitzacions d’àmbit continental anomenades registres regionals d’Internet (<span class="concept" id="c32" data-key="RIR">RIRs</span>).</p>
-</div>
+</details>
+<p>Alguns aspectes de TCP/IP, com ara els identificadors únics (inclòs el <span class="concept" id="c14" data-key="DNS">DNS</span>, el sistema de noms de domini) i els números reservats, han de ser acordats per tothom perquè Internet funcioni correctament. La <span class="concept" id="c15" data-key="IANA">IANA</span> (Internet Assigned Numbers Authority) treballa en coordinació amb la <span class="concept" id="c16" data-key="IETF">IETF</span> per definir els <span class="concept" id="c17" data-key="RFC">RFCs</span> adequats.</p>
+<details class="note" open="open">
+<summary>Nota</summary>
+<p>Des del 2016, la IANA és gestionada per una organització sense ànim de lucre amb múltiples parts interessades (<span class="concept" id="c18" data-key="ICANN">ICANN</span> - Internet Corporation for Assigned Names and Numbers). Des del 2004, la responsabilitat dels dominis regionals (p. ex., <code>.cat</code>, <code>.fr</code>, <code>.es</code>) s’ha transferit a organitzacions d’àmbit continental anomenades registres regionals d’Internet (<span class="concept" id="c19" data-key="RIR">RIRs</span>).</p>
+</details>
 <script>window.XOI_ASSETS = "../assets/";</script>
 
 
@@ -1765,11 +1763,17 @@
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
+        <script src="../../scripts/header-title.js"></script>
+      
         <script src="../../scripts/wide-tables.js"></script>
       
         <script src="../../scripts/search-highlight.js"></script>
       
+        <script src="../../scripts/search-lang-filter.js"></script>
+      
         <script src="../../scripts/technical-terms.js"></script>
+      
+        <script src="../../scripts/toc-fold.js"></script>
       
         <script src="../../scripts/goatcounter.js"></script>
       

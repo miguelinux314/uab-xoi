@@ -44,3 +44,24 @@ function alignWideTables() {
 }
 document$.subscribe(alignWideTables);
 window.addEventListener("resize", alignWideTables);
+
+// Tooltip on each mission-coverage-matrix icon (.mission-table, see xoi.css and tex2md.py's
+// wrap_wide_table) with the meaning given in the table's own key (missions/mission_index.tex's
+// "$\checkmark$: ... --- $\circlearrowleft$: ... --- $\looparrowright$: ..." line). Each cell is
+// a pymdownx.arithmatex span holding the raw `\(\checkmark\)`-style source; MathJax
+// (web/js/mathjax.js) typesets it in place, replacing that text with the rendered symbol (and an
+// assistive MathML copy holding the same symbol as real text) - match either form, since
+// depending on timing this can run before or after that swap.
+const MISSION_ICONS = [
+  {match: ["\\checkmark", "✓"], en: "Main focus", es: "Foco principal", ca: "Focus principal"},
+  {match: ["\\circlearrowleft", "↺"], en: "Review", es: "Repaso", ca: "Repàs"},
+  {match: ["\\looparrowright", "↬"], en: "Foreshadow", es: "Anticipo", ca: "Anticipació"},
+];
+document$.subscribe(() => {
+  const lang = (document.documentElement.lang || "en").slice(0, 2);
+  document.querySelectorAll(".mission-table .arithmatex").forEach((el) => {
+    const text = el.textContent;
+    const icon = MISSION_ICONS.find((i) => i.match.some((m) => text.includes(m)));
+    if (icon) el.title = icon[lang] || icon.en;
+  });
+});
