@@ -13,6 +13,6 @@ Online:
 
 Offline (PDF + code snippets, unzip everything so the links to the code work):
 
-* [Castellano](https://miguelinux314.github.io/uab-xoi/es/assets/xoi-uab-study-guide-es.zip) ·
-  [Català](https://miguelinux314.github.io/uab-xoi/ca/assets/xoi-uab-study-guide-ca.zip) ·
-  [English](https://miguelinux314.github.io/uab-xoi/assets/xoi-uab-study-guide-en.zip)
+* [Castellano](https://miguelinux314.github.io/uab-xoi/es/assets/xoi-uab-study-guide-es.zip)
+* [Català](https://miguelinux314.github.io/uab-xoi/ca/assets/xoi-uab-study-guide-ca.zip)
+* [English](https://miguelinux314.github.io/uab-xoi/assets/xoi-uab-study-guide-en.zip)
