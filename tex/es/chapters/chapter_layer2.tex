@@ -37,7 +37,7 @@ que se pueden insertar en un protocolo de capa~2 se denomina unidad máxima de t
 
 Algunos protocolos de capa~2 también pueden proporcionar autenticación de usuario y
 protección criptográfica; 
-\concept{Wi-Fi} es un ejemplo destacado,
+\conceptRef{wi-fi}{Wi-Fi} es un ejemplo destacado,
 aunque las redes cableadas también pueden emplear, \eg\ IEEE 802.1X.
 
 \vspace{-0.3cm}
@@ -49,15 +49,15 @@ aunque las redes cableadas también pueden emplear, \eg\ IEEE 802.1X.
 \subsection*{Protocolos}
 Se han definido y se siguen definiendo muchos protocolos dentro de la capa~2. Los más importantes en la actualidad:\\[-0.65cm]
 \begin{itemize}
-\item \concept{Ethernet} (IEEE 802.3), que se trata en \secref{sec:layer2:ethernet}.
-\item \concept{Wi-Fi} (\eg\ IEEE 802.11be, alias Wi-Fi 7, de 2024).
+\item \conceptRef{ethernet}{Ethernet} (IEEE 802.3), que se trata en \secref{sec:layer2:ethernet}.
+\item \conceptRef{wi-fi}{Wi-Fi} (\eg\ IEEE 802.11be, alias Wi-Fi 7, de 2024).
 \end{itemize}
 
 Dentro de TCP/IP, la capa~2 encapsula las siguientes PDU de protocolo
 (ambas se tratan en el Capítulo~\ref{sec:layer3}):\\[-0.65cm]
 \begin{itemize}
   \item Datagramas \concept{IPv4} e \concept{IPv6}.
-  \item Mensajes \concept{ARP}.\\[-0.75cm]
+  \item Mensajes ARP.\\[-0.75cm]
 \end{itemize}
 
 \vspace{0.5cm}
@@ -121,7 +121,7 @@ Los paquetes de este tipo se denominan frames (tramas):\\[-0.25cm]
   encapsulado en el payload,\\\eg\ 
   \otherBase{0x0800}~$\rightarrow$~\concept{IPv4}, 
   \otherBase{0x86DD}~$\rightarrow$~\concept{IPv6}, y
-  \otherBase{0x0806}~$\rightarrow$~\concept{ARP}. 
+  \otherBase{0x0806}~$\rightarrow$~ARP.
   A veces se le llama \href{https://en.wikipedia.org/wiki/EtherType#Values}{\underline{EtherType}}.
   
 \item \textbf{Payload}: contenido que se solicita enviar, \eg\ por IPv4 o ARP.
@@ -163,10 +163,10 @@ MAC de destino debe ser \otherBase{ff:ff:ff:ff:ff:ff}.
 Cuando un dispositivo recibe un frame, lo descarta salvo que el campo de MAC de destino del frame
 sea idéntico a su propia dirección MAC, o sea el de \concept{broadcast}. 
 
-Un nodo también descartará un frame con un campo de tipo de payload (\concept{EtherType}) no soportado. 
+Un nodo también descartará un frame con un campo de tipo de payload (\conceptRef{ethertype}{EtherType}) no soportado. 
 % 
 Si el tipo de payload sí está soportado, se usa para decidir qué parte del sistema operativo recibe el mensaje,
-\eg\ la pila \concept{IPv4} o el subsistema \concept{ARP}.
+\eg\ la pila \concept{IPv4} o el subsistema ARP.
 
 \begin{exercise} Siguiendo con el ejemplo de la figura anterior, la tarjeta de red del nodo~B recibe
 un frame que empieza con los siguientes bytes. ¿Debería aceptarlo B?
@@ -176,8 +176,8 @@ un frame que empieza con los siguientes bytes. ¿Debería aceptarlo B?
 \end{exercise}
 
 \begin{exercise}
-Los siguientes scripts ejemplifican cómo enviar y recibir frames \concept{Ethernet} en crudo. 
-El cliente envía $5$ frames idénticos de \concept{EtherType} \otherBase{0x1234} y después termina.
+Los siguientes scripts ejemplifican cómo enviar y recibir frames \conceptRef{ethernet}{Ethernet} en crudo. 
+El cliente envía $5$ frames idénticos de \conceptRef{ethertype}{EtherType} \otherBase{0x1234} y después termina.
 El servidor espera hasta recibir $5$ frames Ethernet de ese tipo (se comprueba en las líneas 12-13) y después termina.
 % 
 \begin{itemize}

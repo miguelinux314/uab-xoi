@@ -1,6 +1,6 @@
 \chapterimage{container.jpg}
 
-\chapter{Això és teu?}\label{sec:packets}
+\chapter{Paquets}\label{sec:packets}
 
 La informació viatja per aquest graf de xarxes en forma de paquets, que contenen una petita quantitat 
 d'informació i de metainformació. 
@@ -39,7 +39,7 @@ que sovint s'atribueix a Paul Baran i Donald Davies.
 
 Els \conceptRef{packet}{paquets} han de ser petits perquè les connexions no quedin bloquejades durant massa temps. 
 Alhora, volem que els paquets continguin tantes dades com sigui possible, perquè cada paquet 
-conté dades de \conceptRef{overhead}{sobrecàrrega} (com ara les adreces que es tracten a la secció~\ref{sec:where}) que cal
+conté dades d'\conceptRef{overhead}{overhead} (sobrecàrrega, com ara les adreces que es tracten a la secció~\ref{sec:where}) que cal
 enviar a més de les dades de payload (càrrega útil) de l'usuari. Les xarxes fixen la longitud màxima dels paquets
 mitjançant un paràmetre anomenat unitat màxima de transmissió (\conceptRef{MTU}{MTU}), \eg, 1500~bytes a Ethernet.
 
@@ -133,7 +133,7 @@ Totes les configuracions següents són possibles.
 
 
 El format del payload d'un paquet normalment el defineix l'usuari. En canvi, el format de la capçalera
-està definit estrictament perquè es pugui produir i \conceptRef{parsing}{analitzar} fàcilment.
+està definit estrictament perquè es pugui produir i analitzar fàcilment.
 Aquest format sovint es presenta amb un diagrama que ajuda a identificar les posicions individuals de cada bit i de cada byte,
 com en l'exemple (no real) següent:\\
 
@@ -155,7 +155,7 @@ com en l'exemple (no real) següent:\\
 \begin{remark}
 Els camps també poden tenir longituds fixes o variables, que no necessàriament s'alineen amb els 
 límits de byte. Els camps també poden tenir una longitud igual a $1$~bit,
-i en aquest cas normalment se'ls anomena \conceptRef{flag}{\texttt{flag}} (indicador) o bit de flag.
+i en aquest cas normalment se'ls anomena \conceptRef{flag}{\texttt{flag}} o bit de flag.
 \end{remark}
 
 
@@ -229,7 +229,7 @@ paquets diferents es poden lliurar per rutes diferents que poden tenir longituds
 desordenats.
 
 Si volem simular un \conceptRef{message/stream}{flux} de dades, els paquets han de contenir prou metainformació perquè es puguin detectar les pèrdues i 
-restaurar l'ordre correcte. Això introdueix una \conceptRef{overhead}{sobrecàrrega} que no és adequada en tots els escenaris --\eg, latència molt baixa--,
+restaurar l'ordre correcte. Això introdueix un \concept{overhead} que no és adequat en tots els escenaris --\eg, latència molt baixa--,
 de manera que algunes aplicacions basen la seva comunicació de xarxa en \conceptRef{message/stream}{missatges} en lloc de fluxos.
 
 Quan calen fluxos, es fa servir el concepte d'\concept{offset} (desplaçament) per tornar a muntar diversos missatges en 

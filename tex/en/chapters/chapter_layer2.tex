@@ -35,9 +35,9 @@ Layer~2 messages are limited in length. The maximum amount of Payload data
 that can be inserted in a Layer~2 protocol is called the Maximum Transmission Unit (MTU),
 \eg, $1500$~bytes for Ethernet.
 
-Some Layer~2 protocols may also provide user \concept{authentication} and
-\conceptRef{cryptography}{cryptographic} protection; 
-\concept{Wi-Fi} is a notable example,
+Some Layer~2 protocols may also provide user authentication and
+cryptographic protection;
+\conceptRef{wi-fi}{Wi-Fi} is a notable example,
 although wired networks may also employ, \eg, IEEE 802.1X.
 
 \vspace{-0.3cm}
@@ -49,15 +49,15 @@ although wired networks may also employ, \eg, IEEE 802.1X.
 \subsection*{Protocols}
 Many protocols have been and are being defined within Layer~2. Most importantly nowadays:\\[-0.65cm]
 \begin{itemize}
-\item \concept{Ethernet} (IEEE 802.3), addressed in \secref{sec:layer2:ethernet}.
-\item \concept{Wi-Fi} (\eg, IEEE 802.11be aka Wi-Fi 7, of 2024).
+\item \conceptRef{ethernet}{Ethernet} (IEEE 802.3), addressed in \secref{sec:layer2:ethernet}.
+\item \conceptRef{wi-fi}{Wi-Fi} (\eg, IEEE 802.11be aka Wi-Fi 7, of 2024).
 \end{itemize}
 
 Within TCP/IP, Layer~2 encapsulates the following protocol PDUs
 (both addressed in Chapter~\ref{sec:layer3}):\\[-0.65cm]
 \begin{itemize}
   \item \concept{IPv4} and \concept{IPv6} datagrams.
-  \item \concept{ARP} messages.\\[-0.75cm]
+  \item ARP messages.\\[-0.75cm]
 \end{itemize}
 
 \vspace{0.5cm}
@@ -121,7 +121,7 @@ Packets of this type are called frames:\\[-0.25cm]
   encapsulated in the payload,\\\eg, 
   \otherBase{0x0800}~$\rightarrow$~\concept{IPv4}, 
   \otherBase{0x86DD}~$\rightarrow$~\concept{IPv6}, and
-  \otherBase{0x0806}~$\rightarrow$~\concept{ARP}. 
+  \otherBase{0x0806}~$\rightarrow$~ARP.
   Sometimes called \href{https://en.wikipedia.org/wiki/EtherType#Values}{\underline{EtherType}}.
   
 \item \textbf{Payload}: Content requested to be sent, \eg, by IPv4 or ARP.
@@ -130,7 +130,7 @@ Packets of this type are called frames:\\[-0.25cm]
 
 \begin{exercise}\ \\[-0.5cm]
 \begin{itemize}
-\item How many different MAC addresses are there in Ethernet (including reserved \conceptRef{address block}{blocks})?
+\item How many different MAC addresses are there in Ethernet (including reserved blocks)?
 \item Are they enough so that every internet-capable device on Earth has a unique MAC?
 \end{itemize}
 \end{exercise}
@@ -149,7 +149,7 @@ Is the following frame valid?
 \subsection{Operation}\label{sec:layer2:ethernet:operation}
 
 Messages within an Ethernet LAN are normally sent in \conceptRef{unicast/multicast}{unicast} mode, \ie, they are one-to-one messages.
-This allows switches to minimize \concept{power} and \concept{bandwidth} consumption.
+This allows switches to minimize power and \concept{bandwidth} consumption.
 % 
 In \conceptRef{unicast/multicast}{unicast}, the source device node must know the MAC of the destination.
 % 
@@ -163,10 +163,10 @@ MAC address must be \otherBase{ff:ff:ff:ff:ff:ff}.
 When a device receives a frame, it discards it unless the destination MAC field in the frame
 is identical to its own MAC address, or \concept{broadcast}. 
 
-A node will also discard a frame with an unsupported Payload Type (\concept{EtherType}) field. 
+A node will also discard a frame with an unsupported Payload Type (\conceptRef{ethertype}{EtherType}) field. 
 % 
 If the payload type is supported, it is used to decide what part of the OS receives the message,
-\eg, the \concept{IPv4} stack or the \concept{ARP} subsystem.
+\eg, the \concept{IPv4} stack or the ARP subsystem.
 
 \begin{exercise} Continuing the example of the figure above, the network card of Node~B receives
 a frame that begins with the following bytes. Should it be accepted by B?
@@ -176,9 +176,9 @@ a frame that begins with the following bytes. Should it be accepted by B?
 \end{exercise}
 
 \begin{exercise}
-The following scripts exemplify how to send and receive raw \concept{Ethernet} frames. 
-The \concept{client} sends $5$ identical frames of \concept{EtherType} \otherBase{0x1234} and then exits.
-The \concept{server} waits until it receives $5$ Ethernet frames of that type (checked in lines 12-13) and then exits.
+The following scripts exemplify how to send and receive raw \conceptRef{ethernet}{Ethernet} frames. 
+The client sends $5$ identical frames of \conceptRef{ethertype}{EtherType} \otherBase{0x1234} and then exits.
+The server waits until it receives $5$ Ethernet frames of that type (checked in lines 12-13) and then exits.
 % 
 \begin{itemize}
 \item Change the client's MAC address and interface name with yours.
@@ -186,8 +186,8 @@ The \concept{server} waits until it receives $5$ Ethernet frames of that type (c
 \item Extend these scripts to implement a simple application with LAN capabilities.\\
   Suggested examples:
     \begin{itemize}
-    \item A Layer-2 \concept{echo} service that distinguishes between petitions and responses.
-    \item A Layer-2 \concept{peer-to-peer} chat that includes the origin's nickname in all messages.
+    \item A Layer-2 echo service that distinguishes between petitions and responses.
+    \item A Layer-2 peer-to-peer chat that includes the origin's nickname in all messages.
     \item A Layer-2 calculator service that supports basic arithmetic operations\\
       (\inlineCode{+}, \inlineCode{-},\inlineCode{*}, integer division \inlineCode{//}, optionally division \inlineCode{/}).
     \end{itemize}

@@ -31,10 +31,10 @@ En aquest capítol s'aborden alguns dels més crítics.
 \section{DNS -- Sistema de noms de domini}\label{sec:layer7:dns}
 
 El protocol \concept{DNS} és responsable de traduir \conceptRef{domain name}{noms de domini}
-com ara \otherBase{ietf.org} o\\\otherBase{cv.uab.cat} a adreces \concept{IP}
-que es poden posar dins dels \conceptRef{datagram}{datagrames}.
+com ara \otherBase{ietf.org} o\\\otherBase{cv.uab.cat} a adreces IP
+que es poden posar dins dels datagrames.
 
-Els serveis DNS funcionen tant sobre \concept{TCP} com sobre \concept{UDP}, \ie, es poden habilitar
+Els serveis DNS funcionen tant sobre TCP com sobre UDP, \ie, es poden habilitar
 tots dos protocols de transport. En tots dos casos, s'utilitza el port \otherBase{53}.
 
 \subsection{Jerarquia}\label{sec:layer6:dns:hierarchy}
@@ -52,7 +52,7 @@ El nom de més a la dreta, \eg, \otherBase{cat} o \otherBase{com},
 ha de ser un dels \conceptRef{top-level domain}{dominis de primer nivell} de la IANA.
 
 Els servidors DNS s'organitzen de la mateixa manera jeràrquica que aquests noms de domini.
-Hi ha $13$ servidors \conceptRef{root DNS}{DNS arrel} (de \inlineCode{Root-A} a \inlineCode{Root-M}),
+Hi ha $13$ servidors \concept{root DNS} (de \inlineCode{Root-A} a \inlineCode{Root-M}),
 que són responsables de tots els dominis de primer nivell.
 Pots preguntar a qualsevol d'ells per \otherBase{com},
 però també per \otherBase{su}, i en sabran la resposta.
@@ -85,30 +85,30 @@ un sistema de traducció de noms centralitzat en lloc de la naturalesa distribu�
 \subsection{Registres}\label{sec:layer7:dns:records}
 
 El DNS es pot veure com una base de dades distribuïda amb diferents tipus d'entrades
-anomenades \conceptRef{DNS record}{registres}. Els principals són:
+anomenades \conceptRef{DNS record}{registres DNS}. Els principals són:
 
 \begin{itemize}
-\item[\textbf{A}:] Una entrada \concept{A} associa un nom de domini a una adreça IPv4.
-\item[\textbf{AAAA}:] Una entrada \concept{AAAA} associa un nom de domini a una adreça IPv6.
-\item[\textbf{NS}:] Una entrada \concept{NS} apunta a un servidor DNS que pot ajudar.
-\item[\textbf{MX}:] Una entrada \concept{MX} proporciona el nom de domini del servidor de correu electrònic
+\item[\textbf{A}:] Un \conceptRef{A}{registre A} associa un nom de domini a una adreça IPv4.
+\item[\textbf{AAAA}:] Un \conceptRef{AAAA}{registre AAAA} associa un nom de domini a una adreça IPv6.
+\item[\textbf{NS}:] Un \conceptRef{NS}{registre NS} apunta a un servidor DNS que pot ajudar.
+\item[\textbf{MX}:] Un \conceptRef{MX}{registre MX} proporciona el nom de domini del servidor de correu electrònic
   que gestiona els missatges d'un domini.
-\item[\textbf{CNAME}:] Una entrada \concept{CNAME} associa un nom de domini a un altre nom de domini.
+\item[\textbf{CNAME}:] Un \conceptRef{CNAME}{registre CNAME} associa un nom de domini a un altre nom de domini.
 \end{itemize}
 
 Les aplicacions fan \conceptRef{request}{peticions} als servidors DNS indicant el tipus
 de registres que els interessen. Les \conceptRef{reply}{respostes} del servidor poden ser
-els registres \concept{A} o \concept{MX} demanats,
-però el client també pot rebre una redirecció a un altre DNS (\concept{NS})
-o un àlies a un altre nom de domini (\concept{CNAME}).
+els registres A o MX demanats,
+però el client també pot rebre una redirecció a un altre DNS (NS)
+o un àlies a un altre nom de domini (CNAME).
 
 \subsection{Resolució}\label{sec:layer7:dns:resolution}
 
 La naturalesa distribuïda i jeràrquica de la base de dades del DNS fa que
 de vegades calgui intercanviar múltiples missatges per satisfer una \conceptRef{query}{consulta} DNS.
  
-Per exemple, l'Alice pot fer una resolució completament \conceptRef{iterative}{iterativa} tota sola.
-Les dues primeres respostes contenen una entrada \concept{NS} que apunta al següent
+Per exemple, l'Alice pot fer una \conceptRef{iterative}{resolució iterativa} completament tota sola.
+Les dues primeres respostes contenen un registre NS que apunta al següent
 servidor DNS i l'adreça IP d'aquest servidor DNS, però no l'adreça IP del
 \otherBase{cv.uab.cat} demanat.
 
@@ -118,13 +118,13 @@ servidor DNS i l'adreça IP d'aquest servidor DNS, però no l'adreça IP del
 
 El proveïdor d'Internet (\concept{ISP}) o l'empresa de l'Alice probablement oferiran servidors DNS
 la feina dels quals és rebre les peticions de l'Alice i resoldre-les per ella de manera
-\conceptRef{recursive}{recursiva}.
+recursiva.
 
 \begin{center}
 \includegraphics[width=1.05\linewidth]{dns_recursive.eps}
 \end{center}
 
-La combinació de la resolució \conceptRef{recursive}{recursiva} i les taules de \conceptRef{cache}{memòria cau} fa
+La combinació de la \conceptRef{recursive}{resolució recursiva} i les taules de \conceptRef{cache}{memòria cau} fa
 del DNS un sistema força eficient, amb una disponibilitat altíssima i una latència baixa.
 
 \begin{exercise}
@@ -201,7 +201,7 @@ no coneix la IP del servidor DHCP. En lloc d'això, utilitza:
 \item La seva adreça MAC com a adreça MAC d'origen.
 \item L'adreça de broadcast (difusió) de la LAN (\otherBase{ff:ff:ff:ff:ff:ff}) com a adreça MAC de destinació.
 \item \otherBase{0.0.0.0} com a IP d'origen, que vol dir ``desconeguda''.
-\item L'adreça de \conceptRef{local broadcast}{broadcast local}, \otherBase{255.255.255.255}, com a IP de destinació.
+\item L'adreça de \concept{local broadcast}, \otherBase{255.255.255.255}, com a IP de destinació.
 \end{itemize}
 
 \vspace{0.25cm}
@@ -210,7 +210,7 @@ Zero o més servidors respondran al client amb ofertes de configuració.
 Aquestes configuracions (\eg, adreces IP) no són propietat del client
 fins que el servidor envia un DHCP Acknowledgement.\\[-0.3cm]
 
-El servidor porta el control d'un \conceptRef{pool}{conjunt} d'adreces que
+El servidor porta el control d'un \conceptRef{pool}{pool} (conjunt) d'adreces que
 assigna dinàmicament als clients.
 % 
 Les adreces IP s'ofereixen durant un període de temps fix, després del qual caduquen

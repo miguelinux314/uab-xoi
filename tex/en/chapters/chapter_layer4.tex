@@ -24,11 +24,11 @@
 \subsection*{Capabilities}
 
 The \conceptRef{transport}{Transport} layer communicates processes (programs)
-running in potentially different \conceptRef{host}{hosts}. These processes are identified 
+running in potentially different hosts. These processes are identified
 using Layer~4 addresses called \conceptRef{port}{ports}.
 
-The transport layer offers two different ways of communication: without connections (UDP) 
-and with connections (TCP).
+The transport layer offers two different ways of communication: without connections (UDP, message-oriented)
+and with connections (TCP, stream-oriented).
 
 UDP doesn't establish a connection with the destination host because the priority is 
 to send some data payload as fast as possible. 
@@ -37,7 +37,7 @@ without expecting any sort of confirmation of reception from the destination's U
 UDP headers are simple and small as well keep the overhead of this protocol small.
 
 TCP establishes a connection before sending any payload data
-to make sure both ends are ready. In addition, TCP expects \conceptRef{ACK}{acknowledgement} (confirmation)
+to make sure both ends are ready. In addition, TCP expects acknowledgement (ACK)
 of reception of every byte of payload data. Otherwise, data are \conceptRef{retransmission}{retransmitted} 
 after a wait period, giving TCP \concept{reliability}. TCP also uses a very clever way 
 to limit the data exchange speed (\concept{flow control}) so that fast and slow computers can coexist
@@ -97,7 +97,7 @@ are treated independently:
    bind to \otherBase{UDP/100}.  
 \end{itemize}
 
-Port number \otherBase{0} is reserved, so the usable range or ports is \otherBase{1}--\otherBase{65535}. 
+Port number \otherBase{0} is reserved, so the usable range or ports is \mbox{\otherBase{1}--\otherBase{65535}}.
 Ports \otherBase{1}--\otherBase{1023} are only bound to 
 processes with privileges (\eg, an http server), whereas client applications (\eg, an http client) 
 can only bind to ports \otherBase{1024}--\otherBase{65535} based on their availability.
@@ -110,7 +110,7 @@ How many different servers can be run in a machine to provide some feature to ot
 \section{UDP -- User Datagram Protocol}\label{sec:layer4:udp}
 \subsection{Packet format}\label{sec:layer4:udp:packet_format}
 
-The \conceptRef{user datagram}{user datagrams} used by UDP all have an $8$-byte header and
+The \conceptRef{user datagram}{user datagrams} used by UDP all have an exact $8$-byte header and
 have the following structure:
 
 \begin{center}
@@ -178,7 +178,7 @@ which required access to Layer~2 (\eg, Ethernet) sockets instead.
 \section{TCP -- Transport Control Protocol}\label{sec:layer4:tcp}
 \subsection{Packet format}\label{sec:layer4:tcp:packet_format}
 
-TCP PDUs are called segments. 
+TCP PDUs are called \conceptRef{segment}{segments}.
 Their header is at least $20$ bytes long, but can grow longer when certain options are used:
 
 \begin{center}
@@ -216,10 +216,10 @@ Their header is at least $20$ bytes long, but can grow longer when certain optio
 TCP headers contain eight $1$-bit flags. Of these, four are used to core TCP features addressed in the following
 sections. In the order they appear:
 \begin{itemize}
-\item ACK: \conceptRef{ACK}{acknowledgement} flag -- ``\textit{my} ack number is valid''
-\item RST: \conceptRef{RST}{reset} flag -- ``\textit{abort} the connection''
-\item SYN: \conceptRef{SYN}{synchronization} flag -- ``I'm opening \textit{my} end of the connection''
-\item FIN: \conceptRef{FIN}{finalization} flag -- ``I won't send any more \textit{payload} data''
+\item \conceptRef{ACK}{ACK flag} (acknowledgement) -- ``\textit{my} ack number is valid''
+\item \conceptRef{RST}{RST flag} (reset) -- ``\textit{abort} the connection''
+\item \conceptRef{SYN}{SYN flag} (synchronization) -- ``I'm opening \textit{my} end of the connection''
+\item \conceptRef{FIN}{FIN flag} (finalization) -- ``I won't send any more \textit{payload} data''
 \end{itemize}
 
 \begin{exercise}
@@ -270,15 +270,15 @@ and the other a ``passive open'' (the server).
 \end{remark}
 
 Each end of the communication keeps track of its 
-\concept{acknowledgement number} (\nack) and \concept{sequence number} (\nseq) counters.
+acknowledgement number (\nack) and sequence number (\nseq) counters.
 % 
 The value of \nseq\ is chosen separately (and typically randomly) by each end: 
 $A,\,B \in [0, 2^{32} - 1]$. 
 
-Once during the connection opening, each end sends exactly one segment with the \concept{SYN} flag enabled. 
+Once during the connection opening, each end sends exactly one segment with the SYN flag enabled.
 These segments exchange (synchronize) their initial sequence numbers $A$ and $B$.
 
-Segments with the \concept{ACK} flag enabled (all except for the client's first segment) 
+Segments with the ACK flag enabled (all except for the client's first segment)
 have their \nack\ set to ``the next \nseq\ expected from the other end''. 
 This \nack\ should be red as ``I have correctly received all segments corresponding to,
 but not including, \nack''. 
@@ -317,38 +317,42 @@ opening (see Section~\ref{sec:layer4:tcp_opening}). Each new byte of data is ass
 \nseq\ (no gaps).
 
 \begin{center}
+\begin{tikzpicture}
+\node{
 \begin{tabular}{r |c|c|c|c|c|c|c|c|c|c| l}
 \textbf{\nseq} & $A$ & $A+1$ & $A+2$ & $A+3$ & $A+4$ & $A+5$ & $A+6$ & $A+7$ & $A+8$ & $A+9$ & $\cdots$ \\[0.2cm]
 \textbf{content}  & \raisebox{-0.5em}{\rotatebox{90}{SYN}} & 
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x48} \\ \inlineCode{'H'}}
+\centering{\otherBase{0x48} \\ \texttt{'H'}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x69} \\ \inlineCode{'i'}}
+\centering{\otherBase{0x69} \\ \texttt{'i'}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x21} \\ \inlineCode{'!'}}
+\centering{\otherBase{0x21} \\ \texttt{'!'}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x0a} \\ \inlineCode{'\n'}}
+\centering{\otherBase{0x0a} \\ \texttt{'\textbackslash n'}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x48} \\ \inlineCode{'H'}}
+\centering{\otherBase{0x48} \\ \texttt{'H'}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x6f} \\ \inlineCode{'o'}}
+\centering{\otherBase{0x6f} \\ \texttt{'o'}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x77} \\ \inlineCode{'w'}}
+\centering{\otherBase{0x77} \\ \texttt{'w'}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x20} \\ \inlineCode{' '}}
+\centering{\otherBase{0x20} \\ \texttt{' '}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x61} \\ \inlineCode{'a'}}
+\centering{\otherBase{0x61} \\ \texttt{'a'}}
 \end{minipage} &  
 $\cdots$ \\
 \end{tabular}
+};
+\end{tikzpicture}
 \end{center}
 
 \begin{exercise}
@@ -372,7 +376,7 @@ The receiving end of a TCP segment uses this information to stitch together
 a copy the data in the right order, even if the segments themselves arrive out of order. 
 %
 These data are passed on to the upper layer in a 
-\conceptRef{buffer}{buffered} fashion, or directly if the \concept{PSH} (push) TCP flag is enabled.
+\conceptRef{buffer}{buffered} fashion.
 
 \begin{center}
 \includegraphics[width=\linewidth]{tcp_reassembly.pdf}
@@ -380,7 +384,7 @@ These data are passed on to the upper layer in a
 
 
 \subsection{Reliability and retransmission}\label{sec:layer4:established:reliability_and_retransmi}
-TCP needs all transmitted data be \conceptRef{ACK}{acknowledged} by the other end.
+TCP needs all transmitted data be acknowledged by the other end.
 Whenever some data is received in a TCP segment, the receiving end sends back a confirmation 
 even if no data need to be sent at that point.
 The acknowledgement number (\nack) in the TCP header is used to tell the other end that all data up to 
@@ -433,7 +437,7 @@ Assuming both ends are correctly following TCP:
 \end{center}
 \end{exercise}
 
-\subsection{Transmission limits}\label{sec:layer4:established:transmission_limits}
+\subsection{Flow control}\label{sec:layer4:established:transmission_limits}
 
 Data for transmission is often produced in bursts. We would like to send as much 
 as possible as soon as possible, but there are two limits put in place in TCP.
@@ -476,7 +480,7 @@ through 2 Ethernet networks only:
 \end{exercise}
 
 The second limit is to the maximum amount of payload data that can be sent 
-before the other end replies with a new \conceptRef{acknowledgement number}{\nack}: 
+before the other end replies with a new \nack:
 the so-called \concept{transmission window} size. 
 % 
 A host will not send data (however much is available, or how urgent it is) until those \nack\ arrive.
@@ -516,7 +520,7 @@ Once the connection is \texttt{ESTABLISHED}, it remains so until either end deci
 it. 
 
 A node announces it is done sending data and wants to close the connection by sending a 
-segment with the \concept{FIN} flag active in the header. The other end may continue 
+segment with the FIN flag active in the header. The other end may continue
 sending data, in which case it expects replies with updated \nack\ values. The other end 
 may also choose to close the connection as soon as it sees the first FIN.
 % 
@@ -525,10 +529,14 @@ if $k$~bytes of data are sent and $A$
 is the initial \nseq, then one segment with \nack\ $= A+k+2$ is expected.
 
 \begin{center}
+\begin{tikzpicture}
+\node{
 \begin{tabular}{r |c|c|c|c|c|}
 \textbf{\nseq}    & $A$ & $A+1$ & $\cdots$ & $A+k$ & $A+k+1$ \\[0.2cm]
 \textbf{content}  & \raisebox{-0.5em}{\rotatebox{90}{SYN}} & Data $\cdots$ & $\cdots$ & $\cdots$ data & \raisebox{-0.5em}{\rotatebox{90}{FIN}} \\[0.2cm]
 \end{tabular}
+};
+\end{tikzpicture}
 \end{center}
 
 Note how FIN flag occupies a sequence number itself and must be acknowledged like the SYN 
@@ -537,7 +545,7 @@ Note how FIN flag occupies a sequence number itself and must be acknowledged lik
 \subsection{Two-sided close}\label{sec:layer4:tcp_closing:two_sided_close}
 
 After one end closes its side of the connection, the other may continue sending data indefinitely. 
-When the second side is done sending data, it also sends a segment with the \concept{FIN} flag enabled.
+When the second side is done sending data, it also sends a segment with the FIN flag enabled.
 
 
 \begin{center}
@@ -576,7 +584,7 @@ This may be the case, \eg, when a process crashes, a given TCP o UDP port is
 blocked, and other situations of error.
 
 In this scenario, the host that detected the abnormal situation simply sends a segment 
-with its \concept{RST} (reset) flag enabled. The receiving ends should not acknowledge
+with its RST (reset) flag enabled. The receiving ends should not acknowledge
 the RST; instead, the connection resources are directly freed, \eg,
 
 \begin{center}

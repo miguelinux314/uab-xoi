@@ -25,7 +25,7 @@
 % \section{Layer~3 overview}
 \subsection*{Funcionalitats}
 
-El \conceptRef{IP}{protocol d'Internet (IP)} permet intercanviar datagrames 
+L'\conceptRef{IP}{Internet Protocol (IP)} permet intercanviar datagrames
 (PDU de la capa~3) entre dispositius de diferents LANs (xarxa d'àrea local).
 % 
 El seu sistema d'adreçament identifica els dispositius globalment i fa possible 
@@ -431,7 +431,7 @@ El payload pot ser buit, de manera que la mida mínima d'un datagrama és de $20
 \begin{itemize}
 \item Com es pot calcular la longitud del payload a partir de la capçalera?
 \item Quina és la longitud màxima del payload?
-\item Quins són els valors possibles dels flags (indicador) de la capçalera IP?
+\item Quins són els valors possibles dels flags de la capçalera IP?
 \item Què és més llarg, una adreça IP o una adreça MAC Ethernet?
 \item És possible enviar exactament 17 bits de dades de payload en un datagrama IP?
 \item Com podem saber si un datagrama encapsula dades TCP o UDP?
@@ -554,8 +554,8 @@ Totes les taules d'encaminament tenen com a mínim les columnes següents:
   Com que és el bloc més gran possible, només s'aplica si no s'aplica cap de les altres files. 
   L'entrada \textit{default} no és obligatòria.\\[-0.3cm]
   
-\item \textbf{Gateway/via} (passarel·la): si la fila correspon a un \conceptRef{direct/indirect delivery}{lliurament indirecte}, aquesta columna conté l'adreça IP
-  del següent router. En cas contrari, aquesta columna conté \otherBase{0.0.0.0} per indicar un \conceptRef{direct/indirect delivery}{lliurament directe}.\\[-0.3cm]
+\item \textbf{Gateway/via} (passarel·la): si la fila correspon a un lliurament indirecte, aquesta columna conté l'adreça IP
+  del següent router. En cas contrari, aquesta columna conté \otherBase{0.0.0.0} per indicar un lliurament directe.\\[-0.3cm]
   
 \item \textbf{Interfície}: nom intern de la interfície de xarxa (\eg, de la targeta Ethernet) que s'ha de fer servir per lliurar el 
   datagrama. Els sistemes operatius poden fer servir la convenció que vulguin, sempre que les interfícies es puguin identificar de manera única a la taula.
@@ -590,7 +590,7 @@ A continuació es mostra la \conceptRef{routing table}{taula d'encaminament} d'u
 \item Dibuixa un mapa de xarxa coherent amb la taula d'encaminament que contingui aquest router.
   Per a les interfícies del router, indica'n el nom i algunes adreces IP i de capa~2 vàlides.\\[-0.3cm]
   
-\item Com reenviaria aquest router un datagrama adreçat a una adreça IP \conceptRef{public}{pública}?\\[-0.3cm]
+\item Com reenviaria aquest router un datagrama adreçat a una adreça IP pública?\\[-0.3cm]
 
 \item Dona una adreça IP de destinació que es processaria amb la fila \otherBase{10.49.4.0/28},
 i una altra que es processaria amb la fila \otherBase{10.49.4.2/32}. 
@@ -608,10 +608,10 @@ que et pots trobar són:
   Això provoca un error ``ICMP Destination Unreachable'' (vegeu la secció~\ref{sec:layer3:icmp}).
   
 \item ``Time to Live exceeded'': cada vegada que es reenvia un datagrama,
-  el seu \concept{TTL} es decrementa, tal com s'ha dit a la secció~\ref{sec:layer3:ip:format}. 
+  el seu TTL es decrementa, tal com s'ha dit a la secció~\ref{sec:layer3:ip:format}.
   Si diversos routers estan configurats de manera que el datagrama segueix algun tipus de cicle (bucle), 
   el datagrama es reenviaria infinitament.
-  Quan el \concept{TTL} arriba a 0, el datagrama es descarta i es produeix aquest error.
+  Quan el TTL arriba a 0, el datagrama es descarta i es produeix aquest error.
   Això provoca un error ``ICMP Time Exceeded'' (vegeu la secció~\ref{sec:layer3:icmp}).
 \end{itemize}
 
@@ -625,18 +625,18 @@ segueixi un cicle i provoqui l'error ``TTL exceeded''.
 \end{exercise}
 
 \section{Divisió en subxarxes IP}\label{sec:layer3:subnetting}
-\vspace{6em}
 \begin{bytefield}[bitwidth=1.35em]{32}
+\bytefieldsetup{bitheight=8.4em}
 \bitbox[]{1}{\raisebox{2.25em}{\rotatebox{90}{$\leftarrow$\otherBase{0.0.0.0}}}} &
 \bitbox[]{7}{} &
 \bitbox[]{1}{\raisebox{2.5em}{\rotatebox{90}{$\leftarrow$\otherBase{64.0.0.0}}}} &
 \bitbox[]{7}{} &
-\bitbox[]{1}{\raisebox{3.25em}{\rotatebox{90}{$\leftarrow$\otherBase{128.0.0.0}}}} & 
+\bitbox[]{1}{\raisebox{3.25em}{\rotatebox{90}{$\leftarrow$\otherBase{128.0.0.0}}}} &
 \bitbox[]{7}{} &
 \bitbox[]{1}{\raisebox{3em}{\rotatebox{90}{$\leftarrow$\otherBase{192.0.0.0}}}}  &
 \bitbox[]{6}{} &
 \bitbox[]{1}{\raisebox{7em}{\rotatebox{90}{$\leftarrow$\otherBase{255.255.255.255}}}}  \\
-\\
+\bytefieldsetup{bitheight=4ex}
 \bitbox{32}{\otherBase{0.0.0.0/0}} \\
 \bitbox{16}{\otherBase{0.0.0.0/1}} & \bitbox{16}{\otherBase{128.0.0.0/1}} \\
 \bitbox{8}{\otherBase{0.0.0.0/2}} & \bitbox{8}{\otherBase{64.0.0.0/2}} & \bitbox{8}{\otherBase{128.0.0.0/2}} & \bitbox{8}{\otherBase{192.0.0.0/2}} \\
@@ -662,8 +662,8 @@ segueixi un cicle i provoqui l'error ``TTL exceeded''.
 Les LANs es poden considerar blocs d'adreces (\eg, expressats en format \concept{CIDR})
 amb dues adreces reservades. A les xarxes accessibles directament des d'Internet se'ls ha d'assignar 
 un bloc vàlid prou gran per connectar-hi tots els dispositius necessaris. Per garantir que no hi hagi dos dispositius a Internet
-amb la mateixa IP \conceptRef{public}{pública}, no pot haver-hi dues LANs que continguin la mateixa adreça 
-(tret que l'adreça sigui \conceptRef{private IP}{privada}).
+amb la mateixa IP pública, no pot haver-hi dues LANs que continguin la mateixa adreça
+(tret que l'adreça sigui privada).
 
 Les $2^{32}$~adreces disponibles a IPv4 es divideixen en blocs mitjançant 
 \conceptRef{netmask}{màscares de xarxa}. Els blocs més grans es poden dividir per la meitat augmentant 
@@ -725,7 +725,7 @@ no estan connectades a Internet).\\[-0.4cm]
 \end{exercise}
 
 El procés de crear diverses LANs més petites a partir d'un únic bloc d'adreces s'anomena \conceptRef{subnet}{divisió en subxarxes} (\textit{subnetting}).
-El procés invers, combinar diverses LANs en una de més gran, s'anomena \conceptRef{supernet}{agregació en superxarxes} (\textit{supernetting}). 
+El procés invers, combinar diverses LANs en una de més gran, s'anomena \conceptRef{supernet}{supernetting} (agregació en superxarxes).
 
 Dues LANs \otherBase{/N} es poden combinar si i només si les seves adreces de xarxa 
 (la seva IP sense màscara) comparteixen els primers $N-1$ bits. Aquest procés pot continuar fins arribar 
@@ -741,7 +741,7 @@ per obtenir una xarxa \otherBase{/23} $N_{/23}$? Quina és la seva adreça de xa
 \end{itemize}
 \end{exercise}
 
-La \conceptRef{subnetting}{divisió en subxarxes} sovint es basa en quantes adreces IP han d'estar 
+El \conceptRef{subnetting}{subnetting} sovint es basa en quantes adreces IP han d'estar
 disponibles a cada subxarxa. 
 Aquesta mida determina el nombre de bits de la màscara de la subxarxa, com s'ha vist a la secció~\ref{sec:layer3:lans_and_netmasks}.
 Es poden afegir restriccions addicionals, \eg, fer que les adreces IP d'una subxarxa siguin les més altes,
@@ -828,7 +828,7 @@ Quan s'ha de fragmentar un datagrama, la pila de xarxa segueix
 els passos següents:
 \begin{enumerate}
 
-\item Es comprova el flag \concept{DF} (don't fragment) del datagrama original. 
+\item Es comprova el \conceptRef{DF}{flag DF} (don't fragment) del datagrama original. 
     Si DF=\otherBase{1} però cal fragmentar, el datagrama no es fragmenta 
     i es produeix un error.\\[-0.2cm]
 
@@ -843,14 +843,14 @@ els passos següents:
     El sistema operatiu s'assegura de triar un ID que la seva pila de xarxa no hagi fet servir recentment.
     El camp Datagram ID s'ignora en els datagrames no fragmentats.\\[-0.3cm]
     
-  \item El camp \concept{Offset} (desplaçament) de cada fragment indica la posició (índex de byte)
+  \item El camp \conceptRef{offset}{Offset} (desplaçament) de cada fragment indica la posició (índex de byte)
     del seu primer byte de dades de payload dins del payload del datagrama abans de la fragmentació.
     Aquest camp no s'expressa en bytes, sinó en paraules de $8$~bytes.
     %     
-    Donat un offset en bytes, el camp \concept{Offset} es calcula dividint per $8$.
+    Donat un offset en bytes, el camp \conceptRef{offset}{Offset} es calcula dividint per $8$.
     Per tant, els offsets dels fragments només poden ser múltiples de $8$.\\[-0.3cm]
     
-  \item El flag \concept{MF} (more fragments) es posa a \otherBase{1} (activat) 
+  \item El \conceptRef{MF}{flag MF} (more fragments) es posa a \otherBase{1} (activat)
     en tots els fragments excepte l'últim. Això ha de ser cert fins i tot si un o més
     fragments es tornen a fragmentar en una LAN posterior. Així, quan es fragmenta un 
     datagrama $D$ amb MF=\otherBase{1}, cap dels fragments resultants\\[-0.2cm]
@@ -863,7 +863,7 @@ els passos següents:
 
 
 \begin{exercise}
-Donats l'\concept{Offset} i el flag \concept{MF}, com podem distingir 
+Donats l'\conceptRef{offset}{Offset} i el flag MF, com podem distingir
 un datagrama que no s'ha fragmentat d'un fragment de datagrama?
 \end{exercise}
 
@@ -906,15 +906,15 @@ Com hauria de gestionar aquests datagrames la pila de xarxa receptora?
 
 \section{ARP -- Address Resolution Protocol}\label{sec:layer3:arp}
 
-L'Address Resolution Protocol (ARP) el fa servir la capa~3 (\concept{IP})
+L'Address Resolution Protocol (\concept{ARP}) el fa servir la capa~3 (IP)
 per obtenir l'adreça MAC (física) de destinació corresponent a una adreça IP coneguda.
 
 Els paquets ARP s'envien com a payload de frames de capa~2 (\eg, Ethernet). 
 Els paquets ARP \textit{no} són datagrames i \textit{no} contenen capçaleres IP.
 
 \begin{remark}
-La IP que consulta la capa~3 és la del router per al \conceptRef{direct/indirect delivery}{lliurament indirecte} i la del dispositiu de destinació
-per al \conceptRef{direct/indirect delivery}{lliurament indirecte}. Recorda també que la IP de destinació del datagrama no canvia durant el reenviament.
+La IP que consulta la capa~3 és la del router per al lliurament indirecte i la del dispositiu de destinació
+per al lliurament indirecte. Recorda també que la IP de destinació del datagrama no canvia durant el reenviament.
 \end{remark}
 
 \subsection{Format del paquet}\label{sec:layer3:arp:packet_format}
@@ -999,7 +999,7 @@ Al seu torn, l'ordre \inlineCode{ip link} conté les línies següents:
 \end{verbatim}
 
 \begin{itemize}
-\item El node ha de fer el \conceptRef{direct/indirect delivery}{lliurament indirecte} d'un datagrama,
+\item El node ha de fer el lliurament indirecte d'un datagrama,
 però no coneix l'adreça MAC del seu router gateway. Indica el valor de 
 tots els camps (incloent-hi la capçalera Ethernet i el missatge ARP) de la petició ARP 
 que enviarà el node per obtenir la MAC del router.
@@ -1022,7 +1022,7 @@ L'ordre \inlineCode{ip neighbor} mostra el contingut d'aquesta taula, \eg,
 \end{verbatim}
 
 \begin{remark}
-ARP es pot fer servir per \conceptRef{scan}{escanejar} les IP utilitzades en una LAN. 
+ARP es pot fer servir per escanejar les IP utilitzades en una LAN.
 En particular, un node pot fer servir ARP per verificar que ningú més no fa servir la seva adreça IP configurada.
 \end{remark}
 
@@ -1030,7 +1030,7 @@ ARP es va proposar en una època en què la seguretat de xarxa encara no era un 
 no proporciona cap mecanisme per verificar que una resposta ARP determinada sigui correcta.
 % 
 Això es pot aprofitar per \conceptRef{poison}{enverinar} la taula de memòria cau ARP d'un dispositiu enviant 
-respostes ARP \conceptRef{gratuitous}{gratuïtes} (no sol·licitades) a la víctima amb 
+respostes ARP \concept{gratuitous} (no sol·licitades) a la víctima amb
 associacions IP $\leftrightarrow$ MAC falses.
 
 Els sistemes operatius moderns normalment ignoren les respostes ARP no sol·licitades, 
@@ -1046,7 +1046,7 @@ canviant la MAC emmagatzemada del router gateway per la MAC de l'atacant?
 \section{ICMP -- Internet Control Message Protocol}\label{sec:layer3:icmp}
 
 L'Internet Control Message Protocol (\concept{ICMP}) és un protocol
-auxiliar (tècnicament part d'\concept{IP}) que es fa servir per provar i depurar
+auxiliar (tècnicament part d'IP) que es fa servir per provar i depurar
 les comunicacions de xarxa (i entre xarxes). 
 
 
@@ -1072,10 +1072,10 @@ Les combinacions de tipus/subtipus ICMP més habituals que és probable que et t
 \toprule
 \textbf{Tipus ICMP} & \textbf{Subtipus ICMP} & \textbf{Error?} & \textbf{Significat} \\
 \toprule
-$8$ & $0$       &              & Missatge ICMP Echo Request (\concept{ping}). \\
-$0$ & $0$       &              & Missatge ICMP Echo Reply (resposta \concept{ping}). \\
-$3$ & $0$--$16$ & $\checkmark$ & Destination Unreachable. Subtipus: causa. \\
-$11$ & $0$      & $\checkmark$ & Time to Live Exceeded: \concept{TTL} arriba a $0$.  \\
+$8$ & $0$       & No & Missatge ICMP Echo Request (\concept{ping}). \\
+$0$ & $0$       & No & Missatge ICMP Echo Reply (resposta \concept{ping}). \\
+$3$ & $0$--$16$ & Sí & Destination Unreachable. Subtipus: causa. \\
+$11$ & $0$      & Sí & Time to Live Exceeded: TTL arriba a $0$.  \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1106,7 +1106,7 @@ un port tancat (vegeu la secció~\ref{sec:layer4}), o simplement perquè el host
 de destinació no està engegat.
 
 \item El missatge ``TTL exceeded'' s'envia quan un router rep un datagrama per a 
-\conceptRef{direct/indirect delivery}{lliurament indirecte} amb \concept{TTL}$=1$ (vegeu la secció~\ref{sec:layer3:routing}).
+lliurament indirecte amb TTL$=1$ (vegeu la secció~\ref{sec:layer3:routing}).
 \end{itemize}
 
 Per evitar quantitats infinites de trànsit, \textit{no} es generen errors ICMP

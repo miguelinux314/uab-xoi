@@ -92,7 +92,7 @@ plugins:
             "Part I: Computer Networks": "Parte I: Redes de ordenadores"
             "Part II: Internet": "Parte II: Internet"
             Missions: Misiones
-            Index of concepts: Índice de conceptos
+            Technical terms: Términos técnicos
         - locale: ca
           name: Català
           build: true
@@ -106,7 +106,7 @@ plugins:
             "Part I: Computer Networks": "Part I: Xarxes d'ordinadors"
             "Part II: Internet": "Part II: Internet"
             Missions: Missions
-            Index of concepts: Índex de conceptes
+            Technical terms: Termes tècnics
         - locale: en
           name: English
           build: true
@@ -138,7 +138,7 @@ nav:
           - layer3.md
           - layer4.md
           - layer7.md
-      - Index of concepts: concepts.md
+      - Technical terms: concepts.md
   - Missions:
       - missions/index.md
       - missions/mission1.md

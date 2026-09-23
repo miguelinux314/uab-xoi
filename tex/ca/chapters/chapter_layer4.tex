@@ -24,11 +24,11 @@
 \subsection*{Capacitats}
 
 La capa de \conceptRef{transport}{Transport} comunica processos (programes)
-que s'executen en \conceptRef{host}{hosts} (equips connectats a la xarxa) potencialment diferents. Aquests processos s'identifiquen
+que s'executen en hosts (equips connectats a la xarxa) potencialment diferents. Aquests processos s'identifiquen
 mitjançant adreces de capa~4 anomenades \conceptRef{port}{ports}.
 
-La capa de transport ofereix dues maneres diferents de comunicar-se: sense connexions (UDP)
-i amb connexions (TCP).
+La capa de transport ofereix dues maneres diferents de comunicar-se: sense connexions (UDP, orientada a missatges)
+i amb connexions (TCP, orientada a flux).
 
 UDP no estableix cap connexió amb el host de destinació perquè la prioritat és
 enviar unes dades de payload (càrrega útil) tan ràpid com sigui possible.
@@ -37,7 +37,7 @@ sense esperar cap mena de confirmació de recepció per part de la capa UDP de l
 Les capçaleres UDP són simples i petites, i també mantenen petita la sobrecàrrega d'aquest protocol.
 
 TCP estableix una connexió abans d'enviar cap dada de payload
-per assegurar-se que tots dos extrems estan preparats. A més, TCP espera la \conceptRef{ACK}{confirmació} (acusament de recepció)
+per assegurar-se que tots dos extrems estan preparats. A més, TCP espera la confirmació (ACK)
 de cada byte de dades de payload. Si no n'hi ha, les dades es \conceptRef{retransmission}{retransmeten}
 després d'un període d'espera, cosa que dona \conceptRef{reliability}{fiabilitat} a TCP. TCP també fa servir una manera molt enginyosa
 de limitar la velocitat d'intercanvi de dades (\conceptRef{flow control}{control de flux}) perquè ordinadors ràpids i lents puguin coexistir
@@ -65,7 +65,7 @@ Pràcticament totes les aplicacions, i per tant els seus protocols de comunicaci
 fan servir TCP, UDP (o fins i tot tots dos) per intercanviar dades per la xarxa.
 A la figura anterior es mostren alguns protocols importants que fan servir TCP o UDP.
 
-Tant TCP com UDP encapsulen les seves PDU en datagrames \concept{IP}.
+Tant TCP com UDP encapsulen les seves PDU en datagrames IP.
 Generalment es fa servir IPv4, però IPv6 també és una possibilitat quan està disponible.
 
 \begin{remark}
@@ -86,7 +86,7 @@ Per als humans, els ports s'expressen principalment de dues maneres:
 
 Quan es rep una PDU de capa~4, el sistema operatiu fa servir el port de la seva capçalera per saber quin dels
 processos en execució ha de rebre les dades.
-Al seu torn, els processos s'han de \conceptRef{bind}{vincular} a un port TCP o a un port TCP (o a tots dos)
+Al seu torn, els processos s'han de fer \conceptRef{bind}{bind} a un port TCP o a un port TCP (o a tots dos)
 per indicar al sistema operatiu de quin port esperen rebre dades.
 
 Només un procés alhora es pot vincular a un port per enviar dades, però els ports TCP i UDP
@@ -97,7 +97,7 @@ es tracten de manera independent:
    vincular a \otherBase{UDP/100}.  
 \end{itemize}
 
-El port número \otherBase{0} està reservat, de manera que el rang de ports utilitzable és \otherBase{1}--\otherBase{65535}.
+El port número \otherBase{0} està reservat, de manera que el rang de ports utilitzable és \mbox{\otherBase{1}--\otherBase{65535}}.
 Els ports \otherBase{1}--\otherBase{1023} només es vinculen a
 processos amb privilegis (\eg, un servidor http), mentre que les aplicacions client (\eg, un client http)
 només es poden vincular als ports \otherBase{1024}--\otherBase{65535} segons la seva disponibilitat.
@@ -110,7 +110,7 @@ Quants servidors diferents es poden executar en una màquina per oferir alguna f
 \section{UDP -- User Datagram Protocol}\label{sec:layer4:udp}
 \subsection{Format dels paquets}\label{sec:layer4:udp:packet_format}
 
-Tots els \conceptRef{user datagram}{datagrames d'usuari} que fa servir UDP tenen una capçalera de $8$ bytes i
+Tots els \conceptRef{user datagram}{datagrames d'usuari} que fa servir UDP tenen una capçalera d'exactament $8$ bytes i
 l'estructura següent:
 
 \begin{center}
@@ -139,7 +139,7 @@ l'estructura següent:
 Els clients UDP primer creen un \concept{socket} (punt de connexió) i després envien directament els datagrames d'usuari amb \inlineCode{sendto}.
 No cal establir ni tancar cap connexió.
 
-Els servidors UDP primer s'han de \conceptRef{bind}{vincular} al port que volen exposar als clients, i després
+Els servidors UDP primer s'han de fer bind al port que volen exposar als clients, i després
 reben cada datagrama en una crida individual a la funció de lectura (\inlineCode{recvfrom}).
 
 La funció bind és purament interna al servidor: implica canvis en la seva configuració
@@ -178,7 +178,7 @@ que en canvi requeria accés a sockets de capa~2 (\eg, Ethernet).
 \section{TCP -- Transport Control Protocol}\label{sec:layer4:tcp}
 \subsection{Format dels paquets}\label{sec:layer4:tcp:packet_format}
 
-Les PDU de TCP s'anomenen segments.
+Les PDU de TCP s'anomenen \conceptRef{segment}{segments}.
 La seva capçalera fa com a mínim $20$ bytes, però pot ser més llarga quan es fan servir certes opcions:
 
 \begin{center}
@@ -213,13 +213,13 @@ La seva capçalera fa com a mínim $20$ bytes, però pot ser més llarga quan es
 \end{bytefield}
 \end{center}
 
-Les capçaleres TCP contenen vuit flags (indicadors) d'$1$ bit. D'aquests, quatre es fan servir per a funcionalitats bàsiques de TCP que es tracten a les
+Les capçaleres TCP contenen vuit flags d'$1$ bit. D'aquests, quatre es fan servir per a funcionalitats bàsiques de TCP que es tracten a les
 seccions següents. En l'ordre en què apareixen:
 \begin{itemize}
-\item ACK: flag de \conceptRef{ACK}{confirmació} -- ``el \textit{meu} número ack és vàlid''
-\item RST: flag de \conceptRef{RST}{reinici} -- ``\textit{avorta} la connexió''
-\item SYN: flag de \conceptRef{SYN}{sincronització} -- ``obro el \textit{meu} extrem de la connexió''
-\item FIN: flag de \conceptRef{FIN}{finalització} -- ``no enviaré més dades de \textit{payload}''
+\item \conceptRef{ACK}{Flag ACK} (confirmació) -- ``el \textit{meu} número ack és vàlid''
+\item \conceptRef{RST}{Flag RST} (reset) -- ``\textit{avorta} la connexió''
+\item \conceptRef{SYN}{Flag SYN} (sincronització) -- ``obro el \textit{meu} extrem de la connexió''
+\item \conceptRef{FIN}{Flag FIN} (finalització) -- ``no enviaré més dades de \textit{payload}''
 \end{itemize}
 
 \begin{exercise}
@@ -228,7 +228,7 @@ Com pot saber l'extrem receptor la mida de les opcions i de les dades de payload
 
 \subsection{Funcionament}\label{sec:layer4:tcp:operation}
 
-TCP és un protocol \conceptRef{stateful}{amb estat}. Els \conceptRef{socket}{sockets} TCP passen per
+TCP és un protocol \conceptRef{stateful}{stateful} (amb estat). Els \conceptRef{socket}{sockets} TCP passen per
 diversos estats durant la comunicació. Cada extrem de la comunicació té el seu propi
 socket amb el seu propi estat.
 % 
@@ -242,7 +242,7 @@ Les dades de payload només s'han d'intercanviar mentre s'està a ``Connexió es
 \end{center}
 
 Els sockets TCP poden estar en un d'$11$ estats. Aquests estats, juntament amb dos comptadors de $16$ bits
-(\conceptRef{acknowledgement number}{número de confirmació} i \conceptRef{sequence number}{número de seqüència}) permeten la \conceptRef{reliability}{fiabilitat} de la comunicació
+(\conceptRef{acknowledgement number}{número d'ACK} i \conceptRef{sequence number}{número de seqüència}) permeten la \conceptRef{reliability}{fiabilitat} de la comunicació
 que s'espera de TCP. El significat d'aquests estats i de les seves transicions s'explica als
 capítols següents.
 
@@ -269,15 +269,15 @@ i l'altre una ``obertura passiva'' (el servidor).
 \end{remark}
 
 Cada extrem de la comunicació porta el compte dels seus comptadors de
-\conceptRef{acknowledgement number}{número de confirmació} (\nack) i de \conceptRef{sequence number}{número de seqüència} (\nseq).
+número d'ACK (\nack) i de número de seqüència (\nseq).
 % 
 El valor de \nseq\ el tria cada extrem per separat (i normalment a l'atzar):
 $A,\,B \in [0, 2^{32} - 1]$. 
 
-Durant l'obertura de la connexió, cada extrem envia exactament un segment amb el flag \concept{SYN} activat.
+Durant l'obertura de la connexió, cada extrem envia exactament un segment amb el flag SYN activat.
 Aquests segments intercanvien (sincronitzen) els seus números de seqüència inicials $A$ i $B$.
 
-Els segments amb el flag \concept{ACK} activat (tots excepte el primer segment del client)
+Els segments amb el flag ACK activat (tots excepte el primer segment del client)
 tenen el \nack\ fixat a ``el següent \nseq\ que s'espera de l'altre extrem''.
 Aquest \nack\ s'ha de llegir com ``he rebut correctament tots els segments corresponents fins a
 \nack, sense incloure'l''.
@@ -316,38 +316,42 @@ de la connexió (vegeu la secció~\ref{sec:layer4:tcp_opening}). A cada nou byte
 \nseq\ següent (sense salts).
 
 \begin{center}
+\begin{tikzpicture}
+\node{
 \begin{tabular}{r |c|c|c|c|c|c|c|c|c|c| l}
 \textbf{\nseq} & $A$ & $A+1$ & $A+2$ & $A+3$ & $A+4$ & $A+5$ & $A+6$ & $A+7$ & $A+8$ & $A+9$ & $\cdots$ \\[0.2cm]
 \textbf{contingut}  & \raisebox{-0.5em}{\rotatebox{90}{SYN}} & 
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x48} \\ \inlineCode{'H'}}
+\centering{\otherBase{0x48} \\ \texttt{'H'}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x69} \\ \inlineCode{'i'}}
+\centering{\otherBase{0x69} \\ \texttt{'i'}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x21} \\ \inlineCode{'!'}}
+\centering{\otherBase{0x21} \\ \texttt{'!'}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x0a} \\ \inlineCode{'\n'}}
+\centering{\otherBase{0x0a} \\ \texttt{'\textbackslash n'}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x48} \\ \inlineCode{'H'}}
+\centering{\otherBase{0x48} \\ \texttt{'H'}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x6f} \\ \inlineCode{'o'}}
+\centering{\otherBase{0x6f} \\ \texttt{'o'}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x77} \\ \inlineCode{'w'}}
+\centering{\otherBase{0x77} \\ \texttt{'w'}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x20} \\ \inlineCode{' '}}
+\centering{\otherBase{0x20} \\ \texttt{' '}}
 \end{minipage} &  
 \begin{minipage}{2.5em}
-\centering{\otherBase{0x61} \\ \inlineCode{'a'}}
+\centering{\otherBase{0x61} \\ \texttt{'a'}}
 \end{minipage} &  
 $\cdots$ \\
 \end{tabular}
+};
+\end{tikzpicture}
 \end{center}
 
 \begin{exercise}
@@ -371,7 +375,7 @@ L'extrem receptor d'un segment TCP fa servir aquesta informació per recompondre
 una còpia de les dades en l'ordre correcte, fins i tot si els segments arriben desordenats.
 %
 Aquestes dades es passen a la capa superior
-a través d'un \conceptRef{buffer}{buffer} (memòria intermèdia), o directament si el flag TCP \concept{PSH} (push) està activat.
+a través d'un \conceptRef{buffer}{buffer} (memòria intermèdia).
 
 \begin{center}
 \includegraphics[width=\linewidth]{tcp_reassembly.pdf}
@@ -379,10 +383,10 @@ a través d'un \conceptRef{buffer}{buffer} (memòria intermèdia), o directament
 
 
 \subsection{Fiabilitat i retransmissió}\label{sec:layer4:established:reliability_and_retransmi}
-TCP necessita que l'altre extrem \conceptRef{ACK}{confirmi} totes les dades transmeses.
+TCP necessita que l'altre extrem confirmi amb un ACK totes les dades transmeses.
 Cada vegada que es reben dades en un segment TCP, l'extrem receptor envia una confirmació
 encara que en aquell moment no hagi d'enviar cap dada.
-El número de confirmació (\nack) de la capçalera TCP serveix per indicar a l'altre extrem que s'han rebut totes les dades fins a
+El número d'ACK (\nack) de la capçalera TCP serveix per indicar a l'altre extrem que s'han rebut totes les dades fins a
 \nack\ (sense incloure'l).
 
 \begin{center}
@@ -396,7 +400,7 @@ El camp \nack\ fa referència als números de seqüència del receptor.
 
 Les dades de payload s'inclouen a les confirmacions TCP sempre que n'hi hagi de disponibles.
 Recíprocament, el valor més recent de \nack\ s'inclou sempre que s'envien dades,
-\ie, les confirmacions viatgen \conceptRef{piggyback}{a cavall} de les dades de payload.
+\ie, les confirmacions fan \concept{piggyback} (viatgen a cavall) de les dades de payload.
 
 Per exemple, si l'Alice envia una petició de $25$ bytes, en Bob pot enviar la seva resposta de $10$ bytes
 i la confirmació de les dades de l'Alice en el mateix segment TCP. L'Alice ha de confirmar
@@ -432,12 +436,12 @@ Suposant que tots dos extrems segueixen TCP correctament:
 \end{center}
 \end{exercise}
 
-\subsection{Límits de transmissió}\label{sec:layer4:established:transmission_limits}
+\subsection{Control de flux}\label{sec:layer4:established:transmission_limits}
 
 Les dades per transmetre sovint es produeixen a ràfegues. Voldríem enviar-ne tantes
 com fos possible tan aviat com fos possible, però TCP hi imposa dos límits.
 
-El primer límit, la \conceptRef{MSS}{mida màxima de segment (MSS, Maximum Segment Size)}, és la quantitat màxima de dades de payload
+El primer límit, la \conceptRef{MSS}{mida màxima de segment (MSS)}, és la quantitat màxima de dades de payload
 per segment permesa en una connexió TCP.
 
 \begin{center}
@@ -475,7 +479,7 @@ Ethernet té una MTU de $1500$~bytes. Suposant que els datagrames només travess
 \end{exercise}
 
 El segon límit afecta la quantitat màxima de dades de payload que es poden enviar
-abans que l'altre extrem respongui amb un nou \conceptRef{acknowledgement number}{\nack}:
+abans que l'altre extrem respongui amb un nou \nack:
 l'anomenada mida de la \conceptRef{transmission window}{finestra de transmissió}.
 % 
 Un host no enviarà dades (per moltes que n'hi hagi de disponibles, o per urgents que siguin) fins que no arribin aquests \nack.
@@ -515,7 +519,7 @@ Un cop la connexió és \texttt{ESTABLISHED}, s'hi manté fins que un dels dos e
 tancar-la.
 
 Un node anuncia que ha acabat d'enviar dades i que vol tancar la connexió enviant un
-segment amb el flag \concept{FIN} activat a la capçalera. L'altre extrem pot continuar
+segment amb el flag FIN activat a la capçalera. L'altre extrem pot continuar
 enviant dades, i en aquest cas espera respostes amb valors de \nack\ actualitzats. L'altre extrem
 també pot optar per tancar la connexió tan bon punt veu el primer FIN.
 % 
@@ -524,10 +528,14 @@ si s'envien $k$~bytes de dades i $A$
 és el \nseq\ inicial, s'espera un segment amb \nack\ $= A+k+2$.
 
 \begin{center}
+\begin{tikzpicture}
+\node{
 \begin{tabular}{r |c|c|c|c|c|}
 \textbf{\nseq}    & $A$ & $A+1$ & $\cdots$ & $A+k$ & $A+k+1$ \\[0.2cm]
 \textbf{contingut}  & \raisebox{-0.5em}{\rotatebox{90}{SYN}} & Dades $\cdots$ & $\cdots$ & $\cdots$ dades & \raisebox{-0.5em}{\rotatebox{90}{FIN}} \\[0.2cm]
 \end{tabular}
+};
+\end{tikzpicture}
 \end{center}
 
 Fixa't que el flag FIN ocupa ell mateix un número de seqüència i s'ha de confirmar com el SYN
@@ -536,7 +544,7 @@ Fixa't que el flag FIN ocupa ell mateix un número de seqüència i s'ha de conf
 \subsection{Tancament bilateral}\label{sec:layer4:tcp_closing:two_sided_close}
 
 Després que un extrem tanqui el seu costat de la connexió, l'altre pot continuar enviant dades indefinidament.
-Quan el segon costat acaba d'enviar dades, també envia un segment amb el flag \concept{FIN} activat.
+Quan el segon costat acaba d'enviar dades, també envia un segment amb el flag FIN activat.
 
 
 \begin{center}
@@ -575,7 +583,7 @@ Aquest pot ser el cas, \eg, quan un procés falla, quan es bloqueja un port TCP 
 i en altres situacions d'error.
 
 En aquest escenari, el host que ha detectat la situació anòmala simplement envia un segment
-amb el flag \concept{RST} (reset) activat. Els extrems receptors no han de confirmar
+amb el flag RST (reset) activat. Els extrems receptors no han de confirmar
 el RST; en canvi, els recursos de la connexió s'alliberen directament, \eg,
 
 \begin{center}

@@ -554,8 +554,8 @@ All route tables have at least the following columns:
   Since this is the largest block possible, it is only applied if none of the other rows apply. 
   The \textit{default} entry is not mandatory.\\[-0.3cm]
   
-\item \textbf{Gateway/via}: if the row corresponds to an \conceptRef{direct/indirect delivery}{indirect delivery}, this column contains the IP address
-  of the next router. Otherwise, this column contains \otherBase{0.0.0.0} to indicate a \conceptRef{direct/indirect delivery}{direct delivery}.\\[-0.3cm]
+\item \textbf{Gateway/via}: if the row corresponds to an indirect delivery, this column contains the IP address
+  of the next router. Otherwise, this column contains \otherBase{0.0.0.0} to indicate a direct delivery.\\[-0.3cm]
   
 \item \textbf{Interface}: internal name of the network interface (\eg, of the Ethernet card) to use to deliver the 
   datagram. Operating Systems may use any convention they wish, as long as they can be uniquely identified in the table.
@@ -590,7 +590,7 @@ The \concept{routing table} of a small router is presented next.
 \item Draw a network map consistent with the routing table, containing this router.
   For the router's interfaces, indicate its name and some valid IP and Layer~2 addresses.\\[-0.3cm]
   
-\item How would this router forward a datagram directed to a \concept{public} IP address?\\[-0.3cm]
+\item How would this router forward a datagram directed to a public IP address?\\[-0.3cm]
 
 \item Provide a destination IP address that would be processed using the \otherBase{10.49.4.0/28} row,
 and another that would be processed using the \otherBase{10.49.4.2/32} row. 
@@ -608,10 +608,10 @@ one can encounter are:
   This causes an ``ICMP Destination Unreachable'' error (see Section~\ref{sec:layer3:icmp}).
   
 \item ``Time to Live exceeded'': every time a datagram is forwarded,
-  its \concept{TTL} is decreased, as mentioned in Section~\ref{sec:layer3:ip:format}. 
+  its TTL is decreased, as mentioned in Section~\ref{sec:layer3:ip:format}.
   If several routers are configured so that the datagram follows some form of cycle (loop), 
   the datagram would be infinitely forwarded.
-  When the \concept{TTL} reaches 0, the datagram is discarded and this error is produced.
+  When the TTL reaches 0, the datagram is discarded and this error is produced.
   This causes an ``ICMP Time Exceeded'' error (see Section~\ref{sec:layer3:icmp}).
 \end{itemize}
 
@@ -625,18 +625,18 @@ would follow a cycle and yield the ``TTL exceeded'' error.
 \end{exercise}
 
 \section{IP subnetting}\label{sec:layer3:subnetting}
-\vspace{6em}
 \begin{bytefield}[bitwidth=1.35em]{32}
+\bytefieldsetup{bitheight=8.4em}
 \bitbox[]{1}{\raisebox{2.25em}{\rotatebox{90}{$\leftarrow$\otherBase{0.0.0.0}}}} &
 \bitbox[]{7}{} &
 \bitbox[]{1}{\raisebox{2.5em}{\rotatebox{90}{$\leftarrow$\otherBase{64.0.0.0}}}} &
 \bitbox[]{7}{} &
-\bitbox[]{1}{\raisebox{3.25em}{\rotatebox{90}{$\leftarrow$\otherBase{128.0.0.0}}}} & 
+\bitbox[]{1}{\raisebox{3.25em}{\rotatebox{90}{$\leftarrow$\otherBase{128.0.0.0}}}} &
 \bitbox[]{7}{} &
 \bitbox[]{1}{\raisebox{3em}{\rotatebox{90}{$\leftarrow$\otherBase{192.0.0.0}}}}  &
 \bitbox[]{6}{} &
 \bitbox[]{1}{\raisebox{7em}{\rotatebox{90}{$\leftarrow$\otherBase{255.255.255.255}}}}  \\
-\\
+\bytefieldsetup{bitheight=4ex}
 \bitbox{32}{\otherBase{0.0.0.0/0}} \\
 \bitbox{16}{\otherBase{0.0.0.0/1}} & \bitbox{16}{\otherBase{128.0.0.0/1}} \\
 \bitbox{8}{\otherBase{0.0.0.0/2}} & \bitbox{8}{\otherBase{64.0.0.0/2}} & \bitbox{8}{\otherBase{128.0.0.0/2}} & \bitbox{8}{\otherBase{192.0.0.0/2}} \\
@@ -662,8 +662,8 @@ would follow a cycle and yield the ``TTL exceeded'' error.
 LANs can be regarded as address blocks (\eg, expressed in \concept{CIDR} format)
 with two reserved addresses. Networks directly accessible through the Internet must be assigned 
 a valid block large enough to connect all required devices. To make sure no two devices in the Internet
-have the same \concept{public} IP, no two LANs can contain the same address 
-(unless the address is \conceptRef{private IP}{private}).
+have the same public IP, no two LANs can contain the same address
+(unless the address is private).
 
 The $2^{32}$~addresses available in IPv4 are divided in blocks by means of 
 \conceptRef{netmask}{netmasking}. Larger blocks can be divided in half, by increasing 
@@ -828,7 +828,7 @@ When a datagram needs to be fragmented fragmented, the following steps are follo
 by the network stack:
 \begin{enumerate}
 
-\item The \concept{DF} (don't fragment) flag of the original datagram is checked. 
+\item The \conceptRef{DF}{DF flag} (don't fragment) of the original datagram is checked.
     If DF=\otherBase{1} but fragmentation is needed, the datagram is not fragmented 
     and an error is produced.\\[-0.2cm]
 
@@ -843,14 +843,14 @@ by the network stack:
     The OS makes sure to pick an ID that has not been recently used by its network stack.
     The Datagram ID field is ignored for non-fragmented datagrams.\\[-0.3cm]
     
-  \item The \concept{Offset} field in each fragment indicates the position (byte index)
+  \item The \conceptRef{offset}{Offset} field in each fragment indicates the position (byte index)
     of its first payload data byte in the datagram's payload before fragmentation.
     This field is not expressed in bytes, but in $8$-byte words.
     %     
-    Given an offset in bytes, the \concept{Offset} field is calculated dividing by $8$.
+    Given an offset in bytes, the \conceptRef{offset}{Offset} field is calculated dividing by $8$.
     Therefore, fragment offsets can only be multiples of $8$.\\[-0.3cm]
     
-  \item The \concept{MF} (more fragments) flag is set to \otherBase{1} (enabled) 
+  \item The \conceptRef{MF}{MF flag} (more fragments) is set to \otherBase{1} (enabled)
     in all fragments except for the last one. This needs to be true even if one or more
     fragments are re-fragmented in a successive LAN. Thus, when fragmenting a 
     datagram $D$ with MF=\otherBase{1}, none of the resulting fragments\\[-0.2cm]
@@ -863,7 +863,7 @@ by the network stack:
 
 
 \begin{exercise}
-Given the \concept{Offset} and the \concept{MF} flag, how can we differentiate 
+Given the \conceptRef{offset}{Offset} and the MF flag, how can we differentiate
 a datagram that has not been fragmented from a datagram fragment?
 \end{exercise}
 
@@ -906,15 +906,15 @@ How should the receiving network stack deal with these datagrams?
 
 \section{ARP -- Address Resolution Protocol}\label{sec:layer3:arp}
 
-The Address Resolution Protocol (ARP) is used by Layer~3 (\concept{IP})
+The Address Resolution Protocol (\concept{ARP}) is used by Layer~3 (IP)
 to obtain the destination MAC (physical) address corresponding to a known IP address.
 
 ARP packets are sent as the payload of Layer~2 (\eg, Ethernet) frames. 
 ARP packets are \textit{not} datagrams and do \textit{not} contain IP headers.
 
 \begin{remark}
-The IP queried by the Layer~3 is that of the router for \conceptRef{direct/indirect delivery}{indirect delivery} and of the destination device
-for \conceptRef{direct/indirect delivery}{indirect delivery}. Also remember that the datagram's destination IP does not change during forwarding.
+The IP queried by the Layer~3 is that of the router for indirect delivery and of the destination device
+for indirect delivery. Also remember that the datagram's destination IP does not change during forwarding.
 \end{remark}
 
 \subsection{Packet format}\label{sec:layer3:arp:packet_format}
@@ -999,7 +999,7 @@ In turn, the \inlineCode{ip link} command contains the following lines:
 \end{verbatim}
 
 \begin{itemize}
-\item The node needs to perform the \conceptRef{direct/indirect delivery}{indirect delivery} of a datagram,
+\item The node needs to perform the indirect delivery of a datagram,
 but does not know the MAC address of its gateway router. Indicate the value of 
 all fields (including Ethernet header and ARP message) of the ARP request 
 that the node will send to get the router's MAC.
@@ -1022,7 +1022,7 @@ The \inlineCode{ip neighbor} command shows the contents of that table, \eg,
 \end{verbatim}
 
 \begin{remark}
-ARP can be used to \concept{scan} for used IPs in a LAN. 
+ARP can be used to scan for used IPs in a LAN.
 In particular, a node can use item ARP to verify that its configured IP address is not being used by anyone else.
 \end{remark}
 
@@ -1046,7 +1046,7 @@ changing the gateway router's cached MAC to the attacker's MAC?
 \section{ICMP -- Internet Control Message Protocol}\label{sec:layer3:icmp}
 
 The Internet Control Message Protocol (\concept{ICMP}) is an auxiliary
-protocol (technically part of \concept{IP}) that is used to test and debug
+protocol (technically part of IP) that is used to test and debug
 (inter)network communications. 
 
 
@@ -1072,10 +1072,10 @@ The most common ICMP type/subtype combinations you are likely to find nowadays:
 \toprule
 \textbf{ICMP type} & \textbf{ICMP subtype} & \textbf{Error?} & \textbf{Meaning} \\
 \toprule
-$8$ & $0$       &              & Echo Request ICMP message (\concept{ping}). \\
-$0$ & $0$       &              & Echo Reply ICMP message (\concept{ping} reply). \\
-$3$ & $0$--$16$ & $\checkmark$ & Destination Unreachable. Subtype explains cause. \\
-$11$ & $0$      & $\checkmark$ & Time to Live Exceeded: \concept{TTL} reached $0$.  \\
+$8$ & $0$       & No & Echo Request ICMP message (\concept{ping}). \\
+$0$ & $0$       & No & Echo Reply ICMP message (\concept{ping} reply). \\
+$3$ & $0$--$16$ & Yes & Destination Unreachable. Subtype explains cause. \\
+$11$ & $0$      & Yes & Time to Live Exceeded: TTL reached $0$.  \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1106,7 +1106,7 @@ a closed port (see Section~\ref{sec:layer4}), or simply the destination
 host not being turned on.
 
 \item The ``TTL exceeded'' message is sent when a router receives a datagram for 
-\conceptRef{direct/indirect delivery}{indirect delivery} with \concept{TTL}$=1$ (see Section~\ref{sec:layer3:routing}).
+indirect delivery with TTL$=1$ (see Section~\ref{sec:layer3:routing}).
 \end{itemize}
 
 To prevent infinite amounts of traffic, ICMP errors are \textit{not} produced

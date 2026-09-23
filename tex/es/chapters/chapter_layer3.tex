@@ -431,7 +431,7 @@ El payload puede estar vacío, así que el tamaño mínimo de un datagrama es de
 \begin{itemize}
 \item ¿Cómo puede calcularse la longitud del payload a partir de la cabecera?
 \item ¿Cuál es la longitud máxima del payload?
-\item ¿Qué valores pueden tomar los flags (indicadores) de la cabecera IP?
+\item ¿Qué valores pueden tomar los flags de la cabecera IP?
 \item ¿Qué es más largo, una dirección IP o una dirección MAC de Ethernet?
 \item ¿Es posible enviar exactamente 17 bits de datos de payload en un datagrama IP?
 \item ¿Cómo podemos saber si un datagrama encapsula datos TCP o UDP?
@@ -490,7 +490,7 @@ Si lo reconoce, el router procesa el datagrama de la siguiente manera:
 \item Se descarta el frame $F$ completo salvo que la MAC de destino (en la cabecera de capa~2) 
   sea la de la interfaz del router que ha detectado el frame.\\[-0.25cm]
   
-\item El router mira la dirección IP de destino (en la cabecera IP de $F$) y su \conceptRef{routing table}{tabla de encaminamiento} 
+\item El router mira la dirección IP de destino (en la cabecera IP de $F$) y su \conceptRef{routing table}{tabla de enrutamiento} 
   para decidir el siguiente \conceptRef{hop}{salto} del datagrama, \ie, el dispositivo al que este router le pasará 
   el datagrama, y qué \conceptRef{interface}{interfaz} usar (véase la Sección~\ref{sec:layer3:routing} más abajo).\\[-0.25cm]
   
@@ -500,7 +500,7 @@ Si lo reconoce, el router procesa el datagrama de la siguiente manera:
     \begin{itemize} 
     \item La MAC de destino es la del siguiente salto,
     y la MAC de origen es la del router que reenvía el datagrama.
-    La IP del siguiente salto la da la \conceptRef{routing table}{tabla de encaminamiento} (véase la Sección~\ref{sec:layer3:routing}), 
+    La IP del siguiente salto la da la \conceptRef{routing table}{tabla de enrutamiento} (véase la Sección~\ref{sec:layer3:routing}), 
     y su MAC se obtiene a partir de esa IP mediante ARP (Sección~\ref{sec:layer3:arp}).\\[-0.4cm]
     %     
     \item La MAC de origen del frame $F'$
@@ -539,9 +539,9 @@ está conectado a la misma LAN que la dirección IP de destino, el router realiz
 En caso contrario, el datagrama se reenvía al siguiente router en una \conceptRef{direct/indirect delivery}{entrega indirecta} (ID).
 % 
 Un router sabe si debe realizar DD o ID, así como qué dirección IP de destino (y de origen) usar,
-gracias a su \conceptRef{routing table}{tabla de encaminamiento}.
+gracias a su \conceptRef{routing table}{tabla de enrutamiento}.
 
-Todas las tablas de encaminamiento tienen al menos las siguientes columnas:
+Todas las tablas de enrutamiento tienen al menos las siguientes columnas:
 \begin{itemize}
 \item \textbf{Bloque de direcciones de destino}: una o más direcciones IP que pueden expresarse como una combinación IP + máscara de red.
   Una fila de la tabla solo puede aplicarse a un datagrama si su IP de destino está dentro del bloque de direcciones de destino de esa fila:
@@ -554,8 +554,8 @@ Todas las tablas de encaminamiento tienen al menos las siguientes columnas:
   Como este es el bloque más grande posible, solo se aplica si no se aplica ninguna de las otras filas. 
   La entrada \textit{default} no es obligatoria.\\[-0.3cm]
   
-\item \textbf{Gateway/via} (pasarela): si la fila corresponde a una \conceptRef{direct/indirect delivery}{indirect delivery}, esta columna contiene la dirección IP
-  del siguiente router. En caso contrario, esta columna contiene \otherBase{0.0.0.0} para indicar una \conceptRef{direct/indirect delivery}{direct delivery}.\\[-0.3cm]
+\item \textbf{Gateway/via} (pasarela): si la fila corresponde a una entrega indirecta, esta columna contiene la dirección IP
+  del siguiente router. En caso contrario, esta columna contiene \otherBase{0.0.0.0} para indicar una entrega directa.\\[-0.3cm]
   
 \item \textbf{Interfaz}: nombre interno de la interfaz de red (\eg\ de la tarjeta Ethernet) que se usará para entregar el 
   datagrama. Los sistemas operativos pueden usar la convención que quieran, siempre que puedan identificarse de forma única en la tabla.
@@ -564,11 +564,11 @@ Todas las tablas de encaminamiento tienen al menos las siguientes columnas:
 \end{itemize}
 
 \begin{remark}
-Todos los dispositivos tienen su propia tabla de encaminamiento, no solo los routers.
+Todos los dispositivos tienen su propia tabla de enrutamiento, no solo los routers.
 \end{remark}
 
 \begin{exercise}
-A continuación se presenta la \conceptRef{routing table}{tabla de encaminamiento} de un router pequeño.
+A continuación se presenta la \conceptRef{routing table}{tabla de enrutamiento} de un router pequeño.
 
 \begin{center}
 \vspace{0.2cm}
@@ -587,10 +587,10 @@ A continuación se presenta la \conceptRef{routing table}{tabla de encaminamient
 \end{center}
 
 \begin{itemize}
-\item Dibuja un mapa de red coherente con la tabla de encaminamiento, que contenga este router.
+\item Dibuja un mapa de red coherente con la tabla de enrutamiento, que contenga este router.
   Para las interfaces del router, indica su nombre y unas direcciones IP y de capa~2 válidas.\\[-0.3cm]
   
-\item ¿Cómo reenviaría este router un datagrama dirigido a una dirección IP \conceptRef{public}{pública}?\\[-0.3cm]
+\item ¿Cómo reenviaría este router un datagrama dirigido a una dirección IP pública?\\[-0.3cm]
 
 \item Da una dirección IP de destino que se procesaría usando la fila \otherBase{10.49.4.0/28},
 y otra que se procesaría usando la fila \otherBase{10.49.4.2/32}. 
@@ -602,16 +602,16 @@ Para que Internet funcione, los routers que interconectan LANs a escala global d
 A veces no es así, lo que puede provocar errores de encaminamiento. Dos problemas importantes 
 que uno puede encontrarse son:
 \begin{itemize}
-\item ``Network is unreachable'': ninguna de las filas de la tabla de encaminamiento usa un bloque de direcciones que contenga la 
+\item ``Network is unreachable'': ninguna de las filas de la tabla de enrutamiento usa un bloque de direcciones que contenga la 
   dirección de destino del datagrama. 
   El router no puede saber cuál debería ser el siguiente salto, así que el datagrama no se reenvía.
   Esto provoca un error ``ICMP Destination Unreachable'' (véase la Sección~\ref{sec:layer3:icmp}).
   
 \item ``Time to Live exceeded'': cada vez que se reenvía un datagrama,
-  su \concept{TTL} se decrementa, como se mencionó en la Sección~\ref{sec:layer3:ip:format}. 
+  su TTL se decrementa, como se mencionó en la Sección~\ref{sec:layer3:ip:format}.
   Si varios routers están configurados de forma que el datagrama siga algún tipo de ciclo (bucle), 
   el datagrama se reenviaría infinitamente.
-  Cuando el \concept{TTL} llega a 0, el datagrama se descarta y se produce este error.
+  Cuando el TTL llega a 0, el datagrama se descarta y se produce este error.
   Esto provoca un error ``ICMP Time Exceeded'' (véase la Sección~\ref{sec:layer3:icmp}).
 \end{itemize}
 
@@ -620,23 +620,23 @@ que uno puede encontrarse son:
 \end{exercise}
 
 \begin{exercise}
-Propón un ejemplo de LANs interconectadas y especifica las tablas de encaminamiento necesarias para que un datagrama 
+Propón un ejemplo de LANs interconectadas y especifica las tablas de enrutamiento necesarias para que un datagrama 
 siga un ciclo y produzca el error ``TTL exceeded''.
 \end{exercise}
 
 \section{Subnetting IP}\label{sec:layer3:subnetting}
-\vspace{6em}
 \begin{bytefield}[bitwidth=1.35em]{32}
+\bytefieldsetup{bitheight=8.4em}
 \bitbox[]{1}{\raisebox{2.25em}{\rotatebox{90}{$\leftarrow$\otherBase{0.0.0.0}}}} &
 \bitbox[]{7}{} &
 \bitbox[]{1}{\raisebox{2.5em}{\rotatebox{90}{$\leftarrow$\otherBase{64.0.0.0}}}} &
 \bitbox[]{7}{} &
-\bitbox[]{1}{\raisebox{3.25em}{\rotatebox{90}{$\leftarrow$\otherBase{128.0.0.0}}}} & 
+\bitbox[]{1}{\raisebox{3.25em}{\rotatebox{90}{$\leftarrow$\otherBase{128.0.0.0}}}} &
 \bitbox[]{7}{} &
 \bitbox[]{1}{\raisebox{3em}{\rotatebox{90}{$\leftarrow$\otherBase{192.0.0.0}}}}  &
 \bitbox[]{6}{} &
 \bitbox[]{1}{\raisebox{7em}{\rotatebox{90}{$\leftarrow$\otherBase{255.255.255.255}}}}  \\
-\\
+\bytefieldsetup{bitheight=4ex}
 \bitbox{32}{\otherBase{0.0.0.0/0}} \\
 \bitbox{16}{\otherBase{0.0.0.0/1}} & \bitbox{16}{\otherBase{128.0.0.0/1}} \\
 \bitbox{8}{\otherBase{0.0.0.0/2}} & \bitbox{8}{\otherBase{64.0.0.0/2}} & \bitbox{8}{\otherBase{128.0.0.0/2}} & \bitbox{8}{\otherBase{192.0.0.0/2}} \\
@@ -662,8 +662,8 @@ siga un ciclo y produzca el error ``TTL exceeded''.
 Las LANs pueden considerarse bloques de direcciones (\eg\ expresados en formato \concept{CIDR})
 con dos direcciones reservadas. A las redes accesibles directamente a través de Internet se les debe asignar 
 un bloque válido lo bastante grande para conectar todos los dispositivos necesarios. Para asegurarse de que no haya dos dispositivos en Internet
-con la misma IP \conceptRef{public}{pública}, no puede haber dos LANs que contengan la misma dirección 
-(a menos que la dirección sea \conceptRef{private IP}{privada}).
+con la misma IP pública, no puede haber dos LANs que contengan la misma dirección
+(a menos que la dirección sea privada).
 
 Las $2^{32}$~direcciones disponibles en IPv4 se dividen en bloques mediante el 
 \conceptRef{netmask}{enmascaramiento de red}. Los bloques grandes pueden dividirse por la mitad aumentando 
@@ -690,7 +690,7 @@ un laboratorio de investigación. Te gustaría dividirla en las tres subredes re
 \item Proporciona un diagrama de las tres redes, incluyendo un router conectado a las tres
   mediante tres interfaces distintas.\\[-0.4cm]
   
-\item Proporciona la tabla de encaminamiento \textit{mínima} de ese router (estas redes
+\item Proporciona la tabla de enrutamiento \textit{mínima} de ese router (estas redes
 no están conectadas a Internet).\\[-0.4cm]
   
 \item ¿Cuántos dispositivos pueden conectarse en total a estas tres redes, incluidos los routers?\\[-0.4cm]
@@ -828,7 +828,7 @@ Cuando un datagrama necesita fragmentarse, la pila de red sigue
 los siguientes pasos:
 \begin{enumerate}
 
-\item Se comprueba el flag \concept{DF} (don't fragment) del datagrama original. 
+\item Se comprueba el \conceptRef{DF}{flag DF} (don't fragment) del datagrama original.
     Si DF=\otherBase{1} pero se necesita fragmentación, el datagrama no se fragmenta 
     y se produce un error.\\[-0.2cm]
 
@@ -843,14 +843,14 @@ los siguientes pasos:
     El SO se asegura de elegir un ID que su pila de red no haya usado recientemente.
     El campo Datagram ID se ignora en los datagramas no fragmentados.\\[-0.3cm]
     
-  \item El campo \concept{Offset} (desplazamiento) de cada fragmento indica la posición (índice de byte)
+  \item El campo \conceptRef{offset}{Offset} (desplazamiento) de cada fragmento indica la posición (índice de byte)
     de su primer byte de datos de payload dentro del payload del datagrama antes de la fragmentación.
     Este campo no se expresa en bytes, sino en palabras de $8$~bytes.
     %     
-    Dado un offset en bytes, el campo \concept{Offset} se calcula dividiendo entre $8$.
+    Dado un offset en bytes, el campo \conceptRef{offset}{Offset} se calcula dividiendo entre $8$.
     Por tanto, los offsets de los fragmentos solo pueden ser múltiplos de $8$.\\[-0.3cm]
     
-  \item El flag \concept{MF} (more fragments) se pone a \otherBase{1} (activado) 
+  \item El \conceptRef{MF}{flag MF} (more fragments) se pone a \otherBase{1} (activado)
     en todos los fragmentos salvo en el último. Esto debe cumplirse incluso si uno o más
     fragmentos se refragmentan en una LAN posterior. Así, al fragmentar un 
     datagrama $D$ con MF=\otherBase{1}, ninguno de los fragmentos resultantes\\[-0.2cm]
@@ -863,7 +863,7 @@ los siguientes pasos:
 
 
 \begin{exercise}
-Dados el \concept{Offset} y el flag \concept{MF}, ¿cómo podemos diferenciar 
+Dados el \conceptRef{offset}{Offset} y el flag MF, ¿cómo podemos diferenciar
 un datagrama que no ha sido fragmentado de un fragmento de datagrama?
 \end{exercise}
 
@@ -906,15 +906,15 @@ Los datagramas que contienen fragmentos pueden llegar duplicados y/o desordenado
 
 \section{ARP -- Address Resolution Protocol}\label{sec:layer3:arp}
 
-El Address Resolution Protocol (ARP) lo usa la capa~3 (\concept{IP})
+El Address Resolution Protocol (\concept{ARP}) lo usa la capa~3 (IP)
 para obtener la dirección MAC (física) de destino correspondiente a una dirección IP conocida.
 
 Los paquetes ARP se envían como payload de frames de capa~2 (\eg\ Ethernet). 
 Los paquetes ARP \textit{no} son datagramas y \textit{no} contienen cabeceras IP.
 
 \begin{remark}
-La IP que consulta la capa~3 es la del router en la \conceptRef{direct/indirect delivery}{indirect delivery} y la del dispositivo de destino
-en la \conceptRef{direct/indirect delivery}{indirect delivery}. Recuerda también que la IP de destino del datagrama no cambia durante el reenvío.
+La IP que consulta la capa~3 es la del router en la entrega indirecta y la del dispositivo de destino
+en la entrega indirecta. Recuerda también que la IP de destino del datagrama no cambia durante el reenvío.
 \end{remark}
 
 \subsection{Formato del paquete}\label{sec:layer3:arp:packet_format}
@@ -999,7 +999,7 @@ A su vez, el comando \inlineCode{ip link} contiene las siguientes líneas:
 \end{verbatim}
 
 \begin{itemize}
-\item El nodo necesita realizar la \conceptRef{direct/indirect delivery}{indirect delivery} de un datagrama,
+\item El nodo necesita realizar la entrega indirecta de un datagrama,
 pero no conoce la dirección MAC de su router gateway. Indica el valor de 
 todos los campos (incluyendo la cabecera Ethernet y el mensaje ARP) de la petición ARP 
 que el nodo enviará para obtener la MAC del router.
@@ -1022,7 +1022,7 @@ El comando \inlineCode{ip neighbor} muestra el contenido de esa tabla, \eg\
 \end{verbatim}
 
 \begin{remark}
-ARP puede usarse para \conceptRef{scan}{escanear} qué IP están en uso en una LAN. 
+ARP puede usarse para escanear qué IP están en uso en una LAN.
 En particular, un nodo puede usar ARP para verificar que su dirección IP configurada no la está usando nadie más.
 \end{remark}
 
@@ -1046,7 +1046,7 @@ cambiando la MAC almacenada del router gateway por la MAC del atacante?
 \section{ICMP -- Internet Control Message Protocol}\label{sec:layer3:icmp}
 
 El Internet Control Message Protocol (\concept{ICMP}) es un protocolo auxiliar
-(técnicamente parte de \concept{IP}) que se usa para probar y depurar
+(técnicamente parte de IP) que se usa para probar y depurar
 las comunicaciones de (inter)red. 
 
 
@@ -1072,10 +1072,10 @@ Las combinaciones tipo/subtipo ICMP más comunes que probablemente encuentres ho
 \toprule
 \textbf{Tipo ICMP} & \textbf{Subtipo ICMP} & \textbf{¿Error?} & \textbf{Significado} \\
 \toprule
-$8$ & $0$       &              & Mensaje ICMP Echo Request (\concept{ping}). \\
-$0$ & $0$       &              & Mensaje ICMP Echo Reply (respuesta \concept{ping}). \\
-$3$ & $0$--$16$ & $\checkmark$ & Destination Unreachable. El subtipo explica la causa. \\
-$11$ & $0$      & $\checkmark$ & Time to Live Exceeded: el \concept{TTL} ha llegado a $0$.  \\
+$8$ & $0$       & No & Mensaje ICMP Echo Request (\concept{ping}). \\
+$0$ & $0$       & No & Mensaje ICMP Echo Reply (respuesta \concept{ping}). \\
+$3$ & $0$--$16$ & Sí & Destination Unreachable. El subtipo explica la causa. \\
+$11$ & $0$      & Sí & Time to Live Exceeded: el TTL ha llegado a $0$.  \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1101,12 +1101,12 @@ Los mensajes de error ICMP los envían los routers y los hosts normales,
 disparados por otros datagramas:
 \begin{itemize}
 \item La familia de mensajes ``Destination unreachable'' se envía cuando un datagrama no puede 
-entregarse a su destino, \eg\ por una \conceptRef{routing table}{tabla de encaminamiento} mal configurada, 
+entregarse a su destino, \eg\ por una \conceptRef{routing table}{tabla de enrutamiento} mal configurada, 
 un puerto cerrado (véase la Sección~\ref{sec:layer4}), o simplemente porque el host
 de destino no está encendido.
 
 \item El mensaje ``TTL exceeded'' se envía cuando un router recibe un datagrama para 
-\conceptRef{direct/indirect delivery}{entrega indirecta} con \concept{TTL}$=1$ (véase la Sección~\ref{sec:layer3:routing}).
+entrega indirecta con TTL$=1$ (véase la Sección~\ref{sec:layer3:routing}).
 \end{itemize}
 
 Para evitar cantidades infinitas de tráfico, \textit{no} se producen errores ICMP

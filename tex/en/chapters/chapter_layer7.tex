@@ -31,10 +31,10 @@ Some of the most critical are addressed in this chapter.
 \section{DNS -- Domain Name System}\label{sec:layer7:dns}
 
 The \concept{DNS} protocol is responsible for translating \conceptRef{domain name}{domain names}
-such as \otherBase{ietf.org} or\\\otherBase{cv.uab.cat} into \concept{IP}
-addresses that can placed inside \conceptRef{datagram}{datagrams}.
+such as \otherBase{ietf.org} or\\\otherBase{cv.uab.cat} into IP
+addresses that can placed inside datagrams.
 
-DNS services are run on both \concept{TCP} and \concept{UDP}, \ie, both transport protocols
+DNS services are run on both TCP and UDP, \ie, both transport protocols
 can be enabled. In both cases, port \otherBase{53} is used.
 
 \subsection{Hierarchy}\label{sec:layer6:dns:hierarchy}
@@ -85,30 +85,30 @@ a centralized name translation system instead of DNS's distributed nature.
 \subsection{Records}\label{sec:layer7:dns:records}
 
 DNS can be seen as a distributed database with different types of entries
-called \conceptRef{DNS record}{records}. The main ones are:
+called \conceptRef{DNS record}{DNS records}. The main ones are:
 
 \begin{itemize}
-\item[\textbf{A}:] An \concept{A} entry maps a domain name to an IPv4 address.
-\item[\textbf{AAAA}:] An \concept{AAAA} entry maps a domain name to an IPv6 address.
-\item[\textbf{NS}:] An \concept{NS} points to a DNS server that can help.
-\item[\textbf{MX}:] A \concept{MX} entry provides the domain name of the email server 
+\item[\textbf{A}:] An \conceptRef{A}{A record} maps a domain name to an IPv4 address.
+\item[\textbf{AAAA}:] An \conceptRef{AAAA}{AAAA record} maps a domain name to an IPv6 address.
+\item[\textbf{NS}:] An \conceptRef{NS}{NS record} points to a DNS server that can help.
+\item[\textbf{MX}:] A \conceptRef{MX}{MX record} provides the domain name of the email server
   that handles messages for a domain.
-\item[\textbf{CNAME}:] A \concept{CNAME} entry maps a domain name to another domain name.
+\item[\textbf{CNAME}:] A \conceptRef{CNAME}{CNAME record} maps a domain name to another domain name.
 \end{itemize}
 
 Applications make \conceptRef{request}{requests} to DNS servers indicating the type 
 of records they are interested in. Server \conceptRef{reply}{replies} may be for
-the requested \concept{A} or \concept{MX} records, 
-but the client may also receive a redirection to another DNS (\concept{NS}) 
-or an alias to another domain name (\concept{CNAME}).
+the requested A or MX records,
+but the client may also receive a redirection to another DNS (NS)
+or an alias to another domain name (CNAME).
 
 \subsection{Resolution}\label{sec:layer7:dns:resolution}
 
 The distributed and hierarchical nature if the DNS database makes it 
 sometimes necessary to exchange multiple messages to satisfy a DNS \concept{query}.
  
-For instance, Alice may perform a fully \concept{iterative} resolution all on her own.
-The first two replies contain an \concept{NS} entry pointing to the next 
+For instance, Alice may perform a fully \conceptRef{iterative}{iterative resolution} all on her own.
+The first two replies contain an NS record pointing to the next
 DNS server and the IP address of that DNS server, but not the IP address of the 
 requested \otherBase{cv.uab.cat}.
 
@@ -117,14 +117,14 @@ requested \otherBase{cv.uab.cat}.
 \end{center}
 
 Alice's internet provider (\concept{ISP}) or employer will likely offer DNS servers 
-whose job is to receive Alice's requests and resolve them for her in a \concept{recursive} 
+whose job is to receive Alice's requests and resolve them for her in a recursive
 manner.
 
 \begin{center}
 \includegraphics[width=1.05\linewidth]{dns_recursive.eps}
 \end{center}
 
-The combination of \concept{recursive} resolution and \concept{cache} tables makes
+The combination of \conceptRef{recursive}{recursive resolution} and \concept{cache} tables makes
 DNS a pretty efficient system with extremely high availability and low latency.
 
 \begin{exercise}

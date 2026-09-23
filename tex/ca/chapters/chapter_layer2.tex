@@ -35,9 +35,9 @@ Els missatges de capa~2 tenen una longitud limitada. La quantitat màxima de dad
 que es pot inserir en un protocol de capa~2 s'anomena unitat màxima de transmissió (MTU),
 \eg, $1500$~bytes per a Ethernet.
 
-Alguns protocols de capa~2 també poden oferir \conceptRef{authentication}{autenticació} d'usuaris i
-protecció \conceptRef{cryptography}{criptogràfica}; 
-\concept{Wi-Fi} n'és un exemple destacat,
+Alguns protocols de capa~2 també poden oferir autenticació d'usuaris i
+protecció criptogràfica;
+\conceptRef{wi-fi}{Wi-Fi} n'és un exemple destacat,
 tot i que les xarxes amb cable també poden fer servir, \eg, IEEE 802.1X.
 
 \vspace{-0.3cm}
@@ -49,15 +49,15 @@ tot i que les xarxes amb cable també poden fer servir, \eg, IEEE 802.1X.
 \subsection*{Protocols}
 S'han definit i s'estan definint molts protocols dins de la capa~2. Els més importants avui dia són:\\[-0.65cm]
 \begin{itemize}
-\item \concept{Ethernet} (IEEE 802.3), tractat a la \secref{sec:layer2:ethernet}.
-\item \concept{Wi-Fi} (\eg, IEEE 802.11be, també conegut com a Wi-Fi 7, del 2024).
+\item \conceptRef{ethernet}{Ethernet} (IEEE 802.3), tractat a la \secref{sec:layer2:ethernet}.
+\item \conceptRef{wi-fi}{Wi-Fi} (\eg, IEEE 802.11be, també conegut com a Wi-Fi 7, del 2024).
 \end{itemize}
 
 Dins de TCP/IP, la capa~2 encapsula les PDUs dels protocols següents
 (tots dos tractats al capítol~\ref{sec:layer3}):\\[-0.65cm]
 \begin{itemize}
   \item Datagrames \concept{IPv4} i \concept{IPv6}.
-  \item Missatges \concept{ARP}.\\[-0.75cm]
+  \item Missatges ARP.\\[-0.75cm]
 \end{itemize}
 
 \vspace{0.5cm}
@@ -121,7 +121,7 @@ Els paquets d'aquest tipus s'anomenen frames (trames):\\[-0.25cm]
   encapsulat al payload,\\\eg, 
   \otherBase{0x0800}~$\rightarrow$~\concept{IPv4}, 
   \otherBase{0x86DD}~$\rightarrow$~\concept{IPv6} i
-  \otherBase{0x0806}~$\rightarrow$~\concept{ARP}. 
+  \otherBase{0x0806}~$\rightarrow$~ARP.
   De vegades s'anomena \href{https://en.wikipedia.org/wiki/EtherType#Values}{\underline{EtherType}}.
   
 \item \textbf{Payload}: contingut que es demana enviar, \eg, per part d'IPv4 o ARP.
@@ -130,7 +130,7 @@ Els paquets d'aquest tipus s'anomenen frames (trames):\\[-0.25cm]
 
 \begin{exercise}\ \\[-0.5cm]
 \begin{itemize}
-\item Quantes adreces MAC diferents hi ha a Ethernet (incloent-hi els \conceptRef{address block}{blocs} reservats)?
+\item Quantes adreces MAC diferents hi ha a Ethernet (incloent-hi els blocs reservats)?
 \item N'hi ha prou perquè cada dispositiu amb connexió a internet de la Terra tingui una MAC única?
 \end{itemize}
 \end{exercise}
@@ -149,7 +149,7 @@ Els paquets d'aquest tipus s'anomenen frames (trames):\\[-0.25cm]
 \subsection{Funcionament}\label{sec:layer2:ethernet:operation}
 
 Els missatges dins d'una LAN Ethernet normalment s'envien en mode \conceptRef{unicast/multicast}{unicast} (enviament a un únic destinatari), \ie, són missatges d'un a un.
-Això permet als switches (commutadors) minimitzar el consum d'\conceptRef{power}{energia} i d'\conceptRef{bandwidth}{amplada de banda}.
+Això permet als switches (commutadors) minimitzar el consum d'energia i d'\conceptRef{bandwidth}{amplada de banda}.
 % 
 En \conceptRef{unicast/multicast}{unicast}, el node del dispositiu d'origen ha de conèixer la MAC de la destinació.
 % 
@@ -163,10 +163,10 @@ de destinació ha de ser \otherBase{ff:ff:ff:ff:ff:ff}.
 Quan un dispositiu rep un frame, el descarta tret que el camp de MAC de destinació del frame
 sigui idèntic a la seva pròpia adreça MAC, o de \concept{broadcast}. 
 
-Un node també descartarà un frame amb un camp de tipus de payload (\concept{EtherType}) no admès. 
+Un node també descartarà un frame amb un camp de tipus de payload (\conceptRef{ethertype}{EtherType}) no admès. 
 % 
 Si el tipus de payload és admès, es fa servir per decidir quina part del sistema operatiu rep el missatge,
-\eg, la pila \concept{IPv4} o el subsistema \concept{ARP}.
+\eg, la pila \concept{IPv4} o el subsistema ARP.
 
 \begin{exercise} Continuant l'exemple de la figura anterior, la targeta de xarxa del node~B rep
 un frame que comença amb els bytes següents. L'hauria d'acceptar B?
@@ -176,9 +176,9 @@ un frame que comença amb els bytes següents. L'hauria d'acceptar B?
 \end{exercise}
 
 \begin{exercise}
-Els scripts següents mostren com enviar i rebre frames \concept{Ethernet} en brut. 
-El \concept{client} envia $5$ frames idèntics d'\concept{EtherType} \otherBase{0x1234} i després acaba.
-El \conceptRef{server}{servidor} espera fins que rep $5$ frames Ethernet d'aquest tipus (comprovat a les línies 12-13) i després acaba.
+Els scripts següents mostren com enviar i rebre frames \conceptRef{ethernet}{Ethernet} en brut. 
+El client envia $5$ frames idèntics d'\conceptRef{ethertype}{EtherType} \otherBase{0x1234} i després acaba.
+El servidor espera fins que rep $5$ frames Ethernet d'aquest tipus (comprovat a les línies 12-13) i després acaba.
 % 
 \begin{itemize}
 \item Canvia l'adreça MAC i el nom d'interfície del client pels teus.
@@ -186,8 +186,8 @@ El \conceptRef{server}{servidor} espera fins que rep $5$ frames Ethernet d'aques
 \item Amplia aquests scripts per implementar una aplicació senzilla amb capacitats LAN.\\
   Exemples suggerits:
     \begin{itemize}
-    \item Un servei d'\conceptRef{echo}{eco} de capa~2 que distingeixi entre peticions i respostes.
-    \item Un xat \concept{peer-to-peer} (de parell a parell) de capa~2 que inclogui el sobrenom de l'origen en tots els missatges.
+    \item Un servei d'eco de capa~2 que distingeixi entre peticions i respostes.
+    \item Un xat peer-to-peer (de parell a parell) de capa~2 que inclogui el sobrenom de l'origen en tots els missatges.
     \item Un servei de calculadora de capa~2 que admeti operacions aritmètiques bàsiques\\
       (\inlineCode{+}, \inlineCode{-},\inlineCode{*}, divisió entera \inlineCode{//} i, opcionalment, divisió \inlineCode{/}).
     \end{itemize}

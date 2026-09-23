@@ -31,10 +31,10 @@ En este capítulo se abordan algunos de los más críticos.
 \section{DNS -- Domain Name System}\label{sec:layer7:dns}
 
 El protocolo \concept{DNS} se encarga de traducir \conceptRef{domain name}{nombres de dominio}
-como \otherBase{ietf.org} o\\\otherBase{cv.uab.cat} en direcciones \concept{IP}
-que se pueden colocar dentro de \conceptRef{datagram}{datagramas}.
+como \otherBase{ietf.org} o\\\otherBase{cv.uab.cat} en direcciones IP
+que se pueden colocar dentro de datagramas.
 
-Los servicios DNS funcionan tanto sobre \concept{TCP} como sobre \concept{UDP}, \ie, se pueden habilitar
+Los servicios DNS funcionan tanto sobre TCP como sobre UDP, \ie, se pueden habilitar
 ambos protocolos de transporte. En ambos casos se usa el puerto \otherBase{53}.
 
 \subsection{Jerarquía}\label{sec:layer6:dns:hierarchy}
@@ -85,30 +85,30 @@ un sistema centralizado de traducción de nombres en lugar de la naturaleza dist
 \subsection{Registros}\label{sec:layer7:dns:records}
 
 El DNS puede verse como una base de datos distribuida con distintos tipos de entradas
-llamadas \conceptRef{DNS record}{registros}. Los principales son:
+llamadas \conceptRef{DNS record}{registros DNS}. Los principales son:
 
 \begin{itemize}
-\item[\textbf{A}:] Una entrada \concept{A} asocia un nombre de dominio a una dirección IPv4.
-\item[\textbf{AAAA}:] Una entrada \concept{AAAA} asocia un nombre de dominio a una dirección IPv6.
-\item[\textbf{NS}:] Un \concept{NS} apunta a un servidor DNS que puede ayudar.
-\item[\textbf{MX}:] Una entrada \concept{MX} proporciona el nombre de dominio del servidor de correo
+\item[\textbf{A}:] Un \conceptRef{A}{registro A} asocia un nombre de dominio a una dirección IPv4.
+\item[\textbf{AAAA}:] Un \conceptRef{AAAA}{registro AAAA} asocia un nombre de dominio a una dirección IPv6.
+\item[\textbf{NS}:] Un \conceptRef{NS}{registro NS} apunta a un servidor DNS que puede ayudar.
+\item[\textbf{MX}:] Un \conceptRef{MX}{registro MX} proporciona el nombre de dominio del servidor de correo
   que gestiona los mensajes de un dominio.
-\item[\textbf{CNAME}:] Una entrada \concept{CNAME} asocia un nombre de dominio a otro nombre de dominio.
+\item[\textbf{CNAME}:] Un \conceptRef{CNAME}{registro CNAME} asocia un nombre de dominio a otro nombre de dominio.
 \end{itemize}
 
 Las aplicaciones hacen \conceptRef{request}{peticiones} a los servidores DNS indicando el tipo
 de registros que les interesan. Las \conceptRef{reply}{respuestas} del servidor pueden ser para
-los registros \concept{A} o \concept{MX} solicitados,
-pero el cliente también puede recibir una redirección a otro DNS (\concept{NS})
-o un alias a otro nombre de dominio (\concept{CNAME}).
+los registros A o MX solicitados,
+pero el cliente también puede recibir una redirección a otro DNS (NS)
+o un alias a otro nombre de dominio (CNAME).
 
 \subsection{Resolución}\label{sec:layer7:dns:resolution}
 
 La naturaleza distribuida y jerárquica de la base de datos DNS hace que
 a veces sea necesario intercambiar varios mensajes para satisfacer una \conceptRef{query}{consulta} DNS.
  
-Por ejemplo, Alice puede realizar una resolución completamente \conceptRef{iterative}{iterativa} por su cuenta.
-Las dos primeras respuestas contienen una entrada \concept{NS} que apunta al siguiente
+Por ejemplo, Alice puede realizar una \conceptRef{iterative}{resolución iterativa} completamente por su cuenta.
+Las dos primeras respuestas contienen un registro NS que apunta al siguiente
 servidor DNS y la dirección IP de ese servidor DNS, pero no la dirección IP del
 \otherBase{cv.uab.cat} solicitado.
 
@@ -117,13 +117,13 @@ servidor DNS y la dirección IP de ese servidor DNS, pero no la dirección IP de
 \end{center}
 
 El proveedor de Internet (\concept{ISP}) de Alice o su empresa ofrecerán probablemente servidores DNS
-cuya tarea es recibir las peticiones de Alice y resolverlas por ella de forma \conceptRef{recursive}{recursiva}.
+cuya tarea es recibir las peticiones de Alice y resolverlas por ella de forma recursiva.
 
 \begin{center}
 \includegraphics[width=1.05\linewidth]{dns_recursive.eps}
 \end{center}
 
-La combinación de la resolución \conceptRef{recursive}{recursiva} y las tablas de \conceptRef{cache}{caché} hace
+La combinación de la \conceptRef{recursive}{resolución recursiva} y las tablas de \conceptRef{cache}{caché} hace
 del DNS un sistema bastante eficiente, con una disponibilidad extremadamente alta y baja latencia.
 
 \begin{exercise}
@@ -266,7 +266,7 @@ Explica cómo es posible y por qué resulta útil.
 
 \section{Sistemas autónomos}\label{sec:layer7:as}
 
-El encaminamiento se realiza un \conceptRef{hop}{salto} a la vez, usando \conceptRef{routing table}{tablas de encaminamiento}
+El encaminamiento se realiza un \conceptRef{hop}{salto} a la vez, usando \conceptRef{routing table}{tablas de enrutamiento}
 como se ha visto en la Sección~\ref{sec:layer3:routing}. Esas tablas deben coordinarse a gran
 escala para garantizar la conectividad del grafo hasta todos los hosts de Internet.
 
@@ -300,9 +300,9 @@ con destino dentro del AS, lo reenvía a través de los \conceptRef{internal rou
 De forma similar, cuando un host dentro de un AS necesita contactar con un host de otro AS, los datagramas se reenvían por routers frontera
 hasta que llegan al AS de destino y, finalmente, a la LAN de destino.
 
-\subsection{Configuración de la tabla de encaminamiento}\label{sec:layer7:as:routing_table_configurati}
+\subsection{Configuración de la tabla de enrutamiento}\label{sec:layer7:as:routing_table_configurati}
 
-Configurar manualmente las \conceptRef{routing table}{tablas de encaminamiento} de todos los routers frontera y routers internos
+Configurar manualmente las \conceptRef{routing table}{tablas de enrutamiento} de todos los routers frontera y routers internos
 sería demasiado costoso y propenso a errores. En su lugar, se emplean distintos algoritmos para configurarlas automáticamente.
 \begin{itemize}
 \item Dentro del AS, los routers internos y los routers frontera usan uno de los
@@ -316,7 +316,7 @@ que los datagramas deben recorrer dentro del AS. Periódicamente (\eg\ cada $30$
   \begin{enumerate}
   \item Anuncia su distancia \textit{percibida} al resto de routers del AS.
   \item Actualiza sus distancias percibidas a partir de los anuncios de otros routers.
-  \item Actualiza en consecuencia su \conceptRef{routing table}{tabla de encaminamiento} hacia todas las LAN del AS.
+  \item Actualiza en consecuencia su \conceptRef{routing table}{tabla de enrutamiento} hacia todas las LAN del AS.
   \end{enumerate}
 
 \begin{exercise}

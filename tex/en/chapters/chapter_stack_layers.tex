@@ -15,7 +15,7 @@ which is responsible for some of these features.
 Each layer uses the \inlineCode{send} and \inlineCode{receive} of the layer below,
 \ie, the features of one layer rely on the features of all layers below it.
 
-To coordinate layers and enable \concept{virtual} communication between them, 
+To coordinate layers and enable virtual communication between them,
 each layer defines a different packet format, which \conceptRef{encapsulation}{encapsulates} 
 a packet of the layer above it.
 
@@ -45,7 +45,7 @@ The following figure depicts the structure of a 4-layer \concept{stack}:
 
 
 The packets produced by each layer are generically referred to as \concept{PDU}s (Protocol Data Unit).
-The PDUs of each layer have specific names such as \concept{frame}, \concept{datagram} or \concept{segment}.
+The PDUs of each layer have specific names such as \concept{frame}, \concept{datagram} or segment.
 These names must be used with precision in technical contexts.
 
 Each layer includes the \concept{PDU} of the layer above inside its PDU's packet format definition.
@@ -80,7 +80,7 @@ In a \conceptRef{stack}{network stack}, only the bottom layer interacts directly
 At the same time, data sent by the bottom layer includes the \conceptRef{PDU}{PDUs} of all layers
 by means of \concept{encapsulation}.
 % 
-Thanks to this, there exists a \concept{virtual} communication between each layer in one end and its counterpart in the other 
+Thanks to this, there exists a virtual communication between each layer in one end and its counterpart in the other
 end of communication. The following figure represents the real (solid line) and virtual (dashed line) communication 
 in our example:
 
@@ -113,7 +113,7 @@ The \concept{PDU} of layer L3 is as follows:
 \end{center}
 
 Layer L1 receives a packet of data and its \inlineCode{receive} function returns the following data
-(assume \concept{unsigned} integers and \conceptRef{big endian/little endian}{big endian} order when needed:
+(assume unsigned integers and big endian order when needed:
 \begin{center}
 \otherBase{01 23 00 0a 01 00 00 06 00 aa 00 bb 43 20}
 \end{center}
@@ -136,7 +136,7 @@ Layer L1 receives a packet of data and its \inlineCode{receive} function returns
 
 \begin{exercise}
 The previous code takes some data and writes the bytes that would be sent to Layer 1 
-(the \concept{physical layer}) of the \concept{network stack} of Exercise~\ref{ex:how_it_is_done:three_layer_network}.
+(the \concept{physical layer}) of the \conceptRef{stack}{network stack} of Exercise~\ref{ex:how_it_is_done:three_layer_network}.
 Implement the receiving end of the stack as follows: 
 
 \begin{itemize}

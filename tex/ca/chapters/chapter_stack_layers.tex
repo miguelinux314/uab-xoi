@@ -15,7 +15,7 @@ que és responsable d'algunes d'aquestes funcionalitats.
 Cada capa fa servir el \inlineCode{send} i el \inlineCode{receive} de la capa inferior,
 \ie, les funcionalitats d'una capa es basen en les funcionalitats de totes les capes que té per sota.
 
-Per coordinar les capes i permetre una comunicació \concept{virtual} entre elles, 
+Per coordinar les capes i permetre una comunicació virtual entre elles,
 cada capa defineix un format de paquet diferent, que \conceptRef{encapsulation}{encapsula} 
 un paquet de la capa superior.
 
@@ -45,7 +45,7 @@ La figura següent mostra l'estructura d'una \conceptRef{stack}{pila} de 4 capes
 
 
 Els paquets que produeix cada capa s'anomenen genèricament \concept{PDU}s (Protocol Data Unit, unitat de dades del protocol).
-Les PDUs de cada capa tenen noms específics com ara \concept{frame} (trama), \conceptRef{datagram}{datagrama} o \concept{segment}.
+Les PDUs de cada capa tenen noms específics com ara \concept{frame} (trama), \conceptRef{datagram}{datagrama} o segment.
 Aquests noms s'han de fer servir amb precisió en contextos tècnics.
 
 Cada capa inclou la \concept{PDU} de la capa superior dins la definició del format de paquet de la seva PDU.
@@ -80,7 +80,7 @@ En una \conceptRef{stack}{pila de xarxa}, només la capa inferior interactua dir
 Alhora, les dades enviades per la capa inferior inclouen les \conceptRef{PDU}{PDUs} de totes les capes
 mitjançant l'\conceptRef{encapsulation}{encapsulació}.
 % 
-Gràcies a això, hi ha una comunicació \concept{virtual} entre cada capa d'un extrem i la seva homòloga a l'altre 
+Gràcies a això, hi ha una comunicació virtual entre cada capa d'un extrem i la seva homòloga a l'altre
 extrem de la comunicació. La figura següent representa la comunicació real (línia contínua) i virtual (línia discontínua) 
 del nostre exemple:
 
@@ -113,7 +113,7 @@ La \concept{PDU} de la capa L3 és la següent:
 \end{center}
 
 La capa L1 rep un paquet de dades i la seva funció \inlineCode{receive} retorna les dades següents
-(suposa enters \conceptRef{unsigned}{sense signe} i ordre \conceptRef{big endian/little endian}{big endian} (primer el byte més significatiu) quan calgui:
+(suposa enters sense signe i ordre big endian (primer el byte més significatiu) quan calgui:
 \begin{center}
 \otherBase{01 23 00 0a 01 00 00 06 00 aa 00 bb 43 20}
 \end{center}
@@ -136,7 +136,7 @@ La capa L1 rep un paquet de dades i la seva funció \inlineCode{receive} retorna
 
 \begin{exercise}
 El codi anterior agafa unes dades i escriu els bytes que s'enviarien a la capa 1 
-(la \conceptRef{physical layer}{capa física}) de la \conceptRef{network stack}{pila de xarxa} de l'exercici~\ref{ex:how_it_is_done:three_layer_network}.
+(la \conceptRef{physical layer}{capa física}) de la \conceptRef{stack}{pila de xarxa} de l'exercici~\ref{ex:how_it_is_done:three_layer_network}.
 Implementa l'extrem receptor de la pila de la manera següent: 
 
 \begin{itemize}
