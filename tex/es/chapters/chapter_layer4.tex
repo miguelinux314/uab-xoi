@@ -242,7 +242,7 @@ Los datos de payload solo están pensados para intercambiarse durante ``Conexió
 \end{center}
 
 Los sockets TCP pueden estar en uno de $11$ estados. Estos estados, junto con dos contadores de $16$ bits
-(\conceptRef{acknowledgement number}{número de ACK} y \conceptRef{sequence number}{número de secuencia}), hacen posible la \conceptRef{reliability}{fiabilidad} en la comunicación
+(\conceptRef{acknowledgement number}{número de ACK (\nack)} y \conceptRef{sequence number}{número de secuencia (\nseq)}), hacen posible la \conceptRef{reliability}{fiabilidad} en la comunicación
 que se espera de TCP. El significado de estos estados y sus transiciones se explican en los
 siguientes capítulos.
 
@@ -256,7 +256,7 @@ Cuando se crea un \concept{socket}, empieza como \texttt{CLOSED}.
 El extremo que actúa como servidor empieza a escuchar en el puerto configurado para el servicio
 y pasa al estado \texttt{LISTEN}. En este estado no se intercambia payload.
 
-Una conexión se establece mediante un \concept{3-way handshake} (negociación inicial) usando los
+Una conexión se establece mediante un \concept{3-way handshake} usando los
 flags \texttt{SYN} y \texttt{ACK} de la cabecera.
 % 
 Cada extremo de la comunicación alcanza el estado \texttt{ESTABLISHED} en un momento distinto gracias a

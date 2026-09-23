@@ -242,7 +242,7 @@ Les dades de payload només s'han d'intercanviar mentre s'està a ``Connexió es
 \end{center}
 
 Els sockets TCP poden estar en un d'$11$ estats. Aquests estats, juntament amb dos comptadors de $16$ bits
-(\conceptRef{acknowledgement number}{número d'ACK} i \conceptRef{sequence number}{número de seqüència}) permeten la \conceptRef{reliability}{fiabilitat} de la comunicació
+(\conceptRef{acknowledgement number}{número d'ACK (\nack)} i \conceptRef{sequence number}{número de seqüència (\nseq)}) permeten la \conceptRef{reliability}{fiabilitat} de la comunicació
 que s'espera de TCP. El significat d'aquests estats i de les seves transicions s'explica als
 capítols següents.
 
@@ -256,7 +256,7 @@ Quan es crea un \concept{socket}, comença a l'estat \texttt{CLOSED}.
 L'extrem que actua com a servidor comença a escoltar al \concept{port} configurat per al servei
 i passa a l'estat \texttt{LISTEN}. En aquest estat no s'intercanvia payload.
 
-Una connexió s'estableix mitjançant un \concept{3-way handshake} (negociació inicial) fent servir els
+Una connexió s'estableix mitjançant un \concept{3-way handshake} fent servir els
 flags de capçalera \texttt{SYN} i \texttt{ACK}.
 % 
 Gràcies a aquest handshake, cada extrem de la comunicació arriba a l'estat \texttt{ESTABLISHED} en un moment diferent.

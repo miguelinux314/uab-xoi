@@ -73,7 +73,7 @@ La feina d'aquests servidors DNS de domini de primer nivell és redirigir-te a
 altres servidors DNS \conceptRef{authoritative}{autoritatius} per al domini de segon nivell
 sol·licitat (\eg, \otherBase{uab.cat}).
 % 
-Els dominis de segon nivell poden llavors estructurar la seva \conceptRef{zone}{zona} de noms
+Els dominis de segon nivell poden llavors estructurar la seva \conceptRef{name zone}{zona de noms}
 com vulguin, incloent-hi qualsevol nombre i profunditat de subdominis, així com
 la traducció de nom a IP \textit{dins} de la zona d'autoritat.
 
@@ -107,7 +107,7 @@ o un àlies a un altre nom de domini (CNAME).
 La naturalesa distribuïda i jeràrquica de la base de dades del DNS fa que
 de vegades calgui intercanviar múltiples missatges per satisfer una \conceptRef{query}{consulta} DNS.
  
-Per exemple, l'Alice pot fer una \conceptRef{iterative}{resolució iterativa} completament tota sola.
+Per exemple, l'Alice pot fer una \conceptRef{dns resolution}{resolució iterativa} completament tota sola.
 Les dues primeres respostes contenen un registre NS que apunta al següent
 servidor DNS i l'adreça IP d'aquest servidor DNS, però no l'adreça IP del
 \otherBase{cv.uab.cat} demanat.
@@ -124,7 +124,7 @@ recursiva.
 \includegraphics[width=1.05\linewidth]{dns_recursive.eps}
 \end{center}
 
-La combinació de la \conceptRef{recursive}{resolució recursiva} i les taules de \conceptRef{cache}{memòria cau} fa
+La combinació de la \conceptRef{dns resolution}{resolució recursiva} i les taules de \conceptRef{cache}{memòria cau} fa
 del DNS un sistema força eficient, amb una disponibilitat altíssima i una latència baixa.
 
 \begin{exercise}
@@ -210,7 +210,7 @@ Zero o més servidors respondran al client amb ofertes de configuració.
 Aquestes configuracions (\eg, adreces IP) no són propietat del client
 fins que el servidor envia un DHCP Acknowledgement.\\[-0.3cm]
 
-El servidor porta el control d'un \conceptRef{pool}{pool} (conjunt) d'adreces que
+El servidor porta el control d'un \conceptRef{pool}{pool} d'adreces que
 assigna dinàmicament als clients.
 % 
 Les adreces IP s'ofereixen durant un període de temps fix, després del qual caduquen
@@ -267,7 +267,7 @@ Explica com és possible i per què és útil.
 
 \section{Sistemes autònoms}\label{sec:layer7:as}
 
-L'encaminament es fa \conceptRef{hop}{salt} a salt, utilitzant \conceptRef{routing table}{taules d'encaminament}
+L'encaminament es fa salt a salt, utilitzant \conceptRef{routing table}{taules d'encaminament}
 tal com s'ha explicat a la Secció~\ref{sec:layer3:routing}. Aquestes taules s'han de coordinar a gran
 escala per garantir la connectivitat del graf amb tots els hosts d'Internet.
 
@@ -311,7 +311,7 @@ seria massa costós i propens a errors. En lloc d'això, s'utilitzen diferents a
 Sovint s'utilitza \concept{RIP} (Routing Information Protocol) per la seva configuració relativament senzilla.
 Dit això, els AS poden triar lliurement l'algorisme que utilitzen internament.\\[-0.2cm]
 
-RIP implementa una variant de l'algorisme de camí més curt de Bellman-Ford per minimitzar el nombre de \conceptRef{hop}{salts}
+RIP implementa una variant de l'algorisme de camí més curt de Bellman-Ford per minimitzar el nombre de salts
 que els datagrames han de fer dins de l'AS. Periòdicament (\eg, cada $30$~s), cada IR i BR:\\[-0.4cm]
 % 
   \begin{enumerate}
@@ -340,9 +340,9 @@ l'algorisme que utilitzen, de manera que normalment s'utilitza \concept{BGP} (bo
 és necessària perquè BGP coordina routers frontera que pertanyen a AS diferents, \ie,
 amb propietaris diferents:\\[-0.4cm]
 \begin{itemize}
-\item RIP utilitza un únic nombre (la distància, \ie, el nombre de \conceptRef{hop}{salts})
+\item RIP utilitza un únic nombre (la distància, \ie, el nombre de salts)
 per guiar un algorisme de camí més curt sobre un graf. BGP utilitza \conceptRef{path}{camins} en lloc de distàncies.
-Això permet a BGP triar rutes amb més \conceptRef{hop}{salts}, però més convenients per a l'AS,
+Això permet a BGP triar rutes amb més salts, però més convenients per a l'AS,
 \eg, en termes de temps, cost econòmic, càrrega interna, etc.\\[-0.4cm]
 
 \item BGP es va dissenyar tenint en compte la seguretat i la confiança, i inclou mecanismes

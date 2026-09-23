@@ -73,7 +73,7 @@ The job of those top-level domain DNS servers is to redirect you to
 other DNS servers \concept{authoritative} for the second-level domain 
 requested (\eg, \otherBase{uab.cat}).
 % 
-Second-level domains can then structure their name \concept{zone} 
+Second-level domains can then structure their \concept{name zone}
 as desired, including any subdomain number and depth, as well as
 the name to IP translation \textit{within} the zone of authority.
 
@@ -107,7 +107,7 @@ or an alias to another domain name (CNAME).
 The distributed and hierarchical nature if the DNS database makes it 
 sometimes necessary to exchange multiple messages to satisfy a DNS \concept{query}.
  
-For instance, Alice may perform a fully \conceptRef{iterative}{iterative resolution} all on her own.
+For instance, Alice may perform a fully \conceptRef{dns resolution}{iterative resolution} all on her own.
 The first two replies contain an NS record pointing to the next
 DNS server and the IP address of that DNS server, but not the IP address of the 
 requested \otherBase{cv.uab.cat}.
@@ -124,7 +124,7 @@ manner.
 \includegraphics[width=1.05\linewidth]{dns_recursive.eps}
 \end{center}
 
-The combination of \conceptRef{recursive}{recursive resolution} and \concept{cache} tables makes
+The combination of \conceptRef{dns resolution}{recursive resolution} and \concept{cache} tables makes
 DNS a pretty efficient system with extremely high availability and low latency.
 
 \begin{exercise}
@@ -267,7 +267,7 @@ Explain how this is possible and why it is useful.
 
 \section{Autonomous Systems}\label{sec:layer7:as}
 
-Routing is performed one \concept{hop} at a time, using \conceptRef{routing table}{routing tables} 
+Routing is performed one hop at a time, using \conceptRef{routing table}{routing tables} 
 as discussed in Section~\ref{sec:layer3:routing}. Those tables need to be coordinated at a large 
 scale to guarantee graph connectivity to all hosts in the Internet.
 
@@ -311,7 +311,7 @@ would be too costly and prone to errors. Instead, different algorithms are emplo
 Often, \concept{RIP} (Routing Information Protocol) is used due to its relatively simple configuration.
 That said, ASs may freely choose the algorithm they use internally to their AS.\\[-0.2cm]
 
-RIP implements a variation of the Bellman-Ford shortest path algorithm to minimize the number of \conceptRef{hop}{hops}
+RIP implements a variation of the Bellman-Ford shortest path algorithm to minimize the number of hops
 datagrams need to travel within the AS. Periodically (\eg, every $30$~s), each IR and BR:\\[-0.4cm]
 % 
   \begin{enumerate}
@@ -340,9 +340,9 @@ algorithm they use, so \concept{BGP} (border gateway protocol) is normally used.
 is needed because BGP coordinates border routers belonging to different ASs, \ie, 
 with different owners:\\[-0.4cm]
 \begin{itemize}
-\item RIP uses a single number (the distance, \ie, the number of \conceptRef{hop}{hops})
+\item RIP uses a single number (the distance, \ie, the number of hops)
 to guide a shortest-path graph algorithm. BGP uses \conceptRef{path}{paths} instead of distances.
-This allows BGP to choose routes with more \conceptRef{hop}{hops}, but more desirable to the AS,
+This allows BGP to choose routes with more hops, but more desirable to the AS,
 \eg, in terms of time, monetary cost, internal load, etc.\\[-0.4cm]
 
 \item BGP was designed with the notion of security and trust in mind, and includes mechanisms

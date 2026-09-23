@@ -73,7 +73,7 @@ El trabajo de esos servidores DNS de dominio de primer nivel es redirigirte a
 otros servidores DNS \conceptRef{authoritative}{autoritativos} para el dominio de segundo nivel
 solicitado (\eg\ \otherBase{uab.cat}).
 % 
-Los dominios de segundo nivel pueden entonces estructurar su \conceptRef{zone}{zona} de nombres
+Los dominios de segundo nivel pueden entonces estructurar su \conceptRef{name zone}{zona de nombres}
 como deseen, incluyendo cualquier número y profundidad de subdominios, así como
 la traducción de nombre a IP \textit{dentro} de su zona de autoridad.
 
@@ -107,7 +107,7 @@ o un alias a otro nombre de dominio (CNAME).
 La naturaleza distribuida y jerárquica de la base de datos DNS hace que
 a veces sea necesario intercambiar varios mensajes para satisfacer una \conceptRef{query}{consulta} DNS.
  
-Por ejemplo, Alice puede realizar una \conceptRef{iterative}{resolución iterativa} completamente por su cuenta.
+Por ejemplo, Alice puede realizar una \conceptRef{dns resolution}{resolución iterativa} completamente por su cuenta.
 Las dos primeras respuestas contienen un registro NS que apunta al siguiente
 servidor DNS y la dirección IP de ese servidor DNS, pero no la dirección IP del
 \otherBase{cv.uab.cat} solicitado.
@@ -123,7 +123,7 @@ cuya tarea es recibir las peticiones de Alice y resolverlas por ella de forma re
 \includegraphics[width=1.05\linewidth]{dns_recursive.eps}
 \end{center}
 
-La combinación de la \conceptRef{recursive}{resolución recursiva} y las tablas de \conceptRef{cache}{caché} hace
+La combinación de la \conceptRef{dns resolution}{resolución recursiva} y las tablas de \conceptRef{cache}{caché} hace
 del DNS un sistema bastante eficiente, con una disponibilidad extremadamente alta y baja latencia.
 
 \begin{exercise}
@@ -209,7 +209,7 @@ Cero o más servidores responderán al cliente con ofertas de configuración.
 Estas configuraciones (\eg\ direcciones IP) no son propiedad del cliente
 hasta que el servidor envía un Acknowledgement DHCP.\\[-0.3cm]
 
-El servidor lleva la cuenta de un \concept{pool} (conjunto) de direcciones que asigna
+El servidor lleva la cuenta de un \concept{pool} de direcciones que asigna
 dinámicamente a los clientes.
 % 
 Las direcciones IP se ofrecen durante un periodo de tiempo fijo, tras el cual expiran
@@ -266,7 +266,7 @@ Explica cómo es posible y por qué resulta útil.
 
 \section{Sistemas autónomos}\label{sec:layer7:as}
 
-El encaminamiento se realiza un \conceptRef{hop}{salto} a la vez, usando \conceptRef{routing table}{tablas de enrutamiento}
+El encaminamiento se realiza un salto a la vez, usando \conceptRef{routing table}{tablas de enrutamiento}
 como se ha visto en la Sección~\ref{sec:layer3:routing}. Esas tablas deben coordinarse a gran
 escala para garantizar la conectividad del grafo hasta todos los hosts de Internet.
 
@@ -291,7 +291,7 @@ comerciales con los AS interconectados.
 %
 Algunos IXP se comprometen a dar servicio a cualquiera
 que cumpla sus requisitos básicos, no están controlados por ningún operador concreto y ofrecen a sus clientes precios transparentes y a menudo
-equitativos. Este tipo de IXP se denomina \conceptRef{NP}{Punto Neutro} (\concept{NP}), en contraposición
+equitativos. Este tipo de IXP se denomina \conceptRef{NP}{punto neutro} (\concept{NP}), en contraposición
 a los puntos no neutros usados, \textit{e.g.}, solo por un único operador de red.
 
 \newpage
@@ -310,7 +310,7 @@ sería demasiado costoso y propenso a errores. En su lugar, se emplean distintos
 A menudo se usa \concept{RIP} (Routing Information Protocol) por su configuración relativamente sencilla.
 Dicho esto, los AS pueden elegir libremente el algoritmo que usan internamente en su AS.\\[-0.2cm]
 
-RIP implementa una variación del algoritmo de camino más corto de Bellman-Ford para minimizar el número de \conceptRef{hop}{saltos}
+RIP implementa una variación del algoritmo de camino más corto de Bellman-Ford para minimizar el número de saltos
 que los datagramas deben recorrer dentro del AS. Periódicamente (\eg\ cada $30$~s), cada IR y BR:\\[-0.4cm]
 % 
   \begin{enumerate}
@@ -339,9 +339,9 @@ algoritmo que usan, así que normalmente se usa \concept{BGP} (border gateway pr
 es necesaria porque BGP coordina routers frontera pertenecientes a distintos AS, \ie,
 con distintos propietarios:\\[-0.4cm]
 \begin{itemize}
-\item RIP usa un único número (la distancia, \ie, el número de \conceptRef{hop}{saltos})
+\item RIP usa un único número (la distancia, \ie, el número de saltos)
 para guiar un algoritmo de camino más corto en el grafo. BGP usa \conceptRef{path}{caminos} en lugar de distancias.
-Esto permite a BGP elegir rutas con más \conceptRef{hop}{saltos}, pero más deseables para el AS,
+Esto permite a BGP elegir rutas con más saltos, pero más deseables para el AS,
 \eg\ en términos de tiempo, coste económico, carga interna, etc.\\[-0.4cm]
 
 \item BGP se diseñó teniendo en mente la seguridad y la confianza, e incluye mecanismos
