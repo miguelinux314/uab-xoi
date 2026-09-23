@@ -89,7 +89,7 @@ plugins:
             Home: Portada
             License and credits: Licencia y créditos
             AI usage: Uso de IA
-            About this course: Sobre esta asignatura
+            "[1] About this course": "[1] Sobre esta asignatura"
             Course: Resumen
             "Part I: Computer Networks": "Parte I: Redes de ordenadores"
             "Part II: Internet": "Parte II: Internet"
@@ -103,7 +103,7 @@ plugins:
             Home: Inici
             License and credits: Llicència i crèdits
             AI usage: Ús d'IA
-            About this course: Sobre aquesta assignatura
+            "[1] About this course": "[1] Sobre aquesta assignatura"
             Course: Curs
             "Part I: Computer Networks": "Part I: Xarxes d'ordinadors"
             "Part II: Internet": "Part II: Internet"
@@ -125,7 +125,7 @@ nav:
       - index.md
       - License and credits: license.md
       - AI usage: ai_usage.md
-      - About this course: course.md
+      - "[1] About this course": course.md
   - Course:
       - "Part I: Computer Networks":
           - networks.md

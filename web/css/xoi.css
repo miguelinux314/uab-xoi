@@ -244,10 +244,17 @@
 }
 
 .md-typeset .cover-studyguide {
-  margin: 0 0 0.6rem;
+  margin: 0;
   font-size: clamp(2rem, 7vw, 3.4rem);
   font-weight: 700;
   line-height: 1.05;
+}
+
+.md-typeset .cover-year {
+  margin: 0 0 0.4rem;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 700;
+  color: var(--md-default-fg-color);
 }
 
 .md-typeset .cover-course {

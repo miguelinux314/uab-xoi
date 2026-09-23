@@ -765,7 +765,8 @@ class Converter:
                   # The academic year (e.g. "2026/27") is computed client-side, never baked in at
                   # build time, so it's always current no matter how stale the last build is -
                   # "current" meaning September of year X through August of X+1 both read "X/X+1".
-                  f'<p class="cover-course">{subtitle} - <span id="xoi-academic-year"></span></p>',
+                  '<p class="cover-year"><span id="xoi-academic-year"></span></p>',
+                  f'<p class="cover-course">{subtitle}</p>',
                   # Not document$.subscribe (mkdocs-material's usual hook, see the other web/js/
                   # files): this inline script runs inline with the page body, before that
                   # bundle has necessarily loaded, but the span right above it is already parsed
