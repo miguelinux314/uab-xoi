@@ -1011,7 +1011,7 @@ that the node will send to get the router's MAC.
 
 The MAC address associated to an IP is not likely to change very often.
 When a valid ARP response is received, the OS updates a 
-\concept{cache} adding (or updating) the received IP $\leftrightarrow$ MAC translations.
+\conceptRef{arp cache}{cache} adding (or updating) the received IP $\leftrightarrow$ MAC translations.
 % 
 If the OS needs to send a datagram to that IP before that cache entry expires,
 the table's MAC address is used directly without requiring additional ARP messages.
