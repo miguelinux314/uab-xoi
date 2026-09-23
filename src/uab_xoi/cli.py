@@ -2,7 +2,7 @@
 
   uab-xoi build              PDFs + offline zips (build/xoi-uab-study-guide-<lang>.{pdf,zip}) + website (build/site)
   uab-xoi build --no-site    only the PDFs and zips
-  uab-xoi serve              lean live-reloading website (no PDFs, no zips), port 65535
+  uab-xoi serve              lean website (no PDFs, no zips), port 65535; --reload for live-reload
   uab-xoi clean              remove every generated file
   uab-xoi pages              check that every mission fits one printed page in each built PDF
 """
@@ -108,9 +108,13 @@ def cmd_serve(args):
     except SystemExit as e:
         print(f"warning: site sources incomplete ({e})", file=sys.stderr)
     stop = threading.Event()
-    threading.Thread(target=watch, args=(langs, stop), daemon=True).start()
+    mkdocs_cmd = ["mkdocs", "serve", "-f", str(WEB / "mkdocs.yml"), "-a", f"{args.host}:{args.port}"]
+    if args.reload:
+        threading.Thread(target=watch, args=(langs, stop), daemon=True).start()
+    else:
+        mkdocs_cmd.append("--no-livereload")
     try:
-        subprocess.run(["mkdocs", "serve", "-f", str(WEB / "mkdocs.yml"), "-a", f"{args.host}:{args.port}"])
+        subprocess.run(mkdocs_cmd)
     finally:
         stop.set()
 
@@ -142,10 +146,16 @@ def main():
     p.add_argument("--force", action="store_true", help="recompile PDFs even if up to date")
     p.set_defaults(func=cmd_build)
 
-    p = sub.add_parser("serve", help="live-reloading website (no PDFs or zips)")
+    p = sub.add_parser("serve", help="website (no PDFs or zips)")
     p.add_argument("--host", default=os.environ.get("UAB_XOI_HOST", "127.0.0.1"))
     p.add_argument("--port", type=int, default=int(os.environ.get("UAB_XOI_PORT", 65535)))
     p.add_argument("--langs", nargs="+", choices=LANGS)
+    # Off by default: rebuilding+refreshing on every source save is disruptive while a bunch of
+    # files are being edited in a row (e.g. by Claude Code). Opt in with --reload, or
+    # UAB_XOI_RELOAD=1 (docker/Makefile's `serve` passes this through as an env var).
+    p.add_argument("--reload", action=argparse.BooleanOptionalAction,
+                   default=os.environ.get("UAB_XOI_RELOAD", "0") == "1",
+                   help="regenerate the site and live-reload the browser on source changes")
     p.set_defaults(func=cmd_serve)
 
     p = sub.add_parser("clean", help="remove generated files")

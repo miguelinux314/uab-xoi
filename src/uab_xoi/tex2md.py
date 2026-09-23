@@ -95,9 +95,15 @@ def frac_of_linewidth(width_str):
         return None
     return float(m.group(1)) if m.group(1) else 1.0
 TEXTS = {
-    "en": {"concepts_intro": "Every highlighted concept in the guide, with links to where it is used."},
-    "es": {"concepts_intro": "Todos los conceptos destacados en la guía, con enlaces a los lugares donde se usan."},
-    "ca": {"concepts_intro": "Tots els conceptes destacats a la guia, amb enllaços als llocs on s'utilitzen."},
+    "en": {"concepts_intro": "Every highlighted concept in the guide, with links to where it is used.",
+           "concepts_by_section": "By section",
+           "concepts_alphabetical": "Alphabetical"},
+    "es": {"concepts_intro": "Todos los conceptos destacados en la guía, con enlaces a los lugares donde se usan.",
+           "concepts_by_section": "Por sección",
+           "concepts_alphabetical": "Orden alfabético"},
+    "ca": {"concepts_intro": "Tots els conceptes destacats a la guia, amb enllaços als llocs on s'utilitzen.",
+           "concepts_by_section": "Per secció",
+           "concepts_alphabetical": "Ordre alfabètic"},
 }
 # Display name for each edition's PDF-download button (write_frontpage()) and
 # language switcher (web/mkdocs.yml's own separate `name:` per language).
@@ -581,6 +587,29 @@ class Converter:
             if src:
                 hero = prefix + "assets/fig/" + self.web_figure(src)
 
+        # Blocks rendered to SVG, sized to their real (standalone PDF) size -
+        # independent of any enclosing minipage, since a bytefield/tikzpicture
+        # isn't itself given a \linewidth-relative width in the source. Done
+        # first, before any of the pandoc-oriented simplification below (in
+        # particular the \raisebox/\rotatebox unwrapping a few lines down),
+        # so the fragment handed to the real pdflatex-based renderer matches
+        # the PDF exactly instead of losing rotation/vertical positioning.
+        def render_block(m):
+            try:
+                svg, width_cm, _ = render_tex_svg.render(m.group(0), lang=self.lang)
+            except render_tex_svg.RenderError as e:
+                self.problems.append(f"{rel}: cannot render block to SVG: {e}")
+                return ""
+            rendered = self.assets / "rendered"
+            rendered.mkdir(parents=True, exist_ok=True)
+            shutil.copy(svg, rendered / svg.name)
+            size_opt = f"[width={scaled_cm(width_cm)}cm]" if width_cm else ""
+            return "\\includegraphics" + size_opt + "{" + prefix + "assets/rendered/" + svg.name + "}"
+        for pattern in (r"\\CellHeight.*?\\end\{schedule\}",
+                        r"\\begin\{bytefield\}.*?\\end\{bytefield\}",
+                        r"\\begin\{tikzpicture\}.*?\\end\{tikzpicture\}"):
+            text = re.sub(pattern, render_block, text, flags=re.S)
+
         for name in ("chapter\\*?", "section\\*?", "subsection\\*?",
                     "subsubsection\\*?", "paragraph\\*?"):
             text = transform_braced_command(text, name, simplify_heading_math)
@@ -602,25 +631,6 @@ class Converter:
             text = unwrap_command(text, name, n)
         text = replace_braced_command(text, "centerline",
                                       lambda a: "\\begin{center}" + a + "\\end{center}")
-
-        # Blocks rendered to SVG, sized to their real (standalone PDF) size -
-        # independent of any enclosing minipage, since a bytefield/tikzpicture
-        # isn't itself given a \linewidth-relative width in the source.
-        def render_block(m):
-            try:
-                svg, width_cm, _ = render_tex_svg.render(m.group(0), lang=self.lang)
-            except render_tex_svg.RenderError as e:
-                self.problems.append(f"{rel}: cannot render block to SVG: {e}")
-                return ""
-            rendered = self.assets / "rendered"
-            rendered.mkdir(parents=True, exist_ok=True)
-            shutil.copy(svg, rendered / svg.name)
-            size_opt = f"[width={scaled_cm(width_cm)}cm]" if width_cm else ""
-            return "\\includegraphics" + size_opt + "{" + prefix + "assets/rendered/" + svg.name + "}"
-        for pattern in (r"\\CellHeight.*?\\end\{schedule\}",
-                        r"\\begin\{bytefield\}.*?\\end\{bytefield\}",
-                        r"\\begin\{tikzpicture\}.*?\\end\{tikzpicture\}"):
-            text = re.sub(pattern, render_block, text, flags=re.S)
 
         # Figures: resolve paths and size them close to how big they print
         # (see resolve_figures()/TEXT_WIDTH_CM), instead of stretching every
@@ -846,9 +856,12 @@ class Converter:
 
     def concepts_page(self):
         by_key = defaultdict(list)
+        first_seen_order = []
         if self.concepts_path.exists():
             for line in self.concepts_path.read_text(encoding="utf-8").splitlines():
                 c = json.loads(line)
+                if c["key"] not in by_key:
+                    first_seen_order.append(c["key"])
                 by_key[c["key"]].append(c)
         # The canonical term shown in the index below and, via main()'s combined assets/terms.json,
         # in the "Technical terms" nav list and its hover tooltip on every page
@@ -865,6 +878,38 @@ class Converter:
         lines = ["---", "title: " + json.dumps(title), "search:", "  exclude: true", "---", "",
                  f"# {title}", "",
                  TEXTS[self.lang]["concepts_intro"], ""]
+
+        # "By section": one column per top-level [N] chapter/section, terms in book order within
+        # each. Chapter titles come from self.labels (any label whose num has no dot is a chapter).
+        chapter_titles = {v["num"]: v["title"] for v in self.labels.values()
+                          if v.get("num") and "." not in v["num"]}
+        columns, column_order = defaultdict(list), []
+        for key in first_seen_order:
+            c = by_key[key][0]
+            # A concept tagged before any heading on its page (e.g. a part's intro blurb, which has
+            # no \section of its own) has no secnum/sectitle - bucket those under the page itself
+            # instead of an unlabeled "[]" column.
+            colkey = c["secnum"].split(".")[0] if c["secnum"] else c["page"]
+            if colkey not in columns:
+                column_order.append(colkey)
+            columns[colkey].append(f"[{self.canonical_terms[key]}]({c['page']}#{c['anchor']})")
+        header = [f"[{n}] {chapter_titles[n]}" if n in chapter_titles else n
+                 for n in column_order]
+        max_rows = max((len(v) for v in columns.values()), default=0)
+        table = ["| " + " | ".join(header) + " |",
+                 "| " + " | ".join(["---"] * len(header)) + " |"]
+        for i in range(max_rows):
+            row = [columns[n][i] if i < len(columns[n]) else "" for n in column_order]
+            table.append("| " + " | ".join(row) + " |")
+        lines.append(f"## {TEXTS[self.lang]['concepts_by_section']}")
+        lines.append("")
+        lines += ['<div class="wide-table tt-table" markdown>', '<div class="wide-table-inner" markdown>',
+                  "", "\n".join(table), "", "</div>", "</div>", ""]
+
+        # Alphabetical: same term list, this time flat and sorted, with a link to every distinct
+        # place (page, section) where it's used.
+        lines.append(f"## {TEXTS[self.lang]['concepts_alphabetical']}")
+        lines.append("")
         for key in sorted(by_key, key=lambda k: self.canonical_terms[k].lower()):
             seen, links = set(), []
             for c in by_key[key]:

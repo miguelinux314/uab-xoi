@@ -12,7 +12,7 @@ build:
 pdf:
 	uab-xoi build --no-site
 
-# Lean live-reloading site (no PDFs, no zips) in Docker: http://localhost:65535/uab-xoi/
+# Lean site (no PDFs, no zips) in Docker: http://localhost:65535/uab-xoi/. RELOAD=1 for live-reload.
 serve:
 	$(MAKE) -C docker serve
 

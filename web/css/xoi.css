@@ -364,6 +364,27 @@
   display: flex;
 }
 
+/* The "Technical terms" by-section table (tex2md.py's concepts_page()): as many rows as the
+   section with the most terms, so it can get tall - let it scroll with the rest of the page
+   (only the horizontal overflow, inherited from .wide-table-inner above, stays contained). */
+.tt-table .wide-table-inner {
+  align-items: flex-start;
+}
+
+/* Equal, fixed-width columns (wrapping long terms onto a second line instead of each column
+   growing to its widest term) so the [N] section headers line up regularly instead of the table
+   looking ragged. table-layout:fixed needs an explicit width instead of width:max-content. */
+.tt-table .wide-table-inner table {
+  width: auto;
+  table-layout: fixed;
+}
+
+.tt-table th,
+.tt-table td {
+  width: 9rem;
+  overflow-wrap: break-word;
+}
+
 .wide-table-inner table {
   display: table;
   flex: none;

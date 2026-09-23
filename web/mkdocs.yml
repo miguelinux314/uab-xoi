@@ -47,6 +47,7 @@ extra_javascript:
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
   - scripts/wide-tables.js
   - scripts/search-highlight.js
+  - scripts/search-lang-filter.js
   - scripts/technical-terms.js
   - scripts/toc-fold.js
   - scripts/goatcounter.js

@@ -2,6 +2,7 @@
 # The root `make serve` calls `serve` below.
 ROOT := $(abspath ..)
 DEV_PORT ?= 65535
+RELOAD ?= 0
 DEV_IMAGE = xoi-dev
 DEV_CONTAINER = xoi-dev
 # Host networking, so the raw-socket snippets see the host's interfaces (http://localhost:$(DEV_PORT)/uab-xoi/).
@@ -17,9 +18,10 @@ build:
 		--build-arg DEV_UID=$$(id -u) --build-arg DEV_GID=$$(id -g) \
 		-t $(DEV_IMAGE) $(ROOT)
 
-# Lean live-reloading site (no PDFs, no zips), after refreshing tex/code/snippets/*.out
+# Lean site (no PDFs, no zips), after refreshing tex/code/snippets/*.out. RELOAD=1 for
+# live-reload on source changes (off by default: disruptive mid-edit, e.g. under Claude Code).
 serve: build
-	$(DEV_RUN) $(DEV_TTY) --name $(DEV_CONTAINER) -e UAB_XOI_PORT=$(DEV_PORT) $(DEV_IMAGE)
+	$(DEV_RUN) $(DEV_TTY) --name $(DEV_CONTAINER) -e UAB_XOI_PORT=$(DEV_PORT) -e UAB_XOI_RELOAD=$(RELOAD) $(DEV_IMAGE)
 
 shell:
 	docker exec -it $(DEV_CONTAINER) bash
