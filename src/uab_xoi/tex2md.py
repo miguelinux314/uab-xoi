@@ -762,7 +762,21 @@ class Converter:
         parts += ['<div class="frontpage" markdown="1">', "",
                   f"# **{detex_title(self.strings['subjectName'])} (XOI)**",
                   f'<p class="cover-studyguide">{self.strings["strStudyGuide"]}</p>',
-                  f'<p class="cover-course">{subtitle}</p>', ""]
+                  # The academic year (e.g. "2026/27") is computed client-side, never baked in at
+                  # build time, so it's always current no matter how stale the last build is -
+                  # "current" meaning September of year X through August of X+1 both read "X/X+1".
+                  f'<p class="cover-course">{subtitle} - <span id="xoi-academic-year"></span></p>',
+                  # Not document$.subscribe (mkdocs-material's usual hook, see the other web/js/
+                  # files): this inline script runs inline with the page body, before that
+                  # bundle has necessarily loaded, but the span right above it is already parsed
+                  # and in the DOM by the time a script tag after it runs, so a plain IIFE is
+                  # enough - no need to wait for anything.
+                  '<script>(() => {'
+                  ' const el = document.getElementById("xoi-academic-year"); if (!el) return;'
+                  ' const now = new Date();'
+                  ' const startYear = now.getMonth() >= 8 ? now.getFullYear() : now.getFullYear() - 1;'
+                  ' el.textContent = `${startYear}/${String(startYear + 1).slice(-2)}`;'
+                  '})();</script>', ""]
         # Order: downloads, then authorship (byline and logos) last (collected in two lists).
         downloads, byline = [], []
         # Every PDF edition, from any language's page. mkdocs-static-i18n
