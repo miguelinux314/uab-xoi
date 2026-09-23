@@ -3,6 +3,11 @@
   --xoi-color2: rgb(0, 100, 140);
   --xoi-color3: rgb(40, 100, 35);
 
+  /* A bold, even-on-every-side "raised card" shadow - reused by any wide/full-bleed table
+     (.tt-table, .mission-table; see their scrollwrap rules below) that wants to visually lift
+     off the page. */
+  --xoi-shadow-raised: 0 0 1.1rem rgba(0, 0, 0, 0.55);
+
   /* Same glyph as the book's \remark box (\textmusicalnote), for the "note"
      admonition (used for \begin{remark} — see src/uab_xoi/filters/xoi.lua). */
   --md-admonition-icon--note: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z%22/%3E%3C/svg%3E');
@@ -371,6 +376,16 @@
   align-items: flex-start;
 }
 
+/* overflow-x: auto above forces overflow-y to compute as auto too (a lone non-"visible" axis
+   drags the other one along, per spec), making this div a clipping box on all sides - the
+   default 0.5rem/1rem padding isn't enough room for the shadow below to escape being clipped
+   (it needs ~0.8rem), which is why the raised-card shadow only showed at the top/sides. Shared
+   by .tt-table and .mission-table (the missions coverage matrix), both shadowed above. */
+.tt-table .wide-table-inner,
+.mission-table .wide-table-inner {
+  padding: 1.25rem;
+}
+
 /* Equal, fixed-width columns (wrapping long terms onto a second line instead of each column
    growing to its widest term) so the [N] section headers line up regularly instead of the table
    looking ragged. table-layout:fixed needs an explicit width instead of width:max-content. */
@@ -379,10 +394,53 @@
   table-layout: fixed;
 }
 
-.tt-table th,
-.tt-table td {
-  width: 9rem;
+/* `.tt-table.wide-table table th`/`td` (not just `.tt-table th`/`td`): the actual <table> tag
+   has no class of its own (only its ancestor div does), so Material's own
+   `table:not([class]) th:not([align])` etc. still match it, at specificity (0,3,2) - matched
+   here by chaining both wrapper classes plus `table`, so this sheet's later load order (see
+   the body[data-md-color-scheme] comment above) decides the tie instead of losing outright. The
+   missions coverage matrix (.mission-table, tex2md.py's wrap_wide_table) shares the borderless
+   look, at the same specificity, but keeps its own column widths/alignment. */
+.md-typeset .tt-table.wide-table table,
+.md-typeset .mission-table.wide-table table {
+  border: none;
+}
+
+.md-typeset .tt-table.wide-table table th,
+.md-typeset .tt-table.wide-table table td,
+.md-typeset .mission-table.wide-table table th,
+.md-typeset .mission-table.wide-table table td {
+  border: none;
+}
+
+.md-typeset .tt-table.wide-table table th,
+.md-typeset .tt-table.wide-table table td {
+  width: 7rem;
   overflow-wrap: break-word;
+  text-align: center;
+}
+
+.md-typeset .tt-table.wide-table table th {
+  vertical-align: bottom;
+}
+
+.md-typeset .tt-table.wide-table table td {
+  vertical-align: middle;
+}
+
+/* Permanent shadow around the table: a bold, even-on-every-side glow. Shared by .tt-table and
+   .mission-table (the missions coverage matrix, tex2md.py's wrap_wide_table).
+   Two elements are the WRONG target: `.tt-table`/`.mission-table` themselves are the
+   full-viewport-bleed wrapper (see .wide-table above), not the visible table, so a shadow on
+   them renders off at the browser edges; and the `<table>` itself doesn't work either - Material
+   sets it a non-"visible" `overflow` (for its rounded-corner/sortable-column support), and any
+   element with non-"visible" overflow clips its OWN box-shadow in Chromium, silently making it
+   invisible despite a correct computed style. The scrollwrap (Material's own wrapper, shrunk to
+   the table's width by the `> .md-typeset__scrollwrap` rule below, with default "visible"
+   overflow) hugs the table's visible bounds pixel-for-pixel without that self-clipping problem. */
+.tt-table .wide-table-inner > .md-typeset__scrollwrap,
+.mission-table .wide-table-inner > .md-typeset__scrollwrap {
+  box-shadow: var(--xoi-shadow-raised);
 }
 
 .wide-table-inner table {
@@ -398,7 +456,7 @@
 }
 
 .wide-table-inner table tbody tr:nth-child(even) {
-  background-color: rgba(243, 102, 25, 0.1);
+  background-color: rgba(243, 102, 25, 0.2);
 }
 
 /* Material's default palette is indigo/blue for buttons, links/nav hover and

@@ -847,7 +847,7 @@ class Converter:
                 while i < len(lines) and lines[i].lstrip().startswith("|"):
                     i += 1
                 table = "\n".join(lines[start:i])
-                out += ['<div class="wide-table" markdown>', '<div class="wide-table-inner" markdown>',
+                out += ['<div class="wide-table mission-table" markdown>', '<div class="wide-table-inner" markdown>',
                        "", table, "", "</div>", "</div>"]
             else:
                 out.append(lines[i])
@@ -892,8 +892,11 @@ class Converter:
             colkey = c["secnum"].split(".")[0] if c["secnum"] else c["page"]
             if colkey not in columns:
                 column_order.append(colkey)
-            columns[colkey].append(f"[{self.canonical_terms[key]}]({c['page']}#{c['anchor']})")
-        header = [f"[{n}] {chapter_titles[n]}" if n in chapter_titles else n
+            columns[colkey].append(
+                f'[{self.canonical_terms[key]}]({c["page"]}#{c["anchor"]}){{: data-key="{key}" }}')
+        # <br>, not a literal newline: this is one row of a pipe table, where a bare newline
+        # would end the row instead of just the cell's visible line.
+        header = [f"{chapter_titles[n]}<br>[{n}]" if n in chapter_titles else n
                  for n in column_order]
         max_rows = max((len(v) for v in columns.values()), default=0)
         table = ["| " + " | ".join(header) + " |",
@@ -918,7 +921,13 @@ class Converter:
                     continue
                 seen.add((c["page"], sec))
                 links.append(f"[§{sec}]({c['page']}#{c['anchor']})")
-            lines.append(f"- **{self.canonical_terms[key]}**: " + ", ".join(links))
+            lines.append(f'- **{self.canonical_terms[key]}**{{: data-key="{key}" }}: '
+                        + ", ".join(links))
+        # concepts.md doesn't go through finish_page() (it's written directly, not part of
+        # self.pages), so it needs its own copy of the XOI_ASSETS script tag - see finish_page()'s
+        # comment - for web/js/technical-terms.js's terms.json fetch (by-section/alphabetical
+        # tooltips) to find the right path instead of 404ing.
+        lines.append('\n<script>window.XOI_ASSETS = "../assets/";</script>')
         (self.out / "concepts.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     def copy_assets(self):

@@ -45,7 +45,7 @@ function tooltipText(byLang) {
 let xoiHighlighted = null;
 function highlightTarget(id) {
   const target = document.getElementById(id);
-  if (!target) return;
+  if (!target || !target.classList.contains("concept")) return;
   if (xoiHighlighted && xoiHighlighted !== target) xoiHighlighted.classList.remove("xoi-term-target");
   target.classList.remove("xoi-term-flash");
   // Force a reflow so re-adding the class restarts the flash animation on repeated clicks.
@@ -58,7 +58,19 @@ document$.subscribe(async () => {
   document.querySelectorAll(".xoi-terms").forEach((el) => el.remove());
   const sidebar = document.querySelector(".md-sidebar--secondary .md-sidebar__inner");
   const conceptSpans = document.querySelectorAll(".md-content .concept[id]");
-  if (!conceptSpans.length) return;
+  // The "Technical terms" index page (concepts.md) has no .concept spans of its own (it's a
+  // generated index, not chapter prose), but its by-section table links and alphabetical list
+  // terms still want the same per-language tooltip - both carry data-key (see tex2md.py's
+  // concepts_page()).
+  const indexTerms = document.querySelectorAll(".md-content [data-key]");
+
+  // Arriving here via a link from elsewhere (e.g. the "By section" table on the Technical
+  // terms page) should flash the target the same way a same-page sidebar click does; plain
+  // #id navigation alone doesn't add the flash, and this page reloads (no instant loading),
+  // so this only needs to run once per load, from the current hash.
+  if (location.hash) highlightTarget(decodeURIComponent(location.hash.slice(1)));
+
+  if (!conceptSpans.length && !indexTerms.length) return;
 
   const lang = (document.documentElement.lang || "en").slice(0, 2);
   const allTerms = await loadTerms();
@@ -69,6 +81,11 @@ document$.subscribe(async () => {
       const byLang = allTerms[span.dataset.key || ""];
       const text = tooltipText(byLang);
       if (text) span.title = text;
+    });
+    indexTerms.forEach((el) => {
+      const byLang = allTerms[el.dataset.key || ""];
+      const text = tooltipText(byLang);
+      if (text) el.title = text;
     });
   }
   if (!sidebar) return;

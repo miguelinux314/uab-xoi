@@ -45,6 +45,7 @@ extra_javascript:
   # "scripts", not "js": see src/uab_xoi/tex2md.py's comment on this copy step.
   - scripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - scripts/header-title.js
   - scripts/wide-tables.js
   - scripts/search-highlight.js
   - scripts/search-lang-filter.js
@@ -89,7 +90,7 @@ plugins:
             License and credits: Licencia y créditos
             AI usage: Uso de IA
             About this course: Sobre esta asignatura
-            Course: Curso
+            Course: Resumen
             "Part I: Computer Networks": "Parte I: Redes de ordenadores"
             "Part II: Internet": "Parte II: Internet"
             Missions: Misiones
